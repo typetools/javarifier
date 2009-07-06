@@ -1,0 +1,92 @@
+package checkers.javari.quals:
+annotation visible @Mutable:
+
+package checkers.javari.quals:
+annotation visible @ReadOnly:
+
+package checkers.javari.quals:
+annotation visible @ThisMutable:
+
+package :
+class CellClient2:
+    bound ,0 &0: @checkers.javari.quals.Mutable
+
+    field f: @checkers.javari.quals.ThisMutable
+        inner-type 0: @checkers.javari.quals.ReadOnly
+
+    method <init>(LDate;)V:
+        parameter #0: @checkers.javari.quals.ReadOnly
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+24: @checkers.javari.quals.Mutable
+            inner-type 0: @checkers.javari.quals.ReadOnly
+        local 1 #0+24: @checkers.javari.quals.ReadOnly
+
+    method getF()LCell;: @checkers.javari.quals.ReadOnly
+        inner-type 0: @checkers.javari.quals.ReadOnly
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+            inner-type 0: @checkers.javari.quals.ReadOnly
+
+    method foo()V:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+19: @checkers.javari.quals.ReadOnly
+            inner-type 0: @checkers.javari.quals.ReadOnly
+        local 1 #5+14: @checkers.javari.quals.ReadOnly
+            inner-type 0: @checkers.javari.quals.ReadOnly
+        local 2 #13+6: @checkers.javari.quals.Mutable
+
+    method setDate(LDate;)V:
+        parameter #0: @checkers.javari.quals.ReadOnly
+        receiver: @checkers.javari.quals.Mutable
+        local 0 #0+9: @checkers.javari.quals.Mutable
+            inner-type 0: @checkers.javari.quals.ReadOnly
+        local 1 #0+9: @checkers.javari.quals.ReadOnly
+
+package :
+class Cell:
+    bound ,0 &0: @checkers.javari.quals.ReadOnly
+
+    field val: @checkers.javari.quals.ReadOnly
+
+    method <init>()V:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+            inner-type 0: @checkers.javari.quals.ReadOnly
+
+    method getVal()Ljava/lang/Object;: @checkers.javari.quals.ReadOnly
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+            inner-type 0: @checkers.javari.quals.ReadOnly
+
+    method setVal(Ljava/lang/Object;)V:
+        parameter #0: @checkers.javari.quals.ReadOnly
+        receiver: @checkers.javari.quals.Mutable
+        local 0 #0+6: @checkers.javari.quals.Mutable
+            inner-type 0: @checkers.javari.quals.ReadOnly
+        local 1 #0+6: @checkers.javari.quals.ReadOnly
+
+package :
+class Date:
+
+    field day:
+
+    method <init>()V:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+
+    method <init>(I)V:
+        parameter #0:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+10: @checkers.javari.quals.Mutable
+        local 1 #0+10:
+
+    method getDay()I:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+
+    method setDay(I)V:
+        parameter #0:
+        receiver: @checkers.javari.quals.Mutable
+        local 0 #0+6: @checkers.javari.quals.Mutable
+        local 1 #0+6:
+

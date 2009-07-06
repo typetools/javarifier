@@ -1,0 +1,53 @@
+package checkers.javari.quals:
+annotation visible @ReadOnly:
+
+package checkers.javari.quals:
+annotation visible @PolyRead:
+
+package checkers.javari.quals:
+annotation visible @Mutable:
+
+package :
+class Romaybe1:
+
+    method <init>()V:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+
+    method id(LDate;)LDate;: @checkers.javari.quals.PolyRead
+        parameter #0: @checkers.javari.quals.PolyRead
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+2: @checkers.javari.quals.ReadOnly
+        local 1 #0+2: @checkers.javari.quals.PolyRead
+
+    method foo(LDate;)V:
+        parameter #0: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+10: @checkers.javari.quals.ReadOnly
+        local 1 #0+10: @checkers.javari.quals.Mutable
+
+package :
+class Date:
+
+    field day:
+
+    method <init>()V:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+
+    method <init>(I)V:
+        parameter #0:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+10: @checkers.javari.quals.Mutable
+        local 1 #0+10:
+
+    method getDay()I:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+
+    method setDay(I)V:
+        parameter #0:
+        receiver: @checkers.javari.quals.Mutable
+        local 0 #0+6: @checkers.javari.quals.Mutable
+        local 1 #0+6:
+

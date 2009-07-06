@@ -1,0 +1,84 @@
+package checkers.javari.quals:
+annotation visible @ReadOnly:
+
+package checkers.javari.quals:
+annotation visible @Mutable:
+
+package checkers.javari.quals:
+annotation visible @ThisMutable:
+
+package :
+class GenericFieldAndParameter:
+
+    field set: @checkers.javari.quals.ThisMutable
+        inner-type 0: @checkers.javari.quals.ReadOnly
+
+    field ints: @checkers.javari.quals.ReadOnly
+        inner-type 0: @checkers.javari.quals.ReadOnly
+
+    method <init>()V:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+
+    method foo(Ljava/util/Set;)V:
+        parameter #0: @checkers.javari.quals.ReadOnly
+            inner-type 0: @checkers.javari.quals.ReadOnly
+        receiver: @checkers.javari.quals.Mutable
+        local 0 #0+18: @checkers.javari.quals.Mutable
+        local 1 #0+18: @checkers.javari.quals.ReadOnly
+            inner-type 0: @checkers.javari.quals.ReadOnly
+
+    method foo(Ljava/util/ArrayList;)V:
+        parameter #0: @checkers.javari.quals.Mutable
+            inner-type 0: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+13: @checkers.javari.quals.ReadOnly
+        local 1 #0+13: @checkers.javari.quals.Mutable
+            inner-type 0: @checkers.javari.quals.Mutable
+
+package :
+class Date:
+
+    field day:
+
+    method <init>()V:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+
+    method <init>(I)V:
+        parameter #0:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+10: @checkers.javari.quals.Mutable
+        local 1 #0+10:
+
+    method getDay()I:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+
+    method setDay(I)V:
+        parameter #0:
+        receiver: @checkers.javari.quals.Mutable
+        local 0 #0+6: @checkers.javari.quals.Mutable
+        local 1 #0+6:
+
+package :
+class Red:
+
+    field i:
+
+    method <init>(I)V:
+        parameter #0:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+10: @checkers.javari.quals.Mutable
+        local 1 #0+10:
+
+    method set(I)V:
+        parameter #0:
+        receiver: @checkers.javari.quals.Mutable
+        local 0 #0+6: @checkers.javari.quals.Mutable
+        local 1 #0+6:
+
+    method get()I:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+

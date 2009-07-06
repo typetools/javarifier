@@ -1,0 +1,37 @@
+package checkers.javari.quals:
+annotation visible @ReadOnly:
+
+package checkers.javari.quals:
+annotation visible @Mutable:
+
+package checkers.javari.quals:
+annotation visible @ThisMutable:
+
+package :
+class Bar3:
+
+    field x: @checkers.javari.quals.ReadOnly
+        inner-type 0: @checkers.javari.quals.ThisMutable
+
+    field i:
+
+    method <init>()V:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+19: @checkers.javari.quals.Mutable
+
+    method get(I)Ljava/lang/String;: @checkers.javari.quals.ReadOnly
+        parameter #0:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+7: @checkers.javari.quals.ReadOnly
+        local 1 #0+7:
+
+    method add(Ljava/lang/String;)V:
+        parameter #0: @checkers.javari.quals.ReadOnly
+        receiver: @checkers.javari.quals.Mutable
+        local 0 #0+21: @checkers.javari.quals.Mutable
+        local 1 #0+21: @checkers.javari.quals.ReadOnly
+
+    method clear()V:
+        receiver: @checkers.javari.quals.Mutable
+        local 0 #0+15: @checkers.javari.quals.Mutable
+
