@@ -32,8 +32,8 @@ The structure of the src/ and bin/ directories is such that Eclipse can
 understand the Javarifier as a project, overwrites class files in the same
 bin/ directory the build.xml script uses, and the build.xml file does not
 conflict with the .classpath and .project files that Eclipse uses.
-Thererefore, you can safely use Eclipse for working on the Javarifier, but
-before commiting code changes you should make sure that the code compiles
+Therefore, you can safely use Eclipse for working on the Javarifier, but
+before committing code changes you should make sure that the code compiles
 using the build script.
 
 
