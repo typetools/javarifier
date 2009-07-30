@@ -81,11 +81,11 @@ VerifyDiffs.class : VerifyDiffs.java
 .PRECIOUS: %.output
 %.output: %.class
 	javarifier \
-	-programCPEntries ${PWD} \
-	-output ${PWD}/$*.output \
+	-programCPEntries . \
+	-output ./$*.output \
 	-outputFormat annotationIndexFile \
 	-outputMainClassFirst \
-	$* 2>&1 | tee ${PWD}/$*.log
+	$* 2>&1 | tee ./$*.log
 
 # Compare the output of the Javarifier and the goal file.
 %.diff: %.output %.goal

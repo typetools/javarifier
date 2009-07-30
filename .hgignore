@@ -3,9 +3,7 @@ syntax: glob
 TAGS
 *~
 tests/**/*.class
-tests/**/*.log
 tests/**/*.diff
-tests/*.log
 tests/*.diff
 bin/**/*.class
 
