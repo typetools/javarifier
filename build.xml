@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <project name="javarifier" default="bin">
   <description>
-    Builds Javarifier.
+    Rules for building and testing Javarifier.
+    For a list of targets, run:  ant -projecthelp
   </description>
   
   <property name="java-version" value="1.5"/>

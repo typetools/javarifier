@@ -1,0 +1,15 @@
+### glob syntax rules
+syntax: glob
+TAGS
+*~
+tests/**/*.class
+tests/**/*.log
+tests/**/*.diff
+tests/*.log
+tests/*.diff
+bin/**/*.class
+
+### regexp syntax rules
+syntax: regexp
+# Not a glob because it starts with # which looks like a comment.
+^#.*#$
