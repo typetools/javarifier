@@ -15,20 +15,20 @@ import soot.Scene;
 import soot.SootField;
 
 /**
- * Javarifier implements the refrence immutability inference algorithm for 
+ * Javarifier implements the refrence immutability inference algorithm for
  * Java explained in Jaime Quinonez's thesis, available at:
- * <a href="http://pag.csail.mit.edu/javari/javarifier">
- * http://pag.csail.mit.edu/javari/javarifier </a>
- * 
+ * <a href="http://types.cs.washington.edu/javarifier">
+ * http://types.cs.washington.edu/javarifier </a>
+ *
  * Given as input a set of Java class files to {@link #main(String[])},
  * Javarifier will infer the reference immutability of all references in
- * those classes and in classes those classes depend upon. 
- * 
+ * those classes and in classes those classes depend upon.
+ *
  * Consult the documentation at:
- * <a href="http://pag.csail.mit.edu/javari/javarifier"
- * http://pag.csail.mit.edu/javari/javarifier </a>
+ * <a href="http://types.cs.washington.edu/javarifier"
+ * http://types.cs.washington.edu/javarifier </a>
  * for more information about running Javarifier.
- * 
+ *
  * All arguments
  * passed in are also passed to the underlying Soot process.  Javarifier
  * is implemented via a callback-style transformer where Soot calls
@@ -44,7 +44,7 @@ import soot.SootField;
 //design pattern, and the singleton is obtained by calling
 //javarifier.Options.v()
 //- The main representation for containing classes is a Scene, which is
-//Soot's format.  It contains a set of SootClass objects, one for 
+//Soot's format.  It contains a set of SootClass objects, one for
 //each class in the scene.
 public class Main {
 
@@ -109,10 +109,10 @@ public class Main {
   /**
    * The main method to perform the inference algorithm.  See user
    * documentation an explanation of the options.
-   *  
+   *
    * @param args - command-line options
    */
-  public static void main(String[] args) {      
+  public static void main(String[] args) {
     String[] commandLineArgs = null;
 
     try {
@@ -123,26 +123,26 @@ public class Main {
       return;
     }
 
-    if(Options.v().printUsage()) {
+    if (Options.v().printUsage()) {
       printUsage();
       return;
     }
 
-    if(Options.v().printVersion()) {
+    if (Options.v().printVersion()) {
       System.out.println(versionString);
       return;
     }
 
-    // After Javarifier args have been taken out, append the whole 
-    // soot-classpath (program,stub and world classpath args), then the 
-    // rest of the command-line args (the program classes) 
-    List<String> argsList = 
+    // After Javarifier args have been taken out, append the whole
+    // soot-classpath (program,stub and world classpath args), then the
+    // rest of the command-line args (the program classes)
+    List<String> argsList =
       new LinkedList<String>(Arrays.asList(sootDefaultArgs));
 
     // Note that there is no default for program classpath - user
     // must always supply it
     String sep = System.getProperty("path.separator");
-    String sootCP = 
+    String sootCP =
       Options.v().getProgramCPEntries() + sep +
       Options.v().getStubCPEntries() + sep +
       Options.v().getWorldCPEntries();
@@ -183,13 +183,13 @@ public class Main {
    * Javarifier is implemented using a callback-style transformer.
    * {{@link Main#Main()} calls Soot and passes in a JrTransformer.
    * Soot calls the following methods on a JrTransformer:
-   * 
+   *
    * {@link #prepareScene(Scene)} - Adds extra information to the
    * global scene by calling the static methods of several other classes
-   * that each add a different type of information.  For example, 
-   * {@link MethodRefAdder#add(Scene)} adds a reference 
+   * that each add a different type of information.  For example,
+   * {@link MethodRefAdder#add(Scene)} adds a reference
    * to every soot.Local that points to the method that contains it.
-   * 
+   *
    * {@link #internalTransform(String, Map)} - Runs Javarifier
    * inference algorithm by generating the constraints, solving them,
    * and printing the results.
@@ -197,8 +197,8 @@ public class Main {
   public static class JrTransformer extends soot.SceneTransformer {
 
     /**
-     * Adds extra information to the given scene by loading 
-     * information from class files.  See: 
+     * Adds extra information to the given scene by loading
+     * information from class files.  See:
      * {@link StubCleaner#cleanStubs(Scene)},
      * {@link BridgeMethodMarker#mark(Scene)},
      * {@link MethodRefAdder#add(Scene)},
@@ -206,13 +206,13 @@ public class Main {
      * {@link AnnotationLoader#loadAllAnnotations(Scene)}.
      */
     private void prepareScene(Scene scene) {
-      if(Options.v().justPrintStubs()) {
+      if (Options.v().justPrintStubs()) {
         return;
       }
 
       printNonQuiet("To disable progess messages, use -Q option.");
 
-      printNonQuiet("Javarifier preparations started on: " 
+      printNonQuiet("Javarifier preparations started on: "
           + scene.getClasses().size() + " classes.");
       StubCleaner.cleanStubs(scene);
       printNonQuiet("StubCleaner finished.");
@@ -235,11 +235,11 @@ public class Main {
     /**
      * Generates a set of Javarifier constraints over the given scene,
      * solves those constraints and then applies them.
-     * This should  
+     * This should
      * @param scene
      */
     private void javarifyScene(Scene scene) {
-      if(Options.v().justPrintStubs()) {
+      if (Options.v().justPrintStubs()) {
         return;
       }
       // Constraint generation
@@ -258,11 +258,11 @@ public class Main {
       cm = cm.combine(stubCons);
       printNonQuiet("StubConstraints finished.");
 
-      if(Options.v().applyHeuristics()) {
+      if (Options.v().applyHeuristics()) {
         HeuristicsVisitor.applyHeuristics(Scene.v());
       }
 
-      ConstraintManager fromCode = 
+      ConstraintManager fromCode =
         ConstraintGenerator.generate(Scene.v());
       cm = cm.combine(fromCode);
       printNonQuiet("ConstraintGenerator finished.");
@@ -271,12 +271,12 @@ public class Main {
       cm = cm.combine(boundGuards);
       printNonQuiet("BoundGuarder finished.");
 
-      ConstraintManager paramCons = 
+      ConstraintManager paramCons =
         ParameterConstraints.constraints(Scene.v());
       cm = cm.combine(paramCons);
       printNonQuiet("ParameterConstraints finished.");
 
-      ConstraintManager subtypeCons = 
+      ConstraintManager subtypeCons =
         SubtypeConstraints.generate(Scene.v());
       cm = cm.combine(subtypeCons);
       printNonQuiet("SubtypeConstraints finished.");
@@ -293,12 +293,12 @@ public class Main {
     }
 
     /**
-     * Solves all the constraints contained in the given 
+     * Solves all the constraints contained in the given
      * {@link ConstraintManager} and modifies the references that
      * are found to be mutable to have a {@link Mutability#MUTABLE}
      * mutability.
-     * 
-     * See {@link javarifier.util.ConstraintSet#solve()} for a description of the 
+     *
+     * See {@link javarifier.util.ConstraintSet#solve()} for a description of the
      * constraint solving algorithm.
      */
     private void solveConstraints(ConstraintManager cm) {
@@ -306,8 +306,8 @@ public class Main {
       // the solved constraint set is the set of all references that
       // are known to be mutable.  Either zero, one, or two versions
       // of a variable may appear in the constraint set, since for each
-      // variable there is a version of that variable in a readonly 
-      // context, and another in a mutable context.  Below, you use 
+      // variable there is a version of that variable in a readonly
+      // context, and another in a mutable context.  Below, you use
       // these different context to infer polyread.
 
       Set<ConstraintVar> solved = cm.solve();
@@ -323,12 +323,12 @@ public class Main {
 
       VarTracker.printCauses(solved);
 
-      // Apply constraints to the references by marking non-readonly 
+      // Apply constraints to the references by marking non-readonly
       // references as either mutable, polyread or this-mutable.
       // UnknownEliminator converts the rest to readonly.
       for (ConstraintVar var : solved) {
         String s = var.toString();
-        if (var.getValue() instanceof SootField && 
+        if (var.getValue() instanceof SootField &&
               (! ((SootField) var.getValue()).isStatic())) {
           // If instances fields are ever read as mutable, they must be
           // this-mutable.
@@ -341,11 +341,11 @@ public class Main {
           if (var.getContext().equals(Context.READONLY)) {
             var.getType().setMutability(Mutability.MUTABLE);
 
-            // var.getType().setMutability() changes the mutability in var.type, 
-            // and also changes the mutability in var.value.type in order to 
+            // var.getType().setMutability() changes the mutability in var.type,
+            // and also changes the mutability in var.value.type in order to
             // account for change where VarType is mutable.
             JrType jr = var.getValue().getJrType();
-            if(jr instanceof VarType) {
+            if (jr instanceof VarType) {
               VarType mu = (VarType) jr;
               mu.setMutability(Mutability.MUTABLE);
             }
@@ -371,16 +371,16 @@ public class Main {
 
     /**
      * Applies the Javarifier inference algorithm by generating
-     * the constraints for the Scene, solving them, and printing 
+     * the constraints for the Scene, solving them, and printing
      * the results.  This is the method Soot calls after
      * preparing the Scene with {{@link #prepareScene(Scene)}.
-     * 
+     *
      * The arguments are not used, but must be included to
      * match Soot's signature.
      */
     protected void internalTransform(String name, Map options) {
       // All Soot resolving will be done when we reach this point.
-      if(Options.v().justPrintStubs()) {
+      if (Options.v().justPrintStubs()) {
         return;
       }
 
@@ -414,11 +414,11 @@ public class Main {
 
     }
 
-    /** 
-     * Prints the given String if the command-line option permits it. 
+    /**
+     * Prints the given String if the command-line option permits it.
      */
     private void printNonQuiet(String s) {
-      if(!Options.v().reallyQuiet()) {
+      if (!Options.v().reallyQuiet()) {
         System.out.println(s);
       }
     }

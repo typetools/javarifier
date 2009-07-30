@@ -22,11 +22,11 @@ import static javarifier.AnnotationLoader.wrap;
  * references inside a class into a
  * given {@link AScene} as annotations.
  */
-public class AnnotationStorer<A extends Annotation> {
-  
+public class AnnotationStorer {
+
   /**
    * The annotation to use for storing immutable classes (such as String).
-   * This is useful if we decided to use Unmodifiable as syntactic 
+   * This is useful if we decided to use Unmodifiable as syntactic
    * sugaring on a class to indicate all methods should be readonly.
    */
   public static final String unmodifiableAnnotation =
@@ -35,7 +35,7 @@ public class AnnotationStorer<A extends Annotation> {
   /**
    * Converts all the mutabilities in the class <code>sc</code> into
    * JSR308 annotations and writes them into <code>scene</code>.
-   * 
+   *
    * <p>
    * This method resugars {@link Mutability#QUESTION_RO QUESTION_RO} and
    * coalesces bounds, the inverse of the process followed by
@@ -43,71 +43,70 @@ public class AnnotationStorer<A extends Annotation> {
    * the class is too unusual to be resugared and coalesced, a
    * {@link RuntimeException} will probably be thrown
    * (such as if the lower bound is mutable and the upper bound is readonly).
-   * 
+   *
    * <p>
    * Caution: This method mutates the mutabilities in <code>sc</code> (ha ha)
    * by changing some of them to QUESTION_RO during resugaring.
    */
-  public static <A extends Annotation> void storeAnnotations(SootClass sc, 
-                                                             AScene<A> scene) {
+  public static void storeAnnotations(SootClass sc, AScene scene) {
     try {
       // The AnnotationStorer class is a visitor over the Soot
-      // representation of various program elements.  The visitor 
+      // representation of various program elements.  The visitor
       // stores the annotation on an element into the scene when it
       // visits that element.
-      AnnotationStorer<A> storer = new AnnotationStorer<A>(scene);
-      AClass<A> ac = scene.classes.vivify(sc.getName());
+      AnnotationStorer storer = new AnnotationStorer(scene);
+      AClass ac = scene.classes.vivify(sc.getName());
       storer.storeClass(sc, ac);
     } catch (RuntimeException e) {
       throw wrap(e, "class " + sc.getName());
     }
   }
-  
+
   /**
    * Store the scene in which to place all new annotations.
    */
-  private final AScene<A> scene;
-  
+  private final AScene scene;
+
   /**
    * Private constructor, should not be initialized elsewhere.  Call
    * storeAnnotations instead.
-   * 
+   *
    * @param scene - the scene in which to store all annotations this visits.
    */
-  private AnnotationStorer(AScene<A> scene) {
+  private AnnotationStorer(AScene scene) {
     this.scene = scene;
   }
 
   /**
    * The default retention policy to use for inserting annotations into the
    * AScene.  (Javarifier only infers that something is, say "@ReadOnly".
-   * A retention policy is needed by the scene library in order to 
-   * add annotations to a scene.  Even though the JVM doesn't do anything 
+   * A retention policy is needed by the scene library in order to
+   * add annotations to a scene.  Even though the JVM doesn't do anything
    * with these annotations, we reserve this capability to, for example,
    * be able to later check casts.)
    */
-  public static final RetentionPolicy DEFAULT_RETENTION = 
+  public static final RetentionPolicy DEFAULT_RETENTION =
     RetentionPolicy.RUNTIME;
-  
+
 
   /**
    * Stores the mutabilities of all references in the given class into the
    * annotation scene library's representation of a class.
-   * 
+   *
    * @param sc - the class whose mutabilities should be stored
-   * @param ac - the annotation scene library element to store the 
+   * @param ac - the annotation scene library element to store the
    *             annotations in
    */
-  private void storeClass(SootClass sc, AClass<A> ac) {
+  private void storeClass(SootClass sc, AClass ac) {
     if (classIsUnmodifiable(sc.getName()))
       annotate(ac, unmodifiableAnnotation);
 
-    // An interface has all "empty" methods, so don't output the 
+    // An interface has all "empty" methods, so don't output the
     // inferred annotations if user doesn't want empty methods/classes
     // annotated.
-    if(Options.v().skipEmpty() && sc.isInterface()) {
-      if(Options.v().debugAnnotationStoring()) {
-        System.out.println("AnnotationStorer skipping interface: " + 
+    if (Options.v().skipEmpty() && sc.isInterface()) {
+      if (Options.v().debugAnnotationStoring()) {
+        System.out.println("AnnotationStorer skipping interface: " +
             sc.getName());
       }
       return;
@@ -119,7 +118,7 @@ public class AnnotationStorer<A extends Annotation> {
     if (sc.resolvingLevel() >= SootClass.SIGNATURES) {
       for (Object sf1 : sc.getFields()) {
         SootField sf = (SootField) sf1; // emulate an erasure-change cast
-        ATypeElement<A> af = ac.fields.vivify(sf.getName());
+        ATypeElement af = ac.fields.vivify(sf.getName());
         try {
           storeField(sf, af);
         } catch (RuntimeException e) {
@@ -130,7 +129,7 @@ public class AnnotationStorer<A extends Annotation> {
         SootMethod sm = (SootMethod) sm1; // emulate an erasure-change cast
         String methodSig = AbstractJasminClass.jasminDescriptorOf(sm.makeRef());
         String methodKey = sm.getName() + methodSig;
-        AMethod<A> am = ac.methods.vivify(methodKey);
+        AMethod am = ac.methods.vivify(methodKey);
         try {
           storeMethod(sm, am);
         } catch (RuntimeException e) {
@@ -139,28 +138,28 @@ public class AnnotationStorer<A extends Annotation> {
       }
     }
   }
-  
+
   /**
    * Stores the mutabilities of all references in the given method
    * into the corresponding annotation scene library representation of a method.
-   * 
+   *
    * @param sm - the method whose Javari types should be stored
    * @param am - the annotation scene library to store all the annotations in
    */
-  private void storeMethod(SootMethod sm, AMethod<A> am) {
+  private void storeMethod(SootMethod sm, AMethod am) {
     // If a method is abstract, don't output any annotations for it.
     // This is useful when comparing Javarifier results to results that
     // do not annotate abstract methods.
-    if(Options.v().skipEmpty() && sm.isAbstract()) {
-      if(Options.v().debugAnnotationStoring()) {
-        System.out.println("AnnotationStorer skipping abstract method: " + sm); 
+    if (Options.v().skipEmpty() && sm.isAbstract()) {
+      if (Options.v().debugAnnotationStoring()) {
+        System.out.println("AnnotationStorer skipping abstract method: " + sm);
       }
       return;
     }
 
     // In the following, there is a wrapper around methods for storing each
     // reference type in order to improve error reporting.
-    
+
     // Store mutability on type parameters on methods
     MethodSig ms = sm.getSig();
     try {
@@ -168,14 +167,14 @@ public class AnnotationStorer<A extends Annotation> {
     } catch(RuntimeException e) {
       throw wrap(e, "method signature");
     }
-    
+
     // Store mutability on return type.
     try {
       storeType(ms.getReturnType(), am);
     } catch (RuntimeException e) {
       throw wrap(e, "return type");
     }
-    
+
     // Store the mutability of the receiver only for object methods.
     if (!sm.isStatic()) {
       try {
@@ -184,36 +183,36 @@ public class AnnotationStorer<A extends Annotation> {
         throw wrap(e, "receiver");
       }
     }
-    
+
     // Store the mutability on each parameter.
     List<JrType> sParams = ms.getParams();
     for (int i = 0; i < sParams.size(); i++) {
       JrType sParam = sParams.get(i);
-      ATypeElement<A> dParam = am.parameters.vivify(i);
-      // Don't include annotations on parameters whose type is a 
+      ATypeElement dParam = am.parameters.vivify(i);
+      // Don't include annotations on parameters whose type is a
       //  known immtuable class.
       boolean isImmutable = false;
-      if(sParam instanceof ClassType) {
+      if (sParam instanceof ClassType) {
         ClassType ctParam = (ClassType) sParam;
         isImmutable = AnnotationLoader.classIsUnmodifiable(
             ctParam.getBaseType());
       }
-      if(!Options.v().includeImmutableClasses() && 
+      if (!Options.v().includeImmutableClasses() &&
           isImmutable) {
-        if(Options.v().debugAnnotationStoring()) {
+        if (Options.v().debugAnnotationStoring()) {
           System.out.println("AnnotationStorer skipping parameter " +
               " (with type of immutable class): " + sParam);
         }
         continue;
       }
-      
+
       try {
         storeType(sParam, dParam);
       } catch (RuntimeException e) {
         throw wrap(e, "parameter #" + i);
       }
     }
-    
+
     // Store the mutability on local variables if the method has a body.
     if (!sm.isBridge() && sm.getBody() != null) {
       Body body = sm.getBody();
@@ -232,22 +231,22 @@ public class AnnotationStorer<A extends Annotation> {
       }
     }
   }
-  
+
 
   /**
    * Stores the mutability of the given field into the given annotation scene
-   * library element as the corresponding annotation.  This method also 
+   * library element as the corresponding annotation.  This method also
    * writes out the "@Assignable" annotation if the field is assignable.
    * (Recall that "@Assignable" is not a mutability, it is a field annotation.)
    * (If the field is explicitly mutable, this writes out the "@Mutable"
    * annotation because "@Mutable" is both a field annotation and mutability
    * type qualifier when it is on a field.)
-   * 
+   *
    * @param sf - the field whose mutability and assignability should be stored
-   * @param af - the annotation scene library element to store the 
+   * @param af - the annotation scene library element to store the
    *             annotations in
    */
-  private void storeField(SootField sf, ATypeElement<A> af) {
+  private void storeField(SootField sf, ATypeElement af) {
     if (sf.assignable())
       annotate(af, AnnotationLoader.assignableAnnotation);
     storeType(sf.getJrType(), af);
@@ -256,12 +255,12 @@ public class AnnotationStorer<A extends Annotation> {
   /**
    * Stores the mutability of the Javari type into the given annotation scene
    * library element as the corresponding annotation.
-   * 
+   *
    * @param source - the Javari type whose mutability should be stored
-   * @param dest - the annotation scene library element to store the 
+   * @param dest - the annotation scene library element to store the
    *          annotations in
    */
-  private void storeType(JrType source, ATypeElement<A> dest) {
+  private void storeType(JrType source, ATypeElement dest) {
     // Copy the type because the resugarer may change it.
     // Mutate the copy and store the copy.
     JrType sourceCopy = source.copy();
@@ -277,18 +276,18 @@ public class AnnotationStorer<A extends Annotation> {
    * This stores all the mutabilities of the given type parameters
    * into the map of type parameters in the scene library that maps the
    * type parameters of the corresponding element.
-   *  
+   *
    * @param jtp - a list of type parameters with mutabilities to store
    * @param atp - a map to store the annotations into
    */
   private void storeTypeParameters(List<Pair<VarType, JrType>> jtp,
-      VivifyingMap<BoundLocation, ATypeElement<A>> atp) {
+      VivifyingMap<BoundLocation, ATypeElement> atp) {
     for (int i = 0; i < jtp.size(); i++) {
       // Java and the ASL support more than one bound per
       // type parameter, but evidently the Javarifier does not.
       // For now, we just store the first bound.
       BoundLocation bl = new BoundLocation(i, 0);
-      ATypeElement<A> bound = atp.vivify(bl);
+      ATypeElement bound = atp.vivify(bl);
       try {
         storeType(jtp.get(i).second(), bound);
       } catch (RuntimeException e) {
@@ -302,36 +301,36 @@ public class AnnotationStorer<A extends Annotation> {
    * type layer into <code>dest</code>.  For example, when traversing
    * <code>@ReadOnly List&lt;@Mutable Date&gt;</code> in {@link JrTypeASTMapper},
    * this will be called:
-   * 
+   *
    *  <ul>
    *  <li>
-   *  once with <code>source</code> : 
+   *  once with <code>source</code> :
    *  <code>@ReadOnly List&lt;@Mutable Date&gt;</code>, in which case this stores
    *  <code>checkers.javari.quals.ReadOnly</code> into <code>dest</code>
    *  </li>
    *  <li>
    *  once with <code>source</code> : <code>@Mutable Date</code>,
-   *  in which case this stores <code>checkers.javari.quals.Mutable</code> 
+   *  in which case this stores <code>checkers.javari.quals.Mutable</code>
    *  into <code>dest</code>.
    *  </li>
    *  </ul>
    *  (Of course, dest must be the corresponding element in the scene library.)
-   * 
+   *
    * @param source - the type containing mutability annotations
    * @param dest - the element to store the mutabilities into
    */
-  private void storeTypeLayer(JrType source, AElement<A> dest) {
+  private void storeTypeLayer(JrType source, AElement dest) {
     // If source has any mutabilities, simply retrieve them, look up
     // the annotation from mutabilityAnnos and then  use annotate().
     if (source instanceof MutType) {
       MutType msource = (MutType) source;
       Mutability m = msource.getMutability();
-      if(m == Mutability.UNKNOWN) {
+      if (m == Mutability.UNKNOWN) {
         // If mutability is unknown, it was never marked as anything
         // mutable, so it must be readonly.
         m = Mutability.READONLY;
       }
-      
+
       String annoTypeName = m.annotation();
       if (annoTypeName == null) {
         throw new RuntimeException("AnnotationStorer.storeTypeLayer: " +
@@ -340,35 +339,38 @@ public class AnnotationStorer<A extends Annotation> {
       annotate(dest, annoTypeName);
     }
   }
-  
+
   /**
    * Adds the annotation described by <code>annoTypeName</code> to the
    * element <code>target</code>.
-   * 
+   *
    * @param target - the element onto which to add the annotation
    * @param annoTypeName - the name of the annotation to add
    */
-  private void annotate(AElement<A> target, String annoTypeName) {
-    A ann = scene.af.beginAnnotation(annoTypeName).finish();
-    target.tlAnnotationsHere.add(new TLAnnotation<A>(ann,DEFAULT_RETENTION));
+  private void annotate(AElement target, String annoTypeName) {
+    throw new Error("to make typecheck");
+    // These are the original lines, which I have commented out so that I
+    // can proceed with testing.
+    // Annotation ann = scene.af.beginAnnotation(annoTypeName).finish();
+    // target.tlAnnotationsHere.add(new Annotation(ann,DEFAULT_RETENTION));
   }
 
   /**
    * This class traverses the AST of some {@link ATypeElement} (see
    * {@link TypeASTMapper}), and "applies" (stores the mutability of)
    * a {@link JrType} into the appropriate elements in the AST.
-   * 
+   *
    * {@link TypeASTMapper#traverse(Object, ATypeElement)} will call
    * {@link #map(JrType, AElement)} on the appropriate Javari type/
    * scene library element pairs.
    */
-  private class JrTypeASTMapper extends TypeASTMapper<A, JrType> {    
+  private class JrTypeASTMapper extends TypeASTMapper<JrType> {
     /**
      * Private constructor, should not be initialized elsewhere.
      */
-    private JrTypeASTMapper() { 
+    private JrTypeASTMapper() {
     }
-    
+
     /**
      * Returns the element type of <code>type</code> if it is an array type.
      * Else, if <code>type</code> is not an array type, returns null.
@@ -390,15 +392,15 @@ public class AnnotationStorer<A extends Annotation> {
     }
 
     /**
-     * Stores the mutability in the type <code>type</code> into the scene 
+     * Stores the mutability in the type <code>type</code> into the scene
      * element code>element</code>.
-     * 
+     *
      * @param type - the Javari type whose mutability should be stored
      * @param element - the element of the scene library to store the mutability
      * into
      */
     @Override
-    protected void map(JrType type, AElement<A> element) {
+    protected void map(JrType type, AElement element) {
       storeTypeLayer(type, element);
     }
 
@@ -417,19 +419,19 @@ public class AnnotationStorer<A extends Annotation> {
   //////////////////////////////////////////////////////////////////////////////
   // Code to deal with sugaring types.
   //////////////////////////////////////////////////////////////////////////////
-  
+
   /**
    * Returns true if and only if the two input types are equal.
    */
   private static boolean typesEqual(JrType t1, JrType t2) {
     return t1.toString().equals(t2.toString());
   }
-  
-  /** 
+
+  /**
    * If there is no lower bound, or if the upper bound represents
    * a non-readonly type, it returns the upper bound.  Else, it returns
    * the lower bound.
-   * 
+   *
    * @param targ - the type argument whose interesting bound should be returned
    * @return the highest readonly bound for the type argument.
    */
@@ -443,10 +445,10 @@ public class AnnotationStorer<A extends Annotation> {
   }
 
   /**
-   * Returns true if and only if <code>maybeReplaced</code> is the 
-   * Javari type of <code>orig</code> with the mutabilities on 
+   * Returns true if and only if <code>maybeReplaced</code> is the
+   * Javari type of <code>orig</code> with the mutabilities on
    * upper and lower bounds sugared to be {@link Mutability#QUESTION_RO}
-   * if possible, and otherwise is the same as the unsugared version.  
+   * if possible, and otherwise is the same as the unsugared version.
    * If <code>sugared/code> is the sugared version
    * of <code>orig</code> but it, correctly, does not contain any
    * question ro types, this returns true.
@@ -462,28 +464,28 @@ public class AnnotationStorer<A extends Annotation> {
 
   /**
    * Resugars the type given type argument to have its mutability set to
-   * {@link Mutability#QUESTION_RO} if necessary (or 
-   * {@link Mutability#POLYREAD} in some cases).  This method mutates 
+   * {@link Mutability#QUESTION_RO} if necessary (or
+   * {@link Mutability#POLYREAD} in some cases).  This method mutates
    * the bounds in <code>targ</code> to have the right mutability.
    * (See Section 4.3 on resugaring mutabilities in Jaime Quinonez's thesis.)
-   * 
-   * If the lower bound is mutable (or this-mutable) 
-   * and the upper bound is readonly, then the upper bound is set to 
+   *
+   * If the lower bound is mutable (or this-mutable)
+   * and the upper bound is readonly, then the upper bound is set to
    * question-readonly.
-   * 
-   * If the lower bound is mutable (or this-mutable) 
+   *
+   * If the lower bound is mutable (or this-mutable)
    * and the upper bound is polyread, then the lower bound is set to polyread.
-   * 
+   *
    * This recursively resugars the bounds in order to handle types such
    * as List&lt;? readonly List&lt;? readonly Date&gt;&gt;.
-   * 
+   *
    * @param targ - the type argument to resugar
    */
   private static void sugarQuestionRo(TypeArg targ) {
     JrType upper = targ.getUpperBound();
     JrType lower = targ.getLowerBound();
     if (lower instanceof NullType) {
-      // If lower bound is null type, upper bound is only interesting 
+      // If lower bound is null type, upper bound is only interesting
       // mutability.
       resugarQuestionRo(upper);
     } else if (typeIsReadOnlyObject(upper)) {
@@ -496,15 +498,15 @@ public class AnnotationStorer<A extends Annotation> {
       if (lower instanceof MutType) {
         MutType mupper = (MutType) upper;
         MutType mlower = (MutType) lower;
-        
+
         // If the lower bound is this-mutable, there is nothing to do.
-        if(mlower.getMutability() != Mutability.THIS_MUTABLE) {
-          
+        if (mlower.getMutability() != Mutability.THIS_MUTABLE) {
+
           // If lower bound == upper bound, there is nothing to do.
           if (mupper.getMutability() != mlower.getMutability()) {
             if (!(mupper.getMutability() == Mutability.READONLY
                 && mlower.getMutability() == Mutability.MUTABLE)) {
-              if(mupper.getMutability() == Mutability.POLYREAD &&
+              if (mupper.getMutability() == Mutability.POLYREAD &&
                   mlower.getMutability() == Mutability.MUTABLE) {
                 // Having polyread upper type takes cares of the
                 // upper/lower bound requirements of question_ro
@@ -517,7 +519,7 @@ public class AnnotationStorer<A extends Annotation> {
               mupper.setMutability(Mutability.QUESTION_RO);
             }
           }
-          
+
           // unlike the two top cases, now need to sugar both bounds
           resugarQuestionRo(mlower);
           resugarQuestionRo(mupper);
@@ -529,7 +531,7 @@ public class AnnotationStorer<A extends Annotation> {
   /**
    * Resugars the mutability bounds in the given type to be set to
    * {@link Mutability#QUESTION_RO} or {@link Mutability#POLYREAD} if
-   * it contains inner types and those inner types have different 
+   * it contains inner types and those inner types have different
    * mutabilities on their upper/lower bounds.
    */
   private static void resugarQuestionRo(JrType type) {
@@ -546,6 +548,6 @@ public class AnnotationStorer<A extends Annotation> {
         sugarQuestionRo(targ);
     }
   }
-  
+
 
 }

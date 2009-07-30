@@ -1,8 +1,8 @@
 package javarifier;
 
 /**
- * A ConstraintVar represents a variable in the Javarifier's constraints. 
- * A variable is a value, something with a JrType, that has a certain 
+ * A ConstraintVar represents a variable in the Javarifier's constraints.
+ * A variable is a value, something with a JrType, that has a certain
  * mutability in a certain context.
  */
 import java.util.HashMap;
@@ -25,14 +25,14 @@ public class ConstraintVar {
         checkRep();
     }
 
-    private static Map<ConstraintVar, ConstraintVar> interned = 
+    private static Map<ConstraintVar, ConstraintVar> interned =
       new HashMap<ConstraintVar, ConstraintVar>();
-    
-    public static ConstraintVar create(JrTyped val, 
-                                       MutType type, 
+
+    public static ConstraintVar create(JrTyped val,
+                                       MutType type,
                                        Context context) {
-      // Create temporary ConstraintVar, then use it to look up interned 
-      //  version.  If it is already interned, return interned copy, else 
+      // Create temporary ConstraintVar, then use it to look up interned
+      //  version.  If it is already interned, return interned copy, else
       //  add temporary variable to interned set.
       ConstraintVar tmp = new ConstraintVar(val, type, context);
         if (interned.containsKey(tmp)) {
@@ -43,7 +43,7 @@ public class ConstraintVar {
     }
 
     private boolean checkRep() {
-      if(type == null || context == null) {
+      if (type == null || context == null) {
          throw new RuntimeException("Null pointer: " + this);
       }
         return true;
@@ -96,7 +96,7 @@ public class ConstraintVar {
     }
 
     public String toString() {
-        return "<" + value + ": " + 
+        return "<" + value + ": " +
             (value == null ? type : value.getJrType())
             + type.getIndex() + " " + context + ">";
     }

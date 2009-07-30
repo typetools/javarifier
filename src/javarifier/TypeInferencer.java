@@ -78,7 +78,7 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
             throw new RuntimeException("Unrecognized array element type");
         }
     }
-    
+
     // If "class Foo<A,B,C>", then
     // createWildcardClassType("Foo") --> "Foo<?,?,?>"
     private ClassType createWildcardClassType(String className) {
@@ -102,13 +102,13 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
         Value lhs = stmt.getLeftOp();
         Value rhs = stmt.getRightOp();
 
-        if(lhs instanceof InstanceFieldRef) {
+        if (lhs instanceof InstanceFieldRef) {
           SootField f = ((InstanceFieldRef) lhs).getField();
-          if(f.getName().toString().contains("defaultValue")) {
+          if (f.getName().toString().contains("defaultValue")) {
             //TODO: System.out.println("Did not infer type for: " + lhs + " = " + rhs);
           }
         }
-        
+
         if (false) {
         } else if (lhs instanceof Local &&
                    rhs instanceof Constant) {
@@ -194,7 +194,7 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
             JrType yType = y.getJrType();
 
             if (xType == null) {
-              if(fType instanceof ClassType) {
+              if (fType instanceof ClassType) {
                 xType = createJrTypeFromSootBaseType(f.getDeclaringClass().getType());
                 // TODO: should you ever not use the top level type, which is the
                 // true type for field access.
@@ -202,7 +202,7 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
                 x.setJrType(xType);
               }
             }
-            
+
             if (yType == null) {
                 yType = fType.substituteLowerBound((ClassType) xType);
                 y.setJrType(yType);
@@ -244,18 +244,18 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
                     // HMMM The point of a cast is to change the type, so why
                     // are we inferring the same type?!  For now, comment this
                     // out so we don't infer a type from the cast at all, and
-                    // hope that the correct type is inferred another way. 
+                    // hope that the correct type is inferred another way.
 //	            if (! (xType == null && yType == null)) {
-//	            	
+//
 //	            	if (xType == null) {
 //	            		xType = yType.copyResettingMutabilities();
 //	            		x.setJrType(xType);
-//		
+//
 //	            	}
 //	            	if (yType == null) {
 //	            		yType = xType.copyResettingMutabilities();
 //	            		y.setJrType(yType);
-//		
+//
 //	            	}
 //	            }
         	}
@@ -266,7 +266,7 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
             Local a = (Local) ((ArrayRef) lhs).getBase();
             Local y = (Local) rhs;
 
-            if(!(a.getJrType() instanceof ArrayType)) {
+            if (!(a.getJrType() instanceof ArrayType)) {
               //TODO: System.out.println("About to cast prim to object");
             }
             ArrayType aType = (ArrayType) a.getJrType();
@@ -293,24 +293,24 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
             JrType xType = x.getJrType();
             ArrayType aType = (ArrayType) a.getJrType();
 
-            if(aType == null) {
+            if (aType == null) {
               //System.out.println("Null aType: " + aType);
-              
+
             }
-            
+
             // TODO: if both aType and xType are null, don't set one from the other
             // Does this make sense because there is no necessary constraint between unknown values?
-            
+
             if (xType == null && aType != null) {
               //TODO: Decompose to see where null comes from:
               //xType = aType.getElemType().getUpperBound().copyResettingMutabilities();
-              
+
               // TODO: this was removed in moving from eclipsec to htmlparser:
               TypeArg et = aType.getElemType();
               JrType jr = et.getUpperBound();
-              JrType ta = jr.copyResettingMutabilities(); 
+              JrType ta = jr.copyResettingMutabilities();
               xType = ta;
-              
+
               x.setJrType(xType);
             }
 
@@ -378,9 +378,9 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
             }
         } else {
           // TODO: remove specific debugging case:
-          if(lhs instanceof InstanceFieldRef) {
+          if (lhs instanceof InstanceFieldRef) {
             SootField f = ((InstanceFieldRef) lhs).getField();
-            if(f.getName().toString().contains("defaultValue")) {
+            if (f.getName().toString().contains("defaultValue")) {
               //TODO: System.out.println("Did not infer type for: " + lhs + " = " + rhs);
             }
           }
@@ -422,7 +422,7 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
 			Local x = (Local) lhs;
 			SootMethod meth = x.getMethod();
 			JrType xType = x.getJrType();
-			
+
 			JrType yType = null;
 			if (rhs instanceof ThisRef) {
     			Param y = meth.getReceiver();
@@ -497,7 +497,7 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
 
             Local y = (Local) iMethInvk.getBase();
             JrType yType = y.getJrType();
-            
+
             Param thisParam = m.getReceiver();
             JrType thisParamType = thisParam.getJrType();
 
@@ -509,13 +509,13 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
         }
 
 //            // Handle constructor "recievers" specially
-//            if (methInvk instanceof SpecialInvokeExpr && 
+//            if (methInvk instanceof SpecialInvokeExpr &&
 //            	methInvk.getMethod().getName().equals("<init>")) {
-//            	
+//
 //            	SpecialInvokeExpr constructorInvk = (SpecialInvokeExpr) methInvk;
-//            	
+//
 //            }
-        
+
         // Handle arguments
         for (int i = 0; i < zs.size(); i++) {
             if (zs.get(i) instanceof Local) {

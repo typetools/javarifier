@@ -26,7 +26,7 @@
 	<property name="javari-www" 
 		value="/afs/csail.mit.edu/group/pag/www/javari"/>
 	<property name="javari-www-javarifier"
-		value="/afs/csail.mit.edu/group/pag/www/javari/javarifier"/>
+		value="/cse/www2/types/javarifier"/>
 	
 	<!-- Determine locations of all projects, as per the property files. -->
 	<target name="init-properties" description="Initialized required properties.">

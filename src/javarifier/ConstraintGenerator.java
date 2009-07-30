@@ -55,18 +55,18 @@ public class ConstraintGenerator extends SceneVisitor {
 
     @Override
     public void visitClass(SootClass sc) {
-      if(Options.v().debugConstraintGeneration()) {
+      if (Options.v().debugConstraintGeneration()) {
         System.out.println("Generating constraints for class: " + sc.getName());
       }
-      
+
       // Skip generating constraints for internals of stub classes.
-      if(sc.resolvingLevel() >= SootClass.BODIES) {
+      if (sc.resolvingLevel() >= SootClass.BODIES) {
         super.visitClass(sc);
-      } else if(Options.v().debugConstraintGeneration()) {
+      } else if (Options.v().debugConstraintGeneration()) {
         System.out.println("ConstraintGenerator skipping stub class: " + sc.getName());
       }
     }
-    
+
     public void visitBody(Body b) {
 
         ConstraintGenerationSwitch conGen =
@@ -116,22 +116,22 @@ public static class ConstraintGenerationSwitch extends soot.jimple.AbstractStmtS
             // If base of lhs has a null type, then debug information is
             // missing from classfile, so signal this error to the user.
             // Since the Javarifier cannot continue, throw an exception.
-            if(lhs instanceof InstanceFieldRef) {
+            if (lhs instanceof InstanceFieldRef) {
               Local lhsBase = (Local) ((InstanceFieldRef) lhs).getBase();
               JrType lhsBaseType = lhsBase.getJrType();
-              if(lhsBaseType == null) {
-                SootClass badClass = 
+              if (lhsBaseType == null) {
+                SootClass badClass =
                   ((InstanceFieldRef) lhs).getField().getDeclaringClass();
-                String errorMessage = "Class compiled without debug information: " 
+                String errorMessage = "Class compiled without debug information: "
                     + badClass.getName();
                 System.err.println(errorMessage);
-                //TODO: 
+                //TODO:
                 missingLhsBaseType = true;
                 missingLhsBaseTypeMessage = errorMessage;
                 //throw new RuntimeException(errorMessage);
-              }  
+              }
             }
-            
+
             if (false) {
             } else if (lhs instanceof Local &&
                        rhs instanceof Constant) {
@@ -150,8 +150,8 @@ public static class ConstraintGenerationSwitch extends soot.jimple.AbstractStmtS
                 JrType xType = x.getJrType();
 
                 // TODO: missing lhs?
-                if(xType != null) {
-                
+                if (xType != null) {
+
                 if (! ((InstanceFieldRef) lhs).getField().assignable()) {
                     cm.mutable3(x, xType);
                 }
@@ -212,11 +212,11 @@ public static class ConstraintGenerationSwitch extends soot.jimple.AbstractStmtS
 
             // TODO: missing lhs
             // TODO: assert that if anyone is null, you don't have to do anything
-            if(xType != null) {
+            if (xType != null) {
               if (! f.assignable()) {
                 cm.mutable3(x, xType);
               }
-              
+
               cm.subtype2(null,  null, y, yType,
                           x,    xType, f, fType);
             }
@@ -330,7 +330,7 @@ public static class ConstraintGenerationSwitch extends soot.jimple.AbstractStmtS
         try {
         if (stmt instanceof AssignStmt &&
             ((AssignStmt) stmt).getLeftOp() instanceof Local &&
-            ((AssignStmt) stmt).getRightOp() instanceof InvokeExpr) { 
+            ((AssignStmt) stmt).getRightOp() instanceof InvokeExpr) {
                 // method invocation statement (where the return value is
                 // assigned to a variable):
                 // x = y.m(z)
@@ -351,15 +351,15 @@ public static class ConstraintGenerationSwitch extends soot.jimple.AbstractStmtS
 //                System.err.println("Null pointer: " + xType + " " + retType);
                 //throw new RuntimeException("Null pointer: " + xType + " " + retType);
             }
-            
+
 
             Local  y     = (methInvk instanceof InstanceInvokeExpr) ? (Local) ((InstanceInvokeExpr) methInvk).getBase() : null;
             JrType yType = (methInvk instanceof InstanceInvokeExpr) ? y.getJrType() : null;
-            
-            
+
+
             // To fix polyread bug, here you don't want to just generally subtype
             // m <: x, because this applies  x -> m (return value) for both
-            // contexts.  Instead, you want x -> m^mut.            
+            // contexts.  Instead, you want x -> m^mut.
             cm.subtype2InvokeWithoutReadOnly(y,   yType, m, retType,
                                              null, null, x, xType);
             handleMethodInvk(methInvk, x, xType);
@@ -369,7 +369,7 @@ public static class ConstraintGenerationSwitch extends soot.jimple.AbstractStmtS
             InvokeExpr invokeExpr = stmt.getInvokeExpr();
             handleMethodInvk(invokeExpr, null, null);
         }
-        
+
         } catch (RuntimeException e) {
         	throw new RuntimeException(stmt.toString(), e);
         }

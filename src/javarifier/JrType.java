@@ -47,7 +47,7 @@ public abstract class JrType {
         if (index.equals(TypeIndex.topLevel())) {
             return this;
         } else {
-            throw new RuntimeException("Invalid index: " + 
+            throw new RuntimeException("Invalid index: " +
                 index + " for " + this);
         }
     }
@@ -60,7 +60,7 @@ public abstract class JrType {
     public JrType copy() {
         return this;
     }
-    
+
     /**
      * Returns a deep copy of this, resetting all mutabilities contained
      * by this to {@link Mutability#UNKNOWN}.
@@ -68,19 +68,19 @@ public abstract class JrType {
     public JrType copyResettingMutabilities() {
         return copy();
     }
-    
+
     /**
      * Replaces all references in this JrType to type parameters in env by the
      * corresponding type arguments in env; returns the result.  For example,
-     * given "class List&lt;T&gt;", "Set&lt;T&gt;".substitute("List&lt;Integer&gt;") 
+     * given "class List&lt;T&gt;", "Set&lt;T&gt;".substitute("List&lt;Integer&gt;")
      * gives
      * "Set&lt;Integer&gt;".
-     * 
+     *
      * The resulting JrType is newly allocated except that, where this
      * contains a VarType, the resulting JrType contains an alias into env.
      * Newly allocated portions of the resulting JrType have unknown
      * mutabilities. FIX
-     * 
+     *
      * If this is a VarType, the upper bound of the type argument is
      * substituted.
      */
@@ -92,12 +92,12 @@ public abstract class JrType {
      * corresponding type arguments in env; returns the result.  For example,
      * given "class List&lt;T&gt;", "Set&lt;T&gt;".substitute("List&lt;Integer&gt;") gives
      * "Set&lt;Integer&gt;".
-     * 
+     *
      * The resulting JrType is newly allocated except that, where this
      * contains a VarType, the resulting JrType contains an alias into env.
      * Newly allocated portions of the resulting JrType have unknown
      * mutabilities.
-     * 
+     *
      * If this is a VarType, the lower bound of the type argument is
      * substituted.
      */
@@ -109,12 +109,12 @@ public abstract class JrType {
      * corresponding type arguments in env; returns the result.  For example,
      * given "class List&lt;T&gt;", "Set&lt;T&gt;".substitute("List&lt;Integer&gt;") gives
      * "Set&lt;Integer&gt;".
-     * 
+     *
      * The resulting JrType is newly allocated except that, where this
      * contains a VarType, the resulting JrType contains an alias into env.
      * Newly allocated portions of the resulting JrType have unknown
      * mutabilities.
-     * 
+     *
      * If this is a VarType, an exception is thrown.
      */
     public JrType substitute(ClassType env) {
@@ -187,7 +187,7 @@ public abstract class JrType {
          * The upper bound.
          */
         private final JrType upperBound;
-        
+
         /**
          * The lower bound.
          */
@@ -197,7 +197,7 @@ public abstract class JrType {
          * The index of this in the class type this is an argument of.
          */
         private TypeIndex index;
-        
+
         /**
          * The corresponding type parameter this is an argument of.
          */
@@ -231,7 +231,7 @@ public abstract class JrType {
         public VarType getTypeParam() {
             return param;
         }
-        
+
         /**
          * Sets the type parameter of this.
          */
@@ -248,7 +248,7 @@ public abstract class JrType {
            ret.setTypeParam(this.getTypeParam());
            return ret;
         }
-        
+
         /**
          * Returns a copy of this, transitively setting all mutabilites
          * to {@link Mutability#UNKNOWN}.
@@ -259,7 +259,7 @@ public abstract class JrType {
             ret.setTypeParam(this.getTypeParam());
             return ret;
         }
-        
+
         /** @see JrType#substitute */
         public TypeArg substitute(ClassType env) {
             TypeArg sta = new TypeArg(getUpperBound().substituteUpperBound(env),
@@ -285,7 +285,7 @@ public abstract class JrType {
             return lowerBound;
         }
 
-        /** 
+        /**
          * {@inheritDoc}
          */
         public String toString() {
@@ -304,17 +304,17 @@ public abstract class JrType {
     /**
      * A ClassType represents a (possibly parameterized) Java class type
      * with a Javari mutability.
-     * 
+     *
      * Notes on handling innerclasses: The following type (given in JVML
-     * signature format) 
-     * LOuterClass&lt;LDate;&gt;.InnerClass&lt;TS;LInteger;&gt;; 
+     * signature format)
+     * LOuterClass&lt;LDate;&gt;.InnerClass&lt;TS;LInteger;&gt;;
      * produces
      * a ClassType which "LOuterClass$InnerClass" as its name; this works well
-     * with soot.Scene.v().getSootClass(String classname) and args 
+     * with soot.Scene.v().getSootClass(String classname) and args
      * [+LDate;-LDate;+TS;-TS;+LInteger;-LInteger;]
-     * 
+     *
      * @author tschantz
-     * 
+     *
      */
     public static class ClassType extends MutType {
 
@@ -322,19 +322,19 @@ public abstract class JrType {
          * The underlying Java base type, in JVML format.
          */
         private final String baseType;
-        
+
         /**
          * Soot's representation of the given Java base class.
          * This is set by looking it up in {@link #getBaseClass()}.
          */
         private SootClass baseClass;
-        
+
         /**
          * Any type arguments in this class type.
          */
         private List<TypeArg> args;
 
-        /** 
+        /**
          * Parameterized supertypes obtained by substituting our own type
          * arguments into our class signature's supertypes.  Null until needed.
          */
@@ -342,15 +342,15 @@ public abstract class JrType {
 
         /**
          * Constructs a new ClassType.
-         * 
+         *
          * @param mutability - the mutability of this Javari type
          * @param baseType - the class type in JVML format
          * @param args - any type arguments of this class type
          */
-        public ClassType(Mutability mutability, 
-                         String baseType, 
+        public ClassType(Mutability mutability,
+                         String baseType,
                          List<TypeArg> args) {
-            super(mutability);     
+            super(mutability);
             this.baseType = baseType;
             this.args = Collections.unmodifiableList(args);
         }
@@ -367,9 +367,9 @@ public abstract class JrType {
             ret.setIndex(this.getIndex());
             return ret;
         }
-        
+
         /**
-         * Returns a deep copy of this, setting (transitively) all 
+         * Returns a deep copy of this, setting (transitively) all
          * mutabilities to {@link Mutability#UNKNOWN}
          */
         public ClassType copyResettingMutabilities() {
@@ -381,7 +381,7 @@ public abstract class JrType {
             ret.setIndex(this.getIndex());
             return ret;
         }
-        
+
         /**
          * Returns a copy of this, substituting arguments from the given
          * environments into the type arguments of this.
@@ -396,7 +396,7 @@ public abstract class JrType {
             nct.setIndex(this.getIndex());
             return nct;
         }
-        
+
         /**
          * Returns the SootClass representing the underlying class.=
          */
@@ -430,7 +430,7 @@ public abstract class JrType {
         /**
          * Returns the base type of this class, in JVML format.
          * i.e. Ljava/lang/String;
-         * 
+         *
          * @return the base type of this class
          */
         public String getBaseType() {
@@ -453,42 +453,42 @@ public abstract class JrType {
          * Returns the class signature of the base type of this type.
          */
         public ClassSig declaringClassSig() {
-          if(getBaseClass() == null) {
+          if (getBaseClass() == null) {
             return null;
           }
-          
+
             ClassSig sig = getBaseClass().getSig();
             if (sig == null) {
                 throw new RuntimeException("No class sig for: " + this);
             }
             return sig;
         }
-        
+
 
         /**
-         * Initializes the parameterized supertypes obtained by substituting 
+         * Initializes the parameterized supertypes obtained by substituting
          * our own type
-         * arguments into our class signature's supertypes. 
+         * arguments into our class signature's supertypes.
          */
         private void initSuperTypes() {
             if (superTypes != null)
                 return;
             ClassSig mySig = declaringClassSig();
             List<ClassType> sts1 = new ArrayList<ClassType>();
-            
+
             // In order to avoid circular initialization, don't wait until
             // all superTypes have been intialized in order to store them
-            // in this.superTypes.  Instead of keeping an isolated temporary 
+            // in this.superTypes.  Instead of keeping an isolated temporary
             // list sts1, have superTypes also point to this list while
             // initializing superTypes, and afterwards, set the list to
             // be immutable.  (effectively x = unmodifiable(x))
             // TODO: this seems to always propagate types as soon as they are
             // found, but can it cause any problems?
-            
+
             superTypes = sts1;
-            
+
             // TODO: why necessary?
-            if(mySig != null) {
+            if (mySig != null) {
             for (ClassType templateST : mySig.getSuperTypes()) {
                 ClassType st = templateST.substitute(this);
                 if (getIndex() != null)
@@ -498,14 +498,14 @@ public abstract class JrType {
             }
             superTypes = Collections.unmodifiableList(sts1);
         }
-        
+
         /**
          * Returns whether super types have been initialized.
          */
         public boolean areSuperTypesInitialized() {
             return superTypes != null;
         }
-        
+
         /**
          * Returns the parameterized super types of this.
          */
@@ -530,7 +530,7 @@ public abstract class JrType {
         }
 
         /**
-         * Returns the type parameter in this that matches the given 
+         * Returns the type parameter in this that matches the given
          * VarType.
          */
         public TypeArg getTypeArg(VarType tparam) {
@@ -541,20 +541,20 @@ public abstract class JrType {
                     return getTypeArgs().get(i);
                 }
             }
-            throw new RuntimeException("Did not find type param: " + 
+            throw new RuntimeException("Did not find type param: " +
                 tparam + " " + this);
         }
-        
+
         /**
          * Adds unrestricted type arguments (NullType) to the type
          * parameters in this class type.
          */
         public void wildcardifyRawType() {
           SootClass baseClass = getBaseClass();
-          if(baseClass == null) {
+          if (baseClass == null) {
             return;
           }
-          
+
             List<Pair<VarType, JrType>> ourParams
                 = getBaseClass().getSig().getTypeParams();
             if (getTypeArgs().isEmpty() && !ourParams.isEmpty()) {
@@ -572,7 +572,7 @@ public abstract class JrType {
 
         /**
          * Like getTypeArg but searches supertypes and, on failure, returns null
-         * instead of throwing an exception. 
+         * instead of throwing an exception.
          */
         public TypeArg searchForTypeArg(VarType tparam) {
             if (containsTypeArg(tparam))
@@ -590,7 +590,7 @@ public abstract class JrType {
          * this class's supertypes, meaning that all MutType layers of the
          * result come from the same supertype declaration.  Returns this
          * declaration along with the type arg.
-         * 
+         *
          * Used by ConstraintManager.resolveVarType.
          */
         public Pair<JrTyped, TypeArg> shallowSearchForTypeArg(JrTyped origOwner, VarType tparam) {
@@ -605,11 +605,11 @@ public abstract class JrType {
             }
             return null;
         }
-        
+
         /**
          * Returns the parameterization of the given class that is a supertype
          * of this type, or null if there is none.  For example, if Foo extends
-         * Cell&lt;Date&gt;, then "Foo".getSuperParameterizedType("LCell;") 
+         * Cell&lt;Date&gt;, then "Foo".getSuperParameterizedType("LCell;")
          * returns
          * "Cell&lt;Date&gt;".
          */
@@ -677,7 +677,7 @@ public abstract class JrType {
          * The owner that declared this type parameter.
          */
         private Signatured owner;
-        
+
         /**
          * Constructs a new VarType out of the given parameter.
          */
@@ -728,8 +728,8 @@ public abstract class JrType {
         public JrType getJrType() {
             return bound();
         }
-        
-        /** 
+
+        /**
          * Returns a shallow copy of this.
          */
         public VarType copy() {
@@ -738,7 +738,7 @@ public abstract class JrType {
             copy.setOwner(this.getOwner());
             return copy;
         }
-        
+
         /**
          * Returns the JrType representing the upper of this found
          * in the given environment.
@@ -757,10 +757,10 @@ public abstract class JrType {
             // If type argument not found, return this as its own upper bound.
             // TODO: does this break anywhere?
             TypeArg ta = env.searchForTypeArg(this);
-            if(ta == null) {
+            if (ta == null) {
               return this;
             }
-            
+
             return ta
                 .getUpperBound().copyResettingMutabilities();
         }
@@ -778,18 +778,18 @@ public abstract class JrType {
                 if (oMeth.getDeclaringClass() == env.getBaseClass())
                     return this;
             }
-            // Otherwise, do an ordinary search.            
+            // Otherwise, do an ordinary search.
             // If type argument not found, return this as its own upper bound.
             // TODO: does this break anywhere?
             TypeArg ta = env.searchForTypeArg(this);
-            if(ta == null) {
+            if (ta == null) {
               return this;
             }
-            
+
             return ta
                 .getLowerBound().copyResettingMutabilities();
         }
-        
+
         /**
          * Throws an exception, since either an upper or lower bound must
          * be substituted.
@@ -842,7 +842,7 @@ public abstract class JrType {
         public JrType getType(TypeIndex index) {
           return this;
         }
-        
+
     }
 
     /**
@@ -952,7 +952,7 @@ public abstract class JrType {
             this.elemType = elemType;
         }
 
-        /** 
+        /**
          * Returns the element type of this.
          */
         public TypeArg getElemType() {
@@ -990,18 +990,18 @@ public abstract class JrType {
             ret.setIndex(this.getIndex());
             return ret;
         }
-        
+
         /**
          * Returns a fresh copy of this, transitively setting all
          * mutabilities to unknown.
          */
         public ArrayType copyResettingMutabilities() {
-            ArrayType ret = new ArrayType(Mutability.UNKNOWN, 
+            ArrayType ret = new ArrayType(Mutability.UNKNOWN,
                 getElemType().copyResettingMutabilities());
             ret.setIndex(this.getIndex());
             return ret;
         }
-        
+
         /**
          * Returns a copy of this, substituting in the type in
          * the given environment.
@@ -1052,13 +1052,13 @@ public abstract class JrType {
     }
 
     /**
-     * A VoidType represents Java's void type.  
+     * A VoidType represents Java's void type.
      * (For example, the return type of the method: "void foo()"
-     * 
+     *
      * This class implements the singleton pattern.
      */
     public static class VoidType extends JrType {
-        
+
         /** The singleton. */
         private static VoidType v = new VoidType();
 
@@ -1086,13 +1086,13 @@ public abstract class JrType {
     }
 
     /**
-     * A NullType is a JrType used to indicate that lower bounds on type 
+     * A NullType is a JrType used to indicate that lower bounds on type
      * arguments are unrestricted.  In other words, there is no
-     * lower bound, such as in the lower bound of T in 
+     * lower bound, such as in the lower bound of T in
      * Foo&lt;T extends Object&gt;
      */
     public static class NullType extends JrType {
-      
+
         /**
          * Returns a deep copy of this.
          */
@@ -1101,7 +1101,7 @@ public abstract class JrType {
             ret.setIndex(this.getIndex());
             return ret;
         }
-        
+
         /**
          * Calls {@link TypeVisitor#visitNullType(javarifier.JrType.NullType)}
          * passing in this.

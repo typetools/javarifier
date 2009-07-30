@@ -48,14 +48,14 @@ public class UnknownEliminator extends SceneVisitor {
 
             super.visitArrayType(t);
         }
-        
+
 
         @Override
         public void visitVarType(VarType t) {
-          if(t.getMutability() == Mutability.UNKNOWN) {
+          if (t.getMutability() == Mutability.UNKNOWN) {
             t.setMutability(Mutability.READONLY);
           }
-          
+
           super.visitVarType(t);
         }
     }

@@ -7,7 +7,7 @@ JAVARIFIER USER DOCUMENTATION
 User documentation for Javarifier can be found at:
   distribution/doc/javarifier.html
 Or on the web at: 
-	http://pag.csail.mit.edu/javari/javarifier
+        http://types.cs.washington.edu/javarifier
 
 The rest of this file is intended for people who wish to build Javarifier.
 
@@ -25,8 +25,8 @@ BUILDING
 You can build the Javarifier by executing its specific build file, which
 builds all projects it depends on:
 
-	cd javari/javarifier
-	ant bin
+        cd javarifier
+        ant bin
 
 The structure of the src/ and bin/ directories is such that Eclipse can
 understand the Javarifier as a project, overwrites class files in the same
@@ -85,9 +85,9 @@ document to the version number in javarifier.Main.versionString
 Once this is done, go into distribution/ and run 'ant web' to create
 the distribution (javarifier.zip) and copy it and the user documentation
 to the Javarifier website at:
-	/afs/csail.mit.edu/group/pag/www/javari/javarifier
+        /cse/www2/types/javarifier
 Web location:
-	http://pag.csail.mit.edu/javari/javarifier
+        http://types.cs.washington.edu/javarifier
 
 
 
@@ -96,9 +96,9 @@ RUNNING
 
 Full documentation for running Javariifer is contained in the user 
 documentation at:
-	javari/javarifier/distribution/doc/javarifier.html
+        distribution/doc/javarifier.html
 Or on the web at: 
-	http://pag.csail.mit.edu/javari/javarifier
+        /afs/csail.mit.edu/group/pag/www/javari
 
 If you want to run Javarifier using all the local class files, you can
 run Javarifier using the javarifier script at:
@@ -109,7 +109,7 @@ javari/javarifier is on your $PATH
 
 To use this script, pass in the fully-qualified name of all 
 classes to javarify, as in:
-	javarifier myPackage.myClass
+        javarifier myPackage.myClass
 
 For all other uses and options, consult the user documentation.
 
@@ -131,20 +131,20 @@ JAVARIFIER DOCUMENTATION
 
 As of May 2008, the theory and algorithm behind the Javarifier is
 Jaime's thesis, located at:
-	javari/design/thesis-jaime/main.pdf
+        javari/design/thesis-jaime/main.pdf
 Or on the web at:
-	http://groups.csail.mit.edu/pag/pubs/Quinonez2008-abstract.html
+        http://groups.csail.mit.edu/pag/pubs/Quinonez2008-abstract.html
 
 A condensed version is located in the paper titled 
 "Inference of reference immutability", located at:
-	javari/design/javarifier/paper.pdf
+        javari/design/javarifier/paper.pdf
 Or on the web at:
-	http://groups.csail.mit.edu/pag/pubs/infer-refimmutability-ecoop2008-abstract.html
+        http://www.cs.washington.edu/homes/mernst/pubs/infer-refimmutability-ecoop2008-abstract.html
 
 User documentation for the Javarifier tool can be found at:
-  distribution/doc/javarifier.html
+        distribution/doc/javarifier.html
 Or on the web at: 
-	http://pag.csail.mit.edu/javari/javarifier
+        http://types.cs.washington.edu/javarifier
 
 Slides from talks on Javarifier can be found in the doc directory.
 

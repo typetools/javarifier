@@ -582,10 +582,10 @@ public class ConstraintManager {
             System.out.println(lhsMut + " -> " + rhsMut);
         }
 
-        if(!shouldSkipReadonlyContext()) {
+        if (!shouldSkipReadonlyContext()) {
           cs.add(lhsRo, rhsRo);
         } else {
-          if(Options.v().debugConstraintGeneration()) {
+          if (Options.v().debugConstraintGeneration()) {
             System.out.println("omit constraint: " + lhsRo + " \n -> " + rhsRo);
           }
         }
@@ -617,10 +617,10 @@ public class ConstraintManager {
         ConstraintVar rhsRo  = ConstraintVar.create(rhsValue, rhsType, Context.READONLY);
         ConstraintVar rhsMut = ConstraintVar.create(rhsValue, rhsType, Context.MUTABLE);
 
-        if(!shouldSkipReadonlyContext()) {
+        if (!shouldSkipReadonlyContext()) {
           cs.add(lhs, rhsRo);
         } else {
-          if(Options.v().debugConstraintGeneration()) {
+          if (Options.v().debugConstraintGeneration()) {
             System.out.println("omit constraint: " + lhs + " \n -> " + rhsRo);
           }
         }
@@ -650,10 +650,10 @@ public class ConstraintManager {
         ConstraintVar rhsRo    = ConstraintVar.create(rhsValue, rhsType, Context.READONLY);
         ConstraintVar rhsMut   = ConstraintVar.create(rhsValue, rhsType, Context.MUTABLE);
 
-        if(!shouldSkipReadonlyContext()) {
+        if (!shouldSkipReadonlyContext()) {
           cs.add(guardRo,  lhs, rhsRo);
         } else {
-          if(Options.v().debugConstraintGeneration()) {
+          if (Options.v().debugConstraintGeneration()) {
             System.out.println("omit constraint: " + guardRo + " \n => " + lhs + " \n -> " + rhsRo);
           }
         }

@@ -125,13 +125,13 @@ public class HeuristicsVisitor extends SceneVisitor {
    * classesAnalyzed.
    */
   private void applyHeuristicsFromUsage() {
-    for(SootClass sc : classesAnalyzed) {
+    for (SootClass sc : classesAnalyzed) {
       // Soot is not generic, so these casts cannot be eliminated.
-      for(Object o : sc.getFields()) {
+      for (Object o : sc.getFields()) {
         SootField field = (SootField) o;
 
         // can't remove non-private, final, or static fields from state
-        if(!field.isPrivate() ||
+        if (!field.isPrivate() ||
             field.isFinal() ||
             field.isStatic()) {
           continue;
@@ -148,11 +148,11 @@ public class HeuristicsVisitor extends SceneVisitor {
         // Enumeration, check that the field is in the right method that
         // extends one of these classes.
         Set<SootMethod> writeMethods = fieldWrittenMap.get(field);
-        if(writeMethods != null) {
-          for(SootMethod m : writeMethods) {
+        if (writeMethods != null) {
+          for (SootMethod m : writeMethods) {
             // Check that the method has the correct name:
             // m.getName() returns a String of the form: <Iterator: Node next()>
-            if(m.getName().toString().contains(" next(") ||
+            if (m.getName().toString().contains(" next(") ||
                m.getName().toString().contains(" getNext(")) {
 
               // To check that this method is in a class that extends
@@ -161,12 +161,12 @@ public class HeuristicsVisitor extends SceneVisitor {
               // of the classes or one of the interfaces.
               SootClass clazz = m.getDeclaringClass();
               while(!clazz.getName().toString().contains("Object")) {
-                if(clazz.getName().toString().contains("Iterator") ||
+                if (clazz.getName().toString().contains("Iterator") ||
                     clazz.getName().toString().contains("Enumeration")) {
                   setAssignable = true;
                 }
-                for(Object iface : clazz.getInterfaces()) {
-                  if(iface.toString().contains("Iterator") ||
+                for (Object iface : clazz.getInterfaces()) {
+                  if (iface.toString().contains("Iterator") ||
                      iface.toString().contains("Enumeration")) {
                     setAssignable = true;
                   }
@@ -181,22 +181,22 @@ public class HeuristicsVisitor extends SceneVisitor {
         // Field assignable if it is only assigned to in constructor and
         //  equals/hashCode/toString
         Set<SootMethod> writtenMethods = fieldWrittenMap.get(field);
-        if(writtenMethods == null) {
+        if (writtenMethods == null) {
           setAssignable = true; // not written to at all
-        } else if(onlyContainsObjectROMethods(writtenMethods)) {
+        } else if (onlyContainsObjectROMethods(writtenMethods)) {
           setAssignable = true;
         }
 
         // heuristic 2:
         // Field assignable if it is not read in equals/hashcode
-        if(!setAssignable) {
+        if (!setAssignable) {
           Set<SootMethod> readMethods = fieldReadMap.get(field);
-          if(readMethods == null) {
+          if (readMethods == null) {
             setAssignable = true; // not read at all
-          } else if(!readInEqualsHashCode(readMethods)){
+          } else if (!readInEqualsHashCode(readMethods)){
             // This heuristic only applies if class actually implements equals()
             // or hashCode
-            if(field.getDeclaringClass().declaresMethodByName("equals") ||
+            if (field.getDeclaringClass().declaresMethodByName("equals") ||
                field.getDeclaringClass().declaresMethodByName("hashCode")) {
               setAssignable = true;
             }
@@ -205,7 +205,7 @@ public class HeuristicsVisitor extends SceneVisitor {
 
         // Even if multiple heuristics recommend the field should be
         // assignable, only set it once.
-        if(setAssignable) {
+        if (setAssignable) {
           field.setAssignable(true);
         }
       }
@@ -217,9 +217,9 @@ public class HeuristicsVisitor extends SceneVisitor {
    * contains a subset of constructor, equals and hashCode
    */
   private boolean onlyContainsObjectROMethods(Set<SootMethod> methods) {
-    for(SootMethod method : methods) {
+    for (SootMethod method : methods) {
       String name = method.toString();
-      if(!(name.contains("<init>")
+      if (!(name.contains("<init>")
           || name.contains("equals")
           || name.contains("hashCode"))) {
         return false;
@@ -233,9 +233,9 @@ public class HeuristicsVisitor extends SceneVisitor {
    *  or hashCode methods.
    */
   private boolean readInEqualsHashCode(Set<SootMethod> methods) {
-    for(SootMethod method : methods) {
+    for (SootMethod method : methods) {
       String name = method.toString();
-      if(name.contains("equals") || name.contains("hashCode")) {
+      if (name.contains("equals") || name.contains("hashCode")) {
         return true;
       }
     }
@@ -249,7 +249,7 @@ public class HeuristicsVisitor extends SceneVisitor {
     // Add the mapping field -> method, vivifying the set of methods field
     //  maps to, if necessary.
     Set<SootMethod> methods = fieldWrittenMap.get(field);
-    if(methods == null) {
+    if (methods == null) {
       methods = new HashSet<SootMethod>();
       fieldWrittenMap.put(field, methods);
     }
@@ -263,7 +263,7 @@ public class HeuristicsVisitor extends SceneVisitor {
     // Add the mapping field -> method, vivifying the set of methods
     //  field maps to, if necessary.
     Set<SootMethod> methods = fieldReadMap.get(field);
-    if(methods == null) {
+    if (methods == null) {
       methods = new HashSet<SootMethod>();
       fieldReadMap.put(field, methods);
     }
@@ -275,7 +275,7 @@ public class HeuristicsVisitor extends SceneVisitor {
    */
   @Override
   public void visitClass(SootClass clazz) {
-    if(clazz.resolvingLevel() >= SootClass.BODIES) {
+    if (clazz.resolvingLevel() >= SootClass.BODIES) {
       classesAnalyzed.add(clazz);
       super.visitClass(clazz);
     }
@@ -322,7 +322,7 @@ public class HeuristicsVisitor extends SceneVisitor {
      */
     private void caseUnit(Unit unit) {
       List<ValueBox> boxes = (List<ValueBox>) unit.getUseBoxes();
-      for(ValueBox box : boxes) {
+      for (ValueBox box : boxes) {
         addPossibleFieldRead(box.getValue());
       }
     }
@@ -335,7 +335,7 @@ public class HeuristicsVisitor extends SceneVisitor {
      */
     private void caseStmt(Stmt stmt) {
       caseUnit(stmt);
-      if(stmt.containsFieldRef()) {
+      if (stmt.containsFieldRef()) {
         FieldRef fieldRef = stmt.getFieldRef();
         addPossibleFieldRead(fieldRef);
       }
@@ -349,7 +349,7 @@ public class HeuristicsVisitor extends SceneVisitor {
      * @param v the soot.Value that is being read
      */
     private void addPossibleFieldRead(Value v) {
-      if(v instanceof InstanceFieldRef) {
+      if (v instanceof InstanceFieldRef) {
         InstanceFieldRef ifr = (InstanceFieldRef) v;
         SootField field = ifr.getField();
         fuv.addFieldRead(field, enclosingMethod);
@@ -365,7 +365,7 @@ public class HeuristicsVisitor extends SceneVisitor {
     public void caseAssignStmt(AssignStmt stmt) {
       Value lhs = stmt.getLeftOp();
 
-      if(lhs instanceof InstanceFieldRef) {
+      if (lhs instanceof InstanceFieldRef) {
         InstanceFieldRef ifr = (InstanceFieldRef) lhs;
         SootField field = ifr.getField();
         fuv.addFieldWritten(field, enclosingMethod);
@@ -440,9 +440,9 @@ public class HeuristicsVisitor extends SceneVisitor {
       caseStmt(stmt);
 
       List<Unit> units = (List<Unit>) stmt.getTargets();
-      for(Unit unit : units) {
+      for (Unit unit : units) {
         caseUnit(unit);
-        if(unit instanceof Stmt) {
+        if (unit instanceof Stmt) {
           caseStmt((Stmt) unit);
         }
       }

@@ -24,11 +24,11 @@ public class TypeIndexer extends SceneVisitor {
     public static void index(JrType type) {
         index(type, TypeIndex.topLevel());
     }
-    
+
     public static void index(JrType type, TypeIndex top) {
         type.accept(new IndexerHelper(top));
     }
-    
+
     private static class IndexerHelper extends EmptyTypeVisitor {
 
         private IndexerHelper(TypeIndex top) {
@@ -42,7 +42,7 @@ public class TypeIndexer extends SceneVisitor {
             for (int i = 0; i < t.getTypeArgs().size(); i++) {
                 TypeArg targ = t.getTypeArgs().get(i);
                 // TODO:
-                if(t.declaringClassSig() == null) {
+                if (t.declaringClassSig() == null) {
                   return;
                 }
                 VarType param = t.declaringClassSig().getTypeParams().get(i).first();

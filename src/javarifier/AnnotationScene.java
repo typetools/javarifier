@@ -1,16 +1,13 @@
 package javarifier;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.util.Map;
 
 import org.objectweb.asm.ClassReader;
 
 import soot.Scene;
 import soot.SootClass;
-import annotations.SimpleAnnotation;
-import annotations.SimpleAnnotationFactory;
+import annotations.Annotation;
 import annotations.el.AClass;
 import annotations.el.AMethod;
 import annotations.el.AScene;
@@ -22,25 +19,25 @@ import annotations.io.ParseException;
 import annotations.io.classfile.ClassFileReader;
 
 public class AnnotationScene {
-    
+
     /** Singleton */
     private static final AnnotationScene v = new AnnotationScene();
     public static final AnnotationScene v() { return v; }
     private AnnotationScene() {}
-    
-    private AScene<SimpleAnnotation> scene = null;
+
+    private AScene scene = null;
     /**
      * Returns the {@link AScene} of the annotations on all the classes being
      * considered by the Javarifier.  Don't mutate the scene except for
      * vivifying things.
      */
-    public final AScene<SimpleAnnotation> scene() { return scene; }
-    
+    public final AScene scene() { return scene; }
+
     public void readAllAnnotations() {
 
       if (scene == null) {
-            AScene<SimpleAnnotation> scene1 =
-                new AScene<SimpleAnnotation>(SimpleAnnotationFactory.saf);
+            AScene scene1 =
+                new AScene();
             for (Object sc1 : Scene.v().getClasses()) {
                 SootClass sc = (SootClass) sc1;
                 ClassReader cr = ASMClassReaders.v().readerFor(sc.getName());
@@ -49,7 +46,7 @@ public class AnnotationScene {
             String extraIndexFile = Options.v().getExtraAnnotationInputFile();
             if (extraIndexFile != null) {
                 try {
-                    IndexFileParser.parse(new FileReader(extraIndexFile), scene1);
+                    IndexFileParser.parse(new LineNumberReader(new FileReader(extraIndexFile)), scene1);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 } catch (ParseException e) {
@@ -59,24 +56,24 @@ public class AnnotationScene {
             // Success
             scene = scene1;
             //TODO: debug
-            AClass<SimpleAnnotation> ac = scene.classes.vivify("java.util.Vector");
-            for(Map.Entry<String, AMethod<SimpleAnnotation>> e : ac.methods.entrySet()) {
-              if(e.getKey().toString().contains("removeElement(")) {
+            AClass ac = scene.classes.vivify("java.util.Vector");
+            for (Map.Entry<String, AMethod> e : ac.methods.entrySet()) {
+              if (e.getKey().toString().contains("removeElement(")) {
                 //System.out.println("found java.util.Vector.removeElement(Object)");
-                AMethod<SimpleAnnotation> am = e.getValue();
+                AMethod am = e.getValue();
                 int size = am.parameters.size();
                 //System.out.println("size: " + size);
-                for(Map.Entry<Integer, ATypeElement<SimpleAnnotation>> em : am.parameters.entrySet()) {
+                for (Map.Entry<Integer, ATypeElement> em : am.parameters.entrySet()) {
                   Integer i = em.getKey();
-                  ATypeElement<SimpleAnnotation> ate = em.getValue();
+                  ATypeElement ate = em.getValue();
                   //System.out.println("at param i: " + i);
                   //System.out.println("ate: " + ate.toString());
                 }
               }
             }
-            AMethod<SimpleAnnotation> am = ac.methods.get("removeElement");
+            AMethod am = ac.methods.get("removeElement");
             //System.out.println("found!");
-            
+
             if (Options.v().debugAnnotationLoading()) {
                 // Write out the annotations for debugging
                 System.out.println("Loaded annotations:");

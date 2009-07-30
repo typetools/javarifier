@@ -29,28 +29,28 @@ public class AnnotationLoader {
   /**
    * The annotation for the Javari assignable keyword.
    */
-  public static final String assignableAnnotation = 
+  public static final String assignableAnnotation =
     "checkers.javari.quals.Assignable";
-  
+
   /**
    * The annotation for syntactic sugar on a class indicating that all
    * methods have a readonly receiver.
    */
-  public static final String unmodifiableAnnotation = 
+  public static final String unmodifiableAnnotation =
     "checkers.javari.quals.Unmodifiable";
 
   /**
    * Returns whether the class is always an unmodifiable class.
-   * 
+   *
    * @param className - the fully-qualified name of the class to examine
    */
   static boolean classIsUnmodifiable(String className) {
-    AClass<SimpleAnnotation> clazz = 
+    AClass clazz =
       AnnotationScene.v().scene().classes.vivify(className);
     boolean unmodifiable = false;
-    if(clazz.lookupAnnotation(unmodifiableAnnotation) != null) {
+    if (clazz.lookup(unmodifiableAnnotation) != null) {
       unmodifiable = true;
-    } else if(clazz.lookupAnnotation(Mutability.READONLY.annotation()) 
+    } else if (clazz.lookup(Mutability.READONLY.annotation())
         != null) {
       unmodifiable = true;
     }
@@ -67,7 +67,7 @@ public class AnnotationLoader {
   }
 
   /**
-   * Loads all annotations for program and stub classes in the scene by 
+   * Loads all annotations for program and stub classes in the scene by
    * looking in the corresponding class files.
    */
   public static void loadAllAnnotations(Scene scene) {
@@ -86,14 +86,14 @@ public class AnnotationLoader {
    * mutabilities in stub classes, while unspecified mutabilities in
    * non-stub classes are left as {@link Mutability#UNKNOWN} so that
    * the Javarifier can infer them.
-   * 
+   *
    * <p>
    * This method now considers all mutabilities of all bounds and desugars
    * {@link Mutability#QUESTION_RO}.
    */
   private static void loadAnnotations(SootClass sc) {
     try {
-      AClass<?> ac = AnnotationScene.v().scene().classes.vivify(sc.getName());
+      AClass ac = AnnotationScene.v().scene().classes.vivify(sc.getName());
       loadClass(sc, ac);
     } catch (RuntimeException e) {
       throw wrap(e, "class " + sc.getName());
@@ -104,12 +104,12 @@ public class AnnotationLoader {
    * Loads all the annotations from the given annotation scene library class
    * into the given SootClass.
    */
-  private static void loadClass(SootClass sc, AClass<?> ac) {
+  private static void loadClass(SootClass sc, AClass ac) {
     boolean isStub = (sc.entryKind() == EntryKind.STUB) ||
     Options.v().justPassThrough();
 
-    if(sc.resolvingLevel() == SootClass.DANGLING) {
-      if(Options.v().debugStubs()) {
+    if (sc.resolvingLevel() == SootClass.DANGLING) {
+      if (Options.v().debugStubs()) {
         System.out.println("AnnotationLoader skipping dangling class: " + sc);
       }
       return;
@@ -124,7 +124,7 @@ public class AnnotationLoader {
       for (Object sf1 : sc.getFields()) {
         SootField sf = (SootField) sf1; // emulate an erasure-change cast
         annoFieldsLeft.remove(sf.getName());
-        ATypeElement<?> af = ac.fields.vivify(sf.getName());
+        ATypeElement af = ac.fields.vivify(sf.getName());
         try {
           loadField(sf, af, isStub);
         } catch (RuntimeException e) {
@@ -139,7 +139,7 @@ public class AnnotationLoader {
         String methodSig = AbstractJasminClass.jasminDescriptorOf(sm.makeRef());
         String methodKey = sm.getName() + methodSig;
         annoMethodsLeft.remove(methodKey);
-        AMethod<?> am = ac.methods.vivify(methodKey);
+        AMethod am = ac.methods.vivify(methodKey);
         try {
           loadMethod(sm, am, isStub);
         } catch (RuntimeException e) {
@@ -154,12 +154,12 @@ public class AnnotationLoader {
   /**
    * Loads all the annotations (in the signature and in the body) from the
    * method in the annotation scene library into the given SootMethod.
-   * 
+   *
    * @param sm - the method to load annotations into
    * @param am - the annotation scene library method to load annotations from
    * @param isStub - whether this method is in a stub class
    */
-  private static void loadMethod(SootMethod sm, AMethod<?> am, boolean isStub) {
+  private static void loadMethod(SootMethod sm, AMethod am, boolean isStub) {
     MethodSig ms = sm.getSig();
     loadTypeParameters(ms.getTypeParams(), am.bounds, isStub,
         Mutability.READONLY);
@@ -170,7 +170,7 @@ public class AnnotationLoader {
     }
     if (sm.isStatic()) {
       if (!am.receiver.prune()) {
-        // Do not throw exception if receiver of static method is 
+        // Do not throw exception if receiver of static method is
         // @ReadOnly.  That should be a valid, although useless,
         // annotation.
         // throw notThere("receiver");
@@ -188,7 +188,7 @@ public class AnnotationLoader {
     for (int i = 0; i < dParams.size(); i++) {
       JrType dParam = dParams.get(i);
       annoParamsLeft.remove(i);
-      ATypeElement<?> sParam = am.parameters.vivify(i);
+      ATypeElement sParam = am.parameters.vivify(i);
       try {
         loadType(dParam, sParam,
             isStub, Mutability.MUTABLE, false);
@@ -231,14 +231,14 @@ public class AnnotationLoader {
    * Note that assignable annotations are also loaded by calling
    * SootField.setAssignable(boolean) if appropriate.
    */
-  private static void loadField(SootField sf, ATypeElement<?> af,
+  private static void loadField(SootField sf, ATypeElement af,
       boolean isStub) {
     Mutability defmut;
     defmut = classIsUnmodifiable(sf.getDeclaringClass().getName())
     ? Mutability.READONLY
         : (sf.isStatic() ? Mutability.MUTABLE : Mutability.THIS_MUTABLE);
     loadType(sf.getJrType(), af, isStub, defmut, true);
-    if (af.lookupAnnotation(assignableAnnotation) != null)
+    if (af.lookup(assignableAnnotation) != null)
       sf.setAssignable(true);
   }
 
@@ -246,17 +246,17 @@ public class AnnotationLoader {
   /**
    * Loads all the annotations from the given element in the scene library
    * into the given JrType.
-   * 
+   *
    * @param dest - the JrType to write elements to
    * @param source - the element to load annotations from
    * @param isStub - whether this is in a stub class
    * @param defmut - the default mutability
    * @param isField - whether the given element represents a field
    */
-  private static <A extends Annotation>
-  void loadType(JrType dest, ATypeElement<A> source,
+  private static
+  void loadType(JrType dest, ATypeElement source,
       boolean isStub, Mutability defmut, boolean isField) {
-    new JrTypeASTMapper<A>(isStub, defmut, isField).traverse(dest, source);
+    new JrTypeASTMapper(isStub, defmut, isField).traverse(dest, source);
     expandType(dest);
     desugarQuestionRo(dest);
   }
@@ -264,15 +264,15 @@ public class AnnotationLoader {
   /**
    * Loads all the annotations from the given bound map from the annotation
    * scene library into <code>jtp</code> to be made into a TypeIndex later.
-   * 
+   *
    * @param jtp - the types to write to
    * @param atp - the map containing annotations on bounds
    * @param isStub - whether this is in a stub class
    * @param defmut - the default mutability
    */
-  private static <A extends Annotation>
+  private static
   void loadTypeParameters(List<Pair<VarType, JrType>> jtp,
-      VivifyingMap<BoundLocation, ATypeElement<A>> atp,
+      VivifyingMap<BoundLocation, ATypeElement> atp,
       boolean isStub, Mutability defmut) {
     Set<BoundLocation> annoBLsLeft = new HashSet<BoundLocation>(atp.keySet());
     for (int i = 0; i < jtp.size(); i++) {
@@ -281,7 +281,7 @@ public class AnnotationLoader {
       // For now, we just load the first bound.
       BoundLocation bl = new BoundLocation(i, 0);
       annoBLsLeft.remove(bl);
-      ATypeElement<A> bound = atp.vivify(bl);
+      ATypeElement bound = atp.vivify(bl);
       try {
         loadType(jtp.get(i).second(), bound,
             isStub, defmut, false);
@@ -307,27 +307,27 @@ public class AnnotationLoader {
   /**
    * Loads all the annotations from a given element from the annotation
    * scene library into the given JrType.
-   * 
+   *
    * @param dest - the JrType to write elements to
    * @param source - the element to load annotations from
    * @param isStub - whether this is in a stub class
    * @param defmut - the default mutability
    * @param isField - whether the given element represents a field
    */
-  static void loadTypeLayer(JrType dest, AElement<?> source,
+  static void loadTypeLayer(JrType dest, AElement source,
       boolean isStub, Mutability defmut, boolean isField) {
     Mutability m = null;
 
     // Iterate through each possible Mutability and lookup each one
     // to make sure source only has one mutability annotation on it.
     for (Mutability mut : Mutability.values()) {
-      if (source.lookupAnnotation(mut.annotation()) != null) {
+      if (source.lookup(mut.annotation()) != null) {
         if (m == null)
           m = mut;
         else {
           throw new RuntimeException("Two different mutability annotations " +
-          		"on the same element: dest: " + dest + "  source: " + source + 
-          		"  isStub: " + isStub + "  defmut: " + defmut + 
+          		"on the same element: dest: " + dest + "  source: " + source +
+          		"  isStub: " + isStub + "  defmut: " + defmut +
           		"  isField: " + isField);
         }
       }
@@ -354,7 +354,7 @@ public class AnnotationLoader {
   }
 
   /**
-   * If the lower bound of the given type argument 
+   * If the lower bound of the given type argument
    * is unrestricted (a null type), this returns
    * the upper bound.  Else, returns the lower bound.
    */
@@ -367,30 +367,29 @@ public class AnnotationLoader {
 
   /**
    * This class is a mapper that loads the annotations anywhere in a
-   * type from an element in the annotation scene library into 
+   * type from an element in the annotation scene library into
    * a JrType.
    */
-  static class JrTypeASTMapper<A extends Annotation>
-  extends TypeASTMapper<A, JrType> {
+  static class JrTypeASTMapper extends TypeASTMapper<JrType> {
 
     /**
      * Whether the class being loaded is a stub.
      */
     final boolean isStub;
-    
+
     /**
      * The default mutability for unannotated types.
      */
     final Mutability defmut;
-    
+
     /**
      * Whether it is a field that is being loaded.
      */
     final boolean isField;
-    
+
     /**
      * Constructs a new mapper to load the annotations on a new type.
-     * 
+     *
      * @param isStub - whether the class being loaded is a stub
      * @param defmut - the default mutability for unannotated types
      * @param isField - whether it is a field that is being loaded
@@ -426,7 +425,7 @@ public class AnnotationLoader {
      * Loads all the types from the given AElement to the given JrType.
      */
     @Override
-    protected void map(JrType type, AElement<A> element) {
+    protected void map(JrType type, AElement element) {
       loadTypeLayer(type, element, isStub, defmut, isField);
     }
 
@@ -498,7 +497,7 @@ public class AnnotationLoader {
 
   /**
    * Expands the given type by expanding any base types (if it is an array)
-   * and any type arguments (if it is a class type).  
+   * and any type arguments (if it is a class type).
    * See expandTypeArg(TypeArg).
    */
   private static void expandType(JrType t) {
@@ -515,7 +514,7 @@ public class AnnotationLoader {
 
   /**
    * Replaces any {@link Mutability#QUESTION_RO} mutabilities in the
-   * upper or lower bounds in the given type argument with the 
+   * upper or lower bounds in the given type argument with the
    * {@link Mutability#MUTABLE} mutability.
    */
   private static void replaceQuestionRo(TypeArg targ) {
@@ -551,7 +550,7 @@ public class AnnotationLoader {
    * Desugars the given type argument.  If the type argument has
    * the {@link Mutability#QUESTION_RO} mutability, it sets the upper
    * mutability to {@link Mutability#READONLY} and the lower
-   * mutability to {@link Mutability#MUTABLE}.  It also 
+   * mutability to {@link Mutability#MUTABLE}.  It also
    * transitively desugars the upper and lower bounds.
    */
   private static void desugarQuestionRo(TypeArg targ) {
@@ -572,7 +571,7 @@ public class AnnotationLoader {
   }
 
   /**
-   * Desugars the input type.  
+   * Desugars the input type.
    * See desugarQuestionRo(TypeArg).
    */
   private static void desugarQuestionRo(JrType t) {

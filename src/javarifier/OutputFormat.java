@@ -11,8 +11,7 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import annotations.SimpleAnnotation;
-import annotations.SimpleAnnotationFactory;
+import annotations.Annotation;
 import annotations.el.AScene;
 import annotations.el.DefException;
 import annotations.io.IndexFileWriter;
@@ -38,8 +37,7 @@ public enum OutputFormat {
         @Override
         public void write(Scene scene, Writer out) throws IOException {
             Collection<SootClass> classes = collectClasses(scene);
-            AScene<SimpleAnnotation> ascene =
-                new AScene<SimpleAnnotation>(SimpleAnnotationFactory.saf);
+            AScene ascene = new AScene();
             for (SootClass clazz : classes)
                 AnnotationStorer.storeAnnotations(clazz, ascene);
             try {
@@ -65,13 +63,12 @@ public enum OutputFormat {
             mutablesOut.close();
         }
     },
-    
-    SHAY {        
+
+    SHAY {
       @Override
       public void write(Scene scene, Writer out) throws IOException {
       Collection<SootClass> classes = collectClasses(scene);
-      AScene<SimpleAnnotation> ascene =
-          new AScene<SimpleAnnotation>(SimpleAnnotationFactory.saf);
+      AScene ascene = new AScene();
       for (SootClass clazz : classes)
           AnnotationStorer.storeAnnotations(clazz, ascene);
       try {

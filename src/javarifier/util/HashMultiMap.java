@@ -56,7 +56,7 @@ public class HashMultiMap<K, V> implements MultiMap<K, V>  {
 		Iterator<Set<V>> it = m.values().iterator();
 		while( it.hasNext() ) {
 			Set<V> s = it.next();
-			if( s.contains( value ) ) return true;
+			if ( s.contains( value ) ) return true;
 		}
 		return false;
 	}
@@ -65,7 +65,7 @@ public class HashMultiMap<K, V> implements MultiMap<K, V>  {
 	}
 	private Set<V> findSet( K key ) {
 		Set<V> s = m.get( key );
-		if( s == null ) {
+		if ( s == null ) {
 			s = newSet();
 			m.put( key, s );
 		}
@@ -89,9 +89,9 @@ public class HashMultiMap<K, V> implements MultiMap<K, V>  {
 	 */
 	public boolean remove( K key, V value ) {
 		Set<V> s =  m.get( key );
-		if( s == null ) return false;
+		if ( s == null ) return false;
 		boolean ret = s.remove( value );
-		if( s.isEmpty() ) {
+		if ( s.isEmpty() ) {
 			m.remove( key );
 		}
 		return ret;
@@ -107,9 +107,9 @@ public class HashMultiMap<K, V> implements MultiMap<K, V>  {
 	 */
 	public boolean removeAll( K key, Set<V> values ) {
 		Set<V> s = m.get( key );
-		if( s == null ) return false;
+		if ( s == null ) return false;
 		boolean ret = s.removeAll( values );
-		if( s.isEmpty() ) {
+		if ( s.isEmpty() ) {
 			m.remove( key );
 		}
 		return ret;
@@ -128,7 +128,7 @@ public class HashMultiMap<K, V> implements MultiMap<K, V>  {
 	 */
 	public Set<V> get( Object o ) {
 		Set<V> ret = m.get( o );
-		if( ret == null ) return Collections.emptySet();
+		if ( ret == null ) return Collections.emptySet();
 		return Collections.unmodifiableSet(ret);
 	}
 	/* (non-Javadoc)
@@ -153,14 +153,14 @@ public class HashMultiMap<K, V> implements MultiMap<K, V>  {
 	 * @see javarifier.MultiMap#equals(java.lang.Object)
 	 */
 	public boolean equals( Object o ) {
-		if( ! (o instanceof HashMultiMap) ) return false;
+		if ( ! (o instanceof HashMultiMap) ) return false;
 		MultiMap<?, ?> mm = (MultiMap<?, ?>) o;
-		if( !keySet().equals( mm.keySet() ) ) return false;
+		if ( !keySet().equals( mm.keySet() ) ) return false;
 		Iterator<Map.Entry<K, Set<V>>> it = m.entrySet().iterator();
 		while( it.hasNext() ) {
 			Map.Entry<K, Set<V>> e = it.next();
 			Set<V> s = e.getValue();
-			if( !s.equals( mm.get( e.getKey() ) ) ) return false;
+			if ( !s.equals( mm.get( e.getKey() ) ) ) return false;
 		}
 		return true;
 	}

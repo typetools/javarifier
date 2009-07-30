@@ -38,7 +38,7 @@ public class RepChecker extends SceneVisitor {
         public void visitClassType(ClassType classType) {
             checkJrType(classType);
             // TODO:
-            if(classType.getBaseClass() == null) {
+            if (classType.getBaseClass() == null) {
               return;
             }
             if (classType.getTypeArgs().size() !=

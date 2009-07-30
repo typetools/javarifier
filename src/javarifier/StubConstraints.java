@@ -27,7 +27,7 @@ public class StubConstraints extends SceneVisitor {
     }
 
     public void visitClass(SootClass sc) {
-      if(sc.entryKind() == null) {
+      if (sc.entryKind() == null) {
         throw new RuntimeException("Unknown entry kind for class: " + sc);
       }
         if (sc.entryKind() == EntryKind.STUB) {
@@ -45,10 +45,10 @@ public class StubConstraints extends SceneVisitor {
 
         public static void generate(JrTyped typed, ConstraintManager cm) {
           JrType type = typed.getJrType();
-          if(type instanceof MutType) {
+          if (type instanceof MutType) {
             MutType mutType = (MutType) type;
-            if(mutType.getMutability().equals(Mutability.UNKNOWN)) {
-              if(Options.v().debugStubs()) {
+            if (mutType.getMutability().equals(Mutability.UNKNOWN)) {
+              if (Options.v().debugStubs()) {
                 System.out.println("recognized unknown mutability constraint, converting to mutable: " + typed + " with type: " + typed.getJrType());
               }
               mutType.setMutability(Mutability.MUTABLE);
@@ -87,7 +87,7 @@ public class StubConstraints extends SceneVisitor {
             case READONLY :
                 break;
             default :
-              // TODO: (?) : 
+              // TODO: (?) :
                 // throw new RuntimeException("StubConstraints: unknown MutType");
             }
 

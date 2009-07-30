@@ -23,8 +23,8 @@ public class TypeInitializer extends SceneVisitor {
     }
     private static boolean hasRun = false;
     public static boolean hasRun() { return hasRun; }
- 
-    
+
+
     public void visitScene(Scene s) {
     	// Must process classes from outermost to innermost
     	// for ClassSigature adding code to work.
@@ -34,13 +34,13 @@ public class TypeInitializer extends SceneVisitor {
 //    	while (worklist.size() != 0) {
 //    		for (int i = 0; i < worklist.size(); i++) {
 //				SootClass clazz = worklist.get(i);
-//				
+//
 //				if (clazz.resolvingLevel() < SootClass.HIERARCHY) {
 //					worklist.remove(i);
 //					i--;
 //					continue;
 //				}
-//				
+//
 //				if (clazz.hasOuterClass()
 //						&& !orderedClasses.contains(clazz.getOuterClass())) {
 //					continue;
@@ -52,27 +52,27 @@ public class TypeInitializer extends SceneVisitor {
 //    	}
       while(worklist.size() != 0) {
         toRemove.clear();
-        for(SootClass c : worklist) {
-          if(c.resolvingLevel() < SootClass.HIERARCHY) {
+        for (SootClass c : worklist) {
+          if (c.resolvingLevel() < SootClass.HIERARCHY) {
             toRemove.add(c);
           } else {
-            if(c.hasOuterClass() && !orderedClasses.contains(c.getOuterClass())) {
+            if (c.hasOuterClass() && !orderedClasses.contains(c.getOuterClass())) {
               continue;
             }
             orderedClasses.add(c);
             toRemove.add(c);
           }
         }
-        
+
         worklist.removeAll(toRemove);
       }
-      
+
     	for (SootClass clazz : orderedClasses) {
     		visitClass(clazz);
     	}
         hasRun = true;
     }
-    
+
     @Override
     public void visitClass(SootClass sc) {
         if (Options.v().debugResolver()) {
@@ -95,11 +95,11 @@ public class TypeInitializer extends SceneVisitor {
         	classSignature.add(sc.getOuterClass().getSig());
         }
         sc.setSig(classSignature);
-        
+
         asmLocalCreator = null;
         super.visitClass(sc);
     }
-    
+
     @Override
     public void visitField(SootField field) {
         // Add JrType to fields
@@ -114,9 +114,9 @@ public class TypeInitializer extends SceneVisitor {
         	field.setJrType(field.getDeclaringClass().getOuterClass().getSig().getThisType().copy());
         }
     }
-    
+
     ASMLocalCreator asmLocalCreator;
-    
+
     @Override
     public void visitMethod(SootMethod method) {
         // Add method signatures to methods
@@ -131,24 +131,24 @@ public class TypeInitializer extends SceneVisitor {
             // (Ljava.lang.ParamType;)Ljava.util.ReturnType;
             sig = method.getBytecodeSignature();
             sig = sig.substring(sig.indexOf('('), sig.length()-1);
-            
-        	
+
+
         } else {
         	sig = sTag.getSignature();
         }
-        
-        
+
+
         // Instead of always creating a new method signature, check to see
         // if the signature has already been set, and if so, use that one.
         MethodSig methSig = null;
-        if(method.hasMethodSigSet()) {
+        if (method.hasMethodSigSet()) {
           methSig = method.getSig();
         } else {
           methSig = JVMLSigParser.parseMethodSig(sig, method.getDeclaringClass().getSig().getThisType().copy());
         }
         methSig.setOwner(method);
-        
-        if (method.getName().equals("<init>") && 
+
+        if (method.getName().equals("<init>") &&
         	method.getDeclaringClass().hasOuterClass() &&
         	! method.getDeclaringClass().isStatic()) {
         	// Inner class constructors have the form:
@@ -160,27 +160,27 @@ public class TypeInitializer extends SceneVisitor {
           JrType jrtype = null;
           try {
             jrtype = methSig.getParams().get(0);
-            if(jrtype instanceof ClassType) {
+            if (jrtype instanceof ClassType) {
               outerClassType = (ClassType) jrtype; // The first argument is the outerclass reference
             }
           } catch(Exception e) {
             throw new RuntimeException(
-                "\n TypeInitializer.visitMethod: methSig.getParam() returned something other than ClassType: " 
+                "\n TypeInitializer.visitMethod: methSig.getParam() returned something other than ClassType: "
                 + "\n   from method: " + method.getName() + " with signature: " + methSig.toString()
                 + "\n   first parameter has "
                 + "class: " + jrtype.getClass().toString() + " value: " + jrtype.toString(), e);
           }
-          if(outerClassType != null) {
+          if (outerClassType != null) {
                 ClassType fixedOuterRef = method.getDeclaringClass().getOuterClass().getSig().getThisType().copy();
         	if (! outerClassType.getBaseType().equals(fixedOuterRef.getBaseType())) {
             // jaime: don't throw exception, silently ignore
 //            System.out.println("\n TypeInitializer.visitMethod: problem with class: " + jaime_sc);
 //        		throw new RuntimeException("\n TypeInitializer.visitMethod: mismatch between class types: "
-//                + "\n    outer class type: " + outerClassType 
+//                + "\n    outer class type: " + outerClassType
 //                + "\n    fixedOuterRef: " + fixedOuterRef);
           }
         	methSig.getParams().set(0, fixedOuterRef);
-          
+
           }
         }
         if (method.getName().equals("<init>") &&
@@ -196,11 +196,11 @@ public class TypeInitializer extends SceneVisitor {
                             Collections.<TypeArg>emptyList()));
             methSig.getParams().add(1, new JrType.PrimType());
         }
-      
+
         method.setSig(methSig);
         super.visitMethod(method);
     }
-    
+
     @Override
     public void visitBody(Body body) {
         SootMethod sm = body.getMethod();
@@ -223,7 +223,7 @@ public class TypeInitializer extends SceneVisitor {
             }
         }
     }
-    
+
     // Don't process the signature here because:
     // (1) we already did what we need to do in visitClass
     // (2) SceneVisitor will try to recurse into bounds and will crash
@@ -231,7 +231,7 @@ public class TypeInitializer extends SceneVisitor {
     @Override
     public void visitClassSig(ClassSig cs) {
     }
-    
+
     // Don't process the signature here because:
     // (1) we already did what we need to do in visitMethod
     // (2) SceneVisitor will try to recurse into bounds and will crash
@@ -239,6 +239,6 @@ public class TypeInitializer extends SceneVisitor {
     @Override
     public void visitMethodSig(MethodSig ms) {
     }
-    
- 
+
+
 }

@@ -10,7 +10,7 @@ public class Param implements JrTyped {
     private int index;
 
     public Param(SootMethod meth, JrType type, int index) {
-      //if(meth.toString().contains("Vector") && meth.toString().contains("removeElement(")) {
+      //if (meth.toString().contains("Vector") && meth.toString().contains("removeElement(")) {
       //  System.out.println("forming bad param");
       //}
         this.meth = meth;

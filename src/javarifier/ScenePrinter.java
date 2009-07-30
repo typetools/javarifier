@@ -90,7 +90,7 @@ public class ScenePrinter extends SceneVisitor {
     private String typeAsKind(JrType type, String kind) {
         if (Options.v().outputLimitKind() == null
                 || Options.v().outputLimitKind().equals(kind)) {
-          if(type == null)  {
+          if (type == null)  {
             return "omitted";
           }
             return type.toString();

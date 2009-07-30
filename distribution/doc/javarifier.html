@@ -7,9 +7,6 @@
 </head>
 <body>
 <h1>Javarifier: Inference of reference immutability for Javari</h1>
-<p>
-Developed by the Javari team (<a href="mailto:javari@csail.mit.edu">javari@csail.mit.edu</a>).
-</p>
 
 <p>Contents:</p>
 <!-- start toc.  do not edit; run html-update-toc instead -->
@@ -50,7 +47,7 @@ with backward-compatible comments, or annotates <code>.class</code> files
 with backward-compatible attributes.
 The algorithm for inferring Javari reference immutability is explained
 in the paper
-<a href="http://groups.csail.mit.edu/pag/pubs/infer-refimmutability-ecoop2008-abstract.html">"Inference
+<a href="http://www.cs.washington.edu/homes/mernst/pubs/infer-refimmutability-ecoop2008-abstract.html">"Inference
   of reference immutability"</a>, which appeared at ECOOP 2008.
 </p>
 
@@ -70,16 +67,16 @@ error-prone.  Javarifier automatically performs this analysis.
 Javarifier reads a set of Java classes to
 analyze (in <code>.class</code> format) and infers the (im)mutability of
 every reference.  It outputs the inferred mutabilities in an
-<a href="http://groups.csail.mit.edu/pag/jsr308/annotation-file-utilities/">annotation
+<a href="http://types.cs.washington.edu/annotation-file-utilities/">annotation
 file</a>, a textual file format for describing annotations
 of Java programs; the input class files are not
 modified.  These annotations can be used directly, or inserted into either the
 <code>.class</code> files or the corresponding <code>.java</code>
 files using the
-<a href="http://pag.csail.mit.edu/jsr308/annotation-file-utilities/">annotation
+<a href="http://types.cs.washington.edu/annotation-file-utilities/">annotation
 file utilities</a>.  If Javari annotations are inserted into the source
 code, they can be checked by the 
-<a href="http://pag.csail.mit.edu/jsr308/#Download">Javari type
+<a href="http://types.cs.washington.edu/checker-framework">Javari type
 checker</a>.
 </p>
 
@@ -88,7 +85,7 @@ checker</a>.
 In earlier versions of Javari, methods must be invariant in the mutability
 of their parameters and return types.  The newer definition of Javari used
 by both Javarifier and the
-<a href="http://pag.csail.mit.edu/jsr308/#Download">Javari type checker</a> 
+<a href="http://types.cs.washington.edu/checker-framework">Javari type checker</a> 
 permits covariant subtyping on parameters and contra-variant subtyping on
 return types.
 </p>
@@ -102,8 +99,7 @@ it analyzes.  If any type is already annotated as <code>@ReadOnly</code>,
 Javarifier uses this annotation to determine the mutability of other types
 and does not change the existing <code>@ReadOnly</code> annotation.  This
 mechanism is how Javarifier infers annotations on a program that uses libraries
-that have already been annotated using stub classes (also known as <a
-href="http://groups.csail.mit.edu/pag/jsr308/current/checkers-manual.html#skeleton">skeleton classes</a>).
+that have already been annotated using stub classes.
 </p>
 	 
 	 
@@ -118,7 +114,7 @@ released April 27, 2008.  </p>
 <ol>
 <li>
   Download 
-  <a href="http://pag.csail.mit.edu/javari/javarifier/javarifier.zip">javarifier.zip</a>.
+  <a href=""http://types.cs.washington.edu/javarifier/javarifier.zip">javarifier.zip</a>.
 </li>
 
 <li>
@@ -238,7 +234,7 @@ javarifier myPackage.myClassTwo -programCPEntries /path/to/classes1:/path/to/cla
 
 <p>
 By default, all output, including the results, is printed to standard
-out.  To output the results to an <a href="http://pag.csail.mit.edu/jsr308/annotation-file-utilities/">annotation file</a>, use the
+out.  To output the results to an <a href="http://types.cs.washington.edu/annotation-file-utilities/">annotation file</a>, use the
 <code>-output</code> option, followed by the name of the output file.
 Note that Javarifier outputs the results for all classes into a single
 file.  For example:
@@ -263,9 +259,7 @@ the classpath of your JDK jarfiles.  For example:
 
 <h3 id="using-stubs">Using stub classes</h3>
 
-<p>A stub class (or <a
-href="http://groups.csail.mit.edu/pag/jsr308/current/checkers-manual.html#skeleton">skeleton
-class</a>) gives Javari types for an external library.
+<p>A stub class gives Javari types for an external library.
 Javarifier comes with annotated versions of part of the JDK, in directory
 <code>annotated-jdk</code>.
 </p>
@@ -293,7 +287,7 @@ classes).
     The class file must contain the Javari annotations.  This is automatic
     if you use the JSR 308 compiler to compile a Javari program, or you can
     use the <a
-    href="http://pag.csail.mit.edu/jsr308/annotation-file-utilities/">annotation
+    href="http://types.cs.washington.edu/annotation-file-utilities/">annotation
     file utilities</a> to insert the annotations in any Java
     <code>.class</code> file.
   </li>
@@ -431,7 +425,7 @@ constraints were generated).
 <p>
 For more details about the constraints, see the
 paper <a 
-href="http://people.csail.mit.edu/mernst/pubs/infer-refimmutability-ecoop2008-abstract.html">"Inference
+href="http://www.cs.washington.edu/homes/mernst/pubs/infer-refimmutability-ecoop2008-abstract.html">"Inference
 of reference immutability"</a>.
 Contact us if you need more help understanding the
 constraints.
@@ -447,31 +441,19 @@ indicate whether the tests passed or failed.
 <h2 id="feedback"> Feedback </h2>
 
 <p>
-Please send questions, comments, bug reports and feature requests
-to <a href="mailto:javari@csail.mit.edu"> javari@csail.mit.edu</a>.
+If you encounter a problem in Javarifier, please submit a bug report via
+its <a href="http://code.google.com/p/javarifier/issues">issue tracker</a>.
 When reporting bugs, please help us to resolve the issue quickly by
 including the complete
 output of Javarifier, and exact instructions of how to
 reproduce a bug (including all necessary input files).
 </p>
 
-<!--
-I've commented this out because it makes Javarifier sound useless; if I
-  read this, I wouldn't even want to try it.  Feel free to reinstate this
-  section if you have specific bugs that you can discuss.  (For example,
-  why would you *want* to run Javarifier on the JDK?)
--MDE 3/11/2008.
--->
-
-<!-- <h3 id="bugs"> Known Bugs/Limitations </h3>
-
 <p>
-This is a prototype implementation that works on many programs,
-but also crashes on many other programs.  In particular, it does not
-yet work on the JDK.  Javarifier is still under active
-development.
+Other  questions, comments,  and feature requests
+can be sent to <a href="mailto:javarifier-dev@googlegroups.com">javarifier-dev@googlegroups.com</a>.
 </p>
--->
+
 
 <h3 id="update-log"> Update Log </h3>
 
