@@ -1,7 +1,13 @@
 <?xml version="1.0"?>
-<project name="javarifier">
-  <description>
-    Rules for building and testing Javarifier.
+
+<!-- Ant build file for making the distribution of javarifier.
+     Properties listed up front are for collecting the files to
+      include in the distribution, while the init-dependencies task actually
+      goes into each project and builds those files.
+-->
+<project name="javarifier-distribution">
+   <description>
+    Creates Javarifier distribution.
     For a list of targets, run:  ant -projecthelp
   </description>
 
@@ -84,16 +90,17 @@
       <ant dir="${asmx}" target="bin"/>
       <ant dir="${annotations-compiler}" antfile="make/build.xml"
           inheritAll="false" target="build"/>
+      <ant dir="${annotator}" target="bin"/>
       <ant dir="${checkers}" target="build"/>
       <ant dir="${checkers}" target="build-javari-jdk"/>
-<!--      <ant dir="${javarifier}" target="bin"/> -->
+      <ant dir="${javarifier}" target="bin"/>
   </target>
 
   <target name="init" depends="init-properties, build-dependencies"
     description="Initialize properties and build required projects">
   </target>
 
-  <target name="jarfile" depends="init,clean,bin"
+  <target name="jarfile" depends="init,clean"
     description="Build jarfile containing all Javarifier classes.">
 
     <echo message="Using temporary directory: ${temp-bin}"/>
@@ -102,7 +109,8 @@
     <echo message="Copying over necessary files to ${temp-bin}"/>
     <copy todir="${temp-bin}">
       <fileset dir="${asmx}/bin" excludes="tmp/**"/>
-      <fileset dir="${scene-lib}/bin" />
+      <fileset dir="${annotations-shared}/bin" />
+      <fileset dir="${annotation-scene-lib}/bin" />
       <fileset dir="${javarifier}/bin" />
     </copy>
 
@@ -110,7 +118,7 @@
          scripts and documentation -->
     <echo message="Creating jarfile javarifier.jar"/>
     <jar
-      destfile="${javarifier}/javarifier.jar">
+      destfile="${javarifier}/distribution/javarifier.jar">
       <fileset dir="${temp-bin}"/>
     </jar>
 
@@ -240,10 +248,7 @@
 
   <target name="run-tests" depends="init-properties"
     description="Runs Javarifier test cases">
-    <exec executable="make">
-      <arg value="-C"/>
-      <arg value="${javarifier}/tests"/>
-    </exec>
+    <exec dir="${javarifier}/tests" executable="make"/>
   </target>
 
   <target name="etags" depends="tags">

@@ -36,11 +36,11 @@ public class VerifyDiffs {
             for(File f : allDiffs) {
               FileReader fr = new FileReader(f);
               if(fr.read() != -1) { // if not empty, output error message
-                System.out.println(f.toString() + "...FAILED");
+                System.out.println(f.toString() + " ...FAILED");
                 pass = false;
               } else {
                 if(VerifyDiffs.show_all) {
-                  System.out.println(f.toString() + "...OK");
+                  System.out.println(f.toString() + " ...OK");
                 }
               }
               fr.close();
@@ -60,11 +60,11 @@ public class VerifyDiffs {
             System.exit(1);
         }
     }
-    
+
     /**
      * Recursively adds all files in directory dir ending in .diff to
      * the list diffs.
-     * 
+     *
      * @param diffs the array to place all diff files in
      * @param dir the directory to start gathering diffs
      */

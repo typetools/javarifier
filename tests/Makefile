@@ -9,8 +9,9 @@
 
 SHELL = /bin/sh
 
-DIFFS := $(wildcard *.goal)
-DIFFS := $(patsubst %.goal, %.diff, $(DIFFS))
+DIFFS := $(patsubst %.goal, %.diff, $(wildcard *.goal))
+
+JAVARIFIER ?= ../scripts/javarifier
 
 default : all
 
@@ -20,7 +21,7 @@ all : clean compile $(DIFFS) jolden htmlparser tinySQL eclipsec results
 
 # Compile all the tests cases together to resolve dependencies.
 compile :
-	javac -cp .:${CLASSPATH} -g -d . *.java
+	javac -cp . -g -d . *.java
 
 # Runs Javarifier on the Jolden case studies by running a separate
 # Makefile similar to this one.
@@ -76,11 +77,9 @@ VerifyDiffs.class : VerifyDiffs.java
 	@javac VerifyDiffs.java
 
 # Actually runs the Javarifier to create the inferences.
-# Use ${PWD}, which is the tests folder, so that javarifier
-# executable can be anywhere.
 .PRECIOUS: %.output
 %.output: %.class
-	javarifier \
+	${JAVARIFIER} \
 	-programCPEntries . \
 	-output ./$*.output \
 	-outputFormat annotationIndexFile \

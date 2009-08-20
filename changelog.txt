@@ -1,9 +1,0 @@
-Change Log for Javarifier releases  
-
-Version 0.1: (Released November 2, 2007) First release.
-
-Version 0.1.1: (Released February 15, 2008) Several bug fixes and updated 
-documentation.
-
-Version 0.1.2: (Released March 7, 2008) Several bug fixes.  Javarifier now 
-works on the Eclipse compiler, which is over 120,000 lines of Java code.

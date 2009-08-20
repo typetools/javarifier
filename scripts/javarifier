@@ -10,7 +10,7 @@ SOOT_PROGRAMS=${CLASSPATH}
 # If user provides -programCPEntries, their arguments will be passed in
 # through the "$@" argument, and will override the CLASSPATH default.
 
-JAVARIFIER_LIB=${DIRNAME}/lib
+JAVARIFIER_LIB=${DIRNAME}/../lib
 
 java -Xmx400m -cp ${JAVARIFIER_LIB}/javarifier.jar:${JAVARIFIER_LIB}/jasminclasses-2.2.3.jar:${JAVARIFIER_LIB}/polyglotclasses-1.3.2.jar:${JAVARIFIER_LIB}/sootclasses-2.2.3.jar:${CLASSPATH} \
 	 javarifier.Main \

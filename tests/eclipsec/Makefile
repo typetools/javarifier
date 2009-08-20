@@ -4,8 +4,9 @@
 
 SHELL = /bin/sh
 
-DIFFS := $(wildcard *.goal)
-DIFFS := $(patsubst %.goal, %.diff, $(DIFFS))
+DIFFS := $(patsubst %.goal, %.diff, $(wildcard *.goal))
+
+JAVARIFIER ?= ../../javarifier
 
 default : all
 
@@ -18,7 +19,7 @@ results: ../VerifyDiffs.class
 	@echo ""
 	@echo "=== RESULTS ==="
 	@echo ""
-	@-java -cp ../:${CLASSPATH} VerifyDiffs --show_all
+	@-java -cp ../ VerifyDiffs --show_all
 
 # Remakes the little java program that checks and compares diffs
 ../VerifyDiffs.class : ../VerifyDiffs.java
@@ -26,13 +27,13 @@ results: ../VerifyDiffs.class
 
 # Actually runs the Javarifier to create the inferences.
 eclipsec.output:
-	javarifier \
-	-programCPEntries ${PWD} \
-	-output ${PWD}/eclipsec.output \
+	${JAVARIFIER} \
+	-programCPEntries . \
+	-output eclipsec.output \
 	-outputFormat annotationIndexFile \
 	-stubs ${CLASSPATH} \
 	org.eclipse.jdt.internal.compiler.Compiler 2>&1 \
-	| tee ${PWD}/eclipsec.log
+	| tee eclipsec.log
 
 
 # Compare the output of the Javarifier and the goal file.
