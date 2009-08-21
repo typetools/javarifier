@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
-<project name="javarifier">
+<project name="javarifier" default="jarfile">
   <description>
     Rules for building and testing Javarifier.
     For a list of targets, run:  ant -projecthelp
   </description>
 
-  <property name="java-version" value="1.6"/>
   <property environment="env"/>
 
   <property name="temp" value="files"/>
@@ -230,7 +229,7 @@
     <copy todir="bin">
       <fileset dir="src" excludes="**/*.java"/>
     </copy>
-    <javac destdir="bin" source="${java-version}" target="${java-version}">
+    <javac destdir="bin">
       <src refid="sourcepath"/>
       <classpath refid="libpath"/>
 <!--      <compilerarg value="-Xlint"/> -->
@@ -238,6 +237,8 @@
     </javac>
   </target>
 
+  <!-- WARNING:  This target does not re-compile!  (It does not depend on
+  "bin" or other similar targets.) -->
   <target name="run-tests" depends="init-properties"
     description="Runs Javarifier test cases">
     <exec executable="make">
