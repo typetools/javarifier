@@ -6,7 +6,7 @@ SHELL = /bin/sh
 
 DIFFS := $(patsubst %.goal, %.diff, $(wildcard *.goal))
 
-JAVARIFIER ?= ../../javarifier
+JAVARIFIER ?= ../../scripts/javarifier
 
 default : all
 

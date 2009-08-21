@@ -70,7 +70,7 @@ results: VerifyDiffs.class
 	@echo ""
 	@echo "=== RESULTS ==="
 	@echo ""
-	@-java VerifyDiffs --show_all
+	@-java -cp . VerifyDiffs --show_all
 
 # Remakes the little java program that checks and compares diffs
 VerifyDiffs.class : VerifyDiffs.java

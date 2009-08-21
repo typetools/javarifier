@@ -348,11 +348,10 @@ public class AnnotationStorer {
    * @param annoTypeName - the name of the annotation to add
    */
   private void annotate(AElement target, String annoTypeName) {
-    throw new Error("to make typecheck");
     // These are the original lines, which I have commented out so that I
     // can proceed with testing.
-    // Annotation ann = scene.af.beginAnnotation(annoTypeName).finish();
-    // target.tlAnnotationsHere.add(new Annotation(ann,DEFAULT_RETENTION));
+      Annotation ann = AnnotationFactory.saf.beginAnnotation(annoTypeName, DEFAULT_RETENTION).finish();
+      target.tlAnnotationsHere.add(ann);
   }
 
   /**
