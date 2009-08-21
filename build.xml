@@ -80,12 +80,12 @@
   <target name="build-dependencies" depends="init-properties"
     description="Builds all projects this depends on">
 <!--      <ant dir="${annotations-shared}" target="bin"/> -->
-      <ant dir="${scene-lib}" target="bin"/>
-      <ant dir="${asmx}" target="bin"/>
+      <ant dir="${scene-lib}" target="bin" inheritAll="false"/>
+      <ant dir="${asmx}" target="bin" inheritAll="false"/>
       <ant dir="${annotations-compiler}" antfile="make/build.xml"
           inheritAll="false" target="build"/>
-      <ant dir="${checkers}" target="build"/>
-      <ant dir="${checkers}" target="build-javari-jdk"/>
+      <ant dir="${checkers}" target="build" inheritAll="false"/>
+      <ant dir="${checkers}" target="build-javari-jdk" inheritAll="false"/>
 <!--      <ant dir="${javarifier}" target="bin"/> -->
   </target>
 
@@ -224,7 +224,7 @@
     <delete file="javarifier.jar"/>
   </target>
 
-  <target name="bin" depends="init-properties"
+  <target name="bin" depends="init"
     description="Compiles Javarifier classes">
     <mkdir dir="bin"/>
     <copy todir="bin">
