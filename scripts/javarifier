@@ -9,7 +9,7 @@ JDK=${JAVA_HOME}/jre/lib/rt.jar:${JAVA_HOME}/jre/lib/resources.jar:${JAVA_HOME}/
 
 DIRNAME=$(dirname $0)
 SOOT_PROGRAMS=${CLASSPATH}
-${JAVARIFIER_JDK:=${DIRNAME}/../annotated-jdk}
+JAVARIFIER_JDK=${JAVARIFIER_JDK:-${DIRNAME}/../annotated-jdk}
 
 # If user provides -programCPEntries, their arguments will be passed in
 # through the "$@" argument, and will override the CLASSPATH default.
