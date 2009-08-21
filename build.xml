@@ -5,7 +5,7 @@
     For a list of targets, run:  ant -projecthelp
   </description>
 
-  <property name="java-version" value="1.5"/>
+  <property name="java-version" value="1.6"/>
   <property environment="env"/>
 
   <property name="temp" value="files"/>
@@ -224,7 +224,7 @@
     <delete file="javarifier.jar"/>
   </target>
 
-  <target name="bin" depends="clean, init"
+  <target name="bin" depends="init-properties"
     description="Compiles Javarifier classes">
     <mkdir dir="bin"/>
     <copy todir="bin">
@@ -233,7 +233,7 @@
     <javac destdir="bin" source="${java-version}" target="${java-version}">
       <src refid="sourcepath"/>
       <classpath refid="libpath"/>
-      <compilerarg value="-Xlint"/>
+<!--      <compilerarg value="-Xlint"/> -->
       <compilerarg value="-g"/>
     </javac>
   </target>
@@ -243,6 +243,8 @@
     <exec executable="make">
       <arg value="-C"/>
       <arg value="${javarifier}/tests"/>
+      <env key="CLASSPATH" path="${toString:libpath}"/>
+      <env key="JAVARIFIER_JDK" path="${javari-annotated-jdk}"/>
     </exec>
   </target>
 
@@ -251,7 +253,7 @@
   <target name="tags" description="Create Emacs TAGS table">
     <exec executable="/bin/sh">
       <arg value="-c"/>
-      <arg value="etags `find src -name '*.java' | sort-directory-order.pl`"/>
+      <arg value="etags `find src -name '*.java'`"/>
     </exec>
   </target>
 
