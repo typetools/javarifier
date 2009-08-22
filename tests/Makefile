@@ -88,7 +88,7 @@ VerifyDiffs.class : VerifyDiffs.java
 
 # Compare the output of the Javarifier and the goal file.
 %.diff: %.output %.goal
-	-diff -u $*.output $*.goal >& $*.diff
+	-diff -u $*.output $*.goal > $*.diff 2>&1
 
 # Remove all .diff, .log files from the tests directory,
 # and all output from the javarifierOutput directory.
