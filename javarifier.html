@@ -189,7 +189,7 @@ instead of the Linux path names.  </p>
 <p> The <code>javarifier</code> tool takes as arguments
 any number of fully-qualified names of the classes to analyze.
 All of these classes must be in your $CLASSPATH, although this
-behavior can be overriden with the
+behavior can be overridden with the
 <a href="#using-classpath">-programCPEntries</a> option.
 Here are examples: </p>
 
@@ -217,16 +217,22 @@ via the <a href="#using-world"><code>-world</code> option</a>.)
 <h3 id="using-classpath"> Specifying a classpath</h3>
 
 <p>
-To specify a classpath other than $CLASSPATH for Javarifier to use to
-lookup classes being analyzed, you can use the <code>-programCPEntries</code>
-argument and pass in a full classpath.  The first two of the following
-examples are identical.
+Javarifier ordinarily uses $CLASSPATH to look up the classes being analyzed.
+To specify a different classpath, use the <code>-programCPEntries</code>
+argument.
+</p>
+
+<pre><code>
+javarifier myPackage.myClassTwo -programCPEntries /path/to/classes1:/path/to/classes2
+</code></pre>
+
+<p>
+These two examples are identical:
 </p>
 
 <pre><code>
 javarifier myPackage.myClassTwo
 javarifier myPackage.myClassTwo -programCPEntries $CLASSPATH
-javarifier myPackage.myClassTwo -programCPEntries /path/to/classes1:/path/to/classes2
 </code></pre>
 
 
@@ -493,7 +499,7 @@ Javarifier now works on the Eclipse compiler, which is over
   <li>
   Version ?.?.?: (Released ? ?, ?)
     <ul>
-		<li>Implemented and documented the hueristics for excluding fields
+		<li>Implemented and documented the heuristics for excluding fields
 		     from the abstract state of an object.
 		     See <a href="#using-heuristics"><code>-applyHeuristics</code></a>.
 		</li>
@@ -510,7 +516,7 @@ Javarifier now works on the Eclipse compiler, which is over
 <hr/>
 
 <p>
-Last revised: August 18, 2009
+Last revised: August 22, 2009
 </p>
 
 </body>
@@ -533,5 +539,7 @@ End:
  -->
 <!--  LocalWords:  mutabilities subtyping contra javarifier zipfile csh GG im
  -->
-<!--  LocalWords:  Javarifier's Tschantz jarfiles
+<!--  LocalWords:  Javarifier's Tschantz jarfiles programCPEntries LGraph JVML
+ -->
+<!--  LocalWords:  romaybe LocalVariableTypeTable
  -->
