@@ -1,0 +1,19 @@
+package checkers.javari.quals:
+annotation visible @ReadOnly:
+
+package checkers.javari.quals:
+annotation visible @Mutable:
+
+package :
+class Bar1:
+
+    field x:
+
+    method <init>()V:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+10: @checkers.javari.quals.Mutable
+
+    method getX()I:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+
