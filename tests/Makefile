@@ -11,17 +11,25 @@ SHELL = /bin/sh
 
 DIFFS := $(patsubst %.goal, %.diff, $(wildcard *.goal))
 
+JAVA_FILES := $(wildcard *.java)
+
 JAVARIFIER ?= ../scripts/javarifier
 
 default : all
 
 .PHONY: all
-all : clean compile $(DIFFS) jolden htmlparser tinySQL eclipsec results
+all : compile $(DIFFS) jolden htmlparser tinySQL eclipsec results
 
 
-# Compile all the tests cases together to resolve dependencies.
-compile :
-	javac -cp . -g -d . *.java
+## I'm hoping this is not necessary, because a change to any file then
+## forces every test to be re-run.  -MDE 8/22/2009
+# # Compile all the test cases together to resolve dependencies.
+# compile : .compile-timestamp
+# .compile-timestamp : ${JAVA_FILES}
+# 	javac -cp . -g -d . ${JAVA_FILES}
+
+%.class : %.java
+	javac -cp . -g -d . $^
 
 # Runs Javarifier on the Jolden case studies by running a separate
 # Makefile similar to this one.
@@ -87,8 +95,8 @@ VerifyDiffs.class : VerifyDiffs.java
 	$* 2>&1 | tee ./$*.log
 
 # Compare the output of the Javarifier and the goal file.
-%.diff: %.output %.goal
-	-diff -u $*.output $*.goal > $*.diff 2>&1
+%.diff: %.goal %.output
+	-diff -u $*.goal $*.output > $*.diff 2>&1
 
 # Remove all .diff, .log files from the tests directory,
 # and all output from the javarifierOutput directory.
