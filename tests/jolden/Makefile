@@ -1,7 +1,5 @@
-# Testing framework customized for the Jolden case study.
-# Run 'make all' to execute all the tests and verify the results.
-# The output is written to .output files, and then matched against
-# the corresponding .goal files, and the diff is left in .diff files.
+# Testing framework for Javarifier.
+# Run 'make all' to perform the test and show the results.
 
 SHELL = /bin/sh
 
@@ -12,7 +10,7 @@ JAVARIFIER ?= ../../scripts/javarifier
 default : all
 
 .PHONY: all
-all : clean $(DIFFS) results
+all : $(DIFFS) results
 
 # Display results of all .diff files.
 .PHONY: results
@@ -33,96 +31,96 @@ voronoi.output:
 	cd voronoi && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries voronoi \
-	-output voronoi.output \
+	-output $@ \
 	-outputFormat annotationIndexFile \
-	Edge EdgePair MyDouble Vec2 Vertex Voronoi 2>&1 \
-	| tee voronoi.log
+	Edge EdgePair MyDouble Vec2 Vertex Voronoi \
+	2>&1 | tee voronoi.log
 
 health.output:
 	cd health && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries health \
-	-output health.output \
+	-output $@ \
 	-outputFormat annotationIndexFile \
-	Health Hospital List Patient Results Village 2>&1 \
-	| tee health.log
+	Health Hospital List Patient Results Village \
+	2>&1 | tee health.log
 
 mst.output:
 	cd mst && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries mst \
-	-output mst.output \
+	-output $@ \
 	-outputFormat annotationIndexFile \
-	BlueReturn Graph HashEntry Hashtable MST Vertex 2>&1 \
-	| tee mst.log
+	BlueReturn Graph HashEntry Hashtable MST Vertex \
+	2>&1 | tee mst.log
 
 perimeter.output:
 	cd perimeter && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries perimeter \
-	-output perimeter.output \
+	-output $@ \
 	-outputFormat annotationIndexFile \
 	BlackNode GreyNode NorthEast NorthWest Perimeter QuadTreeNode Quadrant \
-	SouthEast SouthWest WhiteNode 2>&1 \
-	| tee perimeter.log
+	SouthEast SouthWest WhiteNode \
+	2>&1 | tee perimeter.log
 
 em3d.output:
 	cd em3d && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries em3d \
-	-output em3d.output \
+	-output $@ \
 	-outputFormat annotationIndexFile \
-	BiGraph Em3d Graph Node 2>&1 \
-	| tee em3d.log
+	BiGraph Em3d Graph Node \
+	2>&1 | tee em3d.log
 
 treeadd.output:
 	cd treeadd && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries treeadd \
-	-output treeadd.output \
+	-output $@ \
 	-outputFormat annotationIndexFile \
-	TreeAdd TreeNode 2>&1 \
-	| tee treeadd.log
+	TreeAdd TreeNode \
+	2>&1 | tee treeadd.log
 
 bh.output:
 	cd bh && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries bh \
-	-output bh.output \
+	-output $@ \
 	-outputFormat annotationIndexFile \
-	BH Body Cell MathVector Node Tree 2>&1 \
-	| tee bh.log
+	BH Body Cell MathVector Node Tree \
+	2>&1 | tee bh.log
 
 tsp.output:
 	cd tsp && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries tsp \
-	-output tsp.output \
+	-output $@ \
 	-outputFormat annotationIndexFile \
-	TSP Tree 2>&1 \
-	| tee tsp.log
+	TSP Tree \
+	2>&1 | tee tsp.log
 
 power.output:
 	cd power && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries power \
-	-output power.output \
+	-output $@ \
 	-outputFormat annotationIndexFile \
-	Branch Demand Lateral Leaf Power Root 2>&1 \
-	| tee power.log
+	Branch Demand Lateral Leaf Power Root \
+	2>&1 | tee power.log
 
 bisort.output:
 	cd bisort && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries bisort \
-	-output bisort.output \
+	-output $@ \
 	-outputFormat annotationIndexFile \
-	BiSort Value 2>&1 \
-	| tee bisort.log
+	BiSort Value \
+	2>&1 | tee bisort.log
 
 # Compare the output of the Javarifier and the goal file.
-%.diff: %.output %.goal
-	-diff -u $*.output $*.goal >& $*.diff
+%.diff: %.goal %.output
+	-diff -u $*.goal $*.output > $*.diff 2>&1
 
 # Remove all .diff, .log files from the tests directory,
 # and all output from the javarifierOutput directory.

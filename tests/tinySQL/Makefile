@@ -1,6 +1,8 @@
-# Testing framework to run Javarifier on tinySQL and compare the results.
+# Testing framework for Javarifier.
 # Run 'make all' to perform the test and show the results.
 
+TESTNAME = tinySQL
+MAINCLASS = ORG.as220.tinySQL.tinySQL
 
 SHELL = /bin/sh
 
@@ -11,7 +13,7 @@ JAVARIFIER ?= ../../scripts/javarifier
 default : all
 
 .PHONY: all
-all : clean $(DIFFS) results
+all : $(DIFFS) results
 
 # Display results of all .diff files.
 .PHONY: results
@@ -19,26 +21,26 @@ results: ../VerifyDiffs.class
 	@echo ""
 	@echo "=== RESULTS ==="
 	@echo ""
-	@-java -cp ../ VerifyDiffs --show_all
+	@-java -cp .. VerifyDiffs --show_all
 
 # Remakes the little java program that checks and compares diffs
 ../VerifyDiffs.class : ../VerifyDiffs.java
-	@cd .. && javac VerifyDiffs.java
+	${MAKE} -C .. VerifyDiffs.class
 
 # Actually runs the Javarifier to create the inferences.
-tinySQL.output:
+${TESTNAME}.output:
 	${JAVARIFIER} \
 	-programCPEntries . \
-	-output tinySQL.output \
+	-output $@ \
 	-outputFormat annotationIndexFile \
 	-stubs ${CLASSPATH} \
-	ORG.as220.tinySQL.tinySQL 2>&1 \
-	| tee tinySQL.log
+	${MAINCLASS} \
+	2>&1 | tee ${TESTNAME}.log
 
 
 # Compare the output of the Javarifier and the goal file.
-%.diff: %.output %.goal
-	-diff -u $*.output $*.goal >& $*.diff
+%.diff: %.goal %.output
+	-diff -u $*.goal $*.output > $*.diff 2>&1
 
 # Remove all .diff, .log files from the tests directory,
 # and all output from the javarifierOutput directory.
