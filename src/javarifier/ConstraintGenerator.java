@@ -1,7 +1,6 @@
 package javarifier;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import javarifier.JrType.ArrayType;
 import javarifier.JrType.MutType;
@@ -42,6 +41,8 @@ public class ConstraintGenerator extends SceneVisitor {
 
         return cg.getConstraints();
     }
+
+    private static Set<SootClass> missingDebugInfo = new HashSet<SootClass>();
 
     private ConstraintManager cm;
 
@@ -120,11 +121,13 @@ public static class ConstraintGenerationSwitch extends soot.jimple.AbstractStmtS
               Local lhsBase = (Local) ((InstanceFieldRef) lhs).getBase();
               JrType lhsBaseType = lhsBase.getJrType();
               if (lhsBaseType == null) {
-                SootClass badClass =
+                SootClass noDebugClass =
                   ((InstanceFieldRef) lhs).getField().getDeclaringClass();
                 String errorMessage = "Class compiled without debug information: "
-                    + badClass.getName();
-                System.err.println(errorMessage);
+                    + noDebugClass.getName();
+                if (missingDebugInfo.add(noDebugClass)) {
+                  System.err.println(errorMessage);
+                }
                 //TODO:
                 missingLhsBaseType = true;
                 missingLhsBaseTypeMessage = errorMessage;
