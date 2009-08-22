@@ -229,9 +229,12 @@
     <copy todir="bin">
       <fileset dir="src" excludes="**/*.java"/>
     </copy>
-    <javac destdir="bin">
+    <javac destdir="bin" 
+           debug="on"
+           fork="true">
       <src refid="sourcepath"/>
       <classpath refid="libpath"/>
+      <compilerarg value="-J-Xmx1024M"/>
 <!--      <compilerarg value="-Xlint"/> -->
       <compilerarg value="-g"/>
     </javac>
