@@ -18,7 +18,7 @@ JAVARIFIER ?= ../scripts/javarifier
 default : all
 
 .PHONY: all
-all : compile $(DIFFS) jolden htmlparser tinySQL eclipsec results
+all : $(DIFFS) jolden htmlparser tinySQL eclipsec results
 
 
 ## I'm hoping this is not necessary, because a change to any file then
