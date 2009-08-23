@@ -24,9 +24,9 @@ class TSP:
         local 0 #0+5: @checkers.javari.quals.ReadOnly
 
     method main([Ljava/lang/String;)V:
-        parameter #0: @checkers.javari.quals.Mutable
+        parameter #0: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
-        local 0 #0+201: @checkers.javari.quals.Mutable
+        local 0 #0+201: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
         local 1 #41+160:
         local 3 #53+148: @checkers.javari.quals.Mutable
@@ -35,12 +35,12 @@ class TSP:
         local 8 #76+125:
 
     method parseCmdLine([Ljava/lang/String;)V:
-        parameter #0: @checkers.javari.quals.Mutable
+        parameter #0: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
-        local 0 #0+130: @checkers.javari.quals.Mutable
+        local 0 #0+130: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
         local 1 #2+128:
-        local 2 #26+94: @checkers.javari.quals.Mutable
+        local 2 #26+94: @checkers.javari.quals.ReadOnly
 
     method usage()V:
 
