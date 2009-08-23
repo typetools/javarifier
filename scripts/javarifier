@@ -1,0 +1,38 @@
+#!/bin/sh
+# javarify: command-line interface for Javarifier
+
+# usage: javarifier [options] classes
+
+# See javarifier.html for more information.
+
+JDK_JARS=\
+${JAVA_HOME}/jre/lib/charsets.jar:\
+${JAVA_HOME}/jre/lib/jce.jar:\
+${JAVA_HOME}/jre/lib/jsse.jar:\
+${JAVA_HOME}/jre/lib/management-agent.jar:\
+${JAVA_HOME}/jre/lib/resources.jar:\
+${JAVA_HOME}/jre/lib/rt.jar:\
+${JAVA_HOME}/lib/tools.jar
+
+BINDIR=$(dirname $0)
+JRDIR=${BINDIR}/..
+SOOT_PROGRAMS=${CLASSPATH}
+# JAVARIFIER_JDK=${JAVARIFIER_JDK:-${JRDIR}/annotated-jdk}
+JAVARIFIER_JDK=${JAVARIFIER_JDK:-../../checker-framework/checkers/jdk/javari/src/}
+
+# If user provides -programCPEntries, their arguments will be passed in
+# through the "$@" argument, and will override the default.
+
+JAVARIFIER_LIB=${JRDIR}/lib
+JAVARIFIER_BIN=${JRDIR}/bin
+
+# JAVARIFIER_BIN might be more up-to-date (in a checkout, not the distribution)
+java -Xmx1024m -cp ${JAVARIFIER_BIN}:${JRDIR}/javarifier.jar:${JDK_JARS} \
+	 javarifier.Main \
+	 -defaultStubCPEntries ${JAVARIFIER_JDK}:${CLASSPATH} \
+	 -defaultWorldCPEntries ${JDK_JARS} \
+	 -programCPEntries ${SOOT_PROGRAMS} \
+	 "$@"
+
+# Remove temporaray soot output directory.
+rm -rf ${BINDIR}/sootOutput
