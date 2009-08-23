@@ -8,7 +8,7 @@ package checkers.javari.quals:
 annotation visible @Mutable:
 
 package :
-class Assignable:
+class AssignableField:
 
     field d: @checkers.javari.quals.Assignable @checkers.javari.quals.ReadOnly
 
