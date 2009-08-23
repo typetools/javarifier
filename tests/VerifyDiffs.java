@@ -33,14 +33,19 @@ public class VerifyDiffs {
             File dir = new File(".");
             List<File> allDiffs = new ArrayList<File>();
             gatherDiffs(allDiffs, dir);
+            Collections.sort(allDiffs);
             for(File f : allDiffs) {
               FileReader fr = new FileReader(f);
+              String fileName = f.toString();
+              if (fileName.startsWith("./")) {
+                fileName = fileName.substring(2);
+              }
               if(fr.read() != -1) { // if not empty, output error message
-                System.out.println(f.toString() + " ...FAILED");
+                System.out.println(fileName + " ...FAILED");
                 pass = false;
               } else {
                 if(VerifyDiffs.show_all) {
-                  System.out.println(f.toString() + " ...OK");
+                  System.out.println(fileName + " ...OK");
                 }
               }
               fr.close();
