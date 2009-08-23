@@ -9,16 +9,20 @@
 
 SHELL = /bin/sh
 
-DIFFS := $(patsubst %.goal, %.diff, $(wildcard *.goal))
+TOPLEVEL_DIFFS := $(patsubst %.goal, %.diff, $(wildcard *.goal))
 
 JAVA_FILES := $(wildcard *.java)
 
 JAVARIFIER ?= ../scripts/javarifier
 
+.PHONY: default
 default : all
 
 .PHONY: all
-all : $(DIFFS) jolden htmlparser tinySQL eclipsec results
+all : toplevel jolden htmlparser tinySQL eclipsec results
+
+.PHONY: toplevel
+toplevel: $(TOPLEVEL_DIFFS)
 
 
 ## I'm hoping this is not necessary, because a change to any file then
@@ -86,7 +90,7 @@ VerifyDiffs.class : VerifyDiffs.java
 
 # Actually runs the Javarifier to create the inferences.
 .PRECIOUS: %.output
-%.output: %.class
+%.output: %.class ../javarifier.jar
 	${JAVARIFIER} \
 	-programCPEntries . \
 	-output $@ \
@@ -106,4 +110,8 @@ clean :
 	rm -f *.diff
 	rm -f *.log
 	rm -f *.output
-#	rm -f *.class
+	rm -f *.class
+	cd jolden && $(MAKE) clean
+	cd htmlparser && $(MAKE) clean
+	cd tinySQL && $(MAKE) clean
+	cd eclipsec && $(MAKE) clean

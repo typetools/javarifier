@@ -28,7 +28,7 @@ results: ../VerifyDiffs.class
 	${MAKE} -C .. VerifyDiffs.class
 
 # Actually runs the Javarifier to create the inferences.
-${TESTNAME}.output:
+${TESTNAME}.output: ../../javarifier.jar
 	${JAVARIFIER} \
 	-programCPEntries . \
 	-output $@ \
