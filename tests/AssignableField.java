@@ -1,4 +1,4 @@
-public class Assignable {
+public class AssignableField {
 
     // That commented @checkers.javari.quals.Assignable is recognized by the extended
     // compiler and supersedes Assignable.fields.

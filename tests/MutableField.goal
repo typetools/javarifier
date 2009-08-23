@@ -8,7 +8,7 @@ package checkers.javari.quals:
 annotation visible @ThisMutable:
 
 package :
-class Mutable:
+class MutableField:
 
     field d: @checkers.javari.quals.Mutable
 
