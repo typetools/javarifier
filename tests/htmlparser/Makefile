@@ -10,6 +10,7 @@ DIFFS := $(patsubst %.goal, %.diff, $(wildcard *.goal))
 
 JAVARIFIER ?= ../../scripts/javarifier
 
+.PHONY: default
 default : all
 
 .PHONY: all
@@ -28,7 +29,7 @@ results: ../VerifyDiffs.class
 	${MAKE} -C .. VerifyDiffs.class
 
 # Actually runs the Javarifier to create the inferences.
-${TESTNAME}.output:
+${TESTNAME}.output: ../../javarifier.jar
 	${JAVARIFIER} \
 	-programCPEntries . \
 	-output $@ \
