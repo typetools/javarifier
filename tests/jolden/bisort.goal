@@ -21,9 +21,9 @@ class BiSort:
         local 0 #0+5: @checkers.javari.quals.ReadOnly
 
     method main([Ljava/lang/String;)V:
-        parameter #0: @checkers.javari.quals.Mutable
+        parameter #0: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
-        local 0 #0+326: @checkers.javari.quals.Mutable
+        local 0 #0+326: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
         local 1 #46+280:
         local 3 #55+271: @checkers.javari.quals.Mutable
@@ -35,12 +35,12 @@ class BiSort:
         local 13 #158+168:
 
     method parseCmdLine([Ljava/lang/String;)V:
-        parameter #0: @checkers.javari.quals.Mutable
+        parameter #0: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
-        local 0 #0+130: @checkers.javari.quals.Mutable
+        local 0 #0+130: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
         local 1 #2+128:
-        local 2 #26+94: @checkers.javari.quals.Mutable
+        local 2 #26+94: @checkers.javari.quals.ReadOnly
 
     method usage()V:
 
@@ -125,8 +125,8 @@ class Value:
         local 3 #10+27: @checkers.javari.quals.Mutable
 
     method inOrder()V:
-        receiver: @checkers.javari.quals.Mutable
-        local 0 #0+64: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+64: @checkers.javari.quals.ReadOnly
 
     method mult(II)I:
         parameter #0:
