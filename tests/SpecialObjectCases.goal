@@ -17,8 +17,8 @@ class SpecialObjectCases:
             inner-type 0: @checkers.javari.quals.ReadOnly
 
     method bar(Ljava/lang/Object;)Ljava/lang/String;: @checkers.javari.quals.ReadOnly
-        parameter #0: @checkers.javari.quals.Mutable
-        local 0 #0+39: @checkers.javari.quals.Mutable
+        parameter #0: @checkers.javari.quals.ReadOnly
+        local 0 #0+39: @checkers.javari.quals.ReadOnly
         local 1 #37+2: @checkers.javari.quals.ReadOnly
 
 package :

@@ -8,6 +8,7 @@ public class GenericFieldAndParameter {
     public GenericFieldAndParameter() {
     }
 
+    // The parameter doesn't get changed; only a field gets changed
     public void foo(Set<Boolean> bools) {
         set.add(new Date());
     }
