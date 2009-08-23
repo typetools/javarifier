@@ -27,7 +27,7 @@ results: ../VerifyDiffs.class
 # Actually runs the Javarifier to create the inferences.
 # For the jolden case study, explicitly list all the classes that need to be
 # analyzed for each program.
-voronoi.output:
+voronoi.output: ../../javarifier.jar
 	cd voronoi && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries voronoi \
@@ -36,7 +36,7 @@ voronoi.output:
 	Edge EdgePair MyDouble Vec2 Vertex Voronoi \
 	2>&1 | tee voronoi.log
 
-health.output:
+health.output: ../../javarifier.jar
 	cd health && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries health \
@@ -45,7 +45,7 @@ health.output:
 	Health Hospital List Patient Results Village \
 	2>&1 | tee health.log
 
-mst.output:
+mst.output: ../../javarifier.jar
 	cd mst && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries mst \
@@ -54,7 +54,7 @@ mst.output:
 	BlueReturn Graph HashEntry Hashtable MST Vertex \
 	2>&1 | tee mst.log
 
-perimeter.output:
+perimeter.output: ../../javarifier.jar
 	cd perimeter && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries perimeter \
@@ -64,7 +64,7 @@ perimeter.output:
 	SouthEast SouthWest WhiteNode \
 	2>&1 | tee perimeter.log
 
-em3d.output:
+em3d.output: ../../javarifier.jar
 	cd em3d && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries em3d \
@@ -73,7 +73,7 @@ em3d.output:
 	BiGraph Em3d Graph Node \
 	2>&1 | tee em3d.log
 
-treeadd.output:
+treeadd.output: ../../javarifier.jar
 	cd treeadd && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries treeadd \
@@ -82,7 +82,7 @@ treeadd.output:
 	TreeAdd TreeNode \
 	2>&1 | tee treeadd.log
 
-bh.output:
+bh.output: ../../javarifier.jar
 	cd bh && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries bh \
@@ -91,7 +91,7 @@ bh.output:
 	BH Body Cell MathVector Node Tree \
 	2>&1 | tee bh.log
 
-tsp.output:
+tsp.output: ../../javarifier.jar
 	cd tsp && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries tsp \
@@ -100,7 +100,7 @@ tsp.output:
 	TSP Tree \
 	2>&1 | tee tsp.log
 
-power.output:
+power.output: ../../javarifier.jar
 	cd power && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries power \
@@ -109,7 +109,7 @@ power.output:
 	Branch Demand Lateral Leaf Power Root \
 	2>&1 | tee power.log
 
-bisort.output:
+bisort.output: ../../javarifier.jar
 	cd bisort && javac -g *.java
 	${JAVARIFIER} \
 	-programCPEntries bisort \
