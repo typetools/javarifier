@@ -67,8 +67,7 @@
 <!--        <pathelement location="${annotations-shared}/bin"/> -->
         <pathelement location="${checkers}/build"/>
         <pathelement location="${annotations-compiler}/dist/lib/javac.jar"/>
-        <pathelement location="${asmx}/bin"/>
-        <pathelement location="${scene-lib}/bin"/>
+        <pathelement location="${afu}/annotation-file-utilities.jar"/>
         <pathelement location="${javarifier}/bin"/>
         <pathelement location="${javarifier}/lib/jasminclasses-2.2.3.jar"/>
         <pathelement location="${javarifier}/lib/polyglotclasses-1.3.2.jar"/>
@@ -78,14 +77,11 @@
 
   <target name="build-dependencies" depends="init-properties"
     description="Builds all projects this depends on">
-<!--      <ant dir="${annotations-shared}" target="bin"/> -->
-      <ant dir="${scene-lib}" target="bin" inheritAll="false"/>
-      <ant dir="${asmx}" target="bin" inheritAll="false"/>
+      <ant dir="${afu}" target="jarfile" inheritAll="false"/>
       <ant dir="${annotations-compiler}" antfile="make/build.xml"
           inheritAll="false" target="build"/>
       <ant dir="${checkers}" target="build" inheritAll="false"/>
       <ant dir="${checkers}" target="build-javari-jdk" inheritAll="false"/>
-<!--      <ant dir="${javarifier}" target="bin"/> -->
   </target>
 
   <target name="init" depends="init-properties, build-dependencies"
@@ -99,14 +95,21 @@
     <mkdir dir="${temp-bin}"/>
 
     <echo message="Copying over necessary files to ${temp-bin}"/>
+
+    <unjar src="${javarifier}/lib/jasminclasses-2.2.3.jar"
+	   dest="${temp-bin}"/>
+    <unjar src="${javarifier}/lib/polyglotclasses-1.3.2.jar"
+	   dest="${temp-bin}"/>
+    <unjar src="${javarifier}/lib/sootclasses-2.2.3.jar"
+	   dest="${temp-bin}"/>
+    <unjar src="${afu}/annotation-file-utilities.jar"
+	   dest="${temp-bin}"/>
     <copy todir="${temp-bin}">
-      <fileset dir="${asmx}/bin" excludes="tmp/**"/>
-      <fileset dir="${scene-lib}/bin" />
       <fileset dir="${javarifier}/bin" />
     </copy>
 
-    <!-- Actually create a single .jar file of all the class files,
-         scripts and documentation -->
+    <!-- Create a single .jar file of all the class files,
+         scripts, and documentation -->
     <echo message="Creating jarfile javarifier.jar"/>
     <jar
       destfile="${javarifier}/javarifier.jar">
