@@ -2,9 +2,10 @@
 syntax: glob
 TAGS
 *~
+tests/*.class
 tests/**/*.class
-tests/**/*.diff
 tests/*.diff
+tests/**/*.diff
 bin/**/*.class
 
 ### regexp syntax rules
