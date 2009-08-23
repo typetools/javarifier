@@ -290,9 +290,9 @@ class Power:
         local 0 #0+5: @checkers.javari.quals.ReadOnly
 
     method main([Ljava/lang/String;)V:
-        parameter #0: @checkers.javari.quals.Mutable
+        parameter #0: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
-        local 0 #0+205: @checkers.javari.quals.Mutable
+        local 0 #0+205: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
         local 1 #8+197:
         local 3 #23+182: @checkers.javari.quals.Mutable
@@ -301,12 +301,12 @@ class Power:
         local 8 #90+115:
 
     method parseCmdLine([Ljava/lang/String;)V:
-        parameter #0: @checkers.javari.quals.Mutable
+        parameter #0: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
-        local 0 #0+74: @checkers.javari.quals.Mutable
+        local 0 #0+74: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
         local 1 #2+72:
-        local 2 #26+47: @checkers.javari.quals.Mutable
+        local 2 #26+47: @checkers.javari.quals.ReadOnly
 
     method usage()V:
 

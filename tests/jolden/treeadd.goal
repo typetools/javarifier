@@ -18,9 +18,9 @@ class TreeAdd:
         local 0 #0+5: @checkers.javari.quals.ReadOnly
 
     method main([Ljava/lang/String;)V:
-        parameter #0: @checkers.javari.quals.Mutable
+        parameter #0: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
-        local 0 #0+193: @checkers.javari.quals.Mutable
+        local 0 #0+193: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
         local 1 #8+185:
         local 3 #19+174: @checkers.javari.quals.ReadOnly
@@ -30,12 +30,12 @@ class TreeAdd:
         local 9 #40+153:
 
     method parseCmdLine([Ljava/lang/String;)V:
-        parameter #0: @checkers.javari.quals.Mutable
+        parameter #0: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
-        local 0 #0+130: @checkers.javari.quals.Mutable
+        local 0 #0+130: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
         local 1 #2+128:
-        local 2 #26+94: @checkers.javari.quals.Mutable
+        local 2 #26+94: @checkers.javari.quals.ReadOnly
 
     method usage()V:
 
