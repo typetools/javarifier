@@ -15,13 +15,14 @@
       <li><a href="#javarifier-description">Javarifier</a>
         <ul>
           <li><a href="#stubs-description">Inference using existing Javari classes and stubs</a></li>
+          <li><a href="#javari-differences">Differences from previous versions of Javari</a></li>
         </ul></li>
       <li><a href="#installation">Installation</a></li>
       <li><a href="#using">Using Javarifier</a>
         <ul>
           <li><a href="#using-classpath">Specifying a classpath</a></li>
           <li><a href="#using-output">Outputting to a file</a></li>
-          <li><a href="#using-world">Specifying JDK jarfiles</a></li>
+          <li><a href="#using-world">Specifying library jarfiles</a></li>
           <li><a href="#using-stubs">Using stub classes</a></li>
           <li><a href="#using-heuristics">Applying heuristics to exclude fields from the abstract state</a></li>
           <li><a href="#using-debug">Understanding and debugging Javarifier output</a></li>
@@ -39,10 +40,21 @@
 <h2 id="motivation">Motivation: Inferring reference immutability in Java programs</h2>
 
 <p>
-Javarifier infers the immutability (according to the definition of the
-<a href="http://pag.csail.mit.edu/javari/">Javari</a> language) of every
-reference in a Java program.  In other words, it converts Java programs and
-libraries to Javari.  It annotates <code>.java</code> files
+Javarifier tells you which variables your program mutates, and which
+variables are never used for side effects.
+</p>
+
+<p>
+Javarifier infers the immutability of every
+reference in a Java program,
+using the definition of the
+<a href="http://pag.csail.mit.edu/javari/">Javari</a> language.
+In other words, it converts Java programs and
+libraries to Javari.
+</p>
+
+<p>
+Javarifier annotates <code>.java</code> files
 with backward-compatible comments, or annotates <code>.class</code> files
 with backward-compatible attributes.
 The algorithm for inferring Javari reference immutability is explained
@@ -64,30 +76,19 @@ error-prone.  Javarifier automatically performs this analysis.
 <h2 id="javarifier-description">Javarifier</h2>
 
 <p>
-Javarifier reads a set of Java classes to
-analyze (in <code>.class</code> format) and infers the (im)mutability of
-every reference.  It outputs the inferred mutabilities in an
+Javarifier's input is Java <code>.class</code> files.
+Javarifier's output is an
 <a href="http://types.cs.washington.edu/annotation-file-utilities/">annotation
 file</a>, a textual file format for describing annotations
 of Java programs; the input class files are not
-modified.  These annotations can be used directly, or inserted into either the
-<code>.class</code> files or the corresponding <code>.java</code>
-files using the
+modified.  The annotation file can be used by a tool such as the
 <a href="http://types.cs.washington.edu/annotation-file-utilities/">annotation
-file utilities</a>.  If Javari annotations are inserted into the source
-code, they can be checked by the 
+file utilities</a>, which  inserts the annotations into either the
+<code>.class</code> files or the corresponding <code>.java</code>
+files.  If Javari annotations are inserted into the source code, they can
+be checked by the
 <a href="http://types.cs.washington.edu/checker-framework">Javari type
 checker</a>.
-</p>
-
-
-<p>	 
-In earlier versions of Javari, methods must be invariant in the mutability
-of their parameters and return types.  The newer definition of Javari used
-by both Javarifier and the
-<a href="http://types.cs.washington.edu/checker-framework">Javari type checker</a> 
-permits covariant subtyping on parameters and contra-variant subtyping on
-return types.
 </p>
 
 
@@ -103,6 +104,18 @@ that have already been annotated using stub classes.
 </p>
 	 
 	 
+<h3 id="javari-differences">Differences from previous versions of Javari</h3>
+
+<p>	 
+In earlier versions of Javari, methods must be invariant in the mutability
+of their parameters and return types.  The newer definition of Javari used
+by both Javarifier and the
+<a href="http://types.cs.washington.edu/checker-framework">Javari type checker</a> 
+permits covariant subtyping on parameters and contra-variant subtyping on
+return types.
+</p>
+
+
 <h2 id="installation">Installation</h2>
 
 <p> The following instructions assume either a Linux or Windows
@@ -114,7 +127,7 @@ released April 27, 2008.  </p>
 <ol>
 <li>
   Download 
-  <a href=""http://types.cs.washington.edu/javarifier/javarifier.zip">javarifier.zip</a>.
+  <a href="http://types.cs.washington.edu/javarifier/javarifier.zip">javarifier.zip</a>.
 </li>
 
 <li>
@@ -122,30 +135,10 @@ released April 27, 2008.  </p>
 
   <pre><code>  unzip javarifier.zip</code></pre>
 
-  <p>
-  This command creates a directory named
-  <code>javarifier</code> containing:
-  </p>
-  <ul>
-    <li>These instructions (<code>javarifier.html</code>)
-    </li>
-	 <li>The actual tool, <code> javarifier </code>
-	 </li>
-    <li>A <code>lib</code> directory containing libraries used by Javarifier
-    </li>
-    <li>A <code>src</code> directory containing the source code of
-Javarifier (please <a href="#feedback">contact us</a> if you are
-interested in building from source)
-    </li>
-	 <li>The <code>annotated-jdk</code> directory, containing various
-classes of the JDK that have their method signatures annotated with
-Javari annotations.
-	 </li>
-  </ul>
 </li>
 
 <li>
-Add the javarifier directory to your path.
+Add the <tt>javarifier/scripts</tt> directory to your path.
 
 <ul>
 <li>
@@ -183,27 +176,32 @@ and append to it the <code>javarifier</code> directory.
 <h2 id="using">Using Javarifier</h2> <p> The following instructions
 are for running <code>javarifier</code> on a Linux machine.  The
 instructions are the same for Windows, except the tool is
-<code>javarifier.bat</code>, and you must use the Windows path names
-instead of the Linux path names.  </p>
+<code>javarifier.bat</code>, and you must use Windows path names
+instead of Unix path names.  </p>
 
 <p> The <code>javarifier</code> tool takes as arguments
 any number of fully-qualified names of the classes to analyze.
-All of these classes must be in your $CLASSPATH, although this
-behavior can be overridden with the
-<a href="#using-classpath">-programCPEntries</a> option.
-Here are examples: </p>
+For example: </p>
 
-<pre><code>javarifier myPackage.myClassOne myPackage.myClassTwo
-javarifier myPackage.myClassOne myPackage.myClassTwo
-javarifier `find myPackage -type f -name '*.java' | perl -p -e 's/\.java//g; s/\//./g'`
+<pre><code>javarifier myPackage.myClassOne myPackage.myClassTwo</code></pre>
+
+To analyze all classes in a package <code>myPackage</code>, run the
+following in its parent directory:
+
+<pre><code>javarifier `find myPackage -type f -name '*.java' | perl -p -e 's/\.java//g; s/\//./g'`
 </code></pre>
 
+
+<h3 id="using-classpath"> Specifying a classpath</h3>
+
 <p>
-The last command above, if run in the parent directory of the
-<code>myPackage</code> source code directory, analyzes all classes in the
-package.
+All of the classes being analyzed must be on the path specified by the 
+<a href="#using-classpath">-programCPEntries</a> option, which defaults to 
+$CLASSPATH.
 </p>
 
+<!--
+This isn't necessary any longer, I think:
 <p>
 (Just using the default <code>$CLASSPATH</code> may not work, because the
 JVM may
@@ -213,14 +211,7 @@ Therefore, you may need to add such jar files to CLASSPATH, or explicitly
 mention them on the javarifier command line
 via the <a href="#using-world"><code>-world</code> option</a>.)
 </p>
-
-<h3 id="using-classpath"> Specifying a classpath</h3>
-
-<p>
-Javarifier ordinarily uses $CLASSPATH to look up the classes being analyzed.
-To specify a different classpath, use the <code>-programCPEntries</code>
-argument.
-</p>
+-->
 
 <pre><code>
 javarifier myPackage.myClassTwo -programCPEntries /path/to/classes1:/path/to/classes2
@@ -249,11 +240,13 @@ file.  For example:
 <pre><code>javarifier myPackage.myClassOne myPackage.myClassTwo -output myPackage.jaif</code></pre>
 
 
-<h3 id="using-world">Specifying JDK jarfiles</h3>
+<h3 id="using-world">Specifying library jarfiles</h3>
 
 <p>
-By default, Javarifier assumes that the JDK classes required by the program
-classes on which you are running Javarifier are in your
+The program on which you are running Javarifier may depend on 
+the JDK and other libraries.
+
+By default, Javarifier assumes that those libraries are on your
 CLASSPATH.  For example, it assumes <code>rt.jar</code> is in your
 CLASSPATH.  If this is not the case, or if you wish to reference a
 different JDK, you may use the <code>-world</code> option, followed by
@@ -266,8 +259,9 @@ the classpath of your JDK jarfiles.  For example:
 <h3 id="using-stubs">Using stub classes</h3>
 
 <p>A stub class gives Javari types for an external library.
-Javarifier comes with annotated versions of part of the JDK, in directory
-<code>annotated-jdk</code>.
+Javarifier comes with annotated versions of part of the JDK.
+<!-- , in directory
+<code>annotated-jdk</code>. -->
 </p>
 
 <p>
@@ -285,13 +279,14 @@ classes).
 </p>
 <ul>
   <li>
-    Place the corresponding class files in the
-    <code>annotated-jdk</code> directory.  For example, to have
+    Add a class file to the annotated JDK.  For example, to have
     Javarifier treat <code>packageA.packageB.classC</code> as a stub
     class, put its class file at:
     <pre><code>annotated-jdk/packageA/packageB/classC.class</code></pre>
     The class file must contain the Javari annotations.  This is automatic
-    if you use the JSR 308 compiler to compile a Javari program, or you can
+    if you use the <a href="http://types.cs.washington.edu/jsr308/">Type
+    Annotations compiler</a> or another Java 7 compiler to compile a Javari
+    program.  Alternately, you can
     use the <a
     href="http://types.cs.washington.edu/annotation-file-utilities/">annotation
     file utilities</a> to insert the annotations in any Java
@@ -516,7 +511,7 @@ Javarifier now works on the Eclipse compiler, which is over
 <hr/>
 
 <p>
-Last revised: August 22, 2009
+Last revised: August 23, 2009
 </p>
 
 </body>
