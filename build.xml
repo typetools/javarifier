@@ -244,11 +244,10 @@
   "bin" or other similar targets.) -->
   <target name="run-tests" depends="init-properties"
     description="Runs Javarifier test cases">
-    <exec executable="make">
+    <exec executable="make"
+          failonerror="true">
       <arg value="-C"/>
       <arg value="${javarifier}/tests"/>
-      <env key="CLASSPATH" path="${toString:libpath}"/>
-      <env key="JAVARIFIER_JDK" path="${javari-annotated-jdk}"/>
     </exec>
   </target>
 
@@ -263,6 +262,7 @@
 
   <!-- TODO: fix dependencies so that this task will build Javarifier
        as needed. -->
+  <!-- TODO: this should really run the script, not try to emulate it. -->
   <target name="javarify" depends="init-properties"
     description="Runs Javarifier.  (Arguments: class names to javarify)">
 
