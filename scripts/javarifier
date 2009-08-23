@@ -26,7 +26,8 @@ JAVARIFIER_JDK=${JAVARIFIER_JDK:-../../checker-framework/checkers/jdk/javari/src
 JAVARIFIER_LIB=${JRDIR}/lib
 JAVARIFIER_BIN=${JRDIR}/bin
 
-java -Xmx1024m -cp ${JAVARIFIER_BIN}:${JRDIR}/javarifier.jar:${JAVARIFIER_LIB}/jasminclasses-2.2.3.jar:${JAVARIFIER_LIB}/polyglotclasses-1.3.2.jar:${JAVARIFIER_LIB}/sootclasses-2.2.3.jar:${JDK_JARS} \
+# JAVARIFIER_BIN might be more up-to-date (in a checkout, not the distribution)
+java -Xmx1024m -cp ${JAVARIFIER_BIN}:${JRDIR}/javarifier.jar:${JDK_JARS} \
 	 javarifier.Main \
 	 -defaultStubCPEntries ${CLASSPATH}:${JAVARIFIER_JDK} \
 	 -defaultWorldCPEntries ${JDK_JARS} \
