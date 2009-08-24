@@ -1,4 +1,4 @@
-public class Mutable {
+public class MutableField {
 
     // That commented @checkers.javari.quals.Mutable is recognized by the extended
     // compiler and supersedes Mutable.fields.

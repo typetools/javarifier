@@ -28,9 +28,9 @@ class Health:
         local 0 #0+5: @checkers.javari.quals.ReadOnly
 
     method main([Ljava/lang/String;)V:
-        parameter #0: @checkers.javari.quals.Mutable
+        parameter #0: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
-        local 0 #0+335: @checkers.javari.quals.Mutable
+        local 0 #0+335: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
         local 1 #8+327:
         local 3 #20+315: @checkers.javari.quals.Mutable
@@ -41,12 +41,12 @@ class Health:
         local 9 #99+236:
 
     method parseCmdLine([Ljava/lang/String;)V:
-        parameter #0: @checkers.javari.quals.Mutable
+        parameter #0: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
-        local 0 #0+236: @checkers.javari.quals.Mutable
+        local 0 #0+236: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
         local 2 #2+234:
-        local 1 #26+188: @checkers.javari.quals.Mutable
+        local 1 #26+188: @checkers.javari.quals.ReadOnly
 
     method usage()V:
 

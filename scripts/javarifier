@@ -18,7 +18,9 @@ BINDIR=$(dirname $0)
 JRDIR=${BINDIR}/..
 SOOT_PROGRAMS=${CLASSPATH}
 # JAVARIFIER_JDK=${JAVARIFIER_JDK:-${JRDIR}/annotated-jdk}
-JAVARIFIER_JDK=${JAVARIFIER_JDK:-../../checker-framework/checkers/jdk/javari/src/}
+CHECKERS=${BINDIR}/../../checker-framework/checkers
+CHECKERS_JAR=${CHECKERS}/checkers.jar
+JAVARIFIER_JDK=${JAVARIFIER_JDK:-${CHECKERS}/jdk/javari/src/}
 
 # If user provides -programCPEntries, their arguments will be passed in
 # through the "$@" argument, and will override the default.
@@ -29,8 +31,8 @@ JAVARIFIER_BIN=${JRDIR}/bin
 # JAVARIFIER_BIN might be more up-to-date (in a checkout, not the distribution)
 java -Xmx1024m -cp ${JAVARIFIER_BIN}:${JRDIR}/javarifier.jar:${JDK_JARS} \
 	 javarifier.Main \
-	 -defaultStubCPEntries ${CLASSPATH}:${JAVARIFIER_JDK} \
-	 -defaultWorldCPEntries ${JDK_JARS} \
+	 -defaultStubCPEntries ${JAVARIFIER_JDK} \
+	 -defaultWorldCPEntries ${JDK_JARS}:${CHECKERS_JAR} \
 	 -programCPEntries ${SOOT_PROGRAMS} \
 	 "$@"
 

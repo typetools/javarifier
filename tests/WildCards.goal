@@ -52,9 +52,9 @@ class WildCards:
         local 0 #8+13: @checkers.javari.quals.Mutable
 
     method printVal(LCell;)Ljava/lang/String;: @checkers.javari.quals.ReadOnly
-        parameter #0: @checkers.javari.quals.Mutable
+        parameter #0: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
-        local 0 #0+7: @checkers.javari.quals.Mutable
+        local 0 #0+7: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
         local 1 #5+2: @checkers.javari.quals.ReadOnly
 
