@@ -2,12 +2,7 @@
 // http://sourceforge.org/projects/htmlparser
 // Copyright (C) 2005 Derrick Oswald
 //
-// Revision Control Information
 //
-// $Source: /afs/csail/group/pag/projects/javari/.CVS/javarifier/tests/htmlparser/org/htmlparser/parserapplications/filterbuilder/layouts/VerticalLayoutManager.java,v $
-// $Author: jaimeq $
-// $Date: 2008-05-25 04:56:54 $
-// $Revision: 1.1 $
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -39,14 +34,14 @@ public class VerticalLayoutManager
     implements
         LayoutManager2,
         Serializable
-{ 
+{
     /**
      * Constructs a VerticalLayoutManager object.
      */
     public VerticalLayoutManager ()
     {
     }
-  
+
     /**
      * Calculates the minimum size dimensions for the specified
      * panel given the components in the specified parent container.
@@ -58,7 +53,7 @@ public class VerticalLayoutManager
     {
         return (preferredLayoutSize (target));
     }
-  
+
     /**
      * Calculates the preferred size dimensions for the specified
      * panel given the components in the specified parent container.
@@ -73,7 +68,7 @@ public class VerticalLayoutManager
         Dimension dimension;
         Insets insets;
         Dimension ret;
-        
+
         synchronized (target.getTreeLock ())
         {
             // get the the total height and maximum width component
@@ -96,7 +91,7 @@ public class VerticalLayoutManager
 
         return (ret);
     }
-  
+
     /**
      * Returns the maximum size of this component.
      * @param target The component to be laid out.
@@ -107,11 +102,11 @@ public class VerticalLayoutManager
     {
         return (preferredLayoutSize (target));
     }
-  
+
     //
     // LayoutManager Interface
     //
-  
+
     /**
      * Adds the specified component with the specified name to
      * the layout.
@@ -120,8 +115,8 @@ public class VerticalLayoutManager
      */
     public void addLayoutComponent (String name, Component comp)
     {
-    }        
-  
+    }
+
     /**
      * Removes the specified component from the layout.
      * @param comp the component ot be removed
@@ -129,7 +124,7 @@ public class VerticalLayoutManager
     public void removeLayoutComponent (Component comp)
     {
     }
-  
+
     /**
      * Lays out the container.
      * @param target The container which needs to be laid out.
@@ -143,7 +138,7 @@ public class VerticalLayoutManager
         int width;
         Component component;
         Dimension dimension;
-        
+
         synchronized (target.getTreeLock ())
         {
             insets = target.getInsets ();
@@ -176,11 +171,11 @@ public class VerticalLayoutManager
             }
         }
     }
-  
+
     //
     // LayoutManager2 Interface
     //
-  
+
     /**
      * Adds the specified component to the layout, using the specified
      * constraint object.
@@ -190,7 +185,7 @@ public class VerticalLayoutManager
     public void addLayoutComponent (Component comp, Object constraints)
     {
     }
-  
+
     /**
      * Returns the alignment along the x axis.  This specifies how
      * the component would like to be aligned relative to other
@@ -204,7 +199,7 @@ public class VerticalLayoutManager
     {
         return (0.0f);
     }
-  
+
     /**
      * Returns the alignment along the y axis.  This specifies how
      * the component would like to be aligned relative to other
@@ -218,7 +213,7 @@ public class VerticalLayoutManager
     {
         return (0.0f);
     }
-  
+
     /**
      * Invalidates the layout, indicating that if the layout manager
      * has cached information it should be discarded.

@@ -2,12 +2,7 @@
 // http://sourceforge.org/projects/htmlparser
 // Copyright (C) 2004 Derrick Oswald
 //
-// Revision Control Information
 //
-// $Source: /afs/csail/group/pag/projects/javari/.CVS/javarifier/tests/htmlparser/org/htmlparser/scanners/ScriptDecoder.java,v $
-// $Author: jaimeq $
-// $Date: 2008-05-25 04:57:01 $
-// $Revision: 1.1 $
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -97,9 +92,9 @@ public class ScriptDecoder
      */
     protected static byte mEncodingIndex[] =
     {
-        1, 2, 0, 1, 2, 0, 2, 0, 0, 2, 0, 2, 1, 0, 2, 0, 
-        1, 0, 2, 0, 1, 1, 2, 0, 0, 2, 1, 0, 2, 0, 0, 2, 
-        1, 1, 0, 2, 0, 2, 0, 1, 0, 1, 1, 2, 0, 1, 0, 2, 
+        1, 2, 0, 1, 2, 0, 2, 0, 0, 2, 0, 2, 1, 0, 2, 0,
+        1, 0, 2, 0, 1, 1, 2, 0, 0, 2, 1, 0, 2, 0, 0, 2,
+        1, 1, 0, 2, 0, 2, 0, 1, 0, 1, 1, 2, 0, 1, 0, 2,
         1, 0, 2, 0, 1, 1, 2, 0, 0, 1, 1, 2, 0, 1, 0, 2,
     };
 
@@ -111,49 +106,49 @@ public class ScriptDecoder
     protected static char mLookupTable[][] =
     {
         {
-            '{', 
-            '2',  '0',  '!',  ')',  '[',  '8',  '3',  '=', 
-            'X',  ':',  '5',  'e',  '9', '\\',  'V',  's', 
-            'f',  'N',  'E',  'k',  'b',  'Y',  'x',  '^', 
-            '}',  'J',  'm',  'q',    0,  '`',    0,  'S', 
-              0,  'B', '\'',  'H',  'r',  'u',  '1',  '7', 
-            'M',  'R',  '"',  'T',  'j',  'G',  'd',  '-', 
-            ' ',  '',  '.',  'L',  ']',  '~',  'l',  'o', 
-            'y',  't',  'C',  '&',  'v',  '%',  '$',  '+', 
-            '(',  '#',  'A',  '4', '\t',  '*',  'D',  '?', 
-            'w',  ';',  'U',  'i',  'a',  'c',  'P',  'g', 
-            'Q',  'I',  'O',  'F',  'h',  '|',  '6',  'p', 
-            'n',  'z',  '/',  '_',  'K',  'Z',  ',',  'W', 
+            '{',
+            '2',  '0',  '!',  ')',  '[',  '8',  '3',  '=',
+            'X',  ':',  '5',  'e',  '9', '\\',  'V',  's',
+            'f',  'N',  'E',  'k',  'b',  'Y',  'x',  '^',
+            '}',  'J',  'm',  'q',    0,  '`',    0,  'S',
+              0,  'B', '\'',  'H',  'r',  'u',  '1',  '7',
+            'M',  'R',  '"',  'T',  'j',  'G',  'd',  '-',
+            ' ',  '',  '.',  'L',  ']',  '~',  'l',  'o',
+            'y',  't',  'C',  '&',  'v',  '%',  '$',  '+',
+            '(',  '#',  'A',  '4', '\t',  '*',  'D',  '?',
+            'w',  ';',  'U',  'i',  'a',  'c',  'P',  'g',
+            'Q',  'I',  'O',  'F',  'h',  '|',  '6',  'p',
+            'n',  'z',  '/',  '_',  'K',  'Z',  ',',  'W',
         },
         {
-            'W', 
-            '.',  'G',  'z',  'V',  'B',  'j',  '/',  '&', 
-            'I',  'A',  '4',  '2',  '[',  'v',  'r',  'C', 
-            '8',  '9',  'p',  'E',  'h',  'q',  'O', '\t', 
-            'b',  'D',  '#',  'u',    0,  '~',    0,  '^', 
-              0,  'w',  'J',  'a',  ']',  '"',  'K',  'o', 
-            'N',  ';',  'L',  'P',  'g',  '*',  '}',  't', 
-            'T',  '+',  '-',  ',',  '0',  'n',  'k',  'f', 
-            '5',  '%',  '!',  'd',  'M',  'R',  'c',  '?', 
-            '{',  'x',  ')',  '(',  's',  'Y',  '3',  '', 
-            'm',  'U',  'S',  '|',  ':',  '_',  'e',  'F', 
-            'X',  '1',  'i',  'l',  'Z',  'H', '\'', '\\', 
-            '=',  '$',  'y',  '7',  '`',  'Q',  ' ',  '6', 
+            'W',
+            '.',  'G',  'z',  'V',  'B',  'j',  '/',  '&',
+            'I',  'A',  '4',  '2',  '[',  'v',  'r',  'C',
+            '8',  '9',  'p',  'E',  'h',  'q',  'O', '\t',
+            'b',  'D',  '#',  'u',    0,  '~',    0,  '^',
+              0,  'w',  'J',  'a',  ']',  '"',  'K',  'o',
+            'N',  ';',  'L',  'P',  'g',  '*',  '}',  't',
+            'T',  '+',  '-',  ',',  '0',  'n',  'k',  'f',
+            '5',  '%',  '!',  'd',  'M',  'R',  'c',  '?',
+            '{',  'x',  ')',  '(',  's',  'Y',  '3',  '',
+            'm',  'U',  'S',  '|',  ':',  '_',  'e',  'F',
+            'X',  '1',  'i',  'l',  'Z',  'H', '\'', '\\',
+            '=',  '$',  'y',  '7',  '`',  'Q',  ' ',  '6',
         },
         {
-            'n', 
-            '-',  'u',  'R',  '`',  'q',  '^',  'I', '\\', 
-            'b',  '}',  ')',  '6',  ' ',  '|',  'z',  '', 
-            'k',  'c',  '3',  '+',  'h',  'Q',  'f',  'v', 
-            '1',  'd',  'T',  'C',    0,  ':',    0,  '~', 
-              0,  'E',  ',',  '*',  't', '\'',  '7',  'D', 
-            'y',  'Y',  '/',  'o',  '&',  'r',  'j',  '9', 
-            '{',  '?',  '8',  'w',  'g',  'S',  'G',  '4', 
-            'x',  ']',  '0',  '#',  'Z',  '[',  'l',  'H', 
-            'U',  'p',  'i',  '.',  'L',  '!',  '$',  'N', 
-            'P', '\t',  'V',  's',  '5',  'a',  'K',  'X', 
-            ';',  'W',  '"',  'm',  'M',  '%',  '(',  'F', 
-            'J',  '2',  'A',  '=',  '_',  'O',  'B',  'e', 
+            'n',
+            '-',  'u',  'R',  '`',  'q',  '^',  'I', '\\',
+            'b',  '}',  ')',  '6',  ' ',  '|',  'z',  '',
+            'k',  'c',  '3',  '+',  'h',  'Q',  'f',  'v',
+            '1',  'd',  'T',  'C',    0,  ':',    0,  '~',
+              0,  'E',  ',',  '*',  't', '\'',  '7',  'D',
+            'y',  'Y',  '/',  'o',  '&',  'r',  'j',  '9',
+            '{',  '?',  '8',  'w',  'g',  'S',  'G',  '4',
+            'x',  ']',  '0',  '#',  'Z',  '[',  'l',  'H',
+            'U',  'p',  'i',  '.',  'L',  '!',  '$',  'N',
+            'P', '\t',  'V',  's',  '5',  'a',  'K',  'X',
+            ';',  'W',  '"',  'm',  'M',  '%',  '(',  'F',
+            'J',  '2',  'A',  '=',  '_',  'O',  'B',  'e',
         },
     };
 
@@ -182,7 +177,7 @@ public class ScriptDecoder
      * length digits in base64.
      */
     protected static char mLeader[] =
-    { 
+    {
         '#',
         '@',
         '~',
@@ -194,7 +189,7 @@ public class ScriptDecoder
      * The prfix separates the encoded text from the length.
      */
     protected static char mPrefix[] =
-    { 
+    {
         '=',
         '=',
     };
@@ -205,7 +200,7 @@ public class ScriptDecoder
      * checksum digits in base64. These characters are the part after the checksum.
      */
     protected static char mTrailer[] =
-    { 
+    {
         '=',
         '=',
         '^',
@@ -250,13 +245,13 @@ public class ScriptDecoder
     protected static long decodeBase64 (char[] p)
     {
         long ret;
-        
+
         ret = 0;
 
         ret +=  (mDigits[p[0]] << 2);
         ret +=  (mDigits[p[1]] >> 4);
         ret +=  (mDigits[p[1]] & 0xf) << 12;
-        ret += ((mDigits[p[2]] >> 2) << 8); 
+        ret += ((mDigits[p[2]] >> 2) << 8);
         ret += ((mDigits[p[2]] & 0x3) << 22);
         ret +=  (mDigits[p[3]] << 16);
         ret += ((mDigits[p[4]] << 2) << 24);
@@ -292,7 +287,7 @@ public class ScriptDecoder
         int input_character;
         boolean found;
         StringBuffer ret;
-        
+
         ret = new StringBuffer (1024);
 
         state = STATE_INITIAL;
@@ -474,7 +469,7 @@ public class ScriptDecoder
 //        Cursor cursor;
 //        String string;
 //        int ret;
-//        
+//
 //        if (args.length < 2)
 //        {
 //            System.out.println ("Usage: java org.htmlparser.scanners.ScriptDecoder <infile> <outfile> [charset]");
@@ -492,13 +487,13 @@ public class ScriptDecoder
 //            ScriptDecoder.LAST_STATE = STATE_INITIAL;
 //            string = ScriptDecoder.Decode (page, cursor);
 //            in.close ();
-//            
+//
 //            FileOutputStream outfile = new FileOutputStream (args[1]);
 //            outfile.write (string.getBytes (charset));
 //            outfile.close ();
 //            ret = (0 != string.length ()) ? 0 : 1;
 //        }
-//        
+//
 //        System.exit (ret);
 //    }
 }
