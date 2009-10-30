@@ -2,12 +2,7 @@
 // http://sourceforge.org/projects/htmlparser
 // Copyright (C) 2004 Jim Arnell
 //
-// Revision Control Information
 //
-// $Source: /afs/csail/group/pag/projects/javari/.CVS/javarifier/tests/htmlparser/org/htmlparser/tests/visitorsTests/ScriptCommentTest.java,v $
-// $Author: jaimeq $
-// $Date: 2008-05-25 04:57:35 $
-// $Revision: 1.1 $
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -38,7 +33,7 @@ public class ScriptCommentTest extends ParserTestCase {
     {
         System.setProperty ("org.htmlparser.tests.visitorsTests.ScriptCommentTest", "ScriptCommentTest");
     }
-    
+
     private String workingScriptTag =
         "<script language='javascript'>"
         + "// I cant handle single quotations\n"
@@ -139,4 +134,3 @@ public class ScriptCommentTest extends ParserTestCase {
         }
     }
 }
-

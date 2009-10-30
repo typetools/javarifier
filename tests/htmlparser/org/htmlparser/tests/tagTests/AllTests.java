@@ -2,12 +2,7 @@
 // http://sourceforge.org/projects/htmlparser
 // Copyright (C) 2004 Somik Raha
 //
-// Revision Control Information
 //
-// $Source: /afs/csail/group/pag/projects/javari/.CVS/javarifier/tests/htmlparser/org/htmlparser/tests/tagTests/AllTests.java,v $
-// $Author: jaimeq $
-// $Date: 2008-05-25 04:57:22 $
-// $Revision: 1.1 $
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
