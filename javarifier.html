@@ -69,7 +69,9 @@ and modifying it without introducing subtle mutation errors.  Annotating
 <em>libraries</em> is important because Javari programs use libraries
 without Javari annotations often do not typecheck.  Manually determining
 the mutability for each (public) parameter and return type is tedious and
-error-prone.  Javarifier automatically performs this analysis.
+error-prone.  Javarifier automatically performs this analysis, and a
+<a href="http://types.cs.washington.edu/annotation-file-utilities/">companion
+  tool</a> can automatically update your source code.
 </p>
 
 	 
@@ -511,7 +513,7 @@ Javarifier now works on the Eclipse compiler, which is over
 <hr/>
 
 <p>
-Last revised: August 23, 2009
+Last revised: November 2, 2009
 </p>
 
 </body>
