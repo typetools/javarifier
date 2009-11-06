@@ -17,6 +17,7 @@ import javarifier.util.*;
 import annotations.*;
 import annotations.el.*;
 import annotations.util.coll.*;
+import annotations.field.AnnotationFieldType;
 
 /**
  * {@link AnnotationLoader} provides a static method,
@@ -29,8 +30,13 @@ public class AnnotationLoader {
   /**
    * The annotation for the Javari assignable keyword.
    */
-  public static final String assignableAnnotation =
+  public static final String assignableAnnotationName =
     "checkers.javari.quals.Assignable";
+
+  public static final AnnotationDef assignableAnnotationDef =
+    new AnnotationDef(assignableAnnotationName,
+                      Collections.<Annotation>emptySet(),
+                      Collections.<String,AnnotationFieldType>emptyMap());
 
   /**
    * The annotation for syntactic sugar on a class indicating that all
@@ -50,8 +56,7 @@ public class AnnotationLoader {
     boolean unmodifiable = false;
     if (clazz.lookup(unmodifiableAnnotation) != null) {
       unmodifiable = true;
-    } else if (clazz.lookup(Mutability.READONLY.annotation())
-        != null) {
+    } else if (clazz.lookup(Mutability.READONLY.annotationName) != null) {
       unmodifiable = true;
     }
 
@@ -164,7 +169,7 @@ public class AnnotationLoader {
     loadTypeParameters(ms.getTypeParams(), am.bounds, isStub,
         Mutability.READONLY);
     try {
-      loadType(ms.getReturnType(), am, isStub, Mutability.MUTABLE, false);
+      loadType(ms.getReturnType(), am.returnType, isStub, Mutability.MUTABLE, false);
     } catch (RuntimeException e) {
       throw wrap(e, "return type");
     }
@@ -238,7 +243,7 @@ public class AnnotationLoader {
     ? Mutability.READONLY
         : (sf.isStatic() ? Mutability.MUTABLE : Mutability.THIS_MUTABLE);
     loadType(sf.getJrType(), af, isStub, defmut, true);
-    if (af.lookup(assignableAnnotation) != null)
+    if (af.lookup(assignableAnnotationName) != null)
       sf.setAssignable(true);
   }
 
@@ -321,7 +326,7 @@ public class AnnotationLoader {
     // Iterate through each possible Mutability and lookup each one
     // to make sure source only has one mutability annotation on it.
     for (Mutability mut : Mutability.values()) {
-      if (source.lookup(mut.annotation()) != null) {
+      if (source.lookup(mut.annotationName) != null) {
         if (m == null)
           m = mut;
         else {
