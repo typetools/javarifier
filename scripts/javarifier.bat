@@ -7,4 +7,4 @@ set JAVARIFIER_DIR=%~d0
 set JAVARIFIER_DIR=%JAVARIFIER_DIR%%~p0
 set JAVARIFIER_LIB=%JAVARIFIER_DIR%lib
 
-java -cp "%JAVARIFIER_LIB%\javarifier.jar" javarifier.Main "-defaultStubCPEntries" "%JAVARIFIER_DIR%annotated-jdk" "-defaultWorldCPEntries" "%CLASSPATH%" "-programCPEntries" "%CLASSPATH%" %*
+java -ea -cp "%JAVARIFIER_LIB%\javarifier.jar" javarifier.Main "-defaultStubCPEntries" "%JAVARIFIER_DIR%annotated-jdk" "-defaultWorldCPEntries" "%CLASSPATH%" "-programCPEntries" "%CLASSPATH%" %*
