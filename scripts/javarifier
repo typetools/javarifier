@@ -29,7 +29,7 @@ JAVARIFIER_LIB=${JRDIR}/lib
 JAVARIFIER_BIN=${JRDIR}/bin
 
 # JAVARIFIER_BIN might be more up-to-date (in a checkout, not the distribution)
-java -Xmx1024m -cp ${JAVARIFIER_BIN}:${JRDIR}/javarifier.jar:${JDK_JARS} \
+java -ea -Xmx1024m -cp ${JAVARIFIER_BIN}:${JRDIR}/javarifier.jar:${JDK_JARS} \
 	 javarifier.Main \
 	 -defaultStubCPEntries ${JAVARIFIER_JDK} \
 	 -defaultWorldCPEntries ${JDK_JARS}:${CHECKERS_JAR} \
