@@ -1,4 +1,7 @@
 package javarifier;
+import annotations.el.AnnotationDef;
+import annotations.field.AnnotationFieldType;
+import java.util.Collections;
 
 /**
  * The Mutability enum enumerates all the Javari mutability keywords.
@@ -12,24 +15,20 @@ public enum Mutability {
     POLYREAD("checkers.javari.quals.PolyRead");
 
     /**
-     * The annotation describing this mutability.
+     * The fully qualified name of the annotation describing this
+     * mutability, excluding the at-sign. (E.g. "checkers.javari.quals.ReadOnly")
      */
-    private String annotationName;
+    final String annotationName;
+
+    final AnnotationDef annotationDef;
 
     /**
      * Constructs a Mutability from a given annotation.
      */
     private Mutability(String annotationName) {
       this.annotationName = annotationName;
-    }
-
-    /**
-     * Returns the fully qualified name of the annotation describing this
-     * mutability, excluding the at-sign. (E.g. "checkers.javari.quals.ReadOnly")
-     * @return the name of the annotation describing this mutability
-     */
-    public String annotation() {
-      return annotationName;
+      this.annotationDef = new AnnotationDef(annotationName);
+      this.annotationDef.fieldTypes = Collections.<String, AnnotationFieldType> emptyMap();
     }
 
     /**
@@ -44,7 +43,7 @@ public enum Mutability {
       // Don't want to lookup by name() "checkers.javari.quals.ReadOnly"
       // Actually want to lookup by annotation():
       for (Mutability m : Mutability.values()) {
-        if (m.annotation().equals(annotationName)) {
+        if (m.annotationName.equals(annotationName)) {
           return m;
         }
       }

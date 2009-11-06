@@ -1,6 +1,7 @@
 package javarifier;
 
 import java.util.*;
+import java.lang.annotation.RetentionPolicy;
 
 import javarifier.JrType.*;
 import javarifier.JrType.ArrayType;
@@ -26,11 +27,16 @@ public class AnnotationStorer {
 
   /**
    * The annotation to use for storing immutable classes (such as String).
-   * This is useful if we decided to use Unmodifiable as syntactic
-   * sugaring on a class to indicate all methods should be readonly.
    */
-  public static final String unmodifiableAnnotation =
-    "checkers.javari.quals.Unmodifiable";
+  // This would be useful if we decided to use Unmodifiable as syntactic
+  // sugar on a class to indicate all methods should be readonly.
+  public static final String unmodifiableAnnotationName =
+    // "checkers.javari.quals.Unmodifiable";
+    "checkers.javari.quals.ReadOnly";
+
+  public static final AnnotationDef unmodifiableAnnotationDef =
+    new AnnotationDef(unmodifiableAnnotationName);
+
 
   /**
    * Converts all the mutabilities in the class <code>sc</code> into
@@ -99,7 +105,7 @@ public class AnnotationStorer {
    */
   private void storeClass(SootClass sc, AClass ac) {
     if (classIsUnmodifiable(sc.getName()))
-      annotate(ac, unmodifiableAnnotation);
+      annotate(ac, unmodifiableAnnotationDef);
 
     // An interface has all "empty" methods, so don't output the
     // inferred annotations if user doesn't want empty methods/classes
@@ -170,7 +176,7 @@ public class AnnotationStorer {
 
     // Store mutability on return type.
     try {
-      storeType(ms.getReturnType(), am);
+      storeType(ms.getReturnType(), am.returnType);
     } catch (RuntimeException e) {
       throw wrap(e, "return type");
     }
@@ -248,7 +254,7 @@ public class AnnotationStorer {
    */
   private void storeField(SootField sf, ATypeElement af) {
     if (sf.assignable())
-      annotate(af, AnnotationLoader.assignableAnnotation);
+      annotate(af, AnnotationLoader.assignableAnnotationDef);
     storeType(sf.getJrType(), af);
   }
 
@@ -321,7 +327,7 @@ public class AnnotationStorer {
    */
   private void storeTypeLayer(JrType source, AElement dest) {
     // If source has any mutabilities, simply retrieve them, look up
-    // the annotation from mutabilityAnnos and then  use annotate().
+    // the annotation from mutabilityAnnos and then use annotate().
     if (source instanceof MutType) {
       MutType msource = (MutType) source;
       Mutability m = msource.getMutability();
@@ -331,12 +337,12 @@ public class AnnotationStorer {
         m = Mutability.READONLY;
       }
 
-      String annoTypeName = m.annotation();
-      if (annoTypeName == null) {
+      AnnotationDef adef = m.annotationDef;
+      if (adef == null) {
         throw new RuntimeException("AnnotationStorer.storeTypeLayer: " +
                                    "Bad mutability in: " + source);
       }
-      annotate(dest, annoTypeName);
+      annotate(dest, adef);
     }
   }
 
@@ -347,11 +353,11 @@ public class AnnotationStorer {
    * @param target - the element onto which to add the annotation
    * @param annoTypeName - the name of the annotation to add
    */
-  private void annotate(AElement target, String annoTypeName) {
+  private void annotate(AElement target, AnnotationDef adef) {
     // These are the original lines, which I have commented out so that I
     // can proceed with testing.
-      Annotation ann = AnnotationFactory.saf.beginAnnotation(annoTypeName, DEFAULT_RETENTION).finish();
-      target.tlAnnotationsHere.add(ann);
+    Annotation ann = AnnotationFactory.saf.beginAnnotation(adef).finish();
+    target.tlAnnotationsHere.add(ann);
   }
 
   /**
