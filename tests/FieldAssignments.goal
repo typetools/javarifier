@@ -1,11 +1,11 @@
 package checkers.javari.quals:
-annotation visible @ReadOnly:
+annotation @ReadOnly:
 
 package checkers.javari.quals:
-annotation visible @Mutable:
+annotation @Mutable:
 
 package checkers.javari.quals:
-annotation visible @ThisMutable:
+annotation @ThisMutable:
 
 package :
 class FieldAssignments:
@@ -15,10 +15,12 @@ class FieldAssignments:
     field g: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5: @checkers.javari.quals.ReadOnly
 
     method foo()V:
+        return:
         receiver: @checkers.javari.quals.Mutable
         local 0 #0+24: @checkers.javari.quals.Mutable
         local 1 #5+19: @checkers.javari.quals.ReadOnly

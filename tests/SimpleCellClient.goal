@@ -1,17 +1,19 @@
 package checkers.javari.quals:
-annotation visible @ReadOnly:
+annotation @ReadOnly:
 
 package checkers.javari.quals:
-annotation visible @Mutable:
+annotation @Mutable:
 
 package :
 class SimpleCellClient:
 
     method <init>()V:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5: @checkers.javari.quals.ReadOnly
 
     method foo()V:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+22: @checkers.javari.quals.ReadOnly
         local 1 #8+14: @checkers.javari.quals.ReadOnly
@@ -20,6 +22,7 @@ class SimpleCellClient:
         local 3 #21+1:
 
     method bar()V:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+37: @checkers.javari.quals.ReadOnly
         local 1 #8+29: @checkers.javari.quals.Mutable
@@ -29,6 +32,7 @@ class SimpleCellClient:
         local 4 #30+7: @checkers.javari.quals.ReadOnly
 
     method baz()V:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+22: @checkers.javari.quals.ReadOnly
         local 1 #8+14: @checkers.javari.quals.ReadOnly
@@ -36,6 +40,7 @@ class SimpleCellClient:
         local 2 #16+6: @checkers.javari.quals.Mutable
 
     method quax()V:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+35: @checkers.javari.quals.ReadOnly
         local 1 #8+27: @checkers.javari.quals.Mutable
@@ -49,22 +54,26 @@ class Date:
     field day:
 
     method <init>()V:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        parameter #0:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
+        parameter #0:
         local 0 #0+10: @checkers.javari.quals.Mutable
         local 1 #0+10:
 
     method getDay()I:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5: @checkers.javari.quals.ReadOnly
 
     method setDay(I)V:
-        parameter #0:
+        return:
         receiver: @checkers.javari.quals.Mutable
+        parameter #0:
         local 0 #0+6: @checkers.javari.quals.Mutable
         local 1 #0+6:
 
@@ -75,6 +84,7 @@ class SimpleCell:
     field val: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly

@@ -1,20 +1,22 @@
 package checkers.javari.quals:
-annotation visible @ReadOnly:
+annotation @ReadOnly:
 
 package checkers.javari.quals:
-annotation visible @Mutable:
+annotation @Mutable:
 
 package checkers.javari.quals:
-annotation visible @QReadOnly:
+annotation @QReadOnly:
 
 package :
 class Arrays:
 
     method <init>()V:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5: @checkers.javari.quals.ReadOnly
 
     method foo()V:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+28: @checkers.javari.quals.ReadOnly
         local 1 #5+23: @checkers.javari.quals.ReadOnly
@@ -24,6 +26,7 @@ class Arrays:
         local 4 #27+1:
 
     method bar()V:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+34: @checkers.javari.quals.ReadOnly
         local 1 #5+29: @checkers.javari.quals.Mutable
@@ -33,6 +36,7 @@ class Arrays:
         local 4 #27+7:
 
     method baz()V:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+35: @checkers.javari.quals.ReadOnly
         local 1 #5+30: @checkers.javari.quals.Mutable
@@ -43,6 +47,7 @@ class Arrays:
         local 4 #34+1:
 
     method quax()V:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+39: @checkers.javari.quals.ReadOnly
         local 1 #5+34: @checkers.javari.quals.Mutable
@@ -59,22 +64,26 @@ class Date:
     field day:
 
     method <init>()V:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        parameter #0:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
+        parameter #0:
         local 0 #0+10: @checkers.javari.quals.Mutable
         local 1 #0+10:
 
     method getDay()I:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5: @checkers.javari.quals.ReadOnly
 
     method setDay(I)V:
-        parameter #0:
+        return:
         receiver: @checkers.javari.quals.Mutable
+        parameter #0:
         local 0 #0+6: @checkers.javari.quals.Mutable
         local 1 #0+6:
 
