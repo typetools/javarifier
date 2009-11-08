@@ -1,0 +1,297 @@
+<?xml version="1.0"?>
+<project name="javarifier" default="jarfile">
+  <description>
+    Rules for building and testing Javarifier.
+    For a list of targets, run:  ant -projecthelp
+  </description>
+
+  <property environment="env"/>
+
+  <property name="temp" value="files"/>
+  <property name="temp-bin" value="${temp}/bin"/>
+  <property name="scripts" value="scripts"/>
+
+  <property name="final-distribution-directory"
+            value="javarifier"/>
+  <!-- All files will be placed into a final folder for distribution, and this
+       folder is zipped. -->
+
+  <property name="javari-www"
+    value="/afs/csail.mit.edu/group/pag/www/javari"/>
+  <property name="javari-www-javarifier"
+    value="/cse/www2/types/javarifier"/>
+
+  <!-- Determine locations of all projects, as per the property files. -->
+  <target name="init-properties" description="Initialize required properties">
+      <condition property="exists.build.properties">
+        <available file="build.properties"/>
+      </condition>
+      <fail
+        unless="exists.build.properties"
+        message="Local build.properites file is missing."/>
+
+      <property file="build.properties"/>
+
+      <fail
+        unless="global.build.properties"
+        message="Local build.properties file did not define global buildfile in property global.build.properties"/>
+      <condition property="exists.global.build.properties">
+        <available file="${global.build.properties}"/>
+      </condition>
+      <fail
+        unless="exists.global.build.properties"
+        message="File ${global.build.properties} file not found."/>
+      <property file="${global.build.properties}"/>
+
+      <fail
+        unless="user.build.properties"
+        message="Local build.properties file did not define global buildfile in property user.build.properties"/>
+      <condition property="exists.user.build.properties">
+        <available file="${user.build.properties}"/>
+      </condition>
+      <fail
+        unless="exists.user.build.properties"
+        message="File ${user.build.properties} file not found."/>
+      <property file="${user.build.properties}"/>
+
+      <path id="sourcepath">
+        <pathelement location="src"/>
+      </path>
+
+      <path id="javadoc-sourcepath">
+        <pathelement location="src"/>
+      </path>
+
+      <path id="libpath">
+        <pathelement location="${javari-annotated-jdk}/bin"/>
+<!--        <pathelement location="${annotations-shared}/bin"/> -->
+        <pathelement location="${checkers}/build"/>
+        <pathelement location="${annotations-compiler}/dist/lib/javac.jar"/>
+        <pathelement location="${afu}/annotation-file-utilities.jar"/>
+        <pathelement location="${javarifier}/bin"/>
+        <pathelement location="${javarifier}/lib/jasminclasses-2.2.3.jar"/>
+        <pathelement location="${javarifier}/lib/polyglotclasses-1.3.2.jar"/>
+        <pathelement location="${javarifier}/lib/sootclasses-2.2.3.jar"/>
+      </path>
+  </target>
+
+  <target name="build-dependencies" depends="init-properties"
+    description="Builds all projects this depends on">
+      <ant dir="${afu}" target="jarfile" inheritAll="false"/>
+      <ant dir="${annotations-compiler}" antfile="make/build.xml"
+          inheritAll="false" target="build"/>
+      <ant dir="${checkers}" target="build" inheritAll="false"/>
+      <ant dir="${checkers}" target="build-javari-jdk" inheritAll="false"/>
+  </target>
+
+  <target name="init" depends="init-properties, build-dependencies"
+    description="Initialize properties and build required projects">
+  </target>
+
+  <target name="jarfile" depends="init,clean,bin"
+    description="Build jarfile containing all Javarifier classes.">
+
+    <echo message="Using temporary directory: ${temp-bin}"/>
+    <mkdir dir="${temp-bin}"/>
+
+    <echo message="Copying over necessary files to ${temp-bin}"/>
+
+    <unjar src="${javarifier}/lib/jasminclasses-2.2.3.jar"
+	   dest="${temp-bin}"/>
+    <unjar src="${javarifier}/lib/polyglotclasses-1.3.2.jar"
+	   dest="${temp-bin}"/>
+    <unjar src="${javarifier}/lib/sootclasses-2.2.3.jar"
+	   dest="${temp-bin}"/>
+    <unjar src="${afu}/annotation-file-utilities.jar"
+	   dest="${temp-bin}"/>
+    <copy todir="${temp-bin}">
+      <fileset dir="${javarifier}/bin" />
+    </copy>
+
+    <!-- Create a single .jar file of all the class files,
+         scripts, and documentation -->
+    <echo message="Creating jarfile javarifier.jar"/>
+    <jar
+      destfile="${javarifier}/javarifier.jar">
+      <fileset dir="${temp-bin}"/>
+    </jar>
+
+    <!-- Delete class files copied over -->
+    <echo message="Deleting temporary directory: ${temp-bin}"/>
+    <delete includeEmptyDirs="true">
+      <fileset dir="${temp}"/>
+    </delete>
+  </target>
+
+  <target name="zipfile" depends="jarfile"
+    description="Build zipfile containing Javarifier distribution">
+    <!-- Create a new directory containing all the files and then zip that
+         directory, so that when the user unzips they extract exactly one
+         directory. -->
+
+    <mkdir dir="${final-distribution-directory}"/>
+
+    <!-- Import anntoted jdk into subdirectory. -->
+    <mkdir dir="${final-distribution-directory}/annotated-jdk"/>
+    <copy todir="${final-distribution-directory}/annotated-jdk">
+       <fileset dir="${javari-annotated-jdk}/build" excludes="**/.svn/*"/>
+    </copy>
+    <copy todir="${final-distribution-directory}/annotated-jdk">
+       <fileset dir="${javari-annotated-jdk}/src" excludes="**/.svn/*"/>
+    </copy>
+    <copy todir="${final-distribution-directory}/annotated-jdk">
+       <fileset dir="${checkers}/build" excludes="**/.svn/*"/>
+    </copy>
+
+    <echo message="javarifier: ${javarifier}"/>
+    <!-- Import other libraries into subdirectory. -->
+    <mkdir dir="${final-distribution-directory}/lib"/>
+    <copy todir="${final-distribution-directory}/lib">
+      <fileset dir="${javarifier}/lib" excludes="**/CVS/*"/>
+    </copy>
+
+    <!-- Copy javarifier.jar into lib subdirectory. -->
+    <copy todir="${final-distribution-directory}/lib">
+       <fileset file="javarifier.jar"/>
+    </copy>
+
+    <!-- Copy javarifier source into src subdirectory. -->
+    <mkdir dir="${final-distribution-directory}/src"/>
+    <copy todir="${final-distribution-directory}/src">
+      <fileset dir="${javarifier}/src" excludes="**/CVS/*"/>
+    </copy>
+
+    <!-- Copy test folder into directory. -->
+    <copy todir="${final-distribution-directory}/tests">
+      <fileset dir="${javarifier}/tests" excludes="**/CVS/*"/>
+    </copy>
+
+    <!-- Copy scripts and instructions into directory. -->
+    <copy todir="${final-distribution-directory}">
+      <fileset dir="${scripts}" excludes="**/CVS/*"/>
+      <fileset file="doc/javarifier.html"/>
+    </copy>
+
+    <!-- In order for the UNIX tools to have the proper execution bit set,
+         include them specifically with the right permissions.  Ant presently
+         does not use the file's permissions themselves to do this. -->
+    <zip destfile="javarifier.zip" compress="true">
+      <fileset dir=".">
+        <include name="${final-distribution-directory}/"/>
+        <exclude name="${final-distribution-directory}/javarifier"/>
+      </fileset>
+      <zipfileset dir="." filemode="755">
+        <include name="${final-distribution-directory}/javarifier"/>
+      </zipfileset>
+    </zip>
+
+    <!-- Delete temporary files once they have been zipped. -->
+    <delete includeEmptyDirs="true">
+      <fileset dir="${final-distribution-directory}"/>
+    </delete>
+  </target>
+
+  <!-- Create zipfile and export it and instructions to webpage. -->
+  <target name="web" depends="export" description="Same as export"/>
+
+  <target name="export" depends="clean,zipfile"
+    description="Build distribution and export it to website">
+    <echo message="Export location: ${javari-www-javarifier}"/>
+    <echo message="Copying javarifier.zip"/>
+    <copy file="javarifier.zip"
+      todir="${javari-www-javarifier}"/>
+
+    <echo message="Copying javarifier.html as index.html"/>
+    <copy file="doc/javarifier.html"
+      tofile="${javari-www-javarifier}/index.html"/>
+    <echo message="Checking HTML links"/>
+    <exec executable="/usr/bin/make">
+      <arg value="-C"/>
+      <arg value="../../design/www"/>
+      <arg value="checklinks"/>
+    </exec>
+  </target>
+
+  <!-- Remove all generated files. -->
+  <target name="clean" description="Remove all generated files.">
+    <delete dir="bin"/>
+
+    <echo message="Deleting temporary directory: ${temp-bin}"/>
+    <delete dir="${temp-bin}" includeEmptyDirs="true"/>
+    <delete dir="${temp}" includeEmptyDirs="true"/>
+    <delete dir="${final-distribution-directory}" includeEmptyDirs="true"/>
+
+    <echo message="Deleting previous distribution: javarifier.zip"/>
+    <delete file="javarifier.zip"/>
+    <delete file="javarifier.jar"/>
+  </target>
+
+  <target name="bin" depends="init"
+    description="Compiles Javarifier classes">
+    <mkdir dir="bin"/>
+    <copy todir="bin">
+      <fileset dir="src" excludes="**/*.java"/>
+    </copy>
+    <javac destdir="bin" 
+           debug="on"
+           fork="true">
+      <src refid="sourcepath"/>
+      <classpath refid="libpath"/>
+      <compilerarg value="-J-Xmx1024M"/>
+<!--      <compilerarg value="-Xlint"/> -->
+      <compilerarg value="-g"/>
+    </javac>
+  </target>
+
+  <!-- WARNING:  This target does not re-compile!  (It does not depend on
+  "bin" or other similar targets.) -->
+  <target name="run-tests" depends="init-properties"
+    description="Runs Javarifier test cases">
+    <exec executable="make"
+          failonerror="true">
+      <arg value="-C"/>
+      <arg value="${javarifier}/tests"/>
+    </exec>
+  </target>
+
+  <target name="etags" depends="tags">
+  </target>
+  <target name="tags" description="Create Emacs TAGS table">
+    <exec executable="/bin/sh">
+      <arg value="-c"/>
+      <arg value="etags `find src -name '*.java'`"/>
+    </exec>
+  </target>
+
+  <!-- TODO: fix dependencies so that this task will build Javarifier
+       as needed. -->
+  <!-- TODO: this should really run the script, not try to emulate it. -->
+  <target name="javarify" depends="init-properties"
+    description="Runs Javarifier.  (Arguments: class names to javarify)">
+
+    <property name="soot-programs" value="${user-soot-programs}:."/>
+    <property name="soot-stubs" value="${user-soot-stubs}:${checkers}/build"/>
+    <property name="soot-worlds" value="${user-soot-worlds}:${jre1.6.0}"/>
+
+     <!-- Set classpath of Javarifier to use for running Javarifier, not
+          the classpath to search when analyzing. -->
+
+     <java classname="javarifier.Main" classpathref="libpath" fork="yes">
+      <assertions>
+        <enable/>
+      </assertions>
+
+       <!-- Needed to javarify large programs. -->
+       <jvmarg value="-Xmx512m"/>
+
+      <!-- Soot's classpath options. -->
+      <arg line="-programCPEntries ${soot-programs}"/>
+      <arg line="-defaultStubCPEntries ${soot-stubs}"/>
+      <arg line="-defaultWorldCPEntries ${soot-worlds}"/>
+
+       <!-- The user's args is just the name of class to javarify. -->
+       <arg line="${user-args}"/>
+     </java>
+  </target>
+
+</project>
