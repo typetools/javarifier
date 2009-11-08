@@ -88,7 +88,7 @@
     description="Initialize properties and build required projects">
   </target>
 
-  <target name="jarfile" depends="init,clean,bin"
+  <target name="jarfile" depends="init,bin"
     description="Build jarfile containing all Javarifier classes.">
 
     <echo message="Using temporary directory: ${temp-bin}"/>
