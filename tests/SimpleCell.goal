@@ -1,5 +1,5 @@
 package checkers.javari.quals:
-annotation visible @ReadOnly:
+annotation @ReadOnly:
 
 package :
 class SimpleCell:
@@ -8,6 +8,7 @@ class SimpleCell:
     field val: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly

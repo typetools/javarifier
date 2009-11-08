@@ -1,11 +1,11 @@
 package checkers.javari.quals:
-annotation visible @ReadOnly:
+annotation @ReadOnly:
 
 package checkers.javari.quals:
-annotation visible @Mutable:
+annotation @Mutable:
 
 package checkers.javari.quals:
-annotation visible @ThisMutable:
+annotation @ThisMutable:
 
 package :
 class Bar3:
@@ -16,22 +16,26 @@ class Bar3:
     field i:
 
     method <init>()V:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+19: @checkers.javari.quals.Mutable
 
-    method get(I)Ljava/lang/String;: @checkers.javari.quals.ReadOnly
-        parameter #0:
+    method get(I)Ljava/lang/String;:
+        return: @checkers.javari.quals.ReadOnly
         receiver: @checkers.javari.quals.ReadOnly
+        parameter #0:
         local 0 #0+7: @checkers.javari.quals.ReadOnly
         local 1 #0+7:
 
     method add(Ljava/lang/String;)V:
-        parameter #0: @checkers.javari.quals.ReadOnly
+        return:
         receiver: @checkers.javari.quals.Mutable
+        parameter #0: @checkers.javari.quals.ReadOnly
         local 0 #0+21: @checkers.javari.quals.Mutable
         local 1 #0+21: @checkers.javari.quals.ReadOnly
 
     method clear()V:
+        return:
         receiver: @checkers.javari.quals.Mutable
         local 0 #0+15: @checkers.javari.quals.Mutable
 

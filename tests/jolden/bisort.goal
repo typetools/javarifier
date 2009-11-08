@@ -1,11 +1,11 @@
 package checkers.javari.quals:
-annotation visible @ReadOnly:
+annotation @ReadOnly:
 
 package checkers.javari.quals:
-annotation visible @Mutable:
+annotation @Mutable:
 
 package checkers.javari.quals:
-annotation visible @ThisMutable:
+annotation @ThisMutable:
 
 package :
 class BiSort:

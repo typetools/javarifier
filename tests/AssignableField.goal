@@ -1,11 +1,11 @@
 package checkers.javari.quals:
-annotation visible @ReadOnly:
+annotation @ReadOnly:
 
 package checkers.javari.quals:
-annotation visible @Assignable:
+annotation @Assignable:
 
 package checkers.javari.quals:
-annotation visible @Mutable:
+annotation @Mutable:
 
 package :
 class AssignableField:
@@ -13,10 +13,12 @@ class AssignableField:
     field d: @checkers.javari.quals.Assignable @checkers.javari.quals.ReadOnly
 
     method <init>()V:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5: @checkers.javari.quals.ReadOnly
 
-    method foo()LDate;: @checkers.javari.quals.ReadOnly
+    method foo()LDate;:
+        return: @checkers.javari.quals.ReadOnly
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+23: @checkers.javari.quals.ReadOnly
 
@@ -26,22 +28,26 @@ class Date:
     field day:
 
     method <init>()V:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        parameter #0:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
+        parameter #0:
         local 0 #0+10: @checkers.javari.quals.Mutable
         local 1 #0+10:
 
     method getDay()I:
+        return:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5: @checkers.javari.quals.ReadOnly
 
     method setDay(I)V:
-        parameter #0:
+        return:
         receiver: @checkers.javari.quals.Mutable
+        parameter #0:
         local 0 #0+6: @checkers.javari.quals.Mutable
         local 1 #0+6:
 

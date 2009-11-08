@@ -1,14 +1,14 @@
 package checkers.javari.quals:
-annotation visible @ReadOnly:
+annotation @ReadOnly:
 
 package checkers.javari.quals:
-annotation visible @Mutable:
+annotation @Mutable:
 
 package checkers.javari.quals:
-annotation visible @PolyRead:
+annotation @PolyRead:
 
 package checkers.javari.quals:
-annotation visible @ThisMutable:
+annotation @ThisMutable:
 
 package :
 class BiGraph:
