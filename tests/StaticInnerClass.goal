@@ -1,0 +1,71 @@
+package checkers.javari.quals:
+annotation @ReadOnly:
+
+package checkers.javari.quals:
+annotation @Mutable:
+
+package checkers.javari.quals:
+annotation @ThisMutable:
+
+package :
+class StaticInnerClass:
+
+    field f: @checkers.javari.quals.ThisMutable
+
+    method <init>()V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+
+    method bar()V:
+        return:
+        receiver: @checkers.javari.quals.Mutable
+        local 0 #0+97: @checkers.javari.quals.Mutable
+        local 1 #8+89: @checkers.javari.quals.ReadOnly
+        local 2 #17+80: @checkers.javari.quals.Mutable
+        local 3 #51+46: @checkers.javari.quals.Mutable
+        local 4 #68+29:
+        local 5 #84+13: @checkers.javari.quals.ReadOnly
+        local 6 #96+1:
+
+package :
+class Date:
+
+    field day:
+
+    method <init>()V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+
+    method <init>(I)V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        parameter #0:
+        local 0 #0+10: @checkers.javari.quals.Mutable
+        local 1 #0+10:
+
+    method getDay()I:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+
+    method setDay(I)V:
+        return:
+        receiver: @checkers.javari.quals.Mutable
+        parameter #0:
+        local 0 #0+6: @checkers.javari.quals.Mutable
+        local 1 #0+6:
+
+package :
+class StaticInnerClass$Foo:
+
+    field d: @checkers.javari.quals.ReadOnly
+
+    method <init>(LDate;)V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        parameter #0: @checkers.javari.quals.ReadOnly
+        local 0 #0+10: @checkers.javari.quals.Mutable
+        local 1 #0+10: @checkers.javari.quals.ReadOnly
+

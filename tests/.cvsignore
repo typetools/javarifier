@@ -1,0 +1,4 @@
+*.class
+*.diff
+*.log
+*.output

@@ -1,0 +1,81 @@
+package checkers.javari.quals:
+annotation @ReadOnly:
+
+package checkers.javari.quals:
+annotation @PolyRead:
+
+package checkers.javari.quals:
+annotation @Mutable:
+
+package checkers.javari.quals:
+annotation @ThisMutable:
+
+package :
+class MethodCall:
+
+    field f: @checkers.javari.quals.ThisMutable
+
+    field g: @checkers.javari.quals.ReadOnly
+
+    method <init>()V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+
+    method getF()LMethodCall;:
+        return: @checkers.javari.quals.PolyRead
+        receiver: @checkers.javari.quals.PolyRead
+        local 0 #0+5: @checkers.javari.quals.PolyRead
+
+    method getG()LMethodCall;:
+        return: @checkers.javari.quals.ReadOnly
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+
+    method setF(LMethodCall;)V:
+        return:
+        receiver: @checkers.javari.quals.Mutable
+        parameter #0: @checkers.javari.quals.Mutable
+        local 0 #0+6: @checkers.javari.quals.Mutable
+        local 1 #0+6: @checkers.javari.quals.Mutable
+
+    method setG(LMethodCall;)V:
+        return:
+        receiver: @checkers.javari.quals.Mutable
+        parameter #0: @checkers.javari.quals.ReadOnly
+        local 0 #0+6: @checkers.javari.quals.Mutable
+        local 1 #0+6: @checkers.javari.quals.ReadOnly
+
+    method foo()V:
+        return:
+        receiver: @checkers.javari.quals.Mutable
+        local 0 #0+11: @checkers.javari.quals.Mutable
+        local 1 #5+6: @checkers.javari.quals.Mutable
+
+    method bar()V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+6: @checkers.javari.quals.ReadOnly
+        local 1 #5+1: @checkers.javari.quals.ReadOnly
+
+    method baz(LMethodCall;)V:
+        return:
+        receiver: @checkers.javari.quals.Mutable
+        parameter #0: @checkers.javari.quals.ReadOnly
+        local 0 #0+6: @checkers.javari.quals.Mutable
+        local 1 #0+6: @checkers.javari.quals.ReadOnly
+
+    method quax(LMethodCall;)V:
+        return:
+        receiver: @checkers.javari.quals.Mutable
+        parameter #0: @checkers.javari.quals.Mutable
+        local 0 #0+6: @checkers.javari.quals.Mutable
+        local 1 #0+6: @checkers.javari.quals.Mutable
+
+    method deadbeef()V:
+        return:
+        receiver: @checkers.javari.quals.Mutable
+        local 0 #0+20: @checkers.javari.quals.Mutable
+        local 1 #5+15: @checkers.javari.quals.ReadOnly
+        local 2 #14+6: @checkers.javari.quals.Mutable
+
