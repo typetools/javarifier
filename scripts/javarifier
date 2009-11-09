@@ -21,6 +21,7 @@ SOOT_PROGRAMS=${CLASSPATH}
 CHECKERS=${BINDIR}/../../checker-framework/checkers
 CHECKERS_JAR=${CHECKERS}/checkers.jar
 JAVARIFIER_JDK=${JAVARIFIER_JDK:-${CHECKERS}/jdk/javari/build/}
+AFU_JAR=${BINDIR}/../../annotation-tools/annotation-file-utilities/annotation-file-utilities.jar
 
 # If user provides -programCPEntries, their arguments will be passed in
 # through the "$@" argument, and will override the default.
@@ -28,8 +29,9 @@ JAVARIFIER_JDK=${JAVARIFIER_JDK:-${CHECKERS}/jdk/javari/build/}
 JAVARIFIER_LIB=${JRDIR}/lib
 JAVARIFIER_BIN=${JRDIR}/bin
 
-# JAVARIFIER_BIN might be more up-to-date (in a checkout, not the distribution)
-java -ea -Xmx1024m -cp ${JAVARIFIER_BIN}:${JRDIR}/javarifier.jar:${JDK_JARS} \
+# In a checkout, a developer might do "ant bin" instead of "ant jarfile".
+# Then, JAVARIFIER_BIN and AFU_JAR may be more recent than javarifier.jar.
+java -ea -Xmx1024m -cp ${JAVARIFIER_BIN}:${AFU_JAR}:${JRDIR}/javarifier.jar:${JDK_JARS} \
 	 javarifier.Main \
 	 -defaultStubCPEntries ${JAVARIFIER_JDK} \
 	 -defaultWorldCPEntries ${JDK_JARS}:${CHECKERS_JAR} \
