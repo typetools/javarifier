@@ -202,6 +202,12 @@ All of the classes being analyzed must be on the path specified by the
 $CLASSPATH.
 </p>
 
+<p>
+If you gen an error "couldn't find class: ... (is your soot-class-path set
+properly?", then the problem may be that you did not set
+<tt>-programCPEntries</tt>.
+</p>
+
 <!--
 This isn't necessary any longer, I think:
 <p>
@@ -261,9 +267,14 @@ the classpath of your JDK jarfiles.  For example:
 <h3 id="using-stubs">Using stub classes</h3>
 
 <p>A stub class gives Javari types for an external library.
-Javarifier comes with annotated versions of part of the JDK.
-<!-- , in directory
-<code>annotated-jdk</code>. -->
+The <a href="http://types.cs.washington.edu/checker-framework/">Checker
+Framework</a> comes with annotated versions of part of the JDK,
+which Javarifier uses.
+</p>
+
+<p>If you get the error "Attempted to resolve signatures for WORLD class ...",
+then your stub library is missing the given class, or you have not
+specified the stub library location properly.
 </p>
 
 <p>
@@ -516,7 +527,7 @@ Javarifier now works on the Eclipse compiler, which is over
 <hr/>
 
 <p>
-Last revised: November 8, 2009
+Last revised: November 9, 2009
 </p>
 
 </body>
