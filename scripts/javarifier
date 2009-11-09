@@ -16,8 +16,7 @@ ${JAVA_HOME}/lib/tools.jar
 
 BINDIR=$(dirname $0)
 JRDIR=${BINDIR}/..
-SOOT_PROGRAMS=${CLASSPATH}
-# JAVARIFIER_JDK=${JAVARIFIER_JDK:-${JRDIR}/annotated-jdk}
+SOOT_PROGRAMS=${SOOT_PROGRAMS:-${CLASSPATH}}
 CHECKERS=${BINDIR}/../../checker-framework/checkers
 CHECKERS_JAR=${CHECKERS}/checkers.jar
 JAVARIFIER_JDK=${JAVARIFIER_JDK:-${CHECKERS}/jdk/javari/build/}
@@ -35,8 +34,8 @@ java -ea -Xmx1024m -cp ${JAVARIFIER_BIN}:${AFU_JAR}:${JRDIR}/javarifier.jar:${JD
 	 javarifier.Main \
 	 -defaultStubCPEntries ${JAVARIFIER_JDK} \
 	 -defaultWorldCPEntries ${JDK_JARS}:${CHECKERS_JAR} \
-	 -programCPEntries ${SOOT_PROGRAMS} \
+	 -programCPEntries "${SOOT_PROGRAMS}" \
 	 "$@"
 
-# Remove temporaray soot output directory.
+# Remove temporary soot output directory.
 rm -rf ${BINDIR}/sootOutput
