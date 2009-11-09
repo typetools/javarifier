@@ -76,7 +76,8 @@
   </target>
 
   <target name="build-dependencies" depends="init-properties"
-    description="Builds all projects this depends on">
+    description="Builds all projects this depends on"
+    unless="build.dependencies.not">
       <ant dir="${afu}" target="jarfile" inheritAll="false"/>
       <ant dir="${annotations-compiler}" antfile="make/build.xml"
           inheritAll="false" target="build"/>
