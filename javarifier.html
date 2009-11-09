@@ -1,0 +1,545 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <title>Javarifier</title>
+</head>
+<body>
+<h1>Javarifier: Inference of reference immutability for Javari</h1>
+
+<p>Contents:</p>
+<!-- start toc.  do not edit; run html-update-toc instead -->
+    <ul>
+      <li><a href="#motivation">Motivation: Inferring reference immutability in Java programs</a></li>
+      <li><a href="#javarifier-description">Javarifier</a>
+        <ul>
+          <li><a href="#stubs-description">Inference using existing Javari classes and stubs</a></li>
+          <li><a href="#javari-differences">Differences from previous versions of Javari</a></li>
+        </ul></li>
+      <li><a href="#installation">Installation</a></li>
+      <li><a href="#using">Using Javarifier</a>
+        <ul>
+          <li><a href="#using-classpath">Specifying a classpath</a></li>
+          <li><a href="#using-output">Outputting to a file</a></li>
+          <li><a href="#using-world">Specifying library jarfiles</a></li>
+          <li><a href="#using-stubs">Using stub classes</a></li>
+          <li><a href="#using-heuristics">Applying heuristics to exclude fields from the abstract state</a></li>
+          <li><a href="#using-debug">Understanding and debugging Javarifier output</a></li>
+          <li><a href="#test-suite">Running Javarifier test suite</a></li>
+        </ul></li>
+      <li><a href="#feedback">Feedback</a>
+        <ul>
+          <li><a href="#update-log">Update Log</a></li>
+        </ul></li>
+    </ul>
+<!-- end toc -->
+
+
+
+<h2 id="motivation">Motivation: Inferring reference immutability in Java programs</h2>
+
+<p>
+Javarifier tells you which variables your program mutates, and which
+variables are never used for side effects.
+</p>
+
+<p>
+Javarifier infers the immutability of every
+reference in a Java program,
+using the definition of the
+<a href="http://pag.csail.mit.edu/javari/">Javari</a> language.
+In other words, it converts Java programs and
+libraries to Javari.
+</p>
+
+<p>
+Javarifier annotates <code>.java</code> files
+with backward-compatible comments, or annotates <code>.class</code> files
+with backward-compatible attributes.
+The algorithm for inferring Javari reference immutability is explained
+in the paper
+<a href="http://www.cs.washington.edu/homes/mernst/pubs/infer-refimmutability-ecoop2008-abstract.html">"Inference
+  of reference immutability"</a>, which appeared at ECOOP 2008.
+</p>
+
+<p>
+Annotating <em>programs</em> aids developers in reasoning about the code
+and modifying it without introducing subtle mutation errors.  Annotating
+<em>libraries</em> is important because Javari programs use libraries
+without Javari annotations often do not typecheck.  Manually determining
+the mutability for each (public) parameter and return type is tedious and
+error-prone.  Javarifier automatically performs this analysis, and a
+<a href="http://types.cs.washington.edu/annotation-file-utilities/">companion
+  tool</a> can automatically update your source code.
+</p>
+
+	 
+<h2 id="javarifier-description">Javarifier</h2>
+
+<p>
+Javarifier's input is Java <code>.class</code> files.
+Javarifier's output is an
+<a href="http://types.cs.washington.edu/annotation-file-utilities/">annotation
+file</a>, a textual file format for describing annotations
+of Java programs; the input class files are not
+modified.  The annotation file can be used by a tool such as the
+<a href="http://types.cs.washington.edu/annotation-file-utilities/">annotation
+file utilities</a>, which  inserts the annotations into either the
+<code>.class</code> files or the corresponding <code>.java</code>
+files.  If Javari annotations are inserted into the source code, they can
+be checked by the
+<a href="http://types.cs.washington.edu/checker-framework">Javari type
+checker</a>.
+</p>
+
+
+<h3 id="stubs-description">Inference using existing Javari classes and stubs</h3>
+
+<p>
+Javarifier respects all existing Javari annotations in the program classes
+it analyzes.  If any type is already annotated as <code>@ReadOnly</code>,
+Javarifier uses this annotation to determine the mutability of other types
+and does not change the existing <code>@ReadOnly</code> annotation.  This
+mechanism is how Javarifier infers annotations on a program that uses libraries
+that have already been annotated using stub classes.
+</p>
+	 
+	 
+<h3 id="javari-differences">Differences from previous versions of Javari</h3>
+
+<p>	 
+In earlier versions of Javari, methods must be invariant in the mutability
+of their parameters and return types.  The newer definition of Javari used
+by both Javarifier and the
+<a href="http://types.cs.washington.edu/checker-framework">Javari type checker</a> 
+permits covariant subtyping on parameters and contra-variant subtyping on
+return types.
+</p>
+
+
+<h2 id="installation">Installation</h2>
+
+<p> The following instructions assume either a Linux or Windows
+command-line environment.  </p>
+
+<p> The current distribution is <code>Javarifier version 0.1.3</code>,
+released April 27, 2008.  </p>
+
+<ol>
+<li>
+  Download 
+  <a href="http://types.cs.washington.edu/javarifier/javarifier.zip">javarifier.zip</a>.
+</li>
+
+<li>
+  Unpack the distribution zipfile by running:
+
+  <pre><code>  unzip javarifier.zip</code></pre>
+
+</li>
+
+<li>
+Add the <tt>javarifier/scripts</tt> directory to your path.
+
+<ul>
+<li>
+For <b>Unix</b>, add the directory to your PATH environment
+variable.
+<ul>
+<li>
+  For sh/bash, add to ~/.bashrc or ~/.bash_profile:
+<pre><code>export PATH=${PATH}:/path/to/javarifier/</code></pre>
+</li>
+<li>
+For csh/tcsh, add to ~/.tcshrc or ~/.cshrc or ~/.login:
+<pre><code>setenv PATH=${PATH}:/path/to/javarifier/</code></pre>
+</li>
+</ul>
+</li>
+
+<li>
+For <b>Windows</b>, add the directory to your 
+<code>PATH</code> system
+variable by going to
+
+<pre><code> Control Panel -> System -> Advanced -> Environment Variables </code></pre>
+
+<p>
+From there, find the <code> PATH </code> variable under &ldquo;System variables&rdquo;
+and append to it the <code>javarifier</code> directory.
+</p>
+</li>
+</ul>
+</li>
+</ol>
+
+
+<h2 id="using">Using Javarifier</h2> <p> The following instructions
+are for running <code>javarifier</code> on a Linux machine.  The
+instructions are the same for Windows, except the tool is
+<code>javarifier.bat</code>, and you must use Windows path names
+instead of Unix path names.  </p>
+
+<p> The <code>javarifier</code> tool takes as arguments
+any number of fully-qualified names of the classes to analyze.
+For example: </p>
+
+<pre><code>javarifier myPackage.myClassOne myPackage.myClassTwo</code></pre>
+
+To analyze all classes in a package <code>myPackage</code>, run the
+following in its parent directory:
+
+<pre><code>javarifier `find myPackage -type f -name '*.java' | perl -p -e 's/\.java//g; s/\//./g'`
+</code></pre>
+
+
+<h3 id="using-classpath"> Specifying a classpath</h3>
+
+<p>
+All of the classes being analyzed must be on the path specified by the 
+<a href="#using-classpath">-programCPEntries</a> option, which defaults to 
+$CLASSPATH.
+</p>
+
+<!--
+This isn't necessary any longer, I think:
+<p>
+(Just using the default <code>$CLASSPATH</code> may not work, because the
+JVM may
+also load classes from other locations, such as the boot class path.
+An example is the classes in <code>jdk/jre/lib/jce.jar</code>.
+Therefore, you may need to add such jar files to CLASSPATH, or explicitly
+mention them on the javarifier command line
+via the <a href="#using-world"><code>-world</code> option</a>.)
+</p>
+-->
+
+<pre><code>
+javarifier myPackage.myClassTwo -programCPEntries /path/to/classes1:/path/to/classes2
+</code></pre>
+
+<p>
+These two examples are identical:
+</p>
+
+<pre><code>
+javarifier myPackage.myClassTwo
+javarifier myPackage.myClassTwo -programCPEntries $CLASSPATH
+</code></pre>
+
+
+<h3 id="using-output">Outputting to a file</h3>
+
+<p>
+By default, all output, including the results, is printed to standard
+out.  To output the results to an <a href="http://types.cs.washington.edu/annotation-file-utilities/">annotation file</a>, use the
+<code>-output</code> option, followed by the name of the output file.
+Note that Javarifier outputs the results for all classes into a single
+file.  For example:
+</p>
+
+<pre><code>javarifier myPackage.myClassOne myPackage.myClassTwo -output myPackage.jaif</code></pre>
+
+
+<h3 id="using-world">Specifying library jarfiles</h3>
+
+<p>
+The program on which you are running Javarifier may depend on 
+the JDK and other libraries.
+
+By default, Javarifier assumes that those libraries are on your
+CLASSPATH.  For example, it assumes <code>rt.jar</code> is in your
+CLASSPATH.  If this is not the case, or if you wish to reference a
+different JDK, you may use the <code>-world</code> option, followed by
+the classpath of your JDK jarfiles.  For example:
+</p>
+
+<pre><code>javarifier myPackage.myClassOne myPackage.myClassTwo -world /jdk1.7.0/jre/lib/rt.jar:/jdk1.7.0/jre/lib/resources.jar:/jdk1.7.0/jre/lib/all-other-jars.jar</code></pre>
+
+
+<h3 id="using-stubs">Using stub classes</h3>
+
+<p>A stub class gives Javari types for an external library.
+Javarifier comes with annotated versions of part of the JDK.
+<!-- , in directory
+<code>annotated-jdk</code>. -->
+</p>
+
+<p>
+If no stub class is available for a particular
+class, then Javarifier assumes that every reference in that class has
+<code>@Mutable</code> type.
+The <code>-printStubs</code> flag causes Javarifier not to perform
+inference, but only to output a list of classes for which stubs are needed.
+</p>
+
+<p>
+There are two ways to inform Javari of additional stub
+classes (or fully-annotated Javari
+classes).
+</p>
+<ul>
+  <li>
+    Add a class file to the annotated JDK.  For example, to have
+    Javarifier treat <code>packageA.packageB.classC</code> as a stub
+    class, put its <code>.java</code> file at
+    <pre><code>.../checker-framework/checkers/jdk/javari/src/packageA/packageB/classC.class</code></pre>
+    and its class file will appear at
+    <pre><code>.../checker-framework/checkers/jdk/javari/build/packageA/packageB/classC.class</code></pre>
+    from which Javarifier will read it.
+    The class file must contain the Javari annotations.  This is automatic
+    if you use the <a href="http://types.cs.washington.edu/jsr308/">Type
+    Annotations compiler</a> or another Java 7 compiler to compile a Javari
+    program.  Alternately, you can
+    use the <a
+    href="http://types.cs.washington.edu/annotation-file-utilities/">annotation
+    file utilities</a> to insert the annotations in any Java
+    <code>.class</code> file.
+  </li>
+  <li>
+    Provide Javarifier with an additional classpath
+    to look for stub classes using the <code>-stubs</code> argument,
+    followed by a classpath to containing stub classes.  All classes
+    found in that classpath will be treated as stub classes.  For
+    example:
+    <pre><code> javarifier myPackage.myClassOne myPackage.myClassTwo -stubs /path/to/stubs1:/path/to/stubs2</code></pre>
+  </li>
+</ul>
+
+<p>
+If you create stub versions of additional classes (whether in the JDK or
+other libraries), please contribute them back to the Javari project (email
+<a href="mailto:javari@csail.mit.edu">javari@csail.mit.edu</a>) so that we
+can include them in future releases.
+</p>
+
+<h3 id="using-heuristics">Applying heuristics to exclude fields from the abstract state</h3>
+
+<p>
+Javarifier implements several heuristics for inferring which fields should
+be excluded from the abstract state of an object.  These heuristics may
+infer the <code>@Assignable</code>
+and <code>@Mutable</code> field annotations, and these annotations
+may affect the end results of Javarifier.  To apply these heuristics, use
+the <code>-applyHeuristics</code> flag, as follows:
+</p>
+
+<pre><code> javarifier myPackage.myClass -applyHeuristics
+</code></pre>
+
+
+<p>
+These heuristics only apply to private, non-static, non-final fields.
+The following is a list of all heuristics currently implemented.
+</p>
+
+<ul>
+  <li> A field that is only written to in the constructor or in the <code>equals()</code> and <code>hashCode()</code> methods is inferred to be <code>@Assignable</code>.
+  </li>
+  <li> If a class implements the <code>equals()</code> method, any field that
+       is not read in the <code>equals()</code> method is inferred to be <code>@Assignable</code>.
+  </li>
+  <li> A field that is written to in a method that overrides either
+       <code>Iterator.next()</code> or <code>Enumeration.nextElement()</code>
+       is inferred to be <code>@Assignable</code>.
+  </li>
+</ul>
+
+<h3 id="using-debug">Understanding and debugging Javarifier output</h3>
+
+<p>
+Javarifier may infer some references to be <code>@Mutable</code> that you
+believe should be <code>@ReadOnly</code> (or vice versa).  This usually indicates a problem
+with your code such as a bug, a missing <code>@Assignable</code> keyword,
+or simply that you have misunderstood what your code does.  Sometimes, it
+can indicate a bug in Javarifier.
+</p>
+
+<p>
+To understand why Javarifier inferred a particular type qualifier, you can
+examine the constraints generated by Javarifier during its inference process.
+Use the <code>-dumpConstraints</code> flag, as in:
+</p>
+
+<pre><code>javarifier myPackage.myClass -dumpConstraints</code></pre>
+
+<p>
+The Javarifier constraints are of three types:
+</p>
+
+<ul>
+  <li>
+    A line of the form "U: c1" indicates that type in c1 must be mutable.
+  </li>
+  <li>A line of the form "G: c1 -> c2" indicates that if the type in c1 is
+    mutable, then the type in c2 must be mutable.
+  </li>
+  <li>A line of the form "GG: c1 => c2 -> c3" indicates that if the types
+    in both c1 and c2 are mutable, then the type in c3 must be mutable.
+  </li>
+</ul>
+
+<p>
+An example of a constraint is
+</p>
+<pre><code>  U: &lt;Graph.createGraph.this: UNKNOWN LGraph;[] MUTABLE&gt;</code></pre>
+<ul>
+  <li>
+This constraint indicates that the receiver (<code>this</code>) of method 
+<code>Graph.createGraph</code> must be mutable.
+  </li>
+  <li>
+  The string "LGraph;" is
+the JVML format for the Graph class.  
+  </li>
+  <li>
+The string "UNKNOWN LGraph;[]" indicates that the mutability of the  Graph
+has not yet been determined.  (Due to the unguarded constraint, it will be
+mutable in the end.)
+  </li>
+  <li>
+  MUTABLE represents the romaybe-context that the constraint is referring
+  to; this
+  is used for inferring romaybe (see the paper cited below for details).
+  Often the constraints are the same across contexts, so
+  you might have the following two constraints:
+<pre><code>  U: &lt;HashEntry.setNext.this: UNKNOWN LHashEntry;[] MUTABLE&gt;
+  U: &lt;HashEntry.setNext.this: UNKNOWN LHashEntry;[] READONLY&gt;</code></pre>
+  </li>
+  <li>
+    For method receivers, the index -1 is used to refer to the receiver, as
+  in the following constraint:
+<pre><code>  U: &lt;&lt;Hashtable: int hashMap(java.lang.Object)&gt;.-1: UNKNOWN LHashtable;[] MUTABLE&gt;</code></pre>
+  </li>
+  <li>Local variables are named if the classfile has the LocalVariableTypeTable
+  attribute.  Otherwise, they are named by their index (e.g., "e0"), as are temporary 
+  variables, as in:
+<pre><code>  U: &lt;Graph.createGraph.$e0: UNKNOWN LVertex;[] READONLY&gt;</code></pre>
+  </li>
+</ul>
+
+
+<p>
+You may find it helpful to cross-reference between Javarifier constraints
+and the Java source code of the classes being analyzed (from the
+constraints were generated).
+</p>
+
+
+
+<p>
+For more details about the constraints, see the
+paper <a 
+href="http://www.cs.washington.edu/homes/mernst/pubs/infer-refimmutability-ecoop2008-abstract.html">"Inference
+of reference immutability"</a>.
+Contact us if you need more help understanding the
+constraints.
+</p>
+
+<h3 id="test-suite"> Running Javarifier test suite </h3>
+<p>
+A test suite is included with the release.  To run the test suite, go into the
+<code>tests/</code> directory and run <code>make</code>.  The output will
+indicate whether the tests passed or failed.
+</p>
+
+<h2 id="feedback"> Feedback </h2>
+
+<p>
+If you encounter a problem in Javarifier, please submit a bug report via
+its <a href="http://code.google.com/p/javarifier/issues/list">issue tracker</a>.
+When reporting bugs, please help us to resolve the issue quickly by
+including the complete
+output of Javarifier, and exact instructions of how to
+reproduce a bug (including all necessary input files).
+</p>
+
+<p>
+Other  questions, comments,  and feature requests
+can be sent to <a href="mailto:javarifier-dev@googlegroups.com">javarifier-dev@googlegroups.com</a>.
+</p>
+
+
+<h3 id="update-log"> Update Log </h3>
+
+<ul>
+  <li>
+  Version 0.1: (Released November 2, 2007) First release.
+  </li>
+  <li>
+  Version 0.1.1: (Released February 15, 2008) Several bug fixes and
+updated documentation.
+  </li>
+  <li>
+  Version 0.1.2: (Released March 7, 2008) Several bug fixes.
+Javarifier now works on the Eclipse compiler, which is over
+120,000 lines of Java code.
+  </li>
+  <li>
+  Version 0.1.3: (Released April 27, 2008)
+  <ul>
+	 <li> Changed the <code>@RoMaybe</code> qualifier for parametric
+	 polymorphism over mutability to <code>@PolyRead</code>.
+	 </li>
+	 <li> Changed the type rule for inferring <code>@PolyRead</code> to match an
+	 updated version of <i>Inference of reference mutability</i>, to
+	 appear in ECOOP '08, which outlines the inference algorithm used by
+	 Javarifier.
+	 </li>
+	 <li> Better documentation of the <code>-dumpConstraints</code>
+	 command-line option and the format of its output.
+	 </li>
+	 <li> Documented the <code>-printStubs</code> command-line option.
+	 </li>
+	 <li> Included a test suite for testing Javarifier installation.
+	 </li>
+  </ul>
+  </li>
+  <li>
+  Version ?.?.?: (Released ? ?, ?)
+    <ul>
+		<li>Implemented and documented the heuristics for excluding fields
+		     from the abstract state of an object.
+		     See <a href="#using-heuristics"><code>-applyHeuristics</code></a>.
+		</li>
+		<li>Refactored the package containing all the Javari annotations from
+		     <code>checkers.quals</code> to
+           <code>checkers.javari.quals</code>
+		</li>
+		<li>Removed some unnecessary and uninformative messages from output.
+		</li>
+    </ul>
+  </li>
+</ul>
+
+<hr/>
+
+<p>
+Last revised: November 8, 2009
+</p>
+
+</body>
+</html>
+
+<!--
+  This makes Emacs update the "Last revised" paragraph above every time
+  you save the file.
+-->
+<!--
+Local Variables:
+time-stamp-start: "^Last revised: "
+time-stamp-end: "\\.?$"
+time-stamp-format: "%:b %:d, %:y"
+time-stamp-line-limit: -50
+End:
+-->
+
+<!--  LocalWords:  utils bashrc tcsh tcshrc cshrc classpath Javarifier Javari
+ -->
+<!--  LocalWords:  mutabilities subtyping contra javarifier zipfile csh GG im
+ -->
+<!--  LocalWords:  Javarifier's Tschantz jarfiles programCPEntries LGraph JVML
+ -->
+<!--  LocalWords:  romaybe LocalVariableTypeTable
+ -->
