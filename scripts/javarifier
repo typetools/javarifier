@@ -14,17 +14,17 @@ ${JAVA_HOME}/jre/lib/resources.jar:\
 ${JAVA_HOME}/jre/lib/rt.jar:\
 ${JAVA_HOME}/lib/tools.jar
 
+# Classpath for finding user program.  If user provides -programCPEntries,
+# their arguments will be passed in through the "$@" argument, and will
+# override the default.
+SOOT_PROGRAMS=${SOOT_PROGRAMS:-${CLASSPATH}}
+
 BINDIR=$(dirname $0)
 JRDIR=${BINDIR}/..
-SOOT_PROGRAMS=${SOOT_PROGRAMS:-${CLASSPATH}}
 CHECKERS=${BINDIR}/../../checker-framework/checkers
 CHECKERS_JAR=${CHECKERS}/checkers.jar
 JAVARIFIER_JDK=${JAVARIFIER_JDK:-${CHECKERS}/jdk/javari/build/}
 AFU_JAR=${BINDIR}/../../annotation-tools/annotation-file-utilities/annotation-file-utilities.jar
-
-# If user provides -programCPEntries, their arguments will be passed in
-# through the "$@" argument, and will override the default.
-
 JAVARIFIER_LIB=${JRDIR}/lib
 JAVARIFIER_BIN=${JRDIR}/bin
 
