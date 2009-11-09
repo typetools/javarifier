@@ -20,7 +20,7 @@ SOOT_PROGRAMS=${CLASSPATH}
 # JAVARIFIER_JDK=${JAVARIFIER_JDK:-${JRDIR}/annotated-jdk}
 CHECKERS=${BINDIR}/../../checker-framework/checkers
 CHECKERS_JAR=${CHECKERS}/checkers.jar
-JAVARIFIER_JDK=${JAVARIFIER_JDK:-${CHECKERS}/jdk/javari/src/}
+JAVARIFIER_JDK=${JAVARIFIER_JDK:-${CHECKERS}/jdk/javari/build/}
 
 # If user provides -programCPEntries, their arguments will be passed in
 # through the "$@" argument, and will override the default.
