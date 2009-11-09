@@ -283,8 +283,11 @@ classes).
   <li>
     Add a class file to the annotated JDK.  For example, to have
     Javarifier treat <code>packageA.packageB.classC</code> as a stub
-    class, put its class file at:
-    <pre><code>annotated-jdk/packageA/packageB/classC.class</code></pre>
+    class, put its <code>.java</code> file at
+    <pre><code>.../checker-framework/checkers/jdk/javari/src/packageA/packageB/classC.class</code></pre>
+    and its class file will appear at
+    <pre><code>.../checker-framework/checkers/jdk/javari/build/packageA/packageB/classC.class</code></pre>
+    from which Javarifier will read it.
     The class file must contain the Javari annotations.  This is automatic
     if you use the <a href="http://types.cs.washington.edu/jsr308/">Type
     Annotations compiler</a> or another Java 7 compiler to compile a Javari
@@ -513,7 +516,7 @@ Javarifier now works on the Eclipse compiler, which is over
 <hr/>
 
 <p>
-Last revised: November 2, 2009
+Last revised: November 8, 2009
 </p>
 
 </body>
