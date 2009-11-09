@@ -244,11 +244,11 @@ with.  When operating in whole program mode, Soot will pull in the
 entire JDK because Object references String which references ... so on,
 until every class is included in the analysis.  To prevent this, we
 use stub classes (a class file with mutability information already
-included) Soot's class loading code (soot.SootResolver) had to be
+included).  Soot's class loading code (soot.SootResolver) had to be
 modified to not pull in classes only referenced by a class which is
 stubbed.  Thus, we can stub Object, and an analysis will not pull in
 every JDK class just because it references Object.  Ultimately, we
-plane to provide stub classes for the entire JDK.
+plan to provide stub classes for the entire JDK.
 
 
 END
