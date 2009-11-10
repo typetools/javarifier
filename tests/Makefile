@@ -33,7 +33,7 @@ toplevel: $(TOPLEVEL_DIFFS)
 # 	javac -cp . -g -d . ${JAVA_FILES}
 
 %.class : %.java
-	javac -cp . -g -d . $^
+	../../jsr308-langtools/dist/bin/javac -cp . -g -d . $^
 
 # Runs Javarifier on the Jolden case studies by running a separate
 # Makefile similar to this one.
