@@ -1,0 +1,41 @@
+#!/bin/sh
+# javarify: command-line interface for Javarifier
+
+# usage: javarifier [options] classes
+
+# See javarifier.html for more information.
+
+JDK_JARS=\
+${JAVA_HOME}/jre/lib/charsets.jar:\
+${JAVA_HOME}/jre/lib/jce.jar:\
+${JAVA_HOME}/jre/lib/jsse.jar:\
+${JAVA_HOME}/jre/lib/management-agent.jar:\
+${JAVA_HOME}/jre/lib/resources.jar:\
+${JAVA_HOME}/jre/lib/rt.jar:\
+${JAVA_HOME}/lib/tools.jar
+
+# Classpath for finding user program.  If user provides -programCPEntries,
+# their arguments will be passed in through the "$@" argument, and will
+# override the default.
+SOOT_PROGRAMS=${SOOT_PROGRAMS:-${CLASSPATH}}
+
+BINDIR=$(dirname $0)
+JRDIR=${BINDIR}/..
+CHECKERS=${BINDIR}/../../checker-framework/checkers
+CHECKERS_JAR=${CHECKERS}/checkers.jar
+JAVARIFIER_JDK=${JAVARIFIER_JDK:-${CHECKERS}/jdk/javari/build/}
+AFU_JAR=${BINDIR}/../../annotation-tools/annotation-file-utilities/annotation-file-utilities.jar
+JAVARIFIER_LIB=${JRDIR}/lib
+JAVARIFIER_BIN=${JRDIR}/bin
+
+# In a checkout, a developer might do "ant bin" instead of "ant jarfile".
+# Then, JAVARIFIER_BIN and AFU_JAR may be more recent than javarifier.jar.
+java -ea -Xmx1024m -cp ${JAVARIFIER_BIN}:${AFU_JAR}:${JRDIR}/javarifier.jar:${JDK_JARS} \
+	 javarifier.Main \
+	 -defaultStubCPEntries ${JAVARIFIER_JDK} \
+	 -defaultWorldCPEntries ${JDK_JARS}:${CHECKERS_JAR} \
+	 -programCPEntries "${SOOT_PROGRAMS}" \
+	 "$@"
+
+# Remove temporary soot output directory.
+rm -rf ${BINDIR}/sootOutput

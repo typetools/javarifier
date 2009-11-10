@@ -1,0 +1,265 @@
+BUILDING, DISTRIBUTING AND RUNNING JAVARIFIER
+=============================================
+
+JAVARIFIER USER DOCUMENTATION
+=============================
+
+User documentation for Javarifier can be found at:
+  distribution/doc/javarifier.html
+Or on the web at: 
+        http://types.cs.washington.edu/javarifier
+
+The rest of this file is intended for people who wish to build Javarifier.
+
+
+SETTING UP THE DIRECTORY STRUCTURE
+==================================
+
+Consult the file annotations/builder/README.txt for information on how to
+set up directories in the way Javarifier expects.
+
+
+BUILDING
+========
+
+You can build the Javarifier by executing its specific build file, which
+builds all projects it depends on:
+
+        cd javarifier
+        ant bin
+
+The structure of the src/ and bin/ directories is such that Eclipse can
+understand the Javarifier as a project, overwrites class files in the same
+bin/ directory the build.xml script uses, and the build.xml file does not
+conflict with the .classpath and .project files that Eclipse uses.
+Therefore, you can safely use Eclipse for working on the Javarifier, but
+before committing code changes you should make sure that the code compiles
+using the build script.
+
+
+DEPENDENCIES
+============
+
+The Javarifier depends on several other packages.  In short, if you have
+annotations/ and javari/ checked out in the same directory, everything
+should already be setup.  
+
+These dependencies are
+automatically taken care of by the build.xml script.  For convenience, we list
+here all the projects the Javarifier depends on in order to facilitate 
+integration with Eclipse.  Note that if you add a project dependency in 
+Eclipse, you must add it to the build.xml script in the "libpath" property.
+All these projects should be defined if you follow the instructions in
+annotations/builder/README.txt
+
+Projects to build Javarifier:
+
+- "annotation-scene-lib", the annotation scene library.
+- "asmx", the extended version of ASM.
+- The following Soot-required libraries, which are in javari/javarifier/lib
+      sootclasses-2.2.3.jar
+      jasminclasses-2.2.3.jar
+      polyglotclasses-1.3.2.jar
+- "annotations-compiler", the extended annotations compiler.
+- "javari-annotated-jdk", a set of Javari pre-annotated builtin JDK classes.
+- "checkers", the checkers framework (which contains the Javari qualifiers)
+- "jdk1.6.0", a directory containing an installation of a 1.6.0 JDK, which
+  should most likely be the JSR 308 distribution, since it is fully
+  backwards compatible.
+
+
+CREATING A DISTRIBUTION
+=======================
+
+To make a Javarifier distribution, go into the distribution/
+directory and type 'ant zipfile' to build the javarifier.zip file.
+This is a good test to make sure you can make a distribution, as
+the only other step is to copy this file and the documentation to the
+website.
+
+To make a public Javarifier distribution, first, manually verify that the
+release notes at the end of distribution/doc/javarifier.html
+are up-to-date.  Additionally, synchronize the version number in that
+document to the version number in javarifier.Main.versionString
+(in src/javarifier/Main.java )
+Once this is done, go into distribution/ and run 'ant web' to create
+the distribution (javarifier.zip) and copy it and the user documentation
+to the Javarifier website at:
+        /cse/www2/types/javarifier
+Web location:
+        http://types.cs.washington.edu/javarifier
+
+
+
+RUNNING
+=======
+
+Full documentation for running Javariifer is contained in the user 
+documentation at:
+        distribution/doc/javarifier.html
+Or on the web at: 
+        /afs/csail.mit.edu/group/pag/www/javari
+
+If you want to run Javarifier using all the local class files, you can
+run Javarifier using the javarifier script at:
+   javari/javarifier/javarifier
+
+Make sure that this script is executable on your system by making sure
+javari/javarifier is on your $PATH
+
+To use this script, pass in the fully-qualified name of all 
+classes to javarify, as in:
+        javarifier myPackage.myClass
+
+For all other uses and options, consult the user documentation.
+
+(As explained in annotations/builder/README.txt, it is assumed you have
+defined a single environment variable, JAVARI_ANNOTATION_WORKSPACE,
+that points to the top-level location containing javari/ and annotations/ )
+
+
+TEST SUITE
+==========
+
+See file
+  javari/javarifier/tests/README.txt
+(Or you can call 'ant run-tests' in javari/javarifier)
+
+
+JAVARIFIER DOCUMENTATION
+========================
+
+As of May 2008, the theory and algorithm behind the Javarifier is
+Jaime's thesis, located at:
+        javari/design/thesis-jaime/main.pdf
+Or on the web at:
+        http://groups.csail.mit.edu/pag/pubs/Quinonez2008-abstract.html
+
+A condensed version is located in the paper titled 
+"Inference of reference immutability", located at:
+        javari/design/javarifier/paper.pdf
+Or on the web at:
+        http://www.cs.washington.edu/homes/mernst/pubs/infer-refimmutability-ecoop2008-abstract.html
+
+User documentation for the Javarifier tool can be found at:
+        distribution/doc/javarifier.html
+Or on the web at: 
+        http://types.cs.washington.edu/javarifier
+
+Slides from talks on Javarifier can be found in the doc directory.
+
+
+
+
+
+IMPLEMENTATION NOTES
+====================
+
+Official Java 6 class file specification:
+http://jcp.org/aboutJava/communityprocess/pr/jsr202/index.html
+
+The Javarifier is split into two main components: modified Soot classes to 
+contain extra information so that Soot is a sufficient class representation, 
+and Javari-specific classes that actually implement the reference immutability 
+inference algorithm.  These components are in the src/soot and src/javarifier 
+directories, respectively.  The implementation of the inference algorithm keeps
+a scene of all the classes (represented as Soot classes) it is trying to infer 
+over, along with all the classes that it transitively depends on, including any
+world classes (typically the annotated JDK).
+
+Javarifier's changes to Soot
+----------------------------
+
+Javarifier uses a modified version of Soot 2.2.3
+(http://www.sable.mcgill.ca/soot/) to translate class files to jimple,
+which is a three-address language that is easy to analyze.
+All of the modified classes are contained in javari/javarifier/src/soot
+To update to a new version of Soot, download the new source code, make a diff 
+of the latest updates in javarifier/src/soot to the first version, then 
+apply these as a patch to the source of the new version of Soot. 
+
+
+The Javarifier source only includes the files that were actually modified;
+it is intended that users will place the modified soot files earlier in the
+class path than the original Soot.
+
+
+There are two major changes to Soot:
+
+1) Adding fields to AST nodes to contain information Javarifier needed
+   such as "Javari" type signatures, which include a full generic type
+   signature and mutability information.  See SootMethod, JimpleLocal,
+   etc.
+   Even if a later version of Soot adds generic type signatures, mutability
+   information would still need to be stored.
+
+   Alternatives Matthew Tschantz considered but rejected include:
+   1) Subclassing Soot classes for which I needed to add fields, such
+   as soot.Local.  This would require changing all "new" statements or
+   rewriting Soot to use factory methods.
+   2) Using Maps that map from soot.Local's to the new information.  This
+   makes the code annoying to read and I don't trust all of Soot's
+   hashCode and equal methods.
+
+2) Changes to the way Soot resolves and load classes.  Soot seems
+   overly aggressive with loading classes.  Additionally, I ensured that
+   "stub" classes wouldn't be loaded.  See FastHierarchy, PackManager,
+   SootResolver, and SourceLocator.
+
+Two smaller changes are:
+
+3) Changing the local splitting convention.  See toolkits/scalar/LocalSplitter.
+4) Adding a lot of back pointers, to make debugging easier.  For example,
+   so I could print the name of the method a local variable is from.
+
+Problems with Soot that required the above changes
+--------------------------------------------------
+
+First, Soot does not (currently) operate over Java 1.5 types.  Soot
+fails completely on Java 1.5 source, but will work somewhat on Java
+1.5 classfiles.  When operating on classfiles, Soot will store Java
+1.5 type signatures attributes on classes, methods, and fields as
+"tags" on the appropriate SootClass, SootMethod, or SootField (see
+soot.tagkit.AbstractHost).  This tag, is simply a wrapper for a String
+holding the JVML class signature, method signature, or type.  Soot does
+not process LocalVariableTypeTables, and, thus, does not have have any
+Java 1.5 type signatures for locals.
+
+Since Strings are difficult to work with, we have created the
+ClassSig, MethodSig, and JrType classes.  SootClass, SootMethod,
+SootField, and Local are all given new fields that reference these
+data structures.  These data structures are added to the Soot
+structures by JrTyper.
+
+To obtain Java 1.5 type signatures for locals JrTyper uses ASM.  
+
+Second, Soot normally performs a number of optimizations that can harm
+our type analysis.  For example, Soot normally executes local
+splitting, which is not safe, because that would allow a split local
+to possibly have two different types.  common.sh contains a series of
+options that seem to work.
+
+Third, Soot's whole program analysis mode can be difficult to work
+with.  When operating in whole program mode, Soot will pull in the
+entire JDK because Object references String which references ... so on,
+until every class is included in the analysis.  To prevent this, we
+use stub classes (a class file with mutability information already
+included).  Soot's class loading code (soot.SootResolver) had to be
+modified to not pull in classes only referenced by a class which is
+stubbed.  Thus, we can stub Object, and an analysis will not pull in
+every JDK class just because it references Object.  Ultimately, we
+plan to provide stub classes for the entire JDK.
+
+
+END
+===
+
+These are words the spell-checker should accept.
+
+ LocalWords:  Javarifier ASM cd javarifier chmod classfiles classfile java asmx
+ LocalWords:  packagename classname javarify JARs ASM's jdk xml
+ LocalWords:  builtin javari builtins nonnull FIXME classpaths classpath JDK's
+ LocalWords:  rt tex com bcel javap util src jimple SootMethod txt pdf pdflatex
+ LocalWords:  JimpleLocal Local's FastHierarchy PackManager SootResolver JVML
+ LocalWords:  SourceLocator SootClass SootField acroread ClassSig MethodSig
+ LocalWords:  LocalVariableTypeTables JrType JrTyper
