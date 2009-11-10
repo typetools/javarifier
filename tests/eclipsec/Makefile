@@ -15,6 +15,12 @@ default : all
 .PHONY: all
 all : $(DIFFS) results
 
+# No need to compile because the .class files are checked in (!).
+# This should probably be corrected.  But, if I do this, then tests fail.
+# (Perhaps because Javarifier and/or Soot can't deal with new class file format?)
+compile:
+	javac -g `find . -name "*.java" -print`
+
 # Display results of all .diff files.
 .PHONY: results
 results: ../VerifyDiffs.class
