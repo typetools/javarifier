@@ -119,6 +119,11 @@ public class Main {
       // processes javarifier options and removes them from args
       commandLineArgs = Options.v().processCmdLine(args);
     } catch(Exception e) {
+      System.out.println("Bad arguments:");
+      for (String arg : args) {
+        System.out.println("  " + arg);
+      }
+      e.printStackTrace(System.out);
       printUsage();
       return;
     }
