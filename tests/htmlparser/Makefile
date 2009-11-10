@@ -34,7 +34,7 @@ ${TESTNAME}.output: ../../javarifier.jar
 	-programCPEntries . \
 	-output $@ \
 	-outputFormat annotationIndexFile \
-	-stubs ${CLASSPATH} \
+	-stubs ${JAVA_HOME}/jre/lib/rt.jar \
 	${MAINCLASS} \
 	2>&1 | tee ${TESTNAME}.log
 
