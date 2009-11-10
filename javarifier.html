@@ -286,9 +286,8 @@ inference, but only to output a list of classes for which stubs are needed.
 </p>
 
 <p>
-There are two ways to inform Javari of additional stub
-classes (or fully-annotated Javari
-classes).
+There are two ways to inform Javari of additional stub classes (or
+fully-annotated Javari classes).
 </p>
 <ul>
   <li>
@@ -315,15 +314,22 @@ classes).
     found in that classpath will be treated as stub classes.  For
     example:
     <pre><code> javarifier myPackage.myClassOne myPackage.myClassTwo -stubs /path/to/stubs1:/path/to/stubs2</code></pre>
+    If the annotated JDK is missing a class that your program uses,
+    you can also use a path with unannotated libraries, as in:
+    <pre>-stubs ${JAVA_HOME}/jre/lib/rt.jar</pre>
+    This prevents Javarifier from issuing an error because it can't find
+    the classes, but because Javarifier treats every unannotated reference
+    as mutable, every reference in the library will be treated as mutable.
   </li>
 </ul>
 
 <p>
 If you create stub versions of additional classes (whether in the JDK or
-other libraries), please contribute them back to the Javari project (email
-<a href="mailto:javari@csail.mit.edu">javari@csail.mit.edu</a>) so that we
+other libraries), please email them to
+<a href="mailto:javarifier-dev@googlegroups.com">javarifier-dev@googlegroups.com</a> so that we
 can include them in future releases.
 </p>
+
 
 <h3 id="using-heuristics">Applying heuristics to exclude fields from the abstract state</h3>
 
