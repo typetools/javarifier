@@ -7,7 +7,7 @@ JAVARIFIER USER DOCUMENTATION
 User documentation for Javarifier can be found at:
   distribution/doc/javarifier.html
 Or on the web at: 
-        http://types.cs.washington.edu/javarifier
+  http://types.cs.washington.edu/javarifier
 
 The rest of this file is intended for people who wish to build Javarifier.
 
