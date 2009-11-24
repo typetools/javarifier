@@ -34,7 +34,7 @@ toplevel: $(TOPLEVEL_DIFFS)
 # 	javac -cp . -g -d . ${JAVA_FILES}
 
 %.class : %.java
-	${JAVAC} -cp . -g -d . $^
+	$(JAVAC) -cp . -g -d . $^
 
 # Runs Javarifier on the Jolden case studies by running a separate
 # Makefile similar to this one.
