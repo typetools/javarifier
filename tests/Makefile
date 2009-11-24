@@ -14,6 +14,7 @@ TOPLEVEL_DIFFS := $(patsubst %.goal, %.diff, $(wildcard *.goal))
 JAVA_FILES := $(wildcard *.java)
 
 JAVARIFIER ?= ../scripts/javarifier
+JAVAC ?= ../../jsr308-langtools/dist/bin/javac
 
 .PHONY: default
 default : all
@@ -33,7 +34,7 @@ toplevel: $(TOPLEVEL_DIFFS)
 # 	javac -cp . -g -d . ${JAVA_FILES}
 
 %.class : %.java
-	../../jsr308-langtools/dist/bin/javac -cp . -g -d . $^
+	${JAVAC} -cp . -g -d . $^
 
 # Runs Javarifier on the Jolden case studies by running a separate
 # Makefile similar to this one.
