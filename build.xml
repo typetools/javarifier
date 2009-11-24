@@ -252,6 +252,7 @@
           failonerror="true">
       <arg value="-C"/>
       <arg value="${javarifier}/tests"/>
+      <env key="JAVAC" file="${annotations-compiler}/dist/bin/javac" />
     </exec>
   </target>
 
