@@ -1,3 +1,8 @@
+*****
+WARNING:
+Parts of this file are out of date.  Please update it if you find errors.
+*****
+
 BUILDING, DISTRIBUTING AND RUNNING JAVARIFIER
 =============================================
 
@@ -15,8 +20,13 @@ The rest of this file is intended for people who wish to build Javarifier.
 SETTING UP THE DIRECTORY STRUCTURE
 ==================================
 
-Consult the file annotations/builder/README.txt for information on how to
-set up directories in the way Javarifier expects.
+For a complete source distribution, run the following commands, in a
+directory we will call JAVARI_ANNOTATION_WORKSPACE:
+
+  hg clone https://jsr308-langtools.googlecode.com/hg jsr308-langtools
+  hg clone https://annotation-tools.googlecode.com/hg annotation-tools
+  hg clone https://checker-framework.googlecode.com/hg checker-framework
+  hg clone https://javarifier.googlecode.com/hg javarifier
 
 
 BUILDING
@@ -41,16 +51,14 @@ DEPENDENCIES
 ============
 
 The Javarifier depends on several other packages.  In short, if you have
-annotations/ and javari/ checked out in the same directory, everything
-should already be setup.  
+the 4 packages noted above checked out in the same directory, everything
+should already be setup.
 
 These dependencies are
 automatically taken care of by the build.xml script.  For convenience, we list
 here all the projects the Javarifier depends on in order to facilitate 
 integration with Eclipse.  Note that if you add a project dependency in 
 Eclipse, you must add it to the build.xml script in the "libpath" property.
-All these projects should be defined if you follow the instructions in
-annotations/builder/README.txt
 
 Projects to build Javarifier:
 
@@ -71,66 +79,53 @@ Projects to build Javarifier:
 CREATING A DISTRIBUTION
 =======================
 
-To make a Javarifier distribution, go into the distribution/
-directory and type 'ant zipfile' to build the javarifier.zip file.
-This is a good test to make sure you can make a distribution, as
-the only other step is to copy this file and the documentation to the
-website.
-
-To make a public Javarifier distribution, first, manually verify that the
-release notes at the end of distribution/doc/javarifier.html
-are up-to-date.  Additionally, synchronize the version number in that
-document to the version number in javarifier.Main.versionString
-(in src/javarifier/Main.java )
-Once this is done, go into distribution/ and run 'ant web' to create
-the distribution (javarifier.zip) and copy it and the user documentation
-to the Javarifier website at:
-        /cse/www2/types/javarifier
-Web location:
-        http://types.cs.washington.edu/javarifier
-
+To make a Javarifier distribution:
+ 1. Run 'ant zipfile' to build javarifier.zip, and to ensure that
+    everything is OK.
+ 2. Manually verify that the release notes at the end of javarifier.html
+    are up-to-date.
+ 3. Synchronize the version number in javarifier.html to the version number
+    in javarifier.Main.versionString (in src/javarifier/Main.java )
+ 4. Run 'ant web' to create the distribution (javarifier.zip) and copy it
+    and the user documentation to http://types.cs.washington.edu/javarifier .
 
 
 RUNNING
 =======
 
-Full documentation for running Javariifer is contained in the user 
-documentation at:
-        distribution/doc/javarifier.html
-Or on the web at: 
-        /afs/csail.mit.edu/group/pag/www/javari
+Full documentation for running Javarifier is in javarifier.html
+or on the web at: 
+	http://types.cs.washington.edu/javarifier
 
 If you want to run Javarifier using all the local class files, you can
 run Javarifier using the javarifier script at:
    javari/javarifier/javarifier
 
 Make sure that this script is executable on your system by making sure
-javari/javarifier is on your $PATH
+javarifier is on your $PATH.
 
 To use this script, pass in the fully-qualified name of all 
 classes to javarify, as in:
-        javarifier myPackage.myClass
+        javarifier myPackage.MyClass
 
 For all other uses and options, consult the user documentation.
 
-(As explained in annotations/builder/README.txt, it is assumed you have
-defined a single environment variable, JAVARI_ANNOTATION_WORKSPACE,
-that points to the top-level location containing javari/ and annotations/ )
+(It is assumed you have defined a single environment variable,
+JAVARI_ANNOTATION_WORKSPACE, that points to the directory containing
+javarifier/ and its siblings.)
 
 
 TEST SUITE
 ==========
 
-See file
-  javari/javarifier/tests/README.txt
-(Or you can call 'ant run-tests' in javari/javarifier)
+In brief, run 'ant run-tests'.  For details, see file tests/README.txt .
 
 
 JAVARIFIER DOCUMENTATION
 ========================
 
 As of May 2008, the theory and algorithm behind the Javarifier is
-Jaime's thesis, located at:
+Jaime Quinonez's thesis, located at:
         javari/design/thesis-jaime/main.pdf
 Or on the web at:
         http://groups.csail.mit.edu/pag/pubs/Quinonez2008-abstract.html
@@ -142,14 +137,11 @@ Or on the web at:
         http://www.cs.washington.edu/homes/mernst/pubs/infer-refimmutability-ecoop2008-abstract.html
 
 User documentation for the Javarifier tool can be found at:
-        distribution/doc/javarifier.html
+        javarifier.html
 Or on the web at: 
         http://types.cs.washington.edu/javarifier
 
-Slides from talks on Javarifier can be found in the doc directory.
-
-
-
+Slides from talks on Javarifier can be found in the doc/ directory.
 
 
 IMPLEMENTATION NOTES
@@ -257,9 +249,11 @@ END
 These are words the spell-checker should accept.
 
  LocalWords:  Javarifier ASM cd javarifier chmod classfiles classfile java asmx
- LocalWords:  packagename classname javarify JARs ASM's jdk xml
+ LocalWords:  packagename classname javarify JARs ASM's jdk xml hg jsr libpath
  LocalWords:  builtin javari builtins nonnull FIXME classpaths classpath JDK's
  LocalWords:  rt tex com bcel javap util src jimple SootMethod txt pdf pdflatex
  LocalWords:  JimpleLocal Local's FastHierarchy PackManager SootResolver JVML
  LocalWords:  SourceLocator SootClass SootField acroread ClassSig MethodSig
- LocalWords:  LocalVariableTypeTables JrType JrTyper
+ LocalWords:  LocalVariableTypeTables JrType JrTyper langtools zipfile html
+ LocalWords:  myPackage MyClass Quinonez's Javarifier's diff Tschantz hashCode
+ LocalWords:  Subclassing
