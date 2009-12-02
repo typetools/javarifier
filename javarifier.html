@@ -30,7 +30,7 @@
         </ul></li>
       <li><a href="#feedback">Feedback</a>
         <ul>
-          <li><a href="#update-log">Update Log</a></li>
+          <li><a href="#release-notes">Release notes</a></li>
         </ul></li>
     </ul>
 <!-- end toc -->
@@ -74,7 +74,7 @@ error-prone.  Javarifier automatically performs this analysis, and a
   tool</a> can automatically update your source code.
 </p>
 
-	 
+
 <h2 id="javarifier-description">Javarifier</h2>
 
 <p>
@@ -104,15 +104,15 @@ and does not change the existing <code>@ReadOnly</code> annotation.  This
 mechanism is how Javarifier infers annotations on a program that uses libraries
 that have already been annotated using stub classes.
 </p>
-	 
-	 
+
+
 <h3 id="javari-differences">Differences from previous versions of Javari</h3>
 
-<p>	 
+<p>
 In earlier versions of Javari, methods must be invariant in the mutability
 of their parameters and return types.  The newer definition of Javari used
 by both Javarifier and the
-<a href="http://types.cs.washington.edu/checker-framework">Javari type checker</a> 
+<a href="http://types.cs.washington.edu/checker-framework">Javari type checker</a>
 permits covariant subtyping on parameters and contra-variant subtyping on
 return types.
 </p>
@@ -128,7 +128,7 @@ released April 27, 2008.  </p>
 
 <ol>
 <li>
-  Download 
+  Download
   <a href="http://types.cs.washington.edu/javarifier/javarifier.zip">javarifier.zip</a>.
 </li>
 
@@ -159,7 +159,7 @@ For csh/tcsh, add to ~/.tcshrc or ~/.cshrc or ~/.login:
 </li>
 
 <li>
-For <b>Windows</b>, add the directory to your 
+For <b>Windows</b>, add the directory to your
 <code>PATH</code> system
 variable by going to
 
@@ -197,8 +197,8 @@ following in its parent directory:
 <h3 id="using-classpath"> Specifying a classpath</h3>
 
 <p>
-All of the classes being analyzed must be on the path specified by the 
-<a href="#using-classpath">-programCPEntries</a> option, which defaults to 
+All of the classes being analyzed must be on the path specified by the
+<a href="#using-classpath">-programCPEntries</a> option, which defaults to
 $CLASSPATH.
 </p>
 
@@ -251,7 +251,7 @@ file.  For example:
 <h3 id="using-world">Specifying library jarfiles</h3>
 
 <p>
-The program on which you are running Javarifier may depend on 
+The program on which you are running Javarifier may depend on
 the JDK and other libraries.
 
 By default, Javarifier assumes that those libraries are on your
@@ -403,12 +403,12 @@ An example of a constraint is
 <pre><code>  U: &lt;Graph.createGraph.this: UNKNOWN LGraph;[] MUTABLE&gt;</code></pre>
 <ul>
   <li>
-This constraint indicates that the receiver (<code>this</code>) of method 
+This constraint indicates that the receiver (<code>this</code>) of method
 <code>Graph.createGraph</code> must be mutable.
   </li>
   <li>
   The string "LGraph;" is
-the JVML format for the Graph class.  
+the JVML format for the Graph class.
   </li>
   <li>
 The string "UNKNOWN LGraph;[]" indicates that the mutability of the  Graph
@@ -430,7 +430,7 @@ mutable in the end.)
 <pre><code>  U: &lt;&lt;Hashtable: int hashMap(java.lang.Object)&gt;.-1: UNKNOWN LHashtable;[] MUTABLE&gt;</code></pre>
   </li>
   <li>Local variables are named if the classfile has the LocalVariableTypeTable
-  attribute.  Otherwise, they are named by their index (e.g., "e0"), as are temporary 
+  attribute.  Otherwise, they are named by their index (e.g., "e0"), as are temporary
   variables, as in:
 <pre><code>  U: &lt;Graph.createGraph.$e0: UNKNOWN LVertex;[] READONLY&gt;</code></pre>
   </li>
@@ -447,7 +447,7 @@ constraints were generated).
 
 <p>
 For more details about the constraints, see the
-paper <a 
+paper <a
 href="http://www.cs.washington.edu/homes/mernst/pubs/infer-refimmutability-ecoop2008-abstract.html">"Inference
 of reference immutability"</a>.
 Contact us if you need more help understanding the
@@ -478,7 +478,7 @@ can be sent to <a href="mailto:javarifier-dev@googlegroups.com">javarifier-dev@g
 </p>
 
 
-<h3 id="update-log"> Update Log </h3>
+<h3 id="release-notes"> Release notes </h3>
 
 <ul>
   <li>
@@ -496,36 +496,36 @@ Javarifier now works on the Eclipse compiler, which is over
   <li>
   Version 0.1.3: (Released April 27, 2008)
   <ul>
-	 <li> Changed the <code>@RoMaybe</code> qualifier for parametric
-	 polymorphism over mutability to <code>@PolyRead</code>.
-	 </li>
-	 <li> Changed the type rule for inferring <code>@PolyRead</code> to match an
-	 updated version of <i>Inference of reference mutability</i>, to
-	 appear in ECOOP '08, which outlines the inference algorithm used by
-	 Javarifier.
-	 </li>
-	 <li> Better documentation of the <code>-dumpConstraints</code>
-	 command-line option and the format of its output.
-	 </li>
-	 <li> Documented the <code>-printStubs</code> command-line option.
-	 </li>
-	 <li> Included a test suite for testing Javarifier installation.
-	 </li>
+    <li> Changed the <code>@RoMaybe</code> qualifier for parametric
+    polymorphism over mutability to <code>@PolyRead</code>.
+    </li>
+    <li> Changed the type rule for inferring <code>@PolyRead</code> to match an
+    updated version of <i>Inference of reference mutability</i>, to
+    appear in ECOOP '08, which outlines the inference algorithm used by
+    Javarifier.
+    </li>
+    <li> Better documentation of the <code>-dumpConstraints</code>
+    command-line option and the format of its output.
+    </li>
+    <li> Documented the <code>-printStubs</code> command-line option.
+    </li>
+    <li> Included a test suite for testing Javarifier installation.
+    </li>
   </ul>
   </li>
   <li>
   Version ?.?.?: (Released ? ?, ?)
     <ul>
-		<li>Implemented and documented the heuristics for excluding fields
-		     from the abstract state of an object.
-		     See <a href="#using-heuristics"><code>-applyHeuristics</code></a>.
-		</li>
-		<li>Refactored the package containing all the Javari annotations from
-		     <code>checkers.quals</code> to
+      <li>Implemented and documented the heuristics for excluding fields
+           from the abstract state of an object.
+           See <a href="#using-heuristics"><code>-applyHeuristics</code></a>.
+      </li>
+      <li>Refactored the package containing all the Javari annotations from
+           <code>checkers.quals</code> to
            <code>checkers.javari.quals</code>
-		</li>
-		<li>Removed some unnecessary and uninformative messages from output.
-		</li>
+      </li>
+      <li>Removed some unnecessary and uninformative messages from output.
+      </li>
     </ul>
   </li>
 </ul>
@@ -533,7 +533,7 @@ Javarifier now works on the Eclipse compiler, which is over
 <hr/>
 
 <p>
-Last revised: November 9, 2009
+Last revised: December 1, 2009
 </p>
 
 </body>
