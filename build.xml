@@ -254,6 +254,7 @@
       <arg value="${javarifier}/tests"/>
       <env key="JAVAC" file="${annotations-compiler}/dist/bin/javac" />
       <env key="CLASSPATH" path="${toString:libpath}"/>
+      <env key="CHECKERS" path="${checkers}"/>
     </exec>
   </target>
 
