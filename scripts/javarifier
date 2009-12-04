@@ -21,7 +21,7 @@ SOOT_PROGRAMS=${SOOT_PROGRAMS:-${CLASSPATH}}
 
 BINDIR=$(dirname $0)
 JRDIR=${BINDIR}/..
-CHECKERS=${BINDIR}/../../checker-framework/checkers
+CHECKERS=${CHECKERS:-${BINDIR}/../../checker-framework/checkers}
 CHECKERS_JAR=${CHECKERS}/checkers.jar
 JAVARIFIER_JDK=${JAVARIFIER_JDK:-${CHECKERS}/jdk/javari/build/}
 AFU_JAR=${BINDIR}/../../annotation-tools/annotation-file-utilities/annotation-file-utilities.jar
