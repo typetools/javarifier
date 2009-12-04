@@ -255,6 +255,7 @@
       <env key="JAVAC" file="${annotations-compiler}/dist/bin/javac" />
       <env key="CLASSPATH" path="${toString:libpath}"/>
       <env key="CHECKERS" path="${checkers}"/>
+      <env key="JAVA_HOME" path="${JAVA_HOME}"/>
     </exec>
   </target>
 
