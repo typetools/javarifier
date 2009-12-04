@@ -253,6 +253,7 @@
       <arg value="-C"/>
       <arg value="${javarifier}/tests"/>
       <env key="JAVAC" file="${annotations-compiler}/dist/bin/javac" />
+      <env key="CLASSPATH" path="${toString:libpath}"/>
     </exec>
   </target>
 
