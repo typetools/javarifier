@@ -118,3 +118,10 @@ clean :
 	cd htmlparser && $(MAKE) clean
 	cd tinySQL && $(MAKE) clean
 	cd eclipsec && $(MAKE) clean
+
+.PHONY: showvars
+showvars:
+	echo "JAVAC=${JAVAC}"
+	echo "CLASSPATH=${CLASSPATH}"
+	echo "CHECKERS=${CHECKERS}"
+	echo "JAVA_HOME=${JAVA_HOME}"
