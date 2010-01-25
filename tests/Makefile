@@ -67,6 +67,7 @@ eclipsec :
 # TODO: scene-lib.goal seems to have somehow been removed,
 # and needs to be added.
 scene-lib.output :
+	rm -f tests/scene-lib.output
 	cd ${ANNOTATION_SCENE_LIB} && ant bin
 	cd .. && ./javarify.sh \
 	${ANNOTATION_SCENE_LIB}/bin \
@@ -92,6 +93,7 @@ VerifyDiffs.class : VerifyDiffs.java
 # Actually runs the Javarifier to create the inferences.
 .PRECIOUS: %.output
 %.output: %.class ../javarifier.jar
+	rm -f $@
 	${JAVARIFIER} \
 	-programCPEntries . \
 	-output $@ \
