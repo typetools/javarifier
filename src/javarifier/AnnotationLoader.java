@@ -298,8 +298,8 @@ public class AnnotationLoader {
       // TODO: FIXME annotation bound handling.
       // This requires finalizing the JSR 308 classfile format so
       // that these annotations are in fact in the class file.
-      // Good Test case: utilMDE.Intern$SequenceAndIndices
-      // (Ignoring doesn't effect Javarifier yet, because they are
+      // Good Test case: plume.Intern$SequenceAndIndices
+      // (Ignoring doesn't affect Javarifier yet, because they are
       //  just @Interned annotations.)
       annoBLsLeft.clear();
 
