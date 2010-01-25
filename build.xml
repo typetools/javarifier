@@ -170,7 +170,7 @@
     <!-- Copy scripts and instructions into directory. -->
     <copy todir="${final-distribution-directory}">
       <fileset dir="${scripts}" excludes="**/CVS/*"/>
-      <fileset file="doc/javarifier.html"/>
+      <fileset file="javarifier.html"/>
     </copy>
 
     <!-- In order for the UNIX tools to have the proper execution bit set,
