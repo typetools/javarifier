@@ -1,0 +1,12 @@
+package checkers.javari.quals:
+annotation @ReadOnly:
+
+package :
+class UsesThrowable:
+
+    method throwException()V:
+        return:
+        local 0 #0+8:
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0: @checkers.javari.quals.ReadOnly
+
