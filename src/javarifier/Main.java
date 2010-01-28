@@ -25,7 +25,7 @@ import soot.SootField;
  * those classes and in classes those classes depend upon.
  *
  * Consult the documentation at:
- * <a href="http://types.cs.washington.edu/javarifier"
+ * <a href="http://types.cs.washington.edu/javarifier">
  * http://types.cs.washington.edu/javarifier </a>
  * for more information about running Javarifier.
  *
