@@ -1,0 +1,38 @@
+package checkers.javari.quals:
+annotation @ReadOnly:
+
+package checkers.javari.quals:
+annotation @Mutable:
+
+package :
+class Bar2:
+
+    field x: @checkers.javari.quals.ReadOnly
+
+    method <init>()V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+10: @checkers.javari.quals.Mutable
+
+    method foo()I:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+8: @checkers.javari.quals.ReadOnly
+
+    method fooChange(Ljava/lang/Integer;)Ljava/lang/Integer;:
+        return: @checkers.javari.quals.ReadOnly
+        receiver: @checkers.javari.quals.Mutable
+        parameter #0: @checkers.javari.quals.ReadOnly
+        local 0 #0+7: @checkers.javari.quals.Mutable
+        local 1 #0+7: @checkers.javari.quals.ReadOnly
+
+    method fooReadOnly()Ljava/lang/Integer;:
+        return: @checkers.javari.quals.ReadOnly
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5: @checkers.javari.quals.ReadOnly
+
+    method fooNull()Ljava/lang/Integer;:
+        return: @checkers.javari.quals.ReadOnly
+        receiver: @checkers.javari.quals.Mutable
+        local 0 #0+10: @checkers.javari.quals.Mutable
+
