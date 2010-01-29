@@ -1,14 +1,26 @@
 ### glob syntax rules
 syntax: glob
+
+javarifier.jar
+
 TAGS
 *~
+
 tests/*.class
 tests/**/*.class
 tests/*.diff
 tests/**/*.diff
+tests/*.log
+tests/**/*.log
+tests/*.output
+tests/**/*.output
+sootOutput
 bin/**/*.class
+
 
 ### regexp syntax rules
 syntax: regexp
+
 # Not a glob because it starts with # which looks like a comment.
-^#.*#$
+(.*/)?\#[^/]*\#$
+(.*/)?\.\#.*
