@@ -195,8 +195,8 @@ public class ShayOutput {
   private void printMethod(AMethod m) throws IOException {
     printReceiver(m.receiver);
 
-    for (Map.Entry<Integer, ATypeElement> e : m.parameters.entrySet()) {
-      printParam(e.getKey(), e.getValue());
+    for (Map.Entry<Integer, AElement> e : m.parameters.entrySet()) {
+      printParam(e.getKey(), e.getValue().type);
     }
   }
 

@@ -42,7 +42,7 @@ public class ConstraintGenerator extends SceneVisitor {
         return cg.getConstraints();
     }
 
-    private static Set<SootClass> missingDebugInfo = new HashSet<SootClass>();
+    private static Set<SootClass> missingDebugInfo = new LinkedHashSet<SootClass>();
 
     private ConstraintManager cm;
 

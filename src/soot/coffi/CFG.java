@@ -264,7 +264,7 @@ public class CFG {
 		{
 		    // see how many targets it can reach.  Note that this is a
 		    // subset of the exception_table.
-		    HashSet ethandlers = new HashSet();
+		    HashSet ethandlers = new LinkedHashSet();
 
 		    // not quite a subset---could also be that control 
 		    // exits this method, so start icount at 1
@@ -375,7 +375,7 @@ public class CFG {
 	Code_attribute codeAttribute = method.locate_code_attribute();
 
 	/* find all reachable blocks. */
-	Set reachableinsns = new HashSet();
+	Set reachableinsns = new LinkedHashSet();
 	LinkedList tovisit = new LinkedList();
 
 	reachableinsns.add(from);
@@ -480,7 +480,7 @@ public class CFG {
     // the caller cleans jsr2astore, astore2ret
     private boolean findOutmostJsrs(Instruction start, Instruction end) {
 	// use to put innerJsrs.
-	HashSet innerJsrs = new HashSet();
+	HashSet innerJsrs = new LinkedHashSet();
 	boolean unusual = false;
 
 	Instruction insn = start;
@@ -803,7 +803,7 @@ public class CFG {
     }
 
     private void pruneExceptionTable() {
-	HashSet invalidInsns = new HashSet();
+	HashSet invalidInsns = new LinkedHashSet();
 	Instruction insn = this.sentinel.next;
         do {
 	    if (insn instanceof Instruction_Jsr
@@ -1281,7 +1281,7 @@ public class CFG {
             }
         }
 
-        Set reachableInstructions = new HashSet();
+        Set reachableInstructions = new LinkedHashSet();
         
         // Mark all the reachable instructions
         {
@@ -1336,7 +1336,7 @@ public class CFG {
             instructionToTypeStack = new HashMap();
             instructionToPostTypeStack = new HashMap();
 
-            Set visitedInstructions = new HashSet();
+            Set visitedInstructions = new LinkedHashSet();
             List changedInstructions = new ArrayList();
 
             TypeStack initialTypeStack;

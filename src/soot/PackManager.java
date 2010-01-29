@@ -426,7 +426,7 @@ public class PackManager {
         if( false && (Options.v().whole_program() ||
                       Options.v().whole_shimple())) {
             QueueReader methods = Scene.v().getReachableMethods().listener();
-            HashSet reachableClasses = new HashSet();
+            HashSet reachableClasses = new LinkedHashSet();
 
             while(true) {
                     SootMethod m = (SootMethod) methods.next();

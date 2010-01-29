@@ -43,7 +43,10 @@ public class TypePrinter extends EmptyTypeVisitor {
 
     public void visitClassType(ClassType t) {
         output.append(t.getMutability() + " ");
-        output.append(t.getBaseType().substring(0, t.getBaseType().length()-1));
+        // baseType is sometimes in Java format, sometimes in JVML format
+        String baseType = t.getBaseType();
+        // output.append(baseType.substring(0, baseType.length()-1));
+        output.append(baseType);
         if (t.getTypeArgs().size() != 0) {
             output.append("<");
             for (TypeArg targ : t.getTypeArgs()) {

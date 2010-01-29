@@ -4,9 +4,12 @@ annotation @ReadOnly:
 package :
 class UsesThrowable:
 
+    method <init>()V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5:
+            type: @checkers.javari.quals.ReadOnly
+
     method throwException()V:
         return:
-        local 0 #0+8:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
 
