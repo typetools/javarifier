@@ -110,8 +110,8 @@ public class AnnotationLoader {
    * into the given SootClass.
    */
   private static void loadClass(SootClass sc, AClass ac) {
-    boolean isStub = (sc.entryKind() == EntryKind.STUB) ||
-    Options.v().justPassThrough();
+    boolean isStub = ((sc.entryKind() == EntryKind.STUB)
+                      || Options.v().justPassThrough());
 
     if (sc.resolvingLevel() == SootClass.DANGLING) {
       if (Options.v().debugStubs()) {
@@ -125,11 +125,11 @@ public class AnnotationLoader {
 
     // Only do fields and methods for classes resolved to signatures
     if (sc.resolvingLevel() >= SootClass.SIGNATURES) {
-      Set<String> annoFieldsLeft = new HashSet<String>(ac.fields.keySet());
+      Set<String> annoFieldsLeft = new LinkedHashSet<String>(ac.fields.keySet());
       for (Object sf1 : sc.getFields()) {
         SootField sf = (SootField) sf1; // emulate an erasure-change cast
         annoFieldsLeft.remove(sf.getName());
-        ATypeElement af = ac.fields.vivify(sf.getName());
+        AElement af = ac.fields.vivify(sf.getName());
         try {
           loadField(sf, af, isStub);
         } catch (RuntimeException e) {
@@ -138,7 +138,7 @@ public class AnnotationLoader {
       }
       if (!annoFieldsLeft.isEmpty())
         throw notThere("field " + arbElement(annoFieldsLeft));
-      Set<String> annoMethodsLeft = new HashSet<String>(ac.methods.keySet());
+      Set<String> annoMethodsLeft = new LinkedHashSet<String>(ac.methods.keySet());
       for (Object sm1 : sc.getMethods()) {
         SootMethod sm = (SootMethod) sm1; // emulate an erasure-change cast
         String methodSig = AbstractJasminClass.jasminDescriptorOf(sm.makeRef());
@@ -189,14 +189,13 @@ public class AnnotationLoader {
       }
     }
     List<JrType> dParams = ms.getParams();
-    Set<Integer> annoParamsLeft = new HashSet<Integer>(am.parameters.keySet());
+    Set<Integer> annoParamsLeft = new LinkedHashSet<Integer>(am.parameters.keySet());
     for (int i = 0; i < dParams.size(); i++) {
       JrType dParam = dParams.get(i);
       annoParamsLeft.remove(i);
-      ATypeElement sParam = am.parameters.vivify(i);
+      ATypeElement sParam = am.parameters.vivify(i).type;
       try {
-        loadType(dParam, sParam,
-            isStub, Mutability.MUTABLE, false);
+        loadType(dParam, sParam, isStub, Mutability.MUTABLE, false);
       } catch (RuntimeException e) {
         throw wrap(e, "parameter #" + i);
       }
@@ -207,14 +206,14 @@ public class AnnotationLoader {
     if (!sm.isBridge() && sm.getBody() != null) {
       Body body = sm.getBody();
       Collection<Local> locals = body.getLocals();
-      Set<LocalLocation> annoLocalsLeft = new HashSet<LocalLocation>(am.locals.keySet());
+      Set<LocalLocation> annoLocalsLeft = new LinkedHashSet<LocalLocation>(am.locals.keySet());
       for (Local l : locals) {
         if (l.isSourceLocal()) {
           LocalLocation loc = new LocalLocation(l.getSlotIndex(),
               l.getStart_pc(), l.getLength());
           annoLocalsLeft.remove(loc);
           try {
-            loadType(l.getJrType(), am.locals.vivify(loc),
+            loadType(l.getJrType(), am.locals.vivify(loc).type,
                 isStub, Mutability.MUTABLE, false);
           } catch (RuntimeException e) {
             throw wrap(e, "local " + loc.index + " #"
@@ -236,13 +235,16 @@ public class AnnotationLoader {
    * Note that assignable annotations are also loaded by calling
    * SootField.setAssignable(boolean) if appropriate.
    */
-  private static void loadField(SootField sf, ATypeElement af,
-      boolean isStub) {
+  // Argument is not ATypeElement because we need to find @Assignable
+  // annotations on it as well as annotations on its type.
+  private static void loadField(SootField sf, AElement af, boolean isStub) {
     Mutability defmut;
-    defmut = classIsUnmodifiable(sf.getDeclaringClass().getName())
-    ? Mutability.READONLY
-        : (sf.isStatic() ? Mutability.MUTABLE : Mutability.THIS_MUTABLE);
-    loadType(sf.getJrType(), af, isStub, defmut, true);
+    defmut = (classIsUnmodifiable(sf.getDeclaringClass().getName())
+              ? Mutability.READONLY
+              : (sf.isStatic()
+                 ? Mutability.MUTABLE
+                 : Mutability.THIS_MUTABLE));
+    loadType(sf.getJrType(), af.type, isStub, defmut, true);
     if (af.lookup(assignableAnnotationName) != null)
       sf.setAssignable(true);
   }
@@ -279,7 +281,7 @@ public class AnnotationLoader {
   void loadTypeParameters(List<Pair<VarType, JrType>> jtp,
       VivifyingMap<BoundLocation, ATypeElement> atp,
       boolean isStub, Mutability defmut) {
-    Set<BoundLocation> annoBLsLeft = new HashSet<BoundLocation>(atp.keySet());
+    Set<BoundLocation> annoBLsLeft = new LinkedHashSet<BoundLocation>(atp.keySet());
     for (int i = 0; i < jtp.size(); i++) {
       // HMMM Java and the ASL support more than one bound per
       // type parameter, but evidently the Javarifier does not.
@@ -319,7 +321,7 @@ public class AnnotationLoader {
    * @param defmut - the default mutability
    * @param isField - whether the given element represents a field
    */
-  static void loadTypeLayer(JrType dest, AElement source,
+  static void loadTypeLayer(JrType dest, ATypeElement source,
       boolean isStub, Mutability defmut, boolean isField) {
     Mutability m = null;
 
@@ -427,10 +429,10 @@ public class AnnotationLoader {
     }
 
     /**
-     * Loads all the types from the given AElement to the given JrType.
+     * Loads all the types from the given ATypeElement to the given JrType.
      */
     @Override
-    protected void map(JrType type, AElement element) {
+    protected void map(JrType type, ATypeElement element) {
       loadTypeLayer(type, element, isStub, defmut, isField);
     }
 
@@ -478,8 +480,8 @@ public class AnnotationLoader {
   public static boolean typeIsReadOnlyObject(JrType t) {
     if (t instanceof ClassType) {
       ClassType ct = (ClassType) t;
-      return ct.getBaseType().equals("Ljava/lang/Object;")
-      && ct.getMutability() == Mutability.READONLY;
+      return (ct.getBaseType().equals("Ljava/lang/Object;")
+              && ct.getMutability() == Mutability.READONLY);
     } else
       return false;
   }

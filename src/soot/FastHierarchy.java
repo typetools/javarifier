@@ -221,7 +221,7 @@ public class FastHierarchy
                 LinkedList worklist = new LinkedList();
                 if( base.isInterface() ) worklist.addAll(getAllImplementersOfInterface(base));
                 else worklist.add(base);
-                Set workset = new HashSet();
+                Set workset = new LinkedHashSet();
                 while(!worklist.isEmpty()) {
                     SootClass cl = (SootClass) worklist.removeFirst();
                     if( !workset.add(cl) ) continue;
@@ -293,14 +293,14 @@ public class FastHierarchy
 
     public Collection resolveConcreteDispatchWithoutFailing(Collection concreteTypes, SootMethod m, RefType declaredTypeOfBase ) {
 
-        Set ret = new HashSet();
+        Set ret = new LinkedHashSet();
         SootClass declaringClass = declaredTypeOfBase.getSootClass();
         declaringClass.checkLevel(SootClass.HIERARCHY);
         for( Iterator tIt = concreteTypes.iterator(); tIt.hasNext(); ) {
             final Type t = (Type) tIt.next();
             if( t instanceof AnySubType ) {
                 String methodSig = m.getSubSignature();
-                HashSet s = new HashSet();
+                HashSet s = new LinkedHashSet();
                 s.add( declaringClass );
                 while( !s.isEmpty() ) {
                     SootClass c = (SootClass) s.iterator().next();
@@ -351,14 +351,14 @@ public class FastHierarchy
 
     public Collection resolveConcreteDispatch(Collection concreteTypes, SootMethod m, RefType declaredTypeOfBase ) {
 
-        Set ret = new HashSet();
+        Set ret = new LinkedHashSet();
         SootClass declaringClass = declaredTypeOfBase.getSootClass();
         declaringClass.checkLevel(SootClass.HIERARCHY);
         for( Iterator tIt = concreteTypes.iterator(); tIt.hasNext(); ) {
             final Type t = (Type) tIt.next();
             if( t instanceof AnySubType ) {
                 String methodSig = m.getSubSignature();
-                HashSet s = new HashSet();
+                HashSet s = new LinkedHashSet();
                 s.add( declaringClass );
                 while( !s.isEmpty() ) {
                     SootClass c = (SootClass) s.iterator().next();
@@ -420,8 +420,8 @@ public class FastHierarchy
     public Set resolveAbstractDispatch(SootClass abstractType, SootMethod m )
     {
         String methodSig = m.getSubSignature();
-        HashSet resolved = new HashSet();
-        HashSet ret = new HashSet();
+        HashSet resolved = new LinkedHashSet();
+        HashSet ret = new LinkedHashSet();
         LinkedList worklist = new LinkedList();
         worklist.add( abstractType );
         while( !worklist.isEmpty() ) {

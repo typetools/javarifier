@@ -1,6 +1,7 @@
 package javarifier.util;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -69,7 +70,7 @@ public class ConstraintSet<T extends javarifier.ConstraintVar>
   implements Iterable<T> {
 
     /** Unguarded constraints. */
-    private Set<T> unguarded = new HashSet<T>();
+    private Set<T> unguarded = new LinkedHashSet<T>();
 
     /**
      * Guarded constraints.  A MultiMap maps a key (the guard) to a set of
@@ -199,13 +200,13 @@ public class ConstraintSet<T extends javarifier.ConstraintVar>
       // is debug information.
       
       // Shadow fields, this method is not supposed to mutate this.
-      Set<T> unguarded = new HashSet<T>(this.unguarded);
+      Set<T> unguarded = new LinkedHashSet<T>(this.unguarded);
       MultiMap<T, T> guarded = new HashMultiMap<T, T>(this.guarded);
       MultiMap<T, Pair<T, T>> twiceGuarded = new HashMultiMap<T, Pair<T, T>>(
           this.twiceGuarded);
 
       // Initialize W with contents of U
-      Set<T> workList = new HashSet<T>();
+      Set<T> workList = new LinkedHashSet<T>();
       workList.addAll(unguarded);
 
       while (!workList.isEmpty()) {

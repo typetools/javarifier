@@ -551,7 +551,7 @@ public class ConstraintManager {
                         JrTyped rhsValue, MutType rhsType) {
 
         if (Options.v().debugConstraintGeneration() || Options.v().debugSubtyping()) {
-            System.out.println("  " + lhsValue + " " + lhsType + " -> " + rhsValue + " " + rhsType);
+            System.out.println("guards():  " + lhsValue + " " + lhsType + " -> " + rhsValue + " " + rhsType);
         }
 
         ConstraintVar lhsRo;
@@ -578,15 +578,15 @@ public class ConstraintManager {
         ConstraintTracker.add(lhsMut, rhsMut, new RuntimeException());
 
         if (Options.v().debugConstraintGeneration() || Options.v().debugSubtyping()) {
-            System.out.println(lhsRo + " -> " + rhsRo);
-            System.out.println(lhsMut + " -> " + rhsMut);
+            System.out.println("ro : " + lhsRo + " -> " + rhsRo);
+            System.out.println("mut: " + lhsMut + " -> " + rhsMut);
         }
 
         if (!shouldSkipReadonlyContext()) {
           cs.add(lhsRo, rhsRo);
         } else {
           if (Options.v().debugConstraintGeneration()) {
-            System.out.println("omit constraint: " + lhsRo + " \n -> " + rhsRo);
+            System.out.println("guards(): omit constraint: " + lhsRo + " \n -> " + rhsRo);
           }
         }
 
@@ -621,7 +621,7 @@ public class ConstraintManager {
           cs.add(lhs, rhsRo);
         } else {
           if (Options.v().debugConstraintGeneration()) {
-            System.out.println("omit constraint: " + lhs + " \n -> " + rhsRo);
+            System.out.println("guards2(): omit constraint: " + lhs + " \n -> " + rhsRo);
           }
         }
 
@@ -654,7 +654,7 @@ public class ConstraintManager {
           cs.add(guardRo,  lhs, rhsRo);
         } else {
           if (Options.v().debugConstraintGeneration()) {
-            System.out.println("omit constraint: " + guardRo + " \n => " + lhs + " \n -> " + rhsRo);
+            System.out.println("guards3(): omit constraint: " + guardRo + " \n => " + lhs + " \n -> " + rhsRo);
           }
         }
         cs.add(guardMut, lhs, rhsMut);
@@ -716,6 +716,7 @@ public class ConstraintManager {
      * Where "type" may be a type variable.
      */
     public void mutable4(JrTyped value, JrType type, Context context) {
+
         JrTyped value2 = type instanceof VarType ? (VarType) type : value;
         MutType type2  = (MutType) (value instanceof VarType ? ((VarType) type).bound() : type);
 

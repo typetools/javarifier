@@ -729,8 +729,7 @@ public class SootMethod
 							.lastIndexOf('.'));
 				}
 				if (packageName != null) {
-					// System.out.println("Parameter belongs to
-					// package"+packageName);
+					// System.out.println("Parameter belongs to package"+packageName);
 					// check if package is not contained in packages retrieved
 					if (!set.contains(packageName)) {
 						// add package

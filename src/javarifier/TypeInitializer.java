@@ -125,10 +125,9 @@ public class TypeInitializer extends SceneVisitor {
         if (sTag == null) {
 
             // getBytecodeSignature returns something in the form:
-            // <ClassName: MethodName(Ljava.lang.ParamType;)Ljava.util.ReturnType;>
-            //
-            // But we are only interested in the part:
-            // (Ljava.lang.ParamType;)Ljava.util.ReturnType;
+            //   <ClassName: MethodName(Ljava.lang.ParamType;)Ljava.util.ReturnType;>
+            // but we are only interested in the part:
+            //   (Ljava.lang.ParamType;)Ljava.util.ReturnType;
             sig = method.getBytecodeSignature();
             sig = sig.substring(sig.indexOf('('), sig.length()-1);
 

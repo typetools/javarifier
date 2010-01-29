@@ -249,7 +249,7 @@ public class SourceLocator
 
     /* This is called after sootClassPath has been defined. */
     public Set classesInDynamicPackage(String str) {
-        HashSet set = new HashSet(0);
+        HashSet set = new LinkedHashSet(0);
         StringTokenizer strtok = new StringTokenizer(
                 Scene.v().getSootClassPath(), String.valueOf(File.pathSeparatorChar));
         while (strtok.hasMoreTokens()) {

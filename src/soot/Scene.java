@@ -112,7 +112,7 @@ public class Scene  //extends AbstractHost
         mainClass = m;
     }
 
-    Set reservedNames = new HashSet();
+    Set reservedNames = new LinkedHashSet();
 
     /**
         Returns a set of tokens which are reserved.  Any field, class, method, or local variable with such a name will be quoted.
@@ -784,9 +784,9 @@ public class Scene  //extends AbstractHost
     private Set[]/*<String>*/ basicclasses=new Set[4];
 
     private void addSootBasicClasses() {
-        basicclasses[SootClass.HIERARCHY] = new HashSet();
-        basicclasses[SootClass.SIGNATURES] = new HashSet();
-        basicclasses[SootClass.BODIES] = new HashSet();
+        basicclasses[SootClass.HIERARCHY] = new LinkedHashSet();
+        basicclasses[SootClass.SIGNATURES] = new LinkedHashSet();
+        basicclasses[SootClass.BODIES] = new LinkedHashSet();
 
 	addBasicClass("java.lang.Object");
         addBasicClass("java.lang.Error");
@@ -902,7 +902,7 @@ public class Scene  //extends AbstractHost
 
     public void loadDynamicClasses() {
         dynamicClasses = new ArrayList();
-        HashSet dynClasses = new HashSet();
+        HashSet dynClasses = new LinkedHashSet();
         dynClasses.addAll(Options.v().dynamic_class());
 
         for( Iterator pathIt = Options.v().dynamic_dir().iterator(); pathIt.hasNext(); ) {
@@ -946,9 +946,9 @@ public class Scene  //extends AbstractHost
         }
 
         // Remove/add all classes from packageInclusionMask as per -i option
-        Set processedClasses = new HashSet();
+        Set processedClasses = new LinkedHashSet();
         while(true) {
-            Set unprocessedClasses = new HashSet(Scene.v().getClasses());
+            Set unprocessedClasses = new LinkedHashSet(Scene.v().getClasses());
             unprocessedClasses.removeAll(processedClasses);
             if( unprocessedClasses.isEmpty() ) break;
             processedClasses.addAll(unprocessedClasses);

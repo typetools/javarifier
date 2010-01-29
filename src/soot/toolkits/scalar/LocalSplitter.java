@@ -97,7 +97,7 @@ public class LocalSplitter extends BodyTransformer
                 Timers.v().splitPhase2Timer.start();
 
             // All the boxes that have been visited thus far.
-            Set<ValueBox> markedBoxes = new HashSet<ValueBox>();
+            Set<ValueBox> markedBoxes = new LinkedHashSet<ValueBox>();
             Map<ValueBox, Unit> boxToUnit = new HashMap(units.size() * 2 + 1, 0.7f);
 
             Iterator<Unit> codeIt = units.iterator();

@@ -9,6 +9,7 @@ import soot.Scene;
 import soot.SootClass;
 import annotations.Annotation;
 import annotations.el.AClass;
+import annotations.el.AElement;
 import annotations.el.AMethod;
 import annotations.el.AScene;
 import annotations.el.ATypeElement;
@@ -63,9 +64,9 @@ public class AnnotationScene {
                 AMethod am = e.getValue();
                 int size = am.parameters.size();
                 //System.out.println("size: " + size);
-                for (Map.Entry<Integer, ATypeElement> em : am.parameters.entrySet()) {
+                for (Map.Entry<Integer, AElement> em : am.parameters.entrySet()) {
                   Integer i = em.getKey();
-                  ATypeElement ate = em.getValue();
+                  ATypeElement ate = em.getValue().type;
                   //System.out.println("at param i: " + i);
                   //System.out.println("ate: " + ate.toString());
                 }

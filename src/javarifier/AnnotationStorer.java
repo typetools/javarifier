@@ -105,7 +105,7 @@ public class AnnotationStorer {
    */
   private void storeClass(SootClass sc, AClass ac) {
     if (classIsUnmodifiable(sc.getName()))
-      annotate(ac, unmodifiableAnnotationDef);
+      annotate(ac.type, unmodifiableAnnotationDef);
 
     // An interface has all "empty" methods, so don't output the
     // inferred annotations if user doesn't want empty methods/classes
@@ -124,7 +124,7 @@ public class AnnotationStorer {
     if (sc.resolvingLevel() >= SootClass.SIGNATURES) {
       for (Object sf1 : sc.getFields()) {
         SootField sf = (SootField) sf1; // emulate an erasure-change cast
-        ATypeElement af = ac.fields.vivify(sf.getName());
+        AElement af = ac.fields.vivify(sf.getName());
         try {
           storeField(sf, af);
         } catch (RuntimeException e) {
@@ -194,7 +194,7 @@ public class AnnotationStorer {
     List<JrType> sParams = ms.getParams();
     for (int i = 0; i < sParams.size(); i++) {
       JrType sParam = sParams.get(i);
-      ATypeElement dParam = am.parameters.vivify(i);
+      ATypeElement dParam = am.parameters.vivify(i).type;
       // Don't include annotations on parameters whose type is a
       //  known immtuable class.
       boolean isImmutable = false;
@@ -228,7 +228,7 @@ public class AnnotationStorer {
           LocalLocation loc = new LocalLocation(l.getSlotIndex(),
               l.getStart_pc(), l.getLength());
           try {
-            storeType(l.getJrType(), am.locals.vivify(loc));
+            storeType(l.getJrType(), am.locals.vivify(loc).type);
           } catch (RuntimeException e) {
             throw wrap(e, "local " + loc.index + " #"
                 + loc.scopeStart + "+" + loc.scopeLength);
@@ -252,10 +252,10 @@ public class AnnotationStorer {
    * @param af - the annotation scene library element to store the
    *             annotations in
    */
-  private void storeField(SootField sf, ATypeElement af) {
+  private void storeField(SootField sf, AElement af) {
     if (sf.assignable())
       annotate(af, AnnotationLoader.assignableAnnotationDef);
-    storeType(sf.getJrType(), af);
+    storeType(sf.getJrType(), af.type);
   }
 
   /**
@@ -325,7 +325,7 @@ public class AnnotationStorer {
    * @param source - the type containing mutability annotations
    * @param dest - the element to store the mutabilities into
    */
-  private void storeTypeLayer(JrType source, AElement dest) {
+  private void storeTypeLayer(JrType source, ATypeElement dest) {
     // If source has any mutabilities, simply retrieve them, look up
     // the annotation from mutabilityAnnos and then use annotate().
     if (source instanceof MutType) {
@@ -354,8 +354,16 @@ public class AnnotationStorer {
    * @param annoTypeName - the name of the annotation to add
    */
   private void annotate(AElement target, AnnotationDef adef) {
-    // These are the original lines, which I have commented out so that I
-    // can proceed with testing.
+    if (target instanceof ATypeElement) {
+      if (adef.name.indexOf("Assignable") != -1) {
+        throw new Error(String.format("annotation %s belongs on ATypeElement, not AElement %s", adef, target));
+      }
+    } else {
+      if (adef.name.indexOf("ReadOnly") != -1
+          || adef.name.indexOf("Mutable") != -1) {
+        throw new Error(String.format("annotation %s belongs on ATypeElement, not AElement %s", adef, target));
+      }
+    }
     Annotation ann = AnnotationFactory.saf.beginAnnotation(adef).finish();
     target.tlAnnotationsHere.add(ann);
   }
@@ -405,7 +413,7 @@ public class AnnotationStorer {
      * into
      */
     @Override
-    protected void map(JrType type, AElement element) {
+    protected void map(JrType type, ATypeElement element) {
       storeTypeLayer(type, element);
     }
 

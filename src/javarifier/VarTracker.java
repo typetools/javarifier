@@ -16,7 +16,7 @@ public class VarTracker {
 
     public static String printCauses(ConstraintVar var) {
         StringBuilder buf = new StringBuilder();
-        Set<ConstraintVar> seen = new HashSet<ConstraintVar>();
+        Set<ConstraintVar> seen = new LinkedHashSet<ConstraintVar>();
         while (var != null) {
             if (seen.contains(var)) {
                 buf.append(var.toString() + " LOOP: This should never happen ");
