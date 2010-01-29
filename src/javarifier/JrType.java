@@ -19,6 +19,8 @@ import javarifier.util.Pair;
  * mutability of a type.  This allows the mutabilities of types
  * to be filled in after the initial Java type was created.
  */
+// JrType is an abstract class, and all of its subtypes are static nested
+// classes defined inside JrType.
 public abstract class JrType {
 
     /**
@@ -429,7 +431,7 @@ public abstract class JrType {
 
         /**
          * Returns the base type of this class, in JVML format.
-         * i.e. Ljava/lang/String;
+         * e.g., Ljava/lang/String;
          *
          * @return the base type of this class
          */
@@ -1053,7 +1055,7 @@ public abstract class JrType {
 
     /**
      * A VoidType represents Java's void type.
-     * (For example, the return type of the method: "void foo()"
+     * (For example, the return type of the method: "void foo()".)
      *
      * This class implements the singleton pattern.
      */

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -250,7 +251,7 @@ public class HeuristicsVisitor extends SceneVisitor {
     //  maps to, if necessary.
     Set<SootMethod> methods = fieldWrittenMap.get(field);
     if (methods == null) {
-      methods = new HashSet<SootMethod>();
+      methods = new LinkedHashSet<SootMethod>();
       fieldWrittenMap.put(field, methods);
     }
     methods.add(method);
@@ -264,7 +265,7 @@ public class HeuristicsVisitor extends SceneVisitor {
     //  field maps to, if necessary.
     Set<SootMethod> methods = fieldReadMap.get(field);
     if (methods == null) {
-      methods = new HashSet<SootMethod>();
+      methods = new LinkedHashSet<SootMethod>();
       fieldReadMap.put(field, methods);
     }
     methods.add(method);

@@ -75,9 +75,12 @@ public class JVMLSigParser {
     public static MethodSig parseMethodSig(String signature, ClassType receiverType) {
         try {
             if (Options.v().debugSigParser()) {
-                System.out.println("parseMethodSig: " + signature);
+                System.out.printf("parseMethodSig: \"%s\" \"%s\"%n", signature, receiverType);
             }
             MethodSig sig = (new JVMLSigParser(signature, true)).parseMethodSig(receiverType);
+            if (Options.v().debugSigParser()) {
+                System.out.println("parseMethodSig => " + sig);
+            }
             return  sig;
         } catch (Exception e) {
             throw new RuntimeException(signature + " " + receiverType, e);
@@ -204,8 +207,9 @@ public class JVMLSigParser {
 
         JrType returnType = parseJrType();
 
+        MethodSig result = new MethodSig(typeParams, receiverType, params, returnType);
 
-        return new MethodSig(typeParams, receiverType, params, returnType);
+        return result;
     }
 
 
@@ -234,7 +238,7 @@ public class JVMLSigParser {
         }
 
         char first = signature.charAt(index);
-        JrType ret = null;
+        JrType ret;
 
         if (first == 'L') {
             ret = parseClassType();
@@ -259,6 +263,9 @@ public class JVMLSigParser {
             ret = parseVoidType();
         } else {
             throw new RuntimeException("Invalid signature: " + signature);
+        }
+        if (Options.v().debugSigParser()) {
+            System.out.println("parseJrType => " + ret);
         }
         return ret;
     }

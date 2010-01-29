@@ -30,6 +30,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -188,12 +189,12 @@ public class SootResolver
             // begin Javarifier
             if (sc.entryKind() == EntryKind.STUB) {
                 if (javarifier.Options.v().debugStubs()) {
-                    System.out.println("Stub: " + sc.getName());
+                    System.out.println("bringToHierarchy Stub: " + sc.getName());
                 }
                 references = Collections.EMPTY_SET;
             }
             // end Javarifier
-            classToReferences.put( sc, new ArrayList(new HashSet(references)) );
+            classToReferences.put( sc, new ArrayList(new LinkedHashSet(references)) );
         }
         reResolveHierarchy(sc);
     }
@@ -363,7 +364,7 @@ public class SootResolver
     private void bringToSignatures(SootClass sc) {
         if(sc.resolvingLevel() >= SootClass.SIGNATURES ) return;
         if(javarifier.Options.v().justPrintStubs()) {
-          System.out.println("Stub: " + sc.getName());
+          System.out.println("bringToSignatures Stub: " + sc.getName());
         } else
         // begin Javarifier
         if (SourceLocator.v().entryKindForClass(sc.getName())

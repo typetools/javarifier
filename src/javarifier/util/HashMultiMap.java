@@ -4,6 +4,7 @@ package javarifier.util;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -61,7 +62,7 @@ public class HashMultiMap<K, V> implements MultiMap<K, V>  {
 		return false;
 	}
 	protected Set<V> newSet() {
-		return new HashSet<V>(4);
+		return new LinkedHashSet<V>(4);
 	}
 	private Set<V> findSet( K key ) {
 		Set<V> s = m.get( key );
@@ -141,7 +142,7 @@ public class HashMultiMap<K, V> implements MultiMap<K, V>  {
 	 * @see javarifier.MultiMap#values()
 	 */
 	public Set<V> values() {
-		Set<V> ret = new HashSet<V>(0);
+		Set<V> ret = new LinkedHashSet<V>(0);
 		Iterator<Set<V>> it = m.values().iterator();
 		while( it.hasNext() ) {
 			Set<V> s = it.next();
