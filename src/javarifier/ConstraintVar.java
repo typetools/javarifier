@@ -95,10 +95,23 @@ public class ConstraintVar {
         }
     }
 
+    public static String contextString(Context context) {
+        switch (context) {
+        case MUTABLE:
+            return "ctx:m";
+        case READONLY:
+            return "ctx:r";
+        case NONE:
+            return "ctx:n";
+        default:
+            throw new Error("this can't happen");
+        }
+    }
+
     public String toString() {
         return "<" + value + ": " +
             (value == null ? type : value.getJrType())
-            + type.getIndex() + " " + context + ">";
+            + type.getIndex() + " " + contextString(context) + ">";
     }
 
     public int hashCode() {
