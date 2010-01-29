@@ -387,7 +387,7 @@ The Javarifier constraints are of three types:
 
 <ul>
   <li>
-    A line of the form "U: c1" indicates that type in c1 must be mutable.
+    A line of the form "U: c1" indicates that the type in c1 must be mutable.
   </li>
   <li>A line of the form "G: c1 -> c2" indicates that if the type in c1 is
     mutable, then the type in c2 must be mutable.
@@ -416,23 +416,23 @@ has not yet been determined.  (Due to the unguarded constraint, it will be
 mutable in the end.)
   </li>
   <li>
-  MUTABLE represents the romaybe-context that the constraint is referring
+  ctx:m represents the romaybe-context that the constraint is referring
   to; this
   is used for inferring romaybe (see the paper cited below for details).
   Often the constraints are the same across contexts, so
   you might have the following two constraints:
-<pre><code>  U: &lt;HashEntry.setNext.this: UNKNOWN LHashEntry;[] MUTABLE&gt;
-  U: &lt;HashEntry.setNext.this: UNKNOWN LHashEntry;[] READONLY&gt;</code></pre>
+<pre><code>  U: &lt;HashEntry.setNext.this: UNKNOWN LHashEntry;[] ctx:m&gt;
+  U: &lt;HashEntry.setNext.this: UNKNOWN LHashEntry;[] ctx:r&gt;</code></pre>
   </li>
   <li>
     For method receivers, the index -1 is used to refer to the receiver, as
   in the following constraint:
-<pre><code>  U: &lt;&lt;Hashtable: int hashMap(java.lang.Object)&gt;.-1: UNKNOWN LHashtable;[] MUTABLE&gt;</code></pre>
+<pre><code>  U: &lt;&lt;Hashtable: int hashMap(java.lang.Object)&gt;.-1: UNKNOWN LHashtable;[] ctx:m&gt;</code></pre>
   </li>
   <li>Local variables are named if the classfile has the LocalVariableTypeTable
   attribute.  Otherwise, they are named by their index (e.g., "e0"), as are temporary
   variables, as in:
-<pre><code>  U: &lt;Graph.createGraph.$e0: UNKNOWN LVertex;[] READONLY&gt;</code></pre>
+<pre><code>  U: &lt;Graph.createGraph.$e0: UNKNOWN LVertex;[] ctx:r&gt;</code></pre>
   </li>
 </ul>
 
@@ -533,7 +533,7 @@ Javarifier now works on the Eclipse compiler, which is over
 <hr/>
 
 <p>
-Last revised: December 1, 2009
+Last revised: January 27, 2010
 </p>
 
 </body>
