@@ -1,11 +1,10 @@
 import checkers.javari.quals.ReadOnly;
 import checkers.javari.quals.Mutable;
-import checkers.javari.quals.ThisMutable;
 import java.util.*;
 
 public class GenericFieldAndParameter {
 
-    public @ThisMutable Set<@ReadOnly Date> set;
+    public Set<@ReadOnly Date> set;
     public @ReadOnly Set<@ReadOnly Integer> ints;
 
     public GenericFieldAndParameter() @ReadOnly {

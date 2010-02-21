@@ -1,9 +1,8 @@
 import checkers.javari.quals.Mutable;
 import checkers.javari.quals.PolyRead;
-import checkers.javari.quals.ThisMutable;
 public class Romaybe2 {
 
-    private /*this-mutable*/ @ThisMutable Date f;
+    private /*this-mutable*/ Date f;
 
     public /*romaybe*/ @PolyRead Date getDate() /*romaybe*/ @PolyRead {
         return f;

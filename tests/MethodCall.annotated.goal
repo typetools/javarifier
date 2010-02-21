@@ -1,14 +1,13 @@
 import checkers.javari.quals.Mutable;
 import checkers.javari.quals.ReadOnly;
 import checkers.javari.quals.PolyRead;
-import checkers.javari.quals.ThisMutable;
 /**
  * This class tests non-parametric, non-static, intra-class method
  * calls.
  */
 public class MethodCall {
 
-    private /*this-mutable*/ @ThisMutable MethodCall f;
+    private /*this-mutable*/ MethodCall f;
 
     private /*readonly*/ @ReadOnly MethodCall g;
 

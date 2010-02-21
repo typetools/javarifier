@@ -1,9 +1,8 @@
 import checkers.javari.quals.Mutable;
 import checkers.javari.quals.ReadOnly;
-import checkers.javari.quals.ThisMutable;
 public class CellClient2<S extends /*mutable*/ @Mutable Date> {
 
-    private /*this-mutable*/ @ThisMutable Cell<@ReadOnly S> f;
+    private /*this-mutable*/ Cell<@ReadOnly S> f;
 
     public CellClient2(S t) {
         f = new Cell<S>();
