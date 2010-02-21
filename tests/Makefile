@@ -10,6 +10,7 @@
 SHELL = /bin/sh
 
 TOPLEVEL_DIFFS := $(patsubst %.goal, %.diff, $(wildcard *.goal))
+TOPLEVEL_TYPECHECK_DIFFS :=  $(patsubst %.annotated.goal, annotated/%.typecheck.diff, $(wildcard *.annotated.goal))
 
 JAVA_FILES := $(wildcard *.java)
 
@@ -24,6 +25,7 @@ all : toplevel jolden htmlparser tinySQL eclipsec results
 
 .PHONY: toplevel
 toplevel: $(TOPLEVEL_DIFFS)
+toplevel-all: $(TOPLEVEL_DIFFS) $(TOPLEVEL_TYPECHECK_DIFFS)
 
 
 ## I'm hoping this is not necessary, because a change to any file then
@@ -111,7 +113,11 @@ VerifyDiffs.class : VerifyDiffs.java
 
 .PRECIOUS: annotated/%.java
 annotated/%.java: %.java %.jaif %.class
-	CLASSPATH=${CLASSPATH}:. insert-annotations-to-source $*.jaif  $*.java
+	CLASSPATH=${CLASSPATH}:. insert-annotations-to-source -o @checkers.javari.quals.ThisMutable $*.jaif  $*.java
+
+annotated/%.typecheck.diff: annotated/%.java
+# ".." in classpath is for helper classes like Cell.
+	  set -o pipefail && cd annotated && javac -processor checkers.javari.JavariChecker  -sourcepath .:..:${CHECKERS}/jdk/javari/src -implicit:class $*.java 2>&1 | tee $*.typecheck.diff
 
 # TODO: run Javari type-checker
 
@@ -127,6 +133,8 @@ clean-toplevel :
 	rm -f *.class
 # obsolete files
 	rm -f *.output
+clean-annotated:
+	rm -rf annotated
 
 clean : clean-toplevel
 	cd jolden && $(MAKE) clean
