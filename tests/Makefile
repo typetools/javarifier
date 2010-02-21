@@ -35,6 +35,7 @@ toplevel-all: $(TOPLEVEL_DIFFS) $(TOPLEVEL_TYPECHECK_DIFFS)
 # .compile-timestamp : ${JAVA_FILES}
 # 	javac -classpath . -g -d . ${JAVA_FILES}
 
+.PRECIOUS: %.class
 %.class : %.java
 	$(JAVAC) -classpath . -g -d . $^
 
