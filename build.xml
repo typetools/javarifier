@@ -225,6 +225,14 @@
     <echo message="Deleting previous distribution: javarifier.zip"/>
     <delete file="javarifier.zip"/>
     <delete file="javarifier.jar"/>
+
+    <exec executable="make"
+          failonerror="true">
+      <arg value="-C"/>
+      <arg value="${javarifier}/tests"/>
+      <arg value="clean"/>
+    </exec>
+  
   </target>
 
   <target name="bin" depends="init"

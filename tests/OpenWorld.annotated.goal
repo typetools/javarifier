@@ -1,0 +1,14 @@
+import checkers.javari.quals.ReadOnly;
+public class OpenWorld<T extends /*mutable*/ @ReadOnly Date> {
+
+    public /*this-mutable*/ @ReadOnly Cell</*this-mutable*/ @ReadOnly Date> f;
+
+    private /*this-mutable*/ @ReadOnly Date d;
+
+    public @ReadOnly T t;
+
+    public /*romaybe*/ @ReadOnly Date getDate() /*romaybe*/ @ReadOnly {
+        return d;
+    }
+
+}

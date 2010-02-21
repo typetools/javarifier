@@ -1,0 +1,16 @@
+import checkers.javari.quals.Mutable;
+import checkers.javari.quals.PolyRead;
+import checkers.javari.quals.ThisMutable;
+public class Romaybe2 {
+
+    private /*this-mutable*/ @ThisMutable Date f;
+
+    public /*romaybe*/ @PolyRead Date getDate() /*romaybe*/ @PolyRead {
+        return f;
+    }
+
+    // This method forces f to this-mutable instead of readonly.
+    public void foo() /*mutable*/ @Mutable {
+        getDate().setDay(3);
+    }
+}

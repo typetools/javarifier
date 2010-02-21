@@ -1,0 +1,14 @@
+import checkers.javari.quals.ReadOnly;
+public class AssignableField {
+
+    // That commented @checkers.javari.quals.Assignable is recognized by the extended
+    // compiler and supersedes Assignable.fields.
+    private /*assignable readonly*/ /*@checkers.javari.quals.Assignable*/ @ReadOnly Date d;
+    public /*readonly*/ @ReadOnly Date foo() /*readonly*/ @ReadOnly {
+        if (d == null) {
+            d = new Date();
+        }
+        return d;
+    }
+
+}

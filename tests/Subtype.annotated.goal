@@ -1,0 +1,12 @@
+import checkers.javari.quals.Mutable;
+import checkers.javari.quals.ReadOnly;
+import checkers.javari.quals.ThisMutable;
+public class Subtype extends SuperType {
+
+    private @ThisMutable Date d;
+
+    public void foo(@ReadOnly Date x) @Mutable {
+        d.setDay(3);
+    }
+
+}

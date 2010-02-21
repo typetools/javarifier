@@ -1,0 +1,23 @@
+import checkers.javari.quals.Mutable;
+import checkers.javari.quals.PolyRead;
+public class StaticMethods {
+
+    public static /*romaybe*/ @PolyRead Date id(/*romaybe*/ @PolyRead Date d) {
+        return d;
+    }
+
+    public static void foo(/*mutable*/ @Mutable Date x) {
+        id(x).setDay(3);
+    }
+
+    public static /*mutable*/ @Mutable Cell</*mutable*/ @Mutable Date> baz() {
+        return new Cell<Date>();
+    }
+
+    public static void quax() {
+        baz().setVal(new Date());
+        baz().getVal().setDay(3);
+    }
+
+
+}
