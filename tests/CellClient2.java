@@ -1,6 +1,6 @@
 public class CellClient2<S extends /*mutable*/ Date> {
 
-    private /*this-mutable*/Cell<S> f;
+    private /*this-mutable*/ Cell<S> f;
 
     public CellClient2(S t) {
         f = new Cell<S>();
