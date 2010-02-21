@@ -1,6 +1,5 @@
 import checkers.javari.quals.Mutable;
 import checkers.javari.quals.ReadOnly;
-import checkers.javari.quals.ThisMutable;
 public class MutableField {
 
     // That commented @checkers.javari.quals.Mutable is recognized by the extended
@@ -9,7 +8,7 @@ public class MutableField {
 
     // TODO: update this test case once compiler has generic annotations
     // in class file.
-    /*this-mutable*/ @ThisMutable Cell</*mutable*/ /*!@checkers.javari.quals.Mutable*/ @ThisMutable Date> f;
+    /*this-mutable*/ Cell</*mutable*/ /*!@checkers.javari.quals.Mutable*/ Date> f;
 
     public void foo() /*readonly*/ @ReadOnly {
         d.setDay(3);

@@ -1,6 +1,5 @@
 import checkers.javari.quals.Mutable;
 import checkers.javari.quals.ReadOnly;
-import checkers.javari.quals.ThisMutable;
 
 
 /**
@@ -9,7 +8,7 @@ import checkers.javari.quals.ThisMutable;
  */
 public class FieldAssignments {
 
-    private /*this-mutable*/ @ThisMutable FieldAssignments f;
+    private /*this-mutable*/ FieldAssignments f;
 
     private /*readonly*/ @ReadOnly FieldAssignments g;
 

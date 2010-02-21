@@ -1,12 +1,11 @@
 import checkers.javari.quals.ReadOnly;
 import checkers.javari.quals.Mutable;
-import checkers.javari.quals.ThisMutable;
 /**
  * This class tests static inner classes.
  */
 public class StaticInnerClass {
 
-    /*this-mutable*/ @ThisMutable Foo f;
+    /*this-mutable*/ Foo f;
 
 
     public void bar() /*mutable*/ @Mutable {
