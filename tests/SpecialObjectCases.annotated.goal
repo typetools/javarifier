@@ -1,0 +1,26 @@
+import checkers.javari.quals.ReadOnly;
+
+/**
+ * Tests things such as Object o = Date[] and Object[] a = Date[][].
+ */
+public class SpecialObjectCases {
+
+    public static void foo() {
+        @ReadOnly
+        Object o = new Date[3];
+        o = new Cell<Date>();
+        @ReadOnly
+        Object @ReadOnly [] a = new Date[3][1];
+    }
+
+    public static @ReadOnly String bar(@ReadOnly Object o) {
+        if (o.hashCode() < 0) {
+            o = new Cell<Date>();
+        } else if (o.hashCode() > 10) {
+            o = new Date[3];
+        }
+        @ReadOnly
+        String s = o.toString();
+        return s;
+    }
+}

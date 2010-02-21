@@ -1,6 +1,6 @@
 # Very rough testing framework for the Javarifier that works for current
 # Javarifier setup.  Running 'make all' (this Makefile should be in the
-# javarifier/tests directory) will look for all myClass.goal files
+# javarifier/tests directory) will look for all myClass.jaif.goal files
 # in this directory, run the Javarifier on the corresponding
 # myClass.class file, and then output the difference in a
 # myClass.diff file in this directory.
@@ -31,10 +31,10 @@ toplevel: $(TOPLEVEL_DIFFS)
 # # Compile all the test cases together to resolve dependencies.
 # compile : .compile-timestamp
 # .compile-timestamp : ${JAVA_FILES}
-# 	javac -cp . -g -d . ${JAVA_FILES}
+# 	javac -classpath . -g -d . ${JAVA_FILES}
 
 %.class : %.java
-	$(JAVAC) -cp . -g -d . $^
+	$(JAVAC) -classpath . -g -d . $^
 
 # Runs Javarifier on the Jolden case studies by running a separate
 # Makefile similar to this one.
@@ -66,14 +66,14 @@ eclipsec :
 # being analyzed.
 # TODO: scene-lib.goal seems to have somehow been removed,
 # and needs to be added.
-scene-lib.output :
-	rm -f tests/scene-lib.output
+scene-lib.jaif :
+	rm -f tests/scene-lib.jaif
 	cd ${ANNOTATION_SCENE_LIB} && ant bin
 	cd .. && ./javarify.sh \
 	${ANNOTATION_SCENE_LIB}/bin \
 	-stubs ${SOOT_STUBS} \
 	-world ${JRE1_6_0} \
-	-output tests/scene-lib.output \
+	-output tests/scene-lib.jaif \
 	-outputFormat annotationIndexFile \
 	annotations.io.IndexFileParser annotations.io.IndexFileWriter \
 	2>&1 | tee tests/$scene-lib.log
@@ -84,15 +84,15 @@ results: VerifyDiffs.class
 	@echo ""
 	@echo "=== RESULTS ==="
 	@echo ""
-	@-java -cp . VerifyDiffs --show_all
+	@-java -classpath . VerifyDiffs --show_all
 
 # Remakes the little java program that checks and compares diffs
 VerifyDiffs.class : VerifyDiffs.java
 	@javac VerifyDiffs.java
 
 # Actually runs the Javarifier to create the inferences.
-.PRECIOUS: %.output
-%.output: %.class ../javarifier.jar
+.PRECIOUS: %.jaif
+%.jaif: %.class ../javarifier.jar
 	rm -f $@
 	${JAVARIFIER} \
 	-programCPEntries . \
@@ -103,17 +103,32 @@ VerifyDiffs.class : VerifyDiffs.java
 	2>&1 | tee $*.log
 
 # Compare the output of the Javarifier and the goal file.
-%.diff: %.goal %.output
-	-diff -u $*.goal $*.output > $*.diff 2>&1
+%.jaif.diff: %.jaif.goal %.jaif
+	-diff -u $*.jaif.goal $*.jaif > $*.jaif.diff 2>&1
+
+%.annotated.diff: %.annotated.goal annotated/%.java
+	-diff -u $*.annotated.goal annotated/$*.java > $*.annotated.diff 2>&1
+
+.PRECIOUS: annotated/%.java
+annotated/%.java: %.java %.jaif %.class
+	CLASSPATH=${CLASSPATH}:. insert-annotations-to-source $*.jaif  $*.java
+
+# TODO: run Javari type-checker
+
 
 # Remove all .diff, .log files from the tests directory,
 # and all output from the javarifierOutput directory.
-.PHONY: clean
-clean :
+.PHONY: clean clean-toplevel
+clean-toplevel :
+	rm -rf annotated
 	rm -f *.diff
 	rm -f *.log
-	rm -f *.output
+	rm -f *.jaif
 	rm -f *.class
+# obsolete files
+	rm -f *.output
+
+clean : clean-toplevel
 	cd jolden && $(MAKE) clean
 	cd htmlparser && $(MAKE) clean
 	cd tinySQL && $(MAKE) clean

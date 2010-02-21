@@ -1,0 +1,14 @@
+import checkers.javari.quals.ReadOnly;
+import checkers.javari.quals.Mutable;
+import checkers.javari.quals.PolyRead;
+public class Romaybe1 {
+
+    public /*romaybe*/ @PolyRead Date id(/*romaybe*/ @PolyRead Date d) /*readonly*/ @ReadOnly {
+        return d;
+    }
+
+    // forces id not to have readonly returnt type.
+    public void foo(/*mutable*/ @Mutable Date x) /*readonly*/ @ReadOnly {
+        id(x).setDay(2);
+    }
+}

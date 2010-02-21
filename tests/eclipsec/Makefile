@@ -34,7 +34,7 @@ results: ../VerifyDiffs.class
 	${MAKE} -C .. VerifyDiffs.class
 
 # Actually runs the Javarifier to create the inferences.
-${TESTNAME}.output: ../../javarifier.jar
+${TESTNAME}.jaif: ../../javarifier.jar
 	${JAVARIFIER} \
 	-programCPEntries . \
 	-output $@ \
@@ -45,8 +45,8 @@ ${TESTNAME}.output: ../../javarifier.jar
 
 
 # Compare the output of the Javarifier and the goal file.
-%.diff: %.goal %.output
-	-diff -u $*.goal $*.output > $*.diff 2>&1
+%.diff: %.goal %.jaif
+	-diff -u $*.goal $*.jaif > $*.diff 2>&1
 
 # Remove all .diff, .log files from the tests directory,
 # and all output from the javarifierOutput directory.
@@ -54,4 +54,4 @@ ${TESTNAME}.output: ../../javarifier.jar
 clean :
 	rm -f *.diff
 	rm -f *.log
-	rm -f *.output
+	rm -f *.jaif

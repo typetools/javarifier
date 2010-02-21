@@ -1,0 +1,22 @@
+import checkers.javari.quals.Mutable;
+import checkers.javari.quals.ReadOnly;
+public class Date {
+
+    public int day;
+
+    public Date() @ReadOnly {
+    }
+
+    public Date(int d) @ReadOnly {
+        this.day = d;
+    }
+
+    public int getDay() /*readonly*/ @ReadOnly {
+        return day;
+    }
+
+    public void setDay(int d) /*mutable*/ @Mutable {
+        this.day = d;
+    }
+
+}

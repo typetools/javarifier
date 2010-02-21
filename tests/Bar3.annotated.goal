@@ -1,0 +1,26 @@
+import checkers.javari.quals.Mutable;
+import checkers.javari.quals.ReadOnly;
+import checkers.javari.quals.ThisMutable;
+public class Bar3 {
+    public /*readonly*/ @ThisMutable String @ReadOnly [/*this-mutable*/] x;
+    int i;
+
+    public Bar3() @ReadOnly {
+        x = new String[10];
+        i = 0;
+    }
+
+    public /*readonly*/ @ReadOnly String get(int i) /*readonly*/ @ReadOnly {
+        return x[i];
+    }
+
+    public void add(/*readonly*/ @ReadOnly String s) /*mutable*/ @Mutable {
+        x[i] = s;
+        i++;
+    }
+
+    public void clear() /*mutable*/ @Mutable {
+        x = new String[10];
+        i = 0;
+    }
+}
