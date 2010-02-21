@@ -1,0 +1,38 @@
+import checkers.javari.quals.ReadOnly;
+import checkers.javari.quals.Mutable;
+public class WildCards<T extends /*readonly*/ @ReadOnly Object> {
+
+    private @ReadOnly T f;
+
+    public static /*readonly*/ @ReadOnly Date getDate(/*readonly*/ @ReadOnly Cell<? extends /*readonly*/ Date> c) {
+        return c.getVal();
+    }
+
+    public void setF(/*readonly*/ @ReadOnly Cell<? extends T> x) /*mutable*/ @Mutable {
+        f = x.getVal();
+    }
+
+    public void addF(/*mutable*/ @Mutable Cell<? super T> y) /*readonly*/ @ReadOnly {
+        y.setVal(f);
+    }
+
+    public static void setDay(/*readonly*/ @ReadOnly Cell<? extends /*mutable*/ Date> z) {
+        z.getVal().setDay(3);
+    }
+
+    public static /*mutable*/ @Mutable Cell<? super /*readonly*/ Date> baz() {
+        return new Cell<@ReadOnly Date>();
+    }
+
+    public static void quax() {
+        /*mutable*/ @Mutable Date d = new Date();
+        d.setDay(3);
+        baz().setVal(d);
+    }
+
+    public static @ReadOnly String printVal(/*readonly*/ @ReadOnly Cell<?> c) {
+        @ReadOnly
+        String s = c.toString();
+        return s;
+    }
+}

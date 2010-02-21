@@ -1,0 +1,45 @@
+import checkers.javari.quals.Mutable;
+import checkers.javari.quals.ReadOnly;
+import checkers.javari.quals.QReadOnly;
+public class Arrays {
+
+    public void foo() /*readonly*/ @ReadOnly {
+        /*readonly*/ @Mutable Date @ReadOnly [/*mutable*/] ma = new Date[1];
+        /*readonly*/ @ReadOnly Date d = new Date();
+        ma[0] = d;
+        /*readonly*/ @ReadOnly Date x = ma[0];
+        int y = x.getDay();
+    }
+
+    public void bar() /*readonly*/ @ReadOnly {
+        /*mutable*/ @Mutable Date @Mutable [/*mutable*/] ma = new Date[1];
+        /*mutable*/ @Mutable Date d = new Date();
+        ma[0] = d;
+        /*mutable*/ @Mutable Date x = ma[0];
+        int y = x.getDay();
+        x.setDay(y);
+    }
+
+    public void baz() /*readonly*/ @ReadOnly {
+        /*mutable*/ @Mutable Date @Mutable [/*mutable*/] ma = new Date[1];
+        ma[0] = new Date();
+        ma[0].setDay(2);
+
+        /*? readonly*/ @ReadOnly Date @QReadOnly [/*readonly*/] ra = ma;
+        /*readonly*/ @ReadOnly Date x = ra[0];
+        int y = x.getDay();
+
+     }
+
+
+    public void quax() /*readonly*/ @ReadOnly {
+        /*mutable*/ @Mutable Date @Mutable [/*mutable*/] ma = new Date[1];
+        /*mutable*/ @Mutable Date d = new Date();
+        ma[0] = d;
+
+        /*mutable*/ @ReadOnly Date @Mutable [/*readonly*/] ra = ma;
+        /*mutable*/ @Mutable Date x = ra[0];
+        int y = x.getDay();
+        x.setDay(y);
+    }
+}

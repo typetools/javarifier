@@ -1,0 +1,67 @@
+import checkers.javari.quals.ReadOnly;
+
+public class InnerClassTest<S> {
+    @ReadOnly
+    Date d;
+
+    // $AIn
+    public class AIn<T> {
+        public AIn() {
+
+        }
+        @ReadOnly
+        Cell<@ReadOnly T> f;
+        public @ReadOnly S sf;
+    }
+
+    @ReadOnly
+    AIn<@ReadOnly Date> in;
+
+    public AIn<Date> foo() {
+        //InnerClassTest<Date> i = new InnerClassTest<Date>();
+        InnerClassTest<S>.AIn<Date> x = this.in;
+        return x;
+    }
+
+    // $Inner
+    public class Inner {
+        @ReadOnly
+        Cell<@ReadOnly Date> c;
+    }
+
+    // $Nested static
+    public static class Nested {
+        @ReadOnly
+        Cell<@ReadOnly Date> c;
+    }
+
+
+    // $1
+    @ReadOnly
+    Cell<@ReadOnly Date> initializedField = new Cell<Date>() {
+        public void initializedFieldFoo() @ReadOnly {}
+    };
+
+
+
+    // $2 static
+    static @ReadOnly Cell<@ReadOnly Date> staticInitializedField = new Cell<Date>() {
+        public void staticInitializedFieldFoo() @ReadOnly {}
+    };
+
+    // $3
+    @ReadOnly
+    Cell<@ReadOnly Date> factory() @ReadOnly {
+        return new Cell<Date>() {
+            public void factoryFoo() @ReadOnly {}
+            public S var() { return null; }
+        };
+    }
+
+    // $4 static
+    static @ReadOnly Cell<@ReadOnly Date> staticFactory() {
+        return new Cell<Date>() {
+            public void factoryFoo() @ReadOnly {}
+        };
+    }
+}

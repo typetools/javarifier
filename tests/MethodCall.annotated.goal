@@ -1,0 +1,56 @@
+import checkers.javari.quals.Mutable;
+import checkers.javari.quals.ReadOnly;
+import checkers.javari.quals.PolyRead;
+import checkers.javari.quals.ThisMutable;
+/**
+ * This class tests non-parametric, non-static, intra-class method
+ * calls.
+ */
+public class MethodCall {
+
+    private /*this-mutable*/ @ThisMutable MethodCall f;
+
+    private /*readonly*/ @ReadOnly MethodCall g;
+
+    private /*romaybe*/ @PolyRead MethodCall getF() /*romaybe*/ @PolyRead {
+        return this.f;
+    }
+
+    private /*readonly*/ @ReadOnly MethodCall getG() /*readonly*/ @ReadOnly {
+        return this.g;
+    }
+
+    private void setF(/*mutable*/ @Mutable MethodCall mc) /*mutable*/ @Mutable {
+        this.f = mc;
+    }
+
+    private void setG(/*readonly*/ @ReadOnly MethodCall mc) /*mutable*/ @Mutable {
+        this.g = mc;
+    }
+
+
+    private void foo() /*mutable*/ @Mutable {
+        /*mutable*/ @Mutable MethodCall x = this.getF();
+        x.setF(this);  // forces getFmut() to have mutable return type, and, therefore, mutable reciever.
+    }
+
+    private void bar() /*readonly*/ @ReadOnly {
+        /*readonly*/ @ReadOnly MethodCall x = getF();
+    }
+
+    private void baz(/*readonly*/ @ReadOnly MethodCall x) /*mutable*/ @Mutable {
+        this.setG(x);
+    }
+
+    private void quax(/*mutable*/ @Mutable MethodCall mc) /*mutable*/ @Mutable {
+        this.setF(mc);
+    }
+
+    private void deadbeef() /*mutable*/ @Mutable {
+        /*readonly*/ @ReadOnly MethodCall x = this.getG();
+        x.bar();
+        /*mutable*/ @Mutable MethodCall y = this.getF();
+        y.baz(x);
+    }
+
+}

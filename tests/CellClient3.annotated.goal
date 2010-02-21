@@ -1,0 +1,18 @@
+import checkers.javari.quals.ReadOnly;
+import checkers.javari.quals.Mutable;
+import checkers.javari.quals.ThisMutable;
+public class CellClient3 {
+
+    /*readonly*/ @ReadOnly Cell</*this-mutable*/ @ThisMutable Date> f;
+
+      public void foo() /*mutable*/ @Mutable {
+       /*mutable*/ @Mutable Date d = f.getVal();
+        d.setDay(3);
+    }
+
+    public void bar() /*readonly*/ @ReadOnly {
+        /*readonly*/ @ReadOnly Date rd = f.getVal();
+        int x = rd.getDay();
+    }
+
+}
