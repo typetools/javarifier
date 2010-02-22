@@ -18,7 +18,7 @@ class WildCards:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0: @checkers.javari.quals.ReadOnly
 
-    method getDate(LCell;)LDate;:
+    method getDay(LCell;)LWildCards$Day;:
         return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
@@ -115,7 +115,7 @@ class Cell:
             type: @checkers.javari.quals.ReadOnly
 
 package :
-class Date:
+class WildCards$Day:
 
     field day:
 

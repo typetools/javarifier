@@ -25,7 +25,7 @@ class OpenWorld:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0: @checkers.javari.quals.ReadOnly
 
-    method getDate()LDate;:
+    method getDay()LOpenWorld$Day;:
         return: @checkers.javari.quals.ReadOnly
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
@@ -65,7 +65,7 @@ class Cell:
             type: @checkers.javari.quals.ReadOnly
 
 package :
-class Date:
+class OpenWorld$Day:
 
     field day:
 

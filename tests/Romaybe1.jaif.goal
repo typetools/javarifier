@@ -16,7 +16,7 @@ class Romaybe1:
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
-    method id(LDate;)LDate;:
+    method id(LRomaybe1$Day;)LRomaybe1$Day;:
         return: @checkers.javari.quals.PolyRead
         receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
@@ -26,7 +26,7 @@ class Romaybe1:
         local 1 #0+2:
             type: @checkers.javari.quals.PolyRead
 
-    method foo(LDate;)V:
+    method foo(LRomaybe1$Day;)V:
         return:
         receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
@@ -37,7 +37,7 @@ class Romaybe1:
             type: @checkers.javari.quals.Mutable
 
 package :
-class Date:
+class Romaybe1$Day:
 
     field day:
 

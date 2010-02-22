@@ -19,14 +19,14 @@ class AssignableField:
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
-    method foo()LDate;:
+    method foo()LAssignableField$Day;:
         return: @checkers.javari.quals.ReadOnly
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+23:
             type: @checkers.javari.quals.ReadOnly
 
 package :
-class Date:
+class AssignableField$Day:
 
     field day:
 

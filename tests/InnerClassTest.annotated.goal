@@ -1,8 +1,18 @@
 import checkers.javari.quals.ReadOnly;
+import checkers.javari.quals.Mutable;
 
 public class InnerClassTest<S> {
+
+    public static class Day {
+        public int day;
+        public Day() @ReadOnly { }
+        public Day(int d) @ReadOnly { this.day = d; }
+        public int getDay() /*readonly*/ @ReadOnly { return day; }
+        public void setDay(int d) /*mutable*/ @Mutable { this.day = d; }
+    }
+
     @ReadOnly
-    Date d;
+    Day d;
 
     // $AIn
     public class AIn<T> {
@@ -15,52 +25,52 @@ public class InnerClassTest<S> {
     }
 
     @ReadOnly
-    AIn<@ReadOnly Date> in;
+    AIn<@ReadOnly Day> in;
 
-    public AIn<Date> foo() {
-        //InnerClassTest<Date> i = new InnerClassTest<Date>();
-        InnerClassTest<S>.AIn<Date> x = this.in;
+    public @ReadOnly AIn<@ReadOnly Day> foo() @ReadOnly {
+        //InnerClassTest<Day> i = new InnerClassTest<Day>();
+        InnerClassTest<@ReadOnly @ReadOnly S>.AIn<Day> x = this.in;
         return x;
     }
 
     // $Inner
     public class Inner {
         @ReadOnly
-        Cell<@ReadOnly Date> c;
+        Cell<@ReadOnly Day> c;
     }
 
     // $Nested static
     public static class Nested {
         @ReadOnly
-        Cell<@ReadOnly Date> c;
+        Cell<@ReadOnly Day> c;
     }
 
 
     // $1
     @ReadOnly
-    Cell<@ReadOnly Date> initializedField = new Cell<Date>() {
+    Cell<@ReadOnly Day> initializedField = new Cell<Day>() {
         public void initializedFieldFoo() @ReadOnly {}
     };
 
 
 
     // $2 static
-    static @ReadOnly Cell<@ReadOnly Date> staticInitializedField = new Cell<Date>() {
+    static @ReadOnly Cell<@ReadOnly Day> staticInitializedField = new Cell<Day>() {
         public void staticInitializedFieldFoo() @ReadOnly {}
     };
 
     // $3
     @ReadOnly
-    Cell<@ReadOnly Date> factory() @ReadOnly {
-        return new Cell<Date>() {
+    Cell<@ReadOnly Day> factory() @ReadOnly {
+        return new Cell<Day>() {
             public void factoryFoo() @ReadOnly {}
             public S var() { return null; }
         };
     }
 
     // $4 static
-    static @ReadOnly Cell<@ReadOnly Date> staticFactory() {
-        return new Cell<Date>() {
+    static @ReadOnly Cell<@ReadOnly Day> staticFactory() {
+        return new Cell<Day>() {
             public void factoryFoo() @ReadOnly {}
         };
     }

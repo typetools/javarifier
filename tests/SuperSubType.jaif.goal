@@ -8,10 +8,7 @@ package checkers.javari.quals:
 annotation @ThisMutable:
 
 package :
-class Subtype:
-
-    field d:
-        type: @checkers.javari.quals.ThisMutable
+class SuperSubType:
 
     method <init>()V:
         return:
@@ -19,18 +16,8 @@ class Subtype:
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
-    method foo(LDate;)V:
-        return:
-        receiver: @checkers.javari.quals.Mutable
-        parameter #0:
-            type: @checkers.javari.quals.ReadOnly
-        local 0 #0+9:
-            type: @checkers.javari.quals.Mutable
-        local 1 #0+9:
-            type: @checkers.javari.quals.ReadOnly
-
 package :
-class Date:
+class SuperSubType$Day:
 
     field day:
 
@@ -63,7 +50,10 @@ class Date:
         local 1 #0+6:
 
 package :
-class SuperType:
+class SuperSubType$Subtype:
+
+    field d:
+        type: @checkers.javari.quals.ThisMutable
 
     method <init>()V:
         return:
@@ -71,7 +61,26 @@ class SuperType:
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
-    method foo(LDate;)V:
+    method foo(LSuperSubType$Day;)V:
+        return:
+        receiver: @checkers.javari.quals.Mutable
+        parameter #0:
+            type: @checkers.javari.quals.ReadOnly
+        local 0 #0+9:
+            type: @checkers.javari.quals.Mutable
+        local 1 #0+9:
+            type: @checkers.javari.quals.ReadOnly
+
+package :
+class SuperSubType$SuperType:
+
+    method <init>()V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5:
+            type: @checkers.javari.quals.ReadOnly
+
+    method foo(LSuperSubType$Day;)V:
         return:
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
