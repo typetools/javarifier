@@ -36,7 +36,7 @@ class StaticInnerClass:
         local 6 #96+1:
 
 package :
-class Date:
+class StaticInnerClass$Day:
 
     field day:
 
@@ -74,7 +74,7 @@ class StaticInnerClass$Foo:
     field d:
         type: @checkers.javari.quals.ReadOnly
 
-    method <init>(LDate;)V:
+    method <init>(LStaticInnerClass$Day;)V:
         return:
         receiver: @checkers.javari.quals.ReadOnly
         parameter #0:

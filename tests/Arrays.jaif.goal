@@ -77,7 +77,7 @@ class Arrays:
         local 5 #31+8:
 
 package :
-class Date:
+class Arrays$Day:
 
     field day:
 

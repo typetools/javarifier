@@ -96,7 +96,7 @@ class Cell:
             type: @checkers.javari.quals.ReadOnly
 
 package :
-class Date:
+class CellClient$Day:
 
     field day:
 

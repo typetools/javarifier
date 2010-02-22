@@ -82,7 +82,7 @@ class Cell:
             type: @checkers.javari.quals.ReadOnly
 
 package :
-class Date:
+class MutableField$Day:
 
     field day:
 

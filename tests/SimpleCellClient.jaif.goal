@@ -64,7 +64,21 @@ class SimpleCellClient:
             type: @checkers.javari.quals.Mutable
 
 package :
-class Date:
+class SimpleCell:
+    bound ,0 &0: @checkers.javari.quals.ReadOnly
+
+    field val:
+        type: @checkers.javari.quals.ReadOnly
+
+    method <init>()V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5:
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0: @checkers.javari.quals.ReadOnly
+
+package :
+class SimpleCellClient$Day:
 
     field day:
 
@@ -95,18 +109,4 @@ class Date:
         local 0 #0+6:
             type: @checkers.javari.quals.Mutable
         local 1 #0+6:
-
-package :
-class SimpleCell:
-    bound ,0 &0: @checkers.javari.quals.ReadOnly
-
-    field val:
-        type: @checkers.javari.quals.ReadOnly
-
-    method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
-        local 0 #0+5:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
 
