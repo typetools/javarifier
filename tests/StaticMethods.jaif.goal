@@ -16,14 +16,14 @@ class StaticMethods:
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
-    method id(LDate;)LDate;:
+    method id(LStaticMethods$Day;)LStaticMethods$Day;:
         return: @checkers.javari.quals.PolyRead
         parameter #0:
             type: @checkers.javari.quals.PolyRead
         local 0 #0+2:
             type: @checkers.javari.quals.PolyRead
 
-    method foo(LDate;)V:
+    method foo(LStaticMethods$Day;)V:
         return:
         parameter #0:
             type: @checkers.javari.quals.Mutable
@@ -70,7 +70,7 @@ class Cell:
             type: @checkers.javari.quals.ReadOnly
 
 package :
-class Date:
+class StaticMethods$Day:
 
     field day:
 

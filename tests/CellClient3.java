@@ -1,14 +1,22 @@
 public class CellClient3 {
 
-    /*readonly*/ Cell</*this-mutable*/ Date> f;
+    public static class Day {
+        public int day;
+        public Day() { }
+        public Day(int d) { this.day = d; }
+        public int getDay() /*readonly*/ { return day; }
+        public void setDay(int d) /*mutable*/ { this.day = d; }
+    }
 
-      public void foo() /*mutable*/ {
-       /*mutable*/ Date d = f.getVal();
+    /*readonly*/ Cell</*this-mutable*/ Day> f;
+
+    public void foo() /*mutable*/ {
+        /*mutable*/ Day d = f.getVal();
         d.setDay(3);
     }
 
     public void bar() /*readonly*/ {
-        /*readonly*/ Date rd = f.getVal();
+        /*readonly*/ Day rd = f.getVal();
         int x = rd.getDay();
     }
 

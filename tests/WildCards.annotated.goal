@@ -2,9 +2,17 @@ import checkers.javari.quals.ReadOnly;
 import checkers.javari.quals.Mutable;
 public class WildCards<T extends /*readonly*/ @ReadOnly Object> {
 
+    public static class Day {
+        public int day;
+        public Day() @ReadOnly { }
+        public Day(int d) @ReadOnly { this.day = d; }
+        public int getDay() /*readonly*/ @ReadOnly { return day; }
+        public void setDay(int d) /*mutable*/ @Mutable { this.day = d; }
+    }
+
     private @ReadOnly T f;
 
-    public static /*readonly*/ @ReadOnly Date getDate(/*readonly*/ @ReadOnly Cell<? extends /*readonly*/ Date> c) {
+    public static /*readonly*/ @ReadOnly Day getDay(/*readonly*/ @ReadOnly Cell<? extends /*readonly*/ Day> c) {
         return c.getVal();
     }
 
@@ -16,16 +24,16 @@ public class WildCards<T extends /*readonly*/ @ReadOnly Object> {
         y.setVal(f);
     }
 
-    public static void setDay(/*readonly*/ @ReadOnly Cell<? extends /*mutable*/ Date> z) {
+    public static void setDay(/*readonly*/ @ReadOnly Cell<? extends /*mutable*/ Day> z) {
         z.getVal().setDay(3);
     }
 
-    public static /*mutable*/ @Mutable Cell<? super /*readonly*/ Date> baz() {
-        return new Cell<@ReadOnly Date>();
+    public static /*mutable*/ @Mutable Cell<? super /*readonly*/ Day> baz() {
+        return new Cell<@ReadOnly Day>();
     }
 
     public static void quax() {
-        /*mutable*/ @Mutable Date d = new Date();
+        /*mutable*/ @Mutable Day d = new Day();
         d.setDay(3);
         baz().setVal(d);
     }

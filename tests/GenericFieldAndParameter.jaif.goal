@@ -49,7 +49,7 @@ class GenericFieldAndParameter:
                 inner-type 0: @checkers.javari.quals.Mutable
 
 package :
-class Date:
+class GenericFieldAndParameter$Day:
 
     field day:
 

@@ -1,13 +1,21 @@
 public class Romaybe2 {
 
-    private /*this-mutable*/ Date f;
+    public static class Day {
+        public int day;
+        public Day() { }
+        public Day(int d) { this.day = d; }
+        public int getDay() /*readonly*/ { return day; }
+        public void setDay(int d) /*mutable*/ { this.day = d; }
+    }
 
-    public /*romaybe*/ Date getDate() /*romaybe*/ {
+    private /*this-mutable*/ Day f;
+
+    public /*romaybe*/ Day getDay() /*romaybe*/ {
         return f;
     }
 
     // This method forces f to this-mutable instead of readonly.
     public void foo() /*mutable*/ {
-        getDate().setDay(3);
+        getDay().setDay(3);
     }
 }

@@ -1,23 +1,32 @@
 import checkers.javari.quals.ReadOnly;
+import checkers.javari.quals.Mutable;
 
 /**
- * Tests things such as Object o = Date[] and Object[] a = Date[][].
+ * Tests things such as Object o = Day[] and Object[] a = Day[][].
  */
 public class SpecialObjectCases {
 
+    public static class Day {
+        public int day;
+        public Day() @ReadOnly { }
+        public Day(int d) @ReadOnly { this.day = d; }
+        public int getDay() /*readonly*/ @ReadOnly { return day; }
+        public void setDay(int d) /*mutable*/ @Mutable { this.day = d; }
+    }
+
     public static void foo() {
         @ReadOnly
-        Object o = new Date[3];
-        o = new Cell<Date>();
+        Object o = new Day[3];
+        o = new Cell<Day>();
         @ReadOnly
-        Object @ReadOnly [] a = new Date[3][1];
+        Object @ReadOnly [] a = new Day[3][1];
     }
 
     public static @ReadOnly String bar(@ReadOnly Object o) {
         if (o.hashCode() < 0) {
-            o = new Cell<Date>();
+            o = new Cell<Day>();
         } else if (o.hashCode() > 10) {
-            o = new Date[3];
+            o = new Day[3];
         }
         @ReadOnly
         String s = o.toString();
