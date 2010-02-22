@@ -120,7 +120,8 @@ annotated/%.java: %.java %.jaif %.class
 
 annotated/%.typecheck.diff: annotated/%.java
 # ".." in classpath is for helper classes like Cell.
-	set -o pipefail && cd annotated && javac -processor checkers.javari.JavariChecker  -classpath CLASSPATH=${CHECKERS}/jdk/javari/build:.:${CLASSPATH} -implicit:class $*.java 2>&1 | tee $*.typecheck.diff
+	set -o pipefail && cd annotated && javac -processor checkers.javari.JavariChecker -Xbootclasspath/p:${CHECKERS}/jdk/javari/jdk.jar -classpath .:${CLASSPATH} -implicit:class $*.java 2>&1 | tee $*.typecheck.diff
+##	set -o pipefail && cd annotated && javac -processor checkers.javari.JavariChecker  -classpath CLASSPATH=${CHECKERS}/jdk/javari/build:.:${CLASSPATH} -implicit:class $*.java 2>&1 | tee $*.typecheck.diff
 ##	set -o pipefail && cd annotated && javac -processor checkers.javari.JavariChecker  -classpath CLASSPATH=${CHECKERS}/jdk/javari/build:.:${CLASSPATH} -sourcepath .:..:${CHECKERS}/jdk/javari/src -implicit:class $*.java 2>&1 | tee $*.typecheck.diff
 ##	set -o pipefail && cd annotated && javac -processor checkers.javari.JavariChecker  -sourcepath .:..:${CHECKERS}/jdk/javari/src -implicit:class $*.java 2>&1 | tee $*.typecheck.diff
 
