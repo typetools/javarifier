@@ -267,6 +267,20 @@
     </exec>
   </target>
 
+  <target name="run-tests-toplevel" depends="init-properties"
+    description="Runs Javarifier toplevel test cases">
+    <exec executable="make"
+          failonerror="true">
+      <arg value="-C"/>
+      <arg value="${javarifier}/tests"/>
+      <arg value="toplevel-all"/>
+      <env key="JAVAC" file="${annotations-compiler}/dist/bin/javac" />
+      <env key="CLASSPATH" path="${toString:libpath}"/>
+      <env key="CHECKERS" path="${checkers}"/>
+      <env key="JAVA_HOME" path="${env.JAVA_HOME}"/>
+    </exec>
+  </target>
+
   <target name="etags" depends="tags">
   </target>
   <target name="tags" description="Create Emacs TAGS table">
