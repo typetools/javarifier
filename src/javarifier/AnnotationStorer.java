@@ -406,7 +406,7 @@ public class AnnotationStorer {
 
     /**
      * Stores the mutability in the type <code>type</code> into the scene
-     * element code>element</code>.
+     * element <code>element</code>.
      *
      * @param type - the Javari type whose mutability should be stored
      * @param element - the element of the scene library to store the mutability
