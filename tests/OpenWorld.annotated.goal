@@ -1,0 +1,23 @@
+import checkers.javari.quals.ReadOnly;
+import checkers.javari.quals.Mutable;
+public class OpenWorld<T extends /*mutable*/ @ReadOnly OpenWorld.Day> {
+
+    public static class Day {
+        public int day;
+        public Day() @ReadOnly { }
+        public Day(int d) @ReadOnly { this.day = d; }
+        public int getDay() /*readonly*/ @ReadOnly { return day; }
+        public void setDay(int d) /*mutable*/ @Mutable { this.day = d; }
+    }
+
+    public /*this-mutable*/ @ReadOnly Cell</*this-mutable*/ @ReadOnly Day> f;
+
+    private /*this-mutable*/ @ReadOnly Day d;
+
+    public @ReadOnly T t;
+
+    public /*romaybe*/ @ReadOnly Day getDay() /*romaybe*/ @ReadOnly {
+        return d;
+    }
+
+}
