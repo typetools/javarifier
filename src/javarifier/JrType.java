@@ -976,9 +976,9 @@ public abstract class JrType {
                 }
 
                 JrType type =
-                    bound == Bound.UPPER ?
-                    elemType.getUpperBound() :
-                    elemType.getLowerBound();
+                    ((bound == Bound.UPPER) ?
+                     elemType.getUpperBound() :
+                     elemType.getLowerBound());
 
                 return type.getType(index.removeFirst());
             }
