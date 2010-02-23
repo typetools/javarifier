@@ -1,0 +1,7 @@
+import checkers.javari.quals.ReadOnly;
+public class SimpleCell<T extends /*readonly*/ @ReadOnly Object> {
+
+    @ReadOnly
+    T val;
+
+}

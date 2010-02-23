@@ -1,0 +1,29 @@
+import checkers.javari.quals.Mutable;
+import checkers.javari.quals.ReadOnly;
+public class Bar2 {
+    /*readonly*/ @ReadOnly Integer x;
+
+    public Bar2() /*mutable*/ @ReadOnly {
+        x = null;
+    }
+
+    public int foo() /*readonly*/ @ReadOnly {
+        return x.intValue();
+    }
+
+    // readonly because nowhere is the return type of fooChange used in a
+    // mutable manner.
+    public /*readonly*/ @ReadOnly Integer fooChange(/*readonly*/ @ReadOnly Integer i) /*mutable*/ @Mutable {
+        x = i;
+        return i;
+    }
+
+    public /*readonly*/ @ReadOnly Integer fooReadOnly() /*readonly*/ @ReadOnly {
+        return x;
+    }
+
+    public /*readonly*/ @ReadOnly Integer fooNull() /*mutable*/ @Mutable {
+        x = null;
+        return x;
+    }
+}
