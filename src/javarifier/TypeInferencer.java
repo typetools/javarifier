@@ -75,7 +75,7 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
           TypeArg typeArg = new JrType.TypeArg(arrayElType.copy(), arrayElType.copy());
           return new JrType.ArrayType(Mutability.UNKNOWN, typeArg);
         } else {
-            throw new RuntimeException("Unrecognized array element type");
+            throw new RuntimeException("Unrecognized array element type " + elementType);
         }
     }
 
@@ -337,7 +337,7 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
             JrType xType = x.getJrType();
             JrType retType = m.getJrReturnType();
             if (retType == null) {
-                throw new RuntimeException("Null return type: " + m);
+                throw new RuntimeException("Null return type for " + m + " in: " + stmt);
             }
 
             if (xType == null) {
@@ -350,8 +350,17 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
                         xType = retType.copyResettingMutabilities();
                     else if (yType instanceof ClassType)
                         xType = retType.substituteUpperBound((ClassType) yType);
-                    else if (yType != null)
-                        throw new RuntimeException("Receiver is an unusual kind of JrType");
+                    else if (yType != null) {
+                        String message = String.format(
+                          "Javarifier bug:  receiver type has already been set, to an inconsistent value.%n  Receiver = %s%n  Type (%s) = %s%n  Statement = %s%n  A cause is a bytecode file that re-uses a local variable, first to hold a%n  primitive and later to hold an object; processing of an earlier statement%n  sets the local variable's type, which causes this error when processing a%n  statement that uses the second live range as as object.",
+                          y,
+                          yType.getClass(), yType,
+                          stmt);
+                        // throw new RuntimeException(message);
+                        System.out.println(message);
+                        System.out.println("Reset and hope for the best.  But, the same bug is likely to show up elsewhere%nin a manner that can't be worked around.%nA better fix would be to convert to SSA form.");
+                        y.setJrType(null);
+                    }
                     // if yType is null, we just set the same type back into x
                 } else
                     xType = retType.copyResettingMutabilities();

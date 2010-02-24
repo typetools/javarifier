@@ -1,11 +1,11 @@
 package checkers.javari.quals:
-annotation @ReadOnly:
+annotation @ReadOnly: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
 
 package checkers.javari.quals:
-annotation @Mutable:
+annotation @Mutable: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
 
 package checkers.javari.quals:
-annotation @ThisMutable:
+annotation @ThisMutable: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
 
 package :
 class StaticInnerClass:

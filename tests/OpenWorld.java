@@ -1,5 +1,11 @@
 public class OpenWorld<T extends /*mutable*/ OpenWorld.Day> {
 
+    public static class Cell<T> {
+	public T val;
+	public T getVal() { return val; }
+	public void setVal(T val) { this.val = val; }
+    }
+
     public static class Day {
         public int day;
         public Day() { }
