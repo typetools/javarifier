@@ -26,7 +26,7 @@ class CellClient2:
         local 1 #0+24:
             type: @checkers.javari.quals.ReadOnly
 
-    method getF()LCell;:
+    method getF()LCellClient2$Cell;:
         return: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
         receiver: @checkers.javari.quals.ReadOnly
@@ -58,7 +58,7 @@ class CellClient2:
             type: @checkers.javari.quals.ReadOnly
 
 package :
-class Cell:
+class CellClient2$Cell:
     bound ,0 &0: @checkers.javari.quals.ReadOnly
 
     field val:

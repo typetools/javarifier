@@ -38,7 +38,7 @@ class CellClient3:
         local 2 #16+1:
 
 package :
-class Cell:
+class CellClient3$Cell:
     bound ,0 &0: @checkers.javari.quals.ReadOnly
 
     field val:
