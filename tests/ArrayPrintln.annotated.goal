@@ -1,0 +1,19 @@
+import checkers.javari.quals.ReadOnly;
+public class ArrayPrintln {
+
+  public static void main1(@ReadOnly String @ReadOnly [] args) {
+  }
+
+  public static void main2(@ReadOnly String @ReadOnly [] args) {
+    args.toString();
+  }
+
+  public static void main3(@ReadOnly String @ReadOnly [] args) {
+    System.out.println(args);
+  }
+  
+  public static void main4(@ReadOnly String @ReadOnly [] args) {
+    System.out.println(args.toString());
+  }
+  
+}

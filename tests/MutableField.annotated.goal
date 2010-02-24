@@ -1,0 +1,37 @@
+import checkers.javari.quals.Mutable;
+import checkers.javari.quals.ReadOnly;
+public class MutableField {
+
+    public static class Day {
+        public int day;
+        public Day() @ReadOnly { }
+        public Day(int d) @ReadOnly { this.day = d; }
+        public int getDay() /*readonly*/ @ReadOnly { return day; }
+        public void setDay(int d) /*mutable*/ @Mutable { this.day = d; }
+    }
+
+    // That commented @checkers.javari.quals.Mutable is recognized by the extended
+    // compiler and supersedes Mutable.fields.
+    /*mutable*/ /*@checkers.javari.quals.Mutable*/ Day d;
+
+    // TODO: update this test case once compiler has generic annotations
+    // in class file.
+    /*this-mutable*/ Cell</*mutable*/ /*!@checkers.javari.quals.Mutable*/ Day> f;
+
+    public void foo() /*readonly*/ @ReadOnly {
+        d.setDay(3);
+    }
+
+    public void bar() /*mutable*/ @Mutable {
+        d = new Day();
+    }
+
+    public void baz() /*readonly*/ @Mutable {
+        /*mutable*/ @Mutable Day x = f.getVal();
+        x.setDay(2);
+    }
+
+    public void quax() /*mutable*/ @Mutable {
+        f.setVal(new Day(3));
+    }
+}

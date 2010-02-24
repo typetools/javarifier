@@ -1,0 +1,77 @@
+import checkers.javari.quals.ReadOnly;
+import checkers.javari.quals.Mutable;
+
+public class InnerClassTest<S> {
+
+    public static class Day {
+        public int day;
+        public Day() @ReadOnly { }
+        public Day(int d) @ReadOnly { this.day = d; }
+        public int getDay() /*readonly*/ @ReadOnly { return day; }
+        public void setDay(int d) /*mutable*/ @Mutable { this.day = d; }
+    }
+
+    @ReadOnly
+    Day d;
+
+    // $AIn
+    public class AIn<T> {
+        public AIn() {
+
+        }
+        @ReadOnly
+        Cell<@ReadOnly T> f;
+        public @ReadOnly S sf;
+    }
+
+    @ReadOnly
+    AIn<@ReadOnly Day> in;
+
+    public @ReadOnly AIn<@ReadOnly Day> foo() @ReadOnly {
+        //InnerClassTest<Day> i = new InnerClassTest<Day>();
+        InnerClassTest<@ReadOnly @ReadOnly S>.AIn<Day> x = this.in;
+        return x;
+    }
+
+    // $Inner
+    public class Inner {
+        @ReadOnly
+        Cell<@ReadOnly Day> c;
+    }
+
+    // $Nested static
+    public static class Nested {
+        @ReadOnly
+        Cell<@ReadOnly Day> c;
+    }
+
+
+    // $1
+    @ReadOnly
+    Cell<@ReadOnly Day> initializedField = new Cell<Day>() {
+        public void initializedFieldFoo() @ReadOnly {}
+    };
+
+
+
+    // $2 static
+    static @ReadOnly Cell<@ReadOnly Day> staticInitializedField = new Cell<Day>() {
+        public void staticInitializedFieldFoo() @ReadOnly {}
+    };
+
+    // $3
+    @ReadOnly
+    Cell<@ReadOnly Day> factory() @ReadOnly {
+        return new Cell<Day>() {
+            public void factoryFoo() @ReadOnly {}
+            public S var() { return null; }
+        };
+    }
+
+    // $4 static
+    static @ReadOnly Cell<@ReadOnly Day> staticFactory() {
+        return new Cell<Day>() {
+            public void factoryFoo() @ReadOnly {}
+        };
+    }
+}
