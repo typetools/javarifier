@@ -2,6 +2,10 @@ import checkers.javari.quals.Mutable;
 import checkers.javari.quals.ReadOnly;
 public class SimpleCellClient {
 
+    public static class SimpleCell<T extends /*readonly*/ @ReadOnly Object> {
+        @ReadOnly T val;
+    }
+
     public static class Day {
         public int day;
         public Day() @ReadOnly { }
@@ -34,8 +38,7 @@ public class SimpleCellClient {
         /*mutable*/ @Mutable SimpleCell</*mutable*/ @Mutable Day> c = new SimpleCell<Day>();
         /*mutable*/ @Mutable Day d = c.val;
         d.setDay(5);
-        @Mutable
-        Day e = new Day();
+        @Mutable Day e = new Day();
         c.val = e;
     }
 }

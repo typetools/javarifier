@@ -3,6 +3,12 @@ import checkers.javari.quals.Mutable;
 
 public class InnerClassTest<S> {
 
+    public static class Cell<T> {
+	public @ReadOnly T val;
+	public T getVal() { return val; }
+	public void setVal(T val) { this.val = val; }
+    }
+
     public static class Day {
         public int day;
         public Day() @ReadOnly { }
@@ -11,21 +17,18 @@ public class InnerClassTest<S> {
         public void setDay(int d) /*mutable*/ @Mutable { this.day = d; }
     }
 
-    @ReadOnly
-    Day d;
+    @ReadOnly Day d;
 
     // $AIn
     public class AIn<T> {
         public AIn() {
 
         }
-        @ReadOnly
-        Cell<@ReadOnly T> f;
+        @ReadOnly Cell<@ReadOnly T> f;
         public @ReadOnly S sf;
     }
 
-    @ReadOnly
-    AIn<@ReadOnly Day> in;
+    @ReadOnly AIn<@ReadOnly Day> in;
 
     public @ReadOnly AIn<@ReadOnly Day> foo() @ReadOnly {
         //InnerClassTest<Day> i = new InnerClassTest<Day>();
@@ -35,20 +38,17 @@ public class InnerClassTest<S> {
 
     // $Inner
     public class Inner {
-        @ReadOnly
-        Cell<@ReadOnly Day> c;
+        @ReadOnly Cell<@ReadOnly Day> c;
     }
 
     // $Nested static
     public static class Nested {
-        @ReadOnly
-        Cell<@ReadOnly Day> c;
+        @ReadOnly Cell<@ReadOnly Day> c;
     }
 
 
     // $1
-    @ReadOnly
-    Cell<@ReadOnly Day> initializedField = new Cell<Day>() {
+    @ReadOnly Cell<@ReadOnly Day> initializedField = new Cell<Day>() {
         public void initializedFieldFoo() @ReadOnly {}
     };
 
@@ -60,8 +60,7 @@ public class InnerClassTest<S> {
     };
 
     // $3
-    @ReadOnly
-    Cell<@ReadOnly Day> factory() @ReadOnly {
+    @ReadOnly Cell<@ReadOnly Day> factory() @ReadOnly {
         return new Cell<Day>() {
             public void factoryFoo() @ReadOnly {}
             public S var() { return null; }
