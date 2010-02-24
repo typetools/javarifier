@@ -109,7 +109,9 @@ VerifyDiffs.class : VerifyDiffs.java
 %.jaif.diff: %.jaif.goal %.jaif
 	-diff -u $*.jaif.goal $*.jaif > $*.jaif.diff 2>&1
 
-%.annotated.diff: %.annotated.goal annotated/%.java
+# The "%.jaif" in this target does not work.  If it does not exist, "make -d" output just says:
+#  Prerequisite `SimpleCell.jaif' of target `SimpleCell.annotated.diff' does not exist.
+%.annotated.diff: %.annotated.goal annotated/%.java %.jaif
 	-diff -u $*.annotated.goal annotated/$*.java > $*.annotated.diff 2>&1
 
 .PRECIOUS: annotated/%.java

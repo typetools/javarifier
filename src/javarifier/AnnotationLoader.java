@@ -18,6 +18,7 @@ import annotations.*;
 import annotations.el.*;
 import annotations.util.coll.*;
 import annotations.field.AnnotationFieldType;
+import static annotations.Annotations.typeQualifierMetaAnnotations;
 
 /**
  * {@link AnnotationLoader} provides a static method,
@@ -35,7 +36,7 @@ public class AnnotationLoader {
 
   public static final AnnotationDef assignableAnnotationDef =
     new AnnotationDef(assignableAnnotationName,
-                      Collections.<Annotation>emptySet(),
+                      typeQualifierMetaAnnotations,
                       Collections.<String,AnnotationFieldType>emptyMap());
 
   /**
@@ -43,7 +44,8 @@ public class AnnotationLoader {
    * methods have a readonly receiver.
    */
   public static final String unmodifiableAnnotation =
-    "checkers.javari.quals.Unmodifiable";
+    // "checkers.javari.quals.Unmodifiable";
+    "checkers.javari.quals.ReadOnly";
 
   /**
    * Returns whether the class is always an unmodifiable class.

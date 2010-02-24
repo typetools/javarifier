@@ -5,10 +5,8 @@ import java.util.Vector;
 public class VectorCopyInto {
 
   public @ReadOnly String @ReadOnly [] getMessageChain2(@PolyRead Vector list)
-  @ReadOnly
-  {
-    @PolyRead
-    String @ReadOnly [] chain = new String[list.size()];
+  @ReadOnly {
+    @PolyRead String @ReadOnly [] chain = new String[list.size()];
     list.copyInto (chain);
     return chain;
   }
