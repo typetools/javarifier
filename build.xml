@@ -271,11 +271,12 @@
     description="Runs Javarifier toplevel test cases">
     <exec executable="make"
           failonerror="true">
+      <arg value="-k"/>
       <arg value="-C"/>
       <arg value="${javarifier}/tests"/>
       <arg value="toplevel-all"/>
       <env key="JAVAC" file="${annotations-compiler}/dist/bin/javac" />
-      <env key="CLASSPATH" path="${toString:libpath}"/>
+      <env key="CLASSPATH" path="${checkers}/checkers.jar"/>
       <env key="CHECKERS" path="${checkers}"/>
       <env key="JAVA_HOME" path="${env.JAVA_HOME}"/>
       <env key="PATH" path="${afu}/scripts:${env.JAVA_HOME}/bin:${env.PATH}"/>
