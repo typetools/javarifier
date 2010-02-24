@@ -33,7 +33,7 @@ class OpenWorld:
                 inner-type 0: @checkers.javari.quals.ReadOnly
 
 package :
-class Cell:
+class OpenWorld$Cell:
     bound ,0 &0: @checkers.javari.quals.ReadOnly
 
     field val:

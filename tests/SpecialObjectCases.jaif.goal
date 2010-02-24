@@ -31,7 +31,7 @@ class SpecialObjectCases:
             type: @checkers.javari.quals.ReadOnly
 
 package :
-class Cell:
+class SpecialObjectCases$Cell:
     bound ,0 &0: @checkers.javari.quals.ReadOnly
 
     field val:

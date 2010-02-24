@@ -30,7 +30,7 @@ class StaticMethods:
         local 0 #0+9:
             type: @checkers.javari.quals.Mutable
 
-    method baz()LCell;:
+    method baz()LStaticMethods$Cell;:
         return: @checkers.javari.quals.Mutable
             inner-type 0: @checkers.javari.quals.Mutable
 
@@ -38,7 +38,7 @@ class StaticMethods:
         return:
 
 package :
-class Cell:
+class StaticMethods$Cell:
     bound ,0 &0: @checkers.javari.quals.ReadOnly
 
     field val:
