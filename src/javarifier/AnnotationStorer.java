@@ -9,6 +9,7 @@ import javarifier.JrType.NullType;
 import javarifier.util.*;
 import soot.*;
 import annotations.*;
+import static annotations.Annotations.typeQualifierMetaAnnotations;
 import annotations.el.*;
 import annotations.util.coll.*;
 import static javarifier.AnnotationLoader.classIsUnmodifiable;
@@ -35,7 +36,8 @@ public class AnnotationStorer {
     "checkers.javari.quals.ReadOnly";
 
   public static final AnnotationDef unmodifiableAnnotationDef =
-    new AnnotationDef(unmodifiableAnnotationName);
+    new AnnotationDef(unmodifiableAnnotationName,
+                      typeQualifierMetaAnnotations);
 
 
   /**
