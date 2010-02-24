@@ -263,7 +263,7 @@
       <env key="JAVAC" file="${annotations-compiler}/dist/bin/javac" />
       <env key="CLASSPATH" path="${toString:libpath}"/>
       <env key="CHECKERS" path="${checkers}"/>
-      <env key="JAVA_HOME" path="${env.JAVA_HOME}"/>
+      <env key="JAVA_HOME" path="${JAVA_HOME}"/>
     </exec>
   </target>
 
@@ -274,12 +274,14 @@
       <arg value="-k"/>
       <arg value="-C"/>
       <arg value="${javarifier}/tests"/>
+      <arg value="showvars"/>
+      <arg value="clean-toplevel"/>
       <arg value="toplevel-all"/>
       <env key="JAVAC" file="${annotations-compiler}/dist/bin/javac" />
       <env key="CLASSPATH" path="${checkers}/checkers.jar"/>
       <env key="CHECKERS" path="${checkers}"/>
-      <env key="JAVA_HOME" path="${env.JAVA_HOME}"/>
-      <env key="PATH" path="${afu}/scripts:${env.JAVA_HOME}/bin:${env.PATH}"/>
+      <env key="JAVA_HOME" path="${JAVA_HOME}"/>
+      <env key="PATH" path="${afu}/scripts:${JAVA_HOME}/bin:${env.PATH}"/>
     </exec>
   </target>
 
