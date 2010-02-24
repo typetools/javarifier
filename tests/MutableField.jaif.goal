@@ -50,7 +50,7 @@ class MutableField:
             type: @checkers.javari.quals.Mutable
 
 package :
-class Cell:
+class MutableField$Cell:
     bound ,0 &0: @checkers.javari.quals.ReadOnly
 
     field val:

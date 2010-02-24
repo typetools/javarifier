@@ -1,5 +1,9 @@
 public class SimpleCellClient {
 
+    public static class SimpleCell<T extends /*readonly*/ Object> {
+        T val;
+    }
+
     public static class Day {
         public int day;
         public Day() { }
