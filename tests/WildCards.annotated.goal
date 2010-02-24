@@ -45,8 +45,7 @@ public class WildCards<T extends /*readonly*/ @ReadOnly Object> {
     }
 
     public static @ReadOnly String printVal(/*readonly*/ @ReadOnly Cell<?> c) {
-        @ReadOnly
-        String s = c.toString();
+        @ReadOnly String s = c.toString();
         return s;
     }
 }

@@ -21,11 +21,9 @@ public class SpecialObjectCases {
     }
 
     public static void foo() {
-        @ReadOnly
-        Object o = new Day[3];
+        @ReadOnly Object o = new Day[3];
         o = new Cell<Day>();
-        @ReadOnly
-        Object @ReadOnly [] a = new Day[3][1];
+        @ReadOnly Object @ReadOnly [] a = new Day[3][1];
     }
 
     public static @ReadOnly String bar(@ReadOnly Object o) {
@@ -34,8 +32,7 @@ public class SpecialObjectCases {
         } else if (o.hashCode() > 10) {
             o = new Day[3];
         }
-        @ReadOnly
-        String s = o.toString();
+        @ReadOnly String s = o.toString();
         return s;
     }
 }

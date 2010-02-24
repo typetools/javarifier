@@ -2,6 +2,7 @@ package javarifier;
 import annotations.el.AnnotationDef;
 import annotations.field.AnnotationFieldType;
 import java.util.Collections;
+import static annotations.Annotations.typeQualifierMetaAnnotations;
 
 /**
  * The Mutability enum enumerates all the Javari mutability keywords.
@@ -27,7 +28,8 @@ public enum Mutability {
      */
     private Mutability(String annotationName) {
       this.annotationName = annotationName;
-      this.annotationDef = new AnnotationDef(annotationName);
+      this.annotationDef = new AnnotationDef(annotationName,
+                                             typeQualifierMetaAnnotations);
       this.annotationDef.fieldTypes = Collections.<String, AnnotationFieldType> emptyMap();
     }
 
