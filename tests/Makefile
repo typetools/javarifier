@@ -89,7 +89,7 @@ results: VerifyDiffs.class
 	@echo ""
 	@-java -classpath . VerifyDiffs --show_all
 
-# Remakes the little java program that checks and compares diffs
+# Remakes the little Java program that checks and compares diffs.
 VerifyDiffs.class : VerifyDiffs.java
 	@$(JAVAC) VerifyDiffs.java
 
@@ -123,11 +123,6 @@ annotated/%.java: %.java %.jaif %.class
 annotated/%.typecheck.diff: annotated/%.java
 # ".." in classpath is for helper classes like Cell.
 	set -o pipefail && cd annotated && $(JAVAC) -processor checkers.javari.JavariChecker -Xbootclasspath/p:${CHECKERS}/jdk/javari/jdk.jar -classpath .:${CLASSPATH} -implicit:class $*.java 2>&1 | tee $*.typecheck.diff
-##	set -o pipefail && cd annotated && $(JAVAC) -processor checkers.javari.JavariChecker  -classpath CLASSPATH=${CHECKERS}/jdk/javari/build:.:${CLASSPATH} -implicit:class $*.java 2>&1 | tee $*.typecheck.diff
-##	set -o pipefail && cd annotated && $(JAVAC) -processor checkers.javari.JavariChecker  -classpath CLASSPATH=${CHECKERS}/jdk/javari/build:.:${CLASSPATH} -sourcepath .:..:${CHECKERS}/jdk/javari/src -implicit:class $*.java 2>&1 | tee $*.typecheck.diff
-##	set -o pipefail && cd annotated && $(JAVAC) -processor checkers.javari.JavariChecker  -sourcepath .:..:${CHECKERS}/jdk/javari/src -implicit:class $*.java 2>&1 | tee $*.typecheck.diff
-
-# TODO: run Javari type-checker
 
 
 # Remove all .diff, .log files from the tests directory,
