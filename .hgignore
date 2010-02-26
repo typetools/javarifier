@@ -2,6 +2,7 @@
 syntax: glob
 
 javarifier.jar
+javarifier.zip
 
 TAGS
 *~
@@ -18,6 +19,8 @@ tests/**/*.jaif
 sootOutput
 bin/**/*.class
 
+bin/soot
+src/soot
 
 ### regexp syntax rules
 syntax: regexp
