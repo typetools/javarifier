@@ -1,12 +1,26 @@
-public class OpenWorld<T extends /*mutable*/ Date> {
+public class OpenWorld<T extends /*mutable*/ OpenWorld.Day> {
 
-    public /*this-mutable*/ Cell</*this-mutable*/ Date> f;
+    public static class Cell<T> {
+	public T val;
+	public T getVal() { return val; }
+	public void setVal(T val) { this.val = val; }
+    }
 
-    private /*this-mutable*/ Date d;
+    public static class Day {
+        public int day;
+        public Day() { }
+        public Day(int d) { this.day = d; }
+        public int getDay() /*readonly*/ { return day; }
+        public void setDay(int d) /*mutable*/ { this.day = d; }
+    }
+
+    public /*this-mutable*/ Cell</*this-mutable*/ Day> f;
+
+    private /*this-mutable*/ Day d;
 
     public T t;
 
-    public /*romaybe*/ Date getDate() /*romaybe*/ {
+    public /*romaybe*/ Day getDay() /*romaybe*/ {
         return d;
     }
 

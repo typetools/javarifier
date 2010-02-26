@@ -1,0 +1,38 @@
+import checkers.javari.quals.Mutable;
+import checkers.javari.quals.PolyRead;
+import checkers.javari.quals.ReadOnly;
+public class StaticMethods {
+
+    public static class Cell<T> {
+	public @ReadOnly T val;
+	public T getVal() { return val; }
+	public void setVal(T val) { this.val = val; }
+    }
+
+    public static class Day {
+        public int day;
+        public Day() @ReadOnly { }
+        public Day(int d) @ReadOnly { this.day = d; }
+        public int getDay() /*readonly*/ @ReadOnly { return day; }
+        public void setDay(int d) /*mutable*/ @Mutable { this.day = d; }
+    }
+
+    public static /*romaybe*/ @PolyRead Day id(/*romaybe*/ @PolyRead Day d) {
+        return d;
+    }
+
+    public static void foo(/*mutable*/ @Mutable Day x) {
+        id(x).setDay(3);
+    }
+
+    public static /*mutable*/ @Mutable Cell</*mutable*/ @Mutable Day> baz() {
+        return new Cell<Day>();
+    }
+
+    public static void quax() {
+        baz().setVal(new Day());
+        baz().getVal().setDay(3);
+    }
+
+
+}

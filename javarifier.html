@@ -285,46 +285,18 @@ inference, but only to output a list of classes for which stubs are needed.
 </p>
 
 <p>
-There are two ways to inform Javari of additional stub classes (or
-fully-annotated Javari classes).
-</p>
-<ul>
-  <li>
-    Add a class file to the annotated JDK.  For example, to have
-    Javarifier treat <code>packageA.packageB.classC</code> as a stub
-    class, put its <code>.java</code> file at
-    <pre><code>.../checker-framework/checkers/jdk/javari/src/packageA/packageB/classC.class</code></pre>
-    and its class file will appear at
-    <pre><code>.../checker-framework/checkers/jdk/javari/build/packageA/packageB/classC.class</code></pre>
-    from which Javarifier will read it.
-    The class file must contain the Javari annotations.  This is automatic
-    if you use the <a href="http://types.cs.washington.edu/jsr308/">Type
-    Annotations compiler</a> or another Java 7 compiler to compile a Javari
-    program.  Alternately, you can
-    use the <a
-    href="http://types.cs.washington.edu/annotation-file-utilities/">annotation
-    file utilities</a> to insert the annotations in any Java
-    <code>.class</code> file.
-  </li>
-  <li>
-    Provide Javarifier with an additional classpath
-    to look for stub classes using the <code>-stubs</code> argument,
-    followed by a classpath to containing stub classes.  All classes
+To inform Javari of additional stub classes (or
+fully-annotated Javari classes), use the <code>-stubs</code> argument,
+    followed by a classpath  to containing stub classes.  All classes
     found in that classpath will be treated as stub classes.  For
     example:
-    <pre><code> javarifier myPackage.myClassOne myPackage.myClassTwo -stubs /path/to/stubs1:/path/to/stubs2</code></pre>
-    If the annotated JDK is missing a class that your program uses,
-    you can also use a path with unannotated libraries, as in:
-    <pre>-stubs ${JAVA_HOME}/jre/lib/rt.jar</pre>
-    This prevents Javarifier from issuing an error because it can't find
-    the classes, but because Javarifier treats every unannotated reference
-    as mutable, every reference in the library will be treated as mutable.
-  </li>
-</ul>
+    <pre><code> javarifier myPackage.myClassOne myPackage.myClassTwo -stubs /path/to/stubs/dir:/path/to/stubs.jar</code></pre>
+</p>
 
 <p>
 If you create stub versions of additional classes (whether in the JDK or
-other libraries), please email them to
+other libraries), or if you improve existing libraries by adding
+annotations to them, please email them to
 <a href="mailto:javarifier-dev@googlegroups.com">javarifier-dev@googlegroups.com</a> so that we
 can include them in future releases.
 </p>
@@ -533,7 +505,7 @@ Javarifier now works on the Eclipse compiler, which is over
 <hr/>
 
 <p>
-Last revised: December 1, 2009
+Last revised: February 25, 2010
 </p>
 
 </body>

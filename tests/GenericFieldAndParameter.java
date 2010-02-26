@@ -2,7 +2,15 @@ import java.util.*;
 
 public class GenericFieldAndParameter {
 
-    public Set<Date> set;
+    public static class Day {
+        public int day;
+        public Day() { }
+        public Day(int d) { this.day = d; }
+        public int getDay() /*readonly*/ { return day; }
+        public void setDay(int d) /*mutable*/ { this.day = d; }
+    }
+
+    public Set<Day> set;
     public Set<Integer> ints;
 
     public GenericFieldAndParameter() {
@@ -10,7 +18,7 @@ public class GenericFieldAndParameter {
 
     // The parameter doesn't get changed; only a field gets changed
     public void foo(Set<Boolean> bools) {
-        set.add(new Date());
+        set.add(new Day());
     }
 
     public void foo(ArrayList<Red> reds) {

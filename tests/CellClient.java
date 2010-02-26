@@ -1,30 +1,44 @@
 public class CellClient {
 
+    public static class Cell<T> {
+	public T val;
+	public T getVal() { return val; }
+	public void setVal(T val) { this.val = val; }
+    }
+
+    public static class Day {
+        public int day;
+        public Day() { }
+        public Day(int d) { this.day = d; }
+        public int getDay() /*readonly*/ { return day; }
+        public void setDay(int d) /*mutable*/ { this.day = d; }
+    }
+
     public void foo() {
-        /*readonly*/ Cell</*readonly*/ Date> c = new Cell<Date>();
-        /*readonly*/ Date d = c.getVal();
+        /*readonly*/ Cell</*readonly*/ Day> c = new Cell<Day>();
+        /*readonly*/ Day d = c.getVal();
         int day = d.getDay();
     }
 
     public void bar() {
-        /*mutable*/ Cell</*readonly*/ Date> c = new Cell<Date>();
-        /*readonly*/ Date d = c.getVal();
+        /*mutable*/ Cell</*readonly*/ Day> c = new Cell<Day>();
+        /*readonly*/ Day d = c.getVal();
         int day = d.getDay();
-        /*readonly*/ Date e = new Date();
+        /*readonly*/ Day e = new Day();
         c.setVal(e);
     }
 
     public void baz() {
-        /*readonly*/ Cell</*mutable*/ Date> c = new Cell<Date>();
-        /*mutable*/ Date d = c.getVal();
+        /*readonly*/ Cell</*mutable*/ Day> c = new Cell<Day>();
+        /*mutable*/ Day d = c.getVal();
         d.setDay(3);
     }
 
     public void quax() {
-        /*mutable*/ Cell</*mutable*/ Date> c = new Cell<Date>();
-        /*mutable*/ Date d = c.getVal();
+        /*mutable*/ Cell</*mutable*/ Day> c = new Cell<Day>();
+        /*mutable*/ Day d = c.getVal();
         d.setDay(5);
-        /*mutable*/ Date e = new Date();
+        /*mutable*/ Day e = new Day();
         c.setVal(e);
     }
 }

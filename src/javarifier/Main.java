@@ -169,9 +169,11 @@ public class Main {
     } catch(Exception e) {
       System.out.println("Javarifier exception: " + e);
       e.printStackTrace();
+      System.exit(1);
     } catch(Error e) {
       System.out.println("Javarifier Error: " + e);
       e.printStackTrace();
+      System.exit(1);
     }
   }
 
