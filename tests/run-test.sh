@@ -19,7 +19,7 @@ SOOT_PROGRAMS="$TESTS"
 SOOT_STUBS="$ANNO_JDK_BIN:$JAVARI_BUILTINS_BIN:$NONNULL_BUILTINS_BIN"
 SOOT_WORLDS="$JDK"
 
-OUT_FILE="tests/$1.output"
+OUT_FILE="tests/$1.jaif"
 
 # Load test-specific options
 TS_OPTIONS_FILE="tests/$1.options"

@@ -1,41 +1,49 @@
 public class Arrays {
 
+    public static class Day {
+        public int day;
+        public Day() { }
+        public Day(int d) { this.day = d; }
+        public int getDay() /*readonly*/ { return day; }
+        public void setDay(int d) /*mutable*/ { this.day = d; }
+    }
+
     public void foo() /*readonly*/ {
-        /*readonly*/Date[/*mutable*/] ma = new Date[1];
-        /*readonly*/ Date d = new Date();
+        /*readonly*/ Day[/*mutable*/] ma = new Day[1];
+        /*readonly*/ Day d = new Day();
         ma[0] = d;
-        /*readonly*/ Date x = ma[0];
+        /*readonly*/ Day x = ma[0];
         int y = x.getDay();
     }
 
     public void bar() /*readonly*/ {
-        /*mutable*/Date[/*mutable*/] ma = new Date[1];
-        /*mutable*/ Date d = new Date();
+        /*mutable*/ Day[/*mutable*/] ma = new Day[1];
+        /*mutable*/ Day d = new Day();
         ma[0] = d;
-        /*mutable*/ Date x = ma[0];
+        /*mutable*/ Day x = ma[0];
         int y = x.getDay();
         x.setDay(y);
     }
 
     public void baz() /*readonly*/ {
-        /*mutable*/Date[/*mutable*/] ma = new Date[1];
-        ma[0] = new Date();
+        /*mutable*/ Day[/*mutable*/] ma = new Day[1];
+        ma[0] = new Day();
         ma[0].setDay(2);
 
-        /*? readonly*/Date[/*readonly*/] ra = ma;
-        /*readonly*/ Date x = ra[0];
+        /*? readonly*/ Day[/*readonly*/] ra = ma;
+        /*readonly*/ Day x = ra[0];
         int y = x.getDay();
 
      }
 
 
     public void quax() /*readonly*/ {
-        /*mutable*/Date[/*mutable*/] ma = new Date[1];
-        /*mutable*/ Date d = new Date();
+        /*mutable*/ Day[/*mutable*/] ma = new Day[1];
+        /*mutable*/ Day d = new Day();
         ma[0] = d;
 
-        /*mutable*/Date[/*readonly*/] ra = ma;
-        /*mutable*/ Date x = ra[0];
+        /*mutable*/ Day[/*readonly*/] ra = ma;
+        /*mutable*/ Day x = ra[0];
         int y = x.getDay();
         x.setDay(y);
     }

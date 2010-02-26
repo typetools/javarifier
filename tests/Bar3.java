@@ -1,5 +1,5 @@
 public class Bar3 {
-    public /*readonly*/String[/*this-mutable*/] x;
+    public /*readonly*/ String[/*this-mutable*/] x;
     int i;
 
     public Bar3() {

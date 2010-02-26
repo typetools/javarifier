@@ -82,7 +82,6 @@
       <ant dir="${annotations-compiler}" antfile="make/build.xml"
           inheritAll="false" target="build"/>
       <ant dir="${checkers}" target="build" inheritAll="false"/>
-      <ant dir="${checkers}" target="build-javari-jdk" inheritAll="false"/>
   </target>
 
   <target name="init" depends="init-properties, build-dependencies"
@@ -225,6 +224,14 @@
     <echo message="Deleting previous distribution: javarifier.zip"/>
     <delete file="javarifier.zip"/>
     <delete file="javarifier.jar"/>
+
+    <exec executable="make"
+          failonerror="true">
+      <arg value="-C"/>
+      <arg value="${javarifier}/tests"/>
+      <arg value="clean"/>
+    </exec>
+  
   </target>
 
   <target name="bin" depends="init"
@@ -255,7 +262,25 @@
       <env key="JAVAC" file="${annotations-compiler}/dist/bin/javac" />
       <env key="CLASSPATH" path="${toString:libpath}"/>
       <env key="CHECKERS" path="${checkers}"/>
-      <env key="JAVA_HOME" path="${env.JAVA_HOME}"/>
+      <env key="JAVA_HOME" path="${JAVA_HOME}"/>
+    </exec>
+  </target>
+
+  <target name="run-tests-toplevel" depends="init-properties"
+    description="Runs Javarifier toplevel test cases">
+    <exec executable="make"
+          failonerror="true">
+      <arg value="-k"/>
+      <arg value="-C"/>
+      <arg value="${javarifier}/tests"/>
+      <arg value="showvars"/>
+      <arg value="clean-toplevel"/>
+      <arg value="toplevel-all"/>
+      <env key="JAVAC" file="${annotations-compiler}/dist/bin/javac" />
+      <env key="CLASSPATH" path="${checkers}/checkers.jar"/>
+      <env key="CHECKERS" path="${checkers}"/>
+      <env key="JAVA_HOME" path="${JAVA_HOME}"/>
+      <env key="PATH" path="${afu}/scripts:${JAVA_HOME}/bin:${env.PATH}"/>
     </exec>
   </target>
 

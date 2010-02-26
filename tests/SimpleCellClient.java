@@ -1,30 +1,42 @@
 public class SimpleCellClient {
 
+    public static class SimpleCell<T extends /*readonly*/ Object> {
+        T val;
+    }
+
+    public static class Day {
+        public int day;
+        public Day() { }
+        public Day(int d) { this.day = d; }
+        public int getDay() /*readonly*/ { return day; }
+        public void setDay(int d) /*mutable*/ { this.day = d; }
+    }
+
     public void foo() {
-        /*readonly*/ SimpleCell</*readonly*/ Date> c = new SimpleCell<Date>();
-        /*readonly*/ Date d = c.val;
+        /*readonly*/ SimpleCell</*readonly*/ Day> c = new SimpleCell<Day>();
+        /*readonly*/ Day d = c.val;
         int day = d.getDay();
     }
 
     public void bar() {
-        /*mutable*/ SimpleCell</*readonly*/ Date> c = new SimpleCell<Date>();
-        /*readonly*/ Date d = c.val;
+        /*mutable*/ SimpleCell</*readonly*/ Day> c = new SimpleCell<Day>();
+        /*readonly*/ Day d = c.val;
         int day = d.getDay();
-        /*readonly*/ Date e = new Date();
+        /*readonly*/ Day e = new Day();
         c.val = e;
     }
 
     public void baz() {
-        /*readonly*/ SimpleCell</*mutable*/ Date> c = new SimpleCell<Date>();
-        /*mutable*/ Date d = c.val;
+        /*readonly*/ SimpleCell</*mutable*/ Day> c = new SimpleCell<Day>();
+        /*mutable*/ Day d = c.val;
         d.setDay(3);
     }
 
     public void quax() {
-        /*mutable*/ SimpleCell</*mutable*/ Date> c = new SimpleCell<Date>();
-        /*mutable*/ Date d = c.val;
+        /*mutable*/ SimpleCell</*mutable*/ Day> c = new SimpleCell<Day>();
+        /*mutable*/ Day d = c.val;
         d.setDay(5);
-        Date e = new Date();
+        Day e = new Day();
         c.val = e;
     }
 }

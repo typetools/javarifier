@@ -1,7 +1,7 @@
 The test suite consists of a set of program classes whose source files are in
 tests/ .  The Javarifier is run on each class X, and its output is sent to
-tests/X.output.  This is compared with expected output in tests/X.goal, and the
-test is considered to succeed if the output matches.
+tests/X.jaif.  This is compared with expected output in tests/X.jaif.goal,
+and the test is considered to succeed if the output matches.
 
 To run the test suite, run
 	make
@@ -12,8 +12,8 @@ Javarifier passed and failed will be printed.
 This is the initial framework for running Javarifier tests.  To run all tests, simply go into javarifier/tests and type 'make all'.  This command will:
      - search this directory for every file of the form myClass.goal
      - will run the Javarifier on the matching myClass.class file
-     - compute difference between Javarifier output (myClass.output) and
-        goal file, and put this in a (myClass.diff) file
+     - compute difference between Javarifier output (myClass.jaif) and
+        goal file, and put this in a (myClass.jaif.diff) file
      - output which tests failed and which tests passed
 
 To run just one individual test, type 'make myClass.diff'

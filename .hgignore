@@ -7,14 +7,15 @@ javarifier.zip
 TAGS
 *~
 
+tests/annotated
 tests/*.class
 tests/**/*.class
 tests/*.diff
 tests/**/*.diff
 tests/*.log
 tests/**/*.log
-tests/*.output
-tests/**/*.output
+tests/*.jaif
+tests/**/*.jaif
 sootOutput
 bin/**/*.class
 

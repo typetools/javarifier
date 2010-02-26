@@ -9,6 +9,7 @@ import javarifier.JrType.NullType;
 import javarifier.util.*;
 import soot.*;
 import annotations.*;
+import static annotations.Annotations.typeQualifierMetaAnnotations;
 import annotations.el.*;
 import annotations.util.coll.*;
 import static javarifier.AnnotationLoader.classIsUnmodifiable;
@@ -35,7 +36,8 @@ public class AnnotationStorer {
     "checkers.javari.quals.ReadOnly";
 
   public static final AnnotationDef unmodifiableAnnotationDef =
-    new AnnotationDef(unmodifiableAnnotationName);
+    new AnnotationDef(unmodifiableAnnotationName,
+                      typeQualifierMetaAnnotations);
 
 
   /**
@@ -406,7 +408,7 @@ public class AnnotationStorer {
 
     /**
      * Stores the mutability in the type <code>type</code> into the scene
-     * element code>element</code>.
+     * element <code>element</code>.
      *
      * @param type - the Javari type whose mutability should be stored
      * @param element - the element of the scene library to store the mutability
