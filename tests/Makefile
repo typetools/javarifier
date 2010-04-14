@@ -15,7 +15,7 @@ TOPLEVEL_TYPECHECK_DIFFS :=  $(patsubst %.annotated.goal, annotated/%.typecheck.
 JAVA_FILES := $(wildcard *.java)
 
 JAVARIFIER ?= ../scripts/javarifier
-JAVAC ?= ../../jsr308-langtools/dist/bin/javac
+JAVAC ?= $(CURDIR)/../../jsr308-langtools/dist/bin/javac
 
 .PHONY: default
 default : all
