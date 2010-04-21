@@ -147,7 +147,7 @@ clean : clean-toplevel
 
 .PHONY: showvars
 showvars:
-	echo "JAVAC=${JAVAC}"
-	echo "CLASSPATH=${CLASSPATH}"
-	echo "CHECKERS=${CHECKERS}"
-	echo "JAVA_HOME=${JAVA_HOME}"
+	@echo "JAVAC=${JAVAC}"
+	@echo "CLASSPATH=${CLASSPATH}"
+	@echo "CHECKERS=${CHECKERS}"
+	@echo "JAVA_HOME=${JAVA_HOME}"
