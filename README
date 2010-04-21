@@ -32,6 +32,8 @@ directory we will call JAVARI_ANNOTATION_WORKSPACE:
 BUILDING
 ========
 
+[This is not correct, the other targets have to be built first.]
+
 These commands build Javarifier (after building all projects it depends on):
 
         cd javarifier
