@@ -54,6 +54,8 @@
         message="File ${user.build.properties} file not found."/>
       <property file="${user.build.properties}"/>
 
+      <fail unless="env.JAVA_HOME" message="JAVA_HOME is not set"/>
+
       <path id="sourcepath">
         <pathelement location="src"/>
       </path>
@@ -73,6 +75,7 @@
         <pathelement location="${javarifier}/lib/polyglotclasses-1.3.2.jar"/>
         <pathelement location="${javarifier}/lib/sootclasses-2.2.3.jar"/>
       </path>
+
   </target>
 
   <target name="build-dependencies" depends="init-properties"
