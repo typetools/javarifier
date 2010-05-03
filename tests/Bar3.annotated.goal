@@ -1,7 +1,7 @@
 import checkers.javari.quals.Mutable;
 import checkers.javari.quals.ReadOnly;
 public class Bar3 {
-    public /*readonly*/ String @ReadOnly [/*this-mutable*/] x;
+    public /*readonly*/ @ReadOnly String[/*this-mutable*/] x;
     int i;
 
     public Bar3() @ReadOnly {
