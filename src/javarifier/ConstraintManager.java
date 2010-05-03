@@ -578,8 +578,8 @@ public class ConstraintManager {
         ConstraintTracker.add(lhsMut, rhsMut, new RuntimeException());
 
         if (Options.v().debugConstraintGeneration() || Options.v().debugSubtyping()) {
-            System.out.println("ro : " + lhsRo + " -> " + rhsRo);
-            System.out.println("mut: " + lhsMut + " -> " + rhsMut);
+            System.out.println("  ro : " + lhsRo + " -> " + rhsRo);
+            System.out.println("  mut: " + lhsMut + " -> " + rhsMut);
         }
 
         if (!shouldSkipReadonlyContext()) {
