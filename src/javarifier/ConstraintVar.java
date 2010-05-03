@@ -111,7 +111,7 @@ public class ConstraintVar {
     public String toString() {
         return "<" + value + ": " +
             (value == null ? type : value.getJrType())
-            + type.getIndex() + " " + contextString(context) + ">";
+            + " " + type.getIndex() + " " + contextString(context) + ">";
     }
 
     public int hashCode() {
