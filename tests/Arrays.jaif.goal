@@ -53,8 +53,8 @@ class Arrays:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.Mutable
         local 2 #24+11:
-            type: @checkers.javari.quals.QReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0: @checkers.javari.quals.QReadOnly
         local 3 #28+7:
             type: @checkers.javari.quals.ReadOnly
         local 4 #34+1:

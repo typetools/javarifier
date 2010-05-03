@@ -1,17 +1,17 @@
 package checkers.javari.quals:
-annotation @ReadOnly:
+annotation @ReadOnly: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
 
 package checkers.javari.quals:
-annotation @Mutable:
+annotation @Mutable: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
 
 package checkers.javari.quals:
-annotation @PolyRead:
+annotation @PolyRead: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
 
 package checkers.javari.quals:
-annotation @QReadOnly:
+annotation @QReadOnly: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
 
 package checkers.javari.quals:
-annotation @ThisMutable:
+annotation @ThisMutable: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
 
 package org.htmlparser:
 class Attribute:
@@ -322,11 +322,11 @@ class Node:
 
     method toPlainTextString()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
 
     method toHtml()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
 
     method toString()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
@@ -412,7 +412,7 @@ class Node:
 
     method getText()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
 
     method setText(Ljava/lang/String;)V:
         return:
@@ -770,8 +770,8 @@ class Parser:
             type: @checkers.javari.quals.Mutable
 
     method extractAllNodesThatAre(Ljava/lang/Class;)[Lorg/htmlparser/Node;:
-        return: @checkers.javari.quals.QReadOnly
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
+            inner-type 0: @checkers.javari.quals.QReadOnly
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
@@ -1079,7 +1079,7 @@ class Remark:
 
     method getText()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
 
     method setText(Ljava/lang/String;)V:
         return:
@@ -1236,7 +1236,7 @@ class Text:
 
     method getText()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
 
     method setText(Ljava/lang/String;)V:
         return:
@@ -1271,8 +1271,8 @@ class AndFilter:
         local 2 #0+23:
             type: @checkers.javari.quals.ReadOnly
         local 3 #9+14:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
 
     method getPredicates()[Lorg/htmlparser/NodeFilter;:
         return: @checkers.javari.quals.ReadOnly
@@ -1539,8 +1539,8 @@ class OrFilter:
         local 2 #0+23:
             type: @checkers.javari.quals.ReadOnly
         local 3 #9+14:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
 
     method getPredicates()[Lorg/htmlparser/NodeFilter;:
         return: @checkers.javari.quals.ReadOnly
@@ -1634,8 +1634,8 @@ class ConnectionManager:
             inner-type 0: @checkers.javari.quals.ReadOnly
 
     field BASE64_CHAR_TABLE:
-        type:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ReadOnly
+            inner-type 0:
 
     field mRequestProperties:
         type: @checkers.javari.quals.ThisMutable
@@ -1945,18 +1945,18 @@ class ConnectionManager:
     method encode([B)Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
         parameter #0:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 0 #0+289:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 1 #14+267:
         local 2 #22+259:
         local 3 #29+252:
         local 4 #34+247:
         local 5 #40+241:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 11 #43+238:
         local 13 #48+219:
         local 6 #57+204:
@@ -2535,8 +2535,8 @@ class InputStreamSource:
         type: @checkers.javari.quals.ThisMutable
 
     field mBuffer:
-        type:
-            inner-type 0: @checkers.javari.quals.ThisMutable
+        type: @checkers.javari.quals.ThisMutable
+            inner-type 0:
 
     field mLevel:
 
@@ -2598,8 +2598,8 @@ class InputStreamSource:
             type: @checkers.javari.quals.Mutable
         local 2 #12+20:
         local 3 #18+14:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
 
     method readObject(Ljava/io/ObjectInputStream;)V:
         return:
@@ -2637,12 +2637,12 @@ class InputStreamSource:
         local 3 #18+283:
             type: @checkers.javari.quals.Mutable
         local 4 #24+240:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 5 #30+234:
         local 6 #89+155:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 7 #113+131:
         local 7 #249+15:
             type: @checkers.javari.quals.ReadOnly
@@ -2659,11 +2659,11 @@ class InputStreamSource:
         local 3 #18+128:
         local 4 #39+26:
         local 2 #62+3:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 2 #70+76:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 4 #87+59:
 
     method close()V:
@@ -2685,15 +2685,15 @@ class InputStreamSource:
         return:
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         parameter #1:
         parameter #2:
         local 0 #0+175:
             type: @checkers.javari.quals.Mutable
         local 1 #0+175:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 2 #0+175:
         local 3 #0+175:
         local 4 #128+3:
@@ -2703,13 +2703,13 @@ class InputStreamSource:
         return:
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 0 #0+9:
             type: @checkers.javari.quals.Mutable
         local 1 #0+9:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
 
     method reset()V:
         return:
@@ -2766,27 +2766,27 @@ class InputStreamSource:
         return:
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         parameter #1:
         parameter #2:
         parameter #3:
         local 0 #0+32:
             type: @checkers.javari.quals.Mutable
         local 1 #0+32:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 2 #0+32:
         local 3 #0+32:
         local 4 #0+32:
 
     method getString(II)Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+54:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #0+54:
         local 2 #0+54:
         local 3 #52+2:
@@ -2794,13 +2794,13 @@ class InputStreamSource:
 
     method getCharacters(Ljava/lang/StringBuffer;II)V:
         return:
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
         parameter #2:
         local 0 #0+29:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #0+29:
             type: @checkers.javari.quals.Mutable
         local 2 #0+29:
@@ -2957,9 +2957,9 @@ class Lexer:
 
     method getCurrentLine()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+12:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
 
     method nextNode()Lorg/htmlparser/Node;:
         return: @checkers.javari.quals.Mutable
@@ -3043,111 +3043,111 @@ class Lexer:
 
     method whitespace(Ljava/util/Vector;[I)V:
         return:
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.ReadOnly
         parameter #1:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 0 #0+34:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #0+34:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.ReadOnly
         local 2 #0+34:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
 
     method standalone(Ljava/util/Vector;[I)V:
         return:
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.ReadOnly
         parameter #1:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 0 #0+25:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #0+25:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.ReadOnly
         local 2 #0+25:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
 
     method empty(Ljava/util/Vector;[I)V:
         return:
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.ReadOnly
         parameter #1:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 0 #0+29:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #0+29:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.ReadOnly
         local 2 #0+29:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
 
     method naked(Ljava/util/Vector;[I)V:
         return:
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.ReadOnly
         parameter #1:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 0 #0+29:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #0+29:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.ReadOnly
         local 2 #0+29:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
 
     method single_quote(Ljava/util/Vector;[I)V:
         return:
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.ReadOnly
         parameter #1:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 0 #0+32:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #0+32:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.ReadOnly
         local 2 #0+32:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
 
     method double_quote(Ljava/util/Vector;[I)V:
         return:
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.ReadOnly
         parameter #1:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 0 #0+33:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #0+33:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.ReadOnly
         local 2 #0+33:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
 
     method parseTag(I)Lorg/htmlparser/Node;:
         return: @checkers.javari.quals.ReadOnly
@@ -3162,8 +3162,8 @@ class Lexer:
                 inner-type 0: @checkers.javari.quals.Mutable
         local 4 #14+640:
         local 5 #20+634:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 3 #60+575:
 
     method makeTag(IILjava/util/Vector;)Lorg/htmlparser/Node;:
@@ -3750,11 +3750,11 @@ class Page:
 
     method getText(II)Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+70:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #0+70:
         local 2 #0+70:
         local 3 #12+3:
@@ -3766,13 +3766,13 @@ class Page:
 
     method getText(Ljava/lang/StringBuffer;II)V:
         return:
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
         parameter #2:
         local 0 #0+159:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #0+159:
             type: @checkers.javari.quals.Mutable
         local 2 #0+159:
@@ -3784,17 +3784,17 @@ class Page:
 
     method getText()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+13:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
 
     method getText(Ljava/lang/StringBuffer;)V:
         return:
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+14:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #0+14:
             type: @checkers.javari.quals.Mutable
 
@@ -3802,16 +3802,16 @@ class Page:
         return:
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         parameter #1:
         parameter #2:
         parameter #3:
         local 0 #0+126:
             type: @checkers.javari.quals.Mutable
         local 1 #0+126:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 2 #0+126:
         local 3 #0+126:
         local 4 #0+126:
@@ -3822,11 +3822,11 @@ class Page:
 
     method getLine(Lorg/htmlparser/lexer/Cursor;)Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+92:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #0+92:
             type: @checkers.javari.quals.ReadOnly
         local 2 #6+86:
@@ -3839,17 +3839,17 @@ class Page:
 
     method getLine(I)Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+14:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #0+14:
 
     method toString()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+76:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #20+49:
             type: @checkers.javari.quals.Mutable
         local 2 #31+38:
@@ -3862,7 +3862,7 @@ package org.htmlparser.lexer:
 class PageAttribute:
 
     field mPage:
-        type: @checkers.javari.quals.ThisMutable
+        type: @checkers.javari.quals.ReadOnly
 
     field mNameStart:
 
@@ -3876,7 +3876,7 @@ class PageAttribute:
         return:
         receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         parameter #1:
         parameter #2:
         parameter #3:
@@ -3885,7 +3885,7 @@ class PageAttribute:
         local 0 #0+53:
             type: @checkers.javari.quals.Mutable
         local 1 #0+53:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 2 #0+53:
         local 3 #0+53:
         local 4 #0+53:
@@ -4057,11 +4057,11 @@ class PageAttribute:
 
     method getRawValue(Ljava/lang/StringBuffer;)V:
         return:
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+104:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #0+104:
             type: @checkers.javari.quals.Mutable
         local 2 #20+49:
@@ -4077,11 +4077,11 @@ class PageAttribute:
         return:
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.Mutable
         local 1 #0+6:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
 
     method getNameStartPosition()I:
         return:
@@ -4187,8 +4187,8 @@ class PageIndex:
     field mCount:
 
     field mIndices:
-        type:
-            inner-type 0: @checkers.javari.quals.ThisMutable
+        type: @checkers.javari.quals.ThisMutable
+            inner-type 0:
 
     field mPage:
         type: @checkers.javari.quals.ReadOnly
@@ -4221,15 +4221,15 @@ class PageIndex:
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 0 #0+21:
             type: @checkers.javari.quals.Mutable
         local 1 #0+21:
             type: @checkers.javari.quals.ReadOnly
         local 2 #0+21:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
 
     method getPage()Lorg/htmlparser/lexer/Page;:
         return: @checkers.javari.quals.ReadOnly
@@ -4341,14 +4341,14 @@ class PageIndex:
         local 1 #0+17:
 
     method get()[I:
-        return:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
+            inner-type 0:
         receiver: @checkers.javari.quals.Mutable
         local 0 #0+23:
             type: @checkers.javari.quals.Mutable
         local 1 #7+16:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
 
     method bsearch(I)I:
         return:
@@ -4380,8 +4380,8 @@ class PageIndex:
         local 1 #0+158:
         local 2 #0+158:
         local 3 #37+72:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
 
     method removeElementAt(I)V:
         return:
@@ -4463,8 +4463,8 @@ class Source:
         return:
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         parameter #1:
         parameter #2:
 
@@ -4472,8 +4472,8 @@ class Source:
         return:
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
 
     method ready()Z:
         return:
@@ -4510,21 +4510,21 @@ class Source:
         return:
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         parameter #1:
         parameter #2:
         parameter #3:
 
     method getString(II)Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
 
     method getCharacters(Ljava/lang/StringBuffer;II)V:
         return:
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -4559,8 +4559,8 @@ class Stream:
         type: @checkers.javari.quals.ThisMutable
 
     field mBuffer:
-        type:
-            inner-type 0: @checkers.javari.quals.ThisMutable
+        type: @checkers.javari.quals.ThisMutable
+            inner-type 0:
 
     field mLevel:
 
@@ -4601,19 +4601,19 @@ class Stream:
         local 1 #0+294:
         local 5 #3+291:
         local 3 #71+3:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 3 #116+3:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 3 #124+11:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 2 #132+3:
         local 2 #145+146:
         local 3 #164+127:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 4 #179+112:
 
     method run()V:
@@ -4737,15 +4737,15 @@ class StringSource:
         return:
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         parameter #1:
         parameter #2:
         local 0 #0+95:
             type: @checkers.javari.quals.Mutable
         local 1 #0+95:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 2 #0+95:
         local 3 #0+95:
         local 4 #26+69:
@@ -4756,13 +4756,13 @@ class StringSource:
         return:
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 0 #0+9:
             type: @checkers.javari.quals.Mutable
         local 1 #0+9:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
 
     method ready()Z:
         return:
@@ -4819,16 +4819,16 @@ class StringSource:
         return:
         receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         parameter #1:
         parameter #2:
         parameter #3:
         local 0 #0+49:
             type: @checkers.javari.quals.ReadOnly
         local 1 #0+49:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 2 #0+49:
         local 3 #0+49:
         local 4 #0+49:
@@ -4919,11 +4919,11 @@ class AbstractNode:
 
     method toPlainTextString()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
 
     method toHtml()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
 
     method toString()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
@@ -5066,7 +5066,7 @@ class AbstractNode:
 
     method getText()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+2:
             type: @checkers.javari.quals.ReadOnly
 
@@ -5118,9 +5118,9 @@ class RemarkNode:
 
     method getText()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+52:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #14+31:
         local 2 #21+24:
         local 3 #29+3:
@@ -5142,15 +5142,15 @@ class RemarkNode:
 
     method toPlainTextString()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
 
     method toHtml()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+74:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 2 #23+3:
             type: @checkers.javari.quals.ReadOnly
         local 1 #44+28:
@@ -5444,9 +5444,9 @@ class TagNode:
 
     method getText()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+19:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #5+14:
             type: @checkers.javari.quals.ReadOnly
 
@@ -5545,7 +5545,7 @@ class TagNode:
 
     method toHtml()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+113:
             type: @checkers.javari.quals.ReadOnly
         local 1 #2+111:
@@ -5566,7 +5566,7 @@ class TagNode:
         return: @checkers.javari.quals.ReadOnly
         receiver: @checkers.javari.quals.Mutable
         local 0 #0+182:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #5+177:
             type: @checkers.javari.quals.ReadOnly
         local 5 #21+161:
@@ -5752,9 +5752,9 @@ class TextNode:
 
     method getText()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
 
     method setText(Ljava/lang/String;)V:
         return:
@@ -5768,15 +5768,15 @@ class TextNode:
 
     method toPlainTextString()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
 
     method toHtml()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+27:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #5+22:
             type: @checkers.javari.quals.ReadOnly
 
@@ -5987,37 +5987,37 @@ class ScriptDecoder:
     field LAST_STATE:
 
     field mEncodingIndex:
-        type:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ReadOnly
+            inner-type 0:
 
     field mLookupTable:
-        type:
+        type: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
-            inner-type 1: @checkers.javari.quals.ReadOnly
+            inner-type 1:
 
     field mDigits:
-        type:
-            inner-type 0: @checkers.javari.quals.Mutable
+        type: @checkers.javari.quals.Mutable
+            inner-type 0:
 
     field mLeader:
-        type:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ReadOnly
+            inner-type 0:
 
     field mPrefix:
-        type:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ReadOnly
+            inner-type 0:
 
     field mTrailer:
-        type:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ReadOnly
+            inner-type 0:
 
     field mEscapes:
-        type:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ReadOnly
+            inner-type 0:
 
     field mEscaped:
-        type:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ReadOnly
+            inner-type 0:
 
     method <clinit>()V:
         return:
@@ -6033,11 +6033,11 @@ class ScriptDecoder:
     method decodeBase64([C)J:
         return:
         parameter #0:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 0 #0+125:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 1 #2+123:
 
     method Decode(Lorg/htmlparser/lexer/Page;Lorg/htmlparser/lexer/Cursor;)Ljava/lang/String;:
@@ -6051,8 +6051,8 @@ class ScriptDecoder:
         local 1 #0+838:
             type: @checkers.javari.quals.Mutable
         local 12 #6+832:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 17 #18+820:
             type: @checkers.javari.quals.Mutable
         local 2 #20+818:
@@ -6294,9 +6294,9 @@ class AppletTag:
             type: @checkers.javari.quals.Mutable
         local 9 #23+114:
         local 3 #33+95:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 8 #93+23:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 9 #143+144:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.ReadOnly
@@ -6569,8 +6569,8 @@ class CompositeTag:
         local 1 #0+20:
 
     method getChildrenAsNodeArray()[Lorg/htmlparser/Node;:
-        return: @checkers.javari.quals.QReadOnly
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
+            inner-type 0: @checkers.javari.quals.QReadOnly
         receiver: @checkers.javari.quals.Mutable
         local 0 #0+22:
             type: @checkers.javari.quals.Mutable
@@ -6611,23 +6611,23 @@ class CompositeTag:
         local 3 #5+30:
             type: @checkers.javari.quals.Mutable
         local 2 #15+11:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
 
     method putEndTagInto(Ljava/lang/StringBuffer;)V:
         return:
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+15:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #0+15:
             type: @checkers.javari.quals.Mutable
 
     method toHtml()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+46:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #8+38:
             type: @checkers.javari.quals.Mutable
 
@@ -6734,7 +6734,7 @@ class CompositeTag:
         local 5 #15+45:
             type: @checkers.javari.quals.Mutable
         local 3 #26+24:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
 
     method findPositionOf(Lorg/htmlparser/Node;)I:
         return:
@@ -6785,7 +6785,7 @@ class CompositeTag:
         local 2 #13+31:
             type: @checkers.javari.quals.Mutable
         local 3 #26+9:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
 
     method accept(Lorg/htmlparser/visitors/NodeVisitor;)V:
         return:
@@ -6826,8 +6826,8 @@ class CompositeTag:
             type: @checkers.javari.quals.Mutable
 
     method digupStringNode(Ljava/lang/String;)[Lorg/htmlparser/Text;:
-        return: @checkers.javari.quals.Mutable
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
+            inner-type 0: @checkers.javari.quals.Mutable
         receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
@@ -6845,8 +6845,8 @@ class CompositeTag:
         local 6 #60+34:
             type: @checkers.javari.quals.ReadOnly
         local 7 #68+26:
-            type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0: @checkers.javari.quals.Mutable
         local 8 #71+23:
         local 4 #115+34:
             type: @checkers.javari.quals.Mutable
@@ -6863,17 +6863,17 @@ class CompositeTag:
 
     method getText()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+19:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #5+14:
             type: @checkers.javari.quals.ReadOnly
 
     method getStringText()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+27:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 2 #5+22:
         local 3 #15+12:
         local 1 #25+2:
@@ -7032,9 +7032,9 @@ class DoctypeTag:
 
     method toString()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+58:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #5+53:
             type: @checkers.javari.quals.ReadOnly
 
@@ -7548,9 +7548,9 @@ class JspTag:
 
     method toString()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+58:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #5+53:
             type: @checkers.javari.quals.ReadOnly
 
@@ -7664,9 +7664,9 @@ class LinkTag:
 
     method getLinkText()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+23:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #15+3:
             type: @checkers.javari.quals.ReadOnly
         local 1 #21+2:
@@ -8066,9 +8066,9 @@ class ObjectTag:
             type: @checkers.javari.quals.Mutable
         local 9 #23+112:
         local 3 #33+93:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 8 #93+21:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 9 #141+147:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.ReadOnly
@@ -8328,7 +8328,7 @@ class ScriptTag:
         local 3 #24+30:
             type: @checkers.javari.quals.Mutable
         local 2 #34+11:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
 
     method toString()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
@@ -8392,8 +8392,8 @@ class SelectTag:
         local 1 #8+15:
             type: @checkers.javari.quals.Mutable
         local 2 #16+7:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
 
 package org.htmlparser.tags:
 class Span:
@@ -8460,9 +8460,9 @@ class StyleTag:
 
     method toString()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+50:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 2 #8+42:
             type: @checkers.javari.quals.Mutable
         local 1 #13+37:
@@ -8618,8 +8618,8 @@ class TableRow:
         local 4 #69+48:
             type: @checkers.javari.quals.ReadOnly
         local 5 #108+9:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         local 5 #123+3:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0: @checkers.javari.quals.ReadOnly
@@ -8645,8 +8645,8 @@ class TableRow:
         local 4 #69+48:
             type: @checkers.javari.quals.ReadOnly
         local 5 #108+9:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         local 5 #123+3:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0: @checkers.javari.quals.ReadOnly
@@ -8712,8 +8712,8 @@ class TableTag:
         local 4 #69+48:
             type: @checkers.javari.quals.ReadOnly
         local 5 #108+9:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         local 5 #123+3:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0: @checkers.javari.quals.ReadOnly
@@ -8741,9 +8741,9 @@ class TableTag:
 
     method toString()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+20:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
 
 package org.htmlparser.tags:
 class TextareaTag:
@@ -8909,8 +8909,8 @@ class ChainedException:
             type: @checkers.javari.quals.PolyRead
                 inner-type 0: @checkers.javari.quals.ReadOnly
         local 2 #13+7:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.PolyRead
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
 
     method getMessageList()Ljava/util/Vector;:
         return: @checkers.javari.quals.Mutable
@@ -9170,8 +9170,8 @@ class NodeList:
         local 0 #0+55:
             type: @checkers.javari.quals.Mutable
         local 1 #28+27:
-            type: @checkers.javari.quals.QReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.QReadOnly
 
     method newNodeArrayFor(I)[Lorg/htmlparser/Node;:
         return: @checkers.javari.quals.Mutable
@@ -9203,41 +9203,41 @@ class NodeList:
             type: @checkers.javari.quals.ReadOnly
 
     method toNodeArray()[Lorg/htmlparser/Node;:
-        return: @checkers.javari.quals.QReadOnly
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
+            inner-type 0: @checkers.javari.quals.QReadOnly
         receiver: @checkers.javari.quals.Mutable
         local 0 #0+25:
             type: @checkers.javari.quals.Mutable
         local 1 #9+16:
-            type: @checkers.javari.quals.QReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.QReadOnly
 
     method copyToNodeArray([Lorg/htmlparser/Node;)V:
         return:
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         local 0 #0+15:
             type: @checkers.javari.quals.Mutable
         local 1 #0+15:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
 
     method asString()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+45:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #8+37:
             type: @checkers.javari.quals.Mutable
         local 2 #10+30:
 
     method toHtml()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+45:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #8+37:
             type: @checkers.javari.quals.Mutable
         local 2 #10+30:
@@ -9374,8 +9374,8 @@ class NodeList:
             type: @checkers.javari.quals.ReadOnly
 
     method access$1(Lorg/htmlparser/util/NodeList;)[Lorg/htmlparser/Node;:
-        return: @checkers.javari.quals.PolyRead
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
+            inner-type 0: @checkers.javari.quals.PolyRead
         parameter #0:
             type: @checkers.javari.quals.PolyRead
 
@@ -9511,8 +9511,8 @@ class ParserUtils:
         local 1 #3+40:
 
     method findTypeInNode(Lorg/htmlparser/Node;Ljava/lang/Class;)[Lorg/htmlparser/Node;:
-        return: @checkers.javari.quals.QReadOnly
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
+            inner-type 0: @checkers.javari.quals.QReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -9553,8 +9553,8 @@ class ParserUtils:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0: @checkers.javari.quals.ReadOnly
         local 8 #235+41:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         local 9 #238+35:
 
     method trimButDigits(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;:
@@ -9619,8 +9619,8 @@ class ParserUtils:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0: @checkers.javari.quals.ReadOnly
         local 8 #247+41:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         local 9 #250+35:
 
     method trimSpaces(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;:
@@ -9685,8 +9685,8 @@ class ParserUtils:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0: @checkers.javari.quals.ReadOnly
         local 8 #223+41:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         local 9 #226+35:
 
     method trimButChars(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;:
@@ -9751,8 +9751,8 @@ class ParserUtils:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0: @checkers.javari.quals.ReadOnly
         local 8 #223+41:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         local 9 #226+35:
 
     method trimChars(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;:
@@ -9832,8 +9832,8 @@ class ParserUtils:
         local 7 #31+453:
             type: @checkers.javari.quals.ReadOnly
         local 8 #37+447:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         local 9 #48+436:
             type: @checkers.javari.quals.ReadOnly
         local 10 #51+430:
@@ -9941,8 +9941,8 @@ class ParserUtils:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0: @checkers.javari.quals.ReadOnly
         local 10 #349+42:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         local 11 #352+36:
 
     method trimAllTags(Ljava/lang/String;Z)Ljava/lang/String;:
@@ -10312,22 +10312,22 @@ class Sort:
     method QuickSort([Lorg/htmlparser/util/sort/Ordered;)V:
         return:
         parameter #0:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         local 0 #0+10:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
 
     method QuickSort([Lorg/htmlparser/util/sort/Ordered;II)V:
         return:
         parameter #0:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         parameter #1:
         parameter #2:
         local 0 #0+119:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         local 1 #0+119:
         local 2 #0+119:
         local 3 #2+117:
@@ -10338,13 +10338,13 @@ class Sort:
     method swap([Ljava/lang/Object;II)V:
         return:
         parameter #0:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         parameter #1:
         parameter #2:
         local 0 #0+15:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         local 1 #0+15:
         local 2 #0+15:
         local 3 #4+11:
@@ -10353,22 +10353,22 @@ class Sort:
     method QuickSort([Ljava/lang/String;)V:
         return:
         parameter #0:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         local 0 #0+10:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
 
     method QuickSort([Ljava/lang/String;II)V:
         return:
         parameter #0:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         parameter #1:
         parameter #2:
         local 0 #0+115:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         local 1 #0+115:
         local 2 #0+115:
         local 3 #2+113:
@@ -10412,8 +10412,8 @@ class Sort:
                 inner-type 0: @checkers.javari.quals.ReadOnly
                 inner-type 1: @checkers.javari.quals.ReadOnly
         local 3 #8+72:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         local 1 #13+67:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.ReadOnly

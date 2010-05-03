@@ -1,11 +1,11 @@
 package checkers.javari.quals:
-annotation @ReadOnly:
+annotation @ReadOnly: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
 
 package checkers.javari.quals:
-annotation @Mutable:
+annotation @Mutable: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
 
 package checkers.javari.quals:
-annotation @ThisMutable:
+annotation @ThisMutable: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
 
 package :
 class BiGraph:
@@ -39,11 +39,11 @@ class BiGraph:
         local 1 #0+308:
         local 2 #0+308:
         local 3 #24+284:
-            type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0: @checkers.javari.quals.Mutable
         local 4 #31+277:
-            type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0: @checkers.javari.quals.Mutable
         local 5 #51+32:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.Mutable
@@ -192,12 +192,12 @@ class Node:
             inner-type 0: @checkers.javari.quals.ThisMutable
 
     field fromNodes:
-        type: @checkers.javari.quals.ReadOnly
-            inner-type 0: @checkers.javari.quals.ThisMutable
+        type: @checkers.javari.quals.ThisMutable
+            inner-type 0: @checkers.javari.quals.ReadOnly
 
     field coeffs:
-        type:
-            inner-type 0: @checkers.javari.quals.ThisMutable
+        type: @checkers.javari.quals.ThisMutable
+            inner-type 0:
 
     field fromCount:
 
@@ -220,8 +220,8 @@ class Node:
         local 1 #0+48:
 
     method fillTable(II)[LNode;:
-        return: @checkers.javari.quals.Mutable
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
+            inner-type 0: @checkers.javari.quals.Mutable
         parameter #0:
         parameter #1:
         local 0 #0+60:
@@ -239,13 +239,13 @@ class Node:
         return:
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
-            type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0: @checkers.javari.quals.Mutable
         local 0 #0+100:
             type: @checkers.javari.quals.Mutable
         local 1 #0+100:
-            type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0: @checkers.javari.quals.Mutable
         local 2 #2+97:
         local 5 #19+50:
         local 4 #42+51:
