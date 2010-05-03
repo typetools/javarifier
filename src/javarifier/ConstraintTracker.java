@@ -28,7 +28,7 @@ public class ConstraintTracker {
             System.out.println("Constraint Causes");
             for (Pair<Pair<ConstraintVar, ConstraintVar>, String> cause : causes) {
                 System.out.println(cause.first().first() + " -> " + cause.first().second());
-                System.out.println(cause.second());
+                System.out.println("  " + cause.second());
             }
         }
     }

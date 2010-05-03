@@ -58,9 +58,13 @@ public class TypePrinter extends EmptyTypeVisitor {
     }
 
     public void visitArrayType(ArrayType t) {
+        // The element type
         output.append("(");
         super.visitArrayType(t);
-        output.append(")[" + t.getMutability() + "]");
+        output.append(")");
+        // The array type
+        output.append(t.getMutability());
+        output.append("[]");
     }
 
     public void visitTypeArg(TypeArg t) {
