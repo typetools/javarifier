@@ -169,6 +169,7 @@ public class TypeIndex {
                 for (Pair<VarType, Bound> index : indexes) {
                     buf.append(index.first() + " " + index.second() + ", ");
                 }
+                // remove trailing ", "
                 buf.deleteCharAt(buf.length()-1);
                 buf.deleteCharAt(buf.length()-1);
                 buf.append("]");
