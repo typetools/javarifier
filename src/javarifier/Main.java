@@ -409,9 +409,9 @@ public class Main {
           (outFile == null ? "standard output" : outFile));
 
       try {
-        Writer out =
-          (outFile == null) ? new OutputStreamWriter(System.out)
-        : new FileWriter(outFile);
+        Writer out = ((outFile == null)
+                      ? new OutputStreamWriter(System.out)
+                      : new FileWriter(outFile));
           Scene scene = Scene.v();
           Options.v().outputFormat().write(Scene.v(), out);
           out.close();
