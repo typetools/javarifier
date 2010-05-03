@@ -65,18 +65,18 @@ public enum OutputFormat {
     },
 
     SHAY {
-      @Override
-      public void write(Scene scene, Writer out) throws IOException {
-      Collection<SootClass> classes = collectClasses(scene);
-      AScene ascene = new AScene();
-      for (SootClass clazz : classes)
-          AnnotationStorer.storeAnnotations(clazz, ascene);
-      try {
-          ShayOutput.write(ascene, out);
-      } catch (DefException e) {
-          throw new RuntimeException(e);
-      }
-  }
+        @Override
+            public void write(Scene scene, Writer out) throws IOException {
+            Collection<SootClass> classes = collectClasses(scene);
+            AScene ascene = new AScene();
+            for (SootClass clazz : classes)
+                AnnotationStorer.storeAnnotations(clazz, ascene);
+            try {
+                ShayOutput.write(ascene, out);
+            } catch (DefException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
     ;
     public abstract void write(Scene scene, Writer out) throws IOException;
