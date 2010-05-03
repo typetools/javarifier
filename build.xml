@@ -245,7 +245,8 @@
     </copy>
     <javac destdir="bin" 
            debug="on"
-           fork="true">
+           fork="true"
+           includeantruntime="false">
       <src refid="sourcepath"/>
       <classpath refid="libpath"/>
       <compilerarg value="-J-Xmx1024M"/>
