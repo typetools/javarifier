@@ -1,14 +1,14 @@
 package checkers.javari.quals:
-annotation @ReadOnly:
+annotation @ReadOnly: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
 
 package checkers.javari.quals:
-annotation @Mutable:
+annotation @Mutable: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
 
 package checkers.javari.quals:
-annotation @ThisMutable:
+annotation @ThisMutable: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
 
 package checkers.javari.quals:
-annotation @PolyRead:
+annotation @PolyRead: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
 
 package ORG.as220.tinySQL:
 class Utils:
@@ -20,43 +20,43 @@ class Utils:
             type: @checkers.javari.quals.ReadOnly
 
     method intToLittleEndian(I)[B:
-        return:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
+            inner-type 0:
         parameter #0:
         local 0 #0+34:
         local 1 #4+30:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 2 #6+26:
 
     method shortToLittleEndian(S)[B:
-        return:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
+            inner-type 0:
         parameter #0:
         local 0 #0+35:
         local 1 #4+31:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 2 #6+27:
 
     method vax_to_long([B)D:
         return:
         parameter #0:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 0 #0+48:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 1 #45+3:
 
     method vax_to_short([B)I:
         return:
         parameter #0:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 0 #0+18:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
 
     method fixByte(B)S:
         return:
@@ -64,8 +64,8 @@ class Utils:
         local 0 #0+13:
 
     method forceToSize(Ljava/lang/String;IBLjava/lang/String;)[B:
-        return:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
+            inner-type 0:
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -79,15 +79,15 @@ class Utils:
         local 3 #0+89:
             type: @checkers.javari.quals.ReadOnly
         local 4 #23+66:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 5 #62+27:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
 
     method forceToSize(Ljava/lang/String;IC)[C:
-        return:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
+            inner-type 0:
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -97,12 +97,12 @@ class Utils:
         local 1 #0+74:
         local 2 #0+74:
         local 3 #21+53:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
 
     method forceToSizeLeft(Ljava/lang/String;IBLjava/lang/String;)[B:
-        return:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
+            inner-type 0:
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -116,11 +116,11 @@ class Utils:
         local 3 #0+96:
             type: @checkers.javari.quals.ReadOnly
         local 4 #23+73:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 5 #62+34:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 6 #71+25:
 
     method forceToSizeLeft(Ljava/lang/String;IC)Ljava/lang/String;:
@@ -141,8 +141,8 @@ class Utils:
             type: @checkers.javari.quals.Mutable
         local 5 #75+49:
         local 6 #81+43:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 7 #84+19:
 
     method delFile(Ljava/lang/String;)V:
@@ -237,11 +237,11 @@ class Utils:
             type: @checkers.javari.quals.Mutable
         local 3 #14+345:
         local 4 #20+339:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         local 5 #25+334:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 6 #28+55:
         local 6 #92+267:
             type: @checkers.javari.quals.Mutable
@@ -326,9 +326,9 @@ class ParseException:
         type: @checkers.javari.quals.ReadOnly
 
     field expectedTokenSequences:
-        type:
+        type: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
-            inner-type 1: @checkers.javari.quals.ReadOnly
+            inner-type 1:
 
     field tokenImage:
         type: @checkers.javari.quals.ReadOnly
@@ -343,9 +343,9 @@ class ParseException:
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
-            type:
+            type: @checkers.javari.quals.ReadOnly
                 inner-type 0: @checkers.javari.quals.ReadOnly
-                inner-type 1: @checkers.javari.quals.ReadOnly
+                inner-type 1:
         parameter #2:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0: @checkers.javari.quals.ReadOnly
@@ -354,9 +354,9 @@ class ParseException:
         local 1 #0+38:
             type: @checkers.javari.quals.ReadOnly
         local 2 #0+38:
-            type:
+            type: @checkers.javari.quals.ReadOnly
                 inner-type 0: @checkers.javari.quals.ReadOnly
-                inner-type 1: @checkers.javari.quals.ReadOnly
+                inner-type 1:
         local 3 #0+38:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0: @checkers.javari.quals.ReadOnly
@@ -423,12 +423,12 @@ class SimpleCharStream:
     field bufpos:
 
     field bufline:
-        type:
-            inner-type 0: @checkers.javari.quals.ThisMutable
+        type: @checkers.javari.quals.ThisMutable
+            inner-type 0:
 
     field bufcolumn:
-        type:
-            inner-type 0: @checkers.javari.quals.ThisMutable
+        type: @checkers.javari.quals.ThisMutable
+            inner-type 0:
 
     field column:
 
@@ -442,8 +442,8 @@ class SimpleCharStream:
         type: @checkers.javari.quals.ThisMutable
 
     field buffer:
-        type:
-            inner-type 0: @checkers.javari.quals.ThisMutable
+        type: @checkers.javari.quals.ThisMutable
+            inner-type 0:
 
     field maxNextCharInd:
 
@@ -457,14 +457,14 @@ class SimpleCharStream:
             type: @checkers.javari.quals.Mutable
         local 1 #0+359:
         local 2 #11+348:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 3 #22+337:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 4 #34+325:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 5 #320+13:
             type: @checkers.javari.quals.ReadOnly
 
@@ -705,21 +705,21 @@ class SimpleCharStream:
 
     method GetImage()Ljava/lang/String;:
         return: @checkers.javari.quals.Mutable
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+97:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
 
     method GetSuffix(I)[C:
-        return:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
+            inner-type 0:
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
         local 0 #0+90:
             type: @checkers.javari.quals.Mutable
         local 1 #0+90:
         local 2 #4+86:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
 
     method Done()V:
         return:
@@ -763,32 +763,32 @@ class TinySQLParser:
     field jj_gen:
 
     field jj_la1:
-        type:
-            inner-type 0: @checkers.javari.quals.ThisMutable
+        type: @checkers.javari.quals.ThisMutable
+            inner-type 0:
 
     field jj_la1_0:
-        type:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ReadOnly
+            inner-type 0:
 
     field jj_la1_1:
-        type:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ReadOnly
+            inner-type 0:
 
     field jj_la1_2:
-        type:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ReadOnly
+            inner-type 0:
 
     field jj_la1_3:
-        type:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ReadOnly
+            inner-type 0:
 
     field jj_expentries:
         type: @checkers.javari.quals.ThisMutable
             inner-type 0: @checkers.javari.quals.ReadOnly
 
     field jj_expentry:
-        type:
-            inner-type 0: @checkers.javari.quals.ThisMutable
+        type: @checkers.javari.quals.ThisMutable
+            inner-type 0:
 
     field jj_kind:
 
@@ -1518,16 +1518,16 @@ class TinySQLParser:
         local 0 #0+273:
             type: @checkers.javari.quals.Mutable
         local 1 #12+261:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 2 #14+16:
         local 2 #51+116:
         local 3 #69+89:
         local 2 #169+43:
         local 2 #224+49:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
-                inner-type 1: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 1:
         local 3 #226+31:
 
     method enable_tracing()V:
@@ -1823,39 +1823,39 @@ class TinySQLParserTokenManager:
         type: @checkers.javari.quals.ReadOnly
 
     field jjbitVec0:
-        type:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ReadOnly
+            inner-type 0:
 
     field jjnextStates:
-        type:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ReadOnly
+            inner-type 0:
 
     field jjstrLiteralImages:
-        type: @checkers.javari.quals.Mutable
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ReadOnly
+            inner-type 0: @checkers.javari.quals.Mutable
 
     field lexStateNames:
         type: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
 
     field jjtoToken:
-        type:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ReadOnly
+            inner-type 0:
 
     field jjtoSkip:
-        type:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ReadOnly
+            inner-type 0:
 
     field input_stream:
         type: @checkers.javari.quals.ThisMutable
 
     field jjrounds:
-        type:
-            inner-type 0: @checkers.javari.quals.ThisMutable
+        type: @checkers.javari.quals.ThisMutable
+            inner-type 0:
 
     field jjstateSet:
-        type:
-            inner-type 0: @checkers.javari.quals.ThisMutable
+        type: @checkers.javari.quals.ThisMutable
+            inner-type 0:
 
     field curChar:
 
@@ -2206,9 +2206,9 @@ class TinySQLParserTokenManager:
 
     method jjFillToken()LORG/as220/tinySQL/parser/Token;:
         return: @checkers.javari.quals.Mutable
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+90:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 1 #8+82:
             type: @checkers.javari.quals.Mutable
         local 2 #25+65:
@@ -3593,8 +3593,8 @@ class Expression:
         local 3 #19+19:
             type: @checkers.javari.quals.ReadOnly
         local 2 #58+113:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 3 #60+41:
         local 4 #76+11:
             type: @checkers.javari.quals.ReadOnly
@@ -5141,15 +5141,15 @@ class SQLStatementBatch:
             type: @checkers.javari.quals.Mutable
 
     method executeAll()[I:
-        return:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
+            inner-type 0:
         receiver: @checkers.javari.quals.Mutable
         local 0 #0+71:
             type: @checkers.javari.quals.Mutable
         local 1 #8+63:
         local 2 #12+59:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 3 #14+55:
         local 4 #30+31:
             type: @checkers.javari.quals.Mutable
@@ -5694,12 +5694,12 @@ class WhereClause:
     field evaluatedOnce:
 
     field cache:
-        type: @checkers.javari.quals.ReadOnly
-            inner-type 0: @checkers.javari.quals.ThisMutable
+        type: @checkers.javari.quals.ThisMutable
+            inner-type 0: @checkers.javari.quals.ReadOnly
 
     field cachePos:
-        type:
-            inner-type 0: @checkers.javari.quals.ThisMutable
+        type: @checkers.javari.quals.ThisMutable
+            inner-type 0:
 
     method <init>(LORG/as220/tinySQL/sqlparser/ConditionalStatement;)V:
         return:
@@ -6005,8 +6005,8 @@ class tinySQL:
         local 8 #70+109:
             type: @checkers.javari.quals.Mutable
         local 9 #80+99:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
         local 10 #83+29:
         local 10 #118+32:
         local 4 #185+40:
@@ -7360,14 +7360,14 @@ class tinySQLPreparedStatement:
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
         parameter #1:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 0 #0+20:
             type: @checkers.javari.quals.Mutable
         local 1 #0+20:
         local 2 #0+20:
-            type:
-                inner-type 0: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.Mutable
+                inner-type 0:
         local 3 #14+6:
             type: @checkers.javari.quals.Mutable
 
@@ -7843,8 +7843,8 @@ class tinySQLResultSet:
             type: @checkers.javari.quals.ReadOnly
 
     method getBytes(I)[B:
-        return:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
+            inner-type 0:
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
         local 0 #0+30:
@@ -8052,8 +8052,8 @@ class tinySQLResultSet:
         local 2 #0+11:
 
     method getBytes(Ljava/lang/String;)[B:
-        return:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
+            inner-type 0:
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
@@ -8463,14 +8463,14 @@ class tinySQLResultSet:
         receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 0 #0+11:
             type: @checkers.javari.quals.ReadOnly
         local 1 #0+11:
         local 2 #0+11:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
 
     method updateDate(ILjava/sql/Date;)V:
         return:
@@ -8704,15 +8704,15 @@ class tinySQLResultSet:
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
         local 0 #0+11:
             type: @checkers.javari.quals.ReadOnly
         local 1 #0+11:
             type: @checkers.javari.quals.ReadOnly
         local 2 #0+11:
-            type:
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0:
 
     method updateDate(Ljava/lang/String;Ljava/sql/Date;)V:
         return:
@@ -9073,8 +9073,8 @@ class tinySQLResultSetMetaData:
         type: @checkers.javari.quals.ReadOnly
 
     field colDefs:
-        type: @checkers.javari.quals.ReadOnly
-            inner-type 0: @checkers.javari.quals.ThisMutable
+        type: @checkers.javari.quals.ThisMutable
+            inner-type 0: @checkers.javari.quals.ReadOnly
 
     field size:
 
@@ -9578,8 +9578,8 @@ class tinySQLStatement:
             type: @checkers.javari.quals.Mutable
 
     method executeBatch()[I:
-        return:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
+            inner-type 0:
         receiver: @checkers.javari.quals.Mutable
         local 0 #0+8:
             type: @checkers.javari.quals.Mutable
@@ -10541,12 +10541,12 @@ class tsRawRow:
 
     method putNative(ILjava/lang/Object;)V:
         return:
-        receiver: @checkers.javari.quals.ReadOnly
+        receiver: @checkers.javari.quals.Mutable
         parameter #0:
         parameter #1:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+18:
-            type: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.Mutable
         local 1 #0+18:
         local 2 #0+18:
             type: @checkers.javari.quals.ReadOnly
@@ -10625,12 +10625,12 @@ class tsResultRow:
             inner-type 0: @checkers.javari.quals.ThisMutable
 
     field translationTable:
-        type:
-            inner-type 0: @checkers.javari.quals.ThisMutable
+        type: @checkers.javari.quals.ThisMutable
+            inner-type 0:
 
     field evalStack:
-        type:
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ThisMutable
+            inner-type 0:
 
     method <init>(Ljava/util/Vector;)V:
         return:
@@ -11077,12 +11077,12 @@ package ORG.as220.tinySQL:
 class tsWeakPhysicalRow:
 
     field views:
-        type: @checkers.javari.quals.ThisMutable
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ReadOnly
+            inner-type 0: @checkers.javari.quals.ThisMutable
 
     field viewPositions:
-        type:
-            inner-type 0: @checkers.javari.quals.ThisMutable
+        type: @checkers.javari.quals.ThisMutable
+            inner-type 0:
 
     method put(ILjava/lang/Object;)V:
         return:
@@ -11169,8 +11169,8 @@ package ORG.as220.tinySQL.util:
 class ArrayEnumeration:
 
     field objectarray:
-        type: @checkers.javari.quals.ThisMutable
-            inner-type 0: @checkers.javari.quals.ReadOnly
+        type: @checkers.javari.quals.ReadOnly
+            inner-type 0: @checkers.javari.quals.ThisMutable
 
     field counter:
 
@@ -11178,13 +11178,13 @@ class ArrayEnumeration:
         return:
         receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
-            type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0: @checkers.javari.quals.Mutable
         local 0 #0+34:
             type: @checkers.javari.quals.Mutable
         local 1 #0+34:
-            type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.ReadOnly
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0: @checkers.javari.quals.Mutable
 
     method hasMoreElements()Z:
         return:
