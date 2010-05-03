@@ -10,7 +10,7 @@
 SHELL = /bin/sh
 
 TOPLEVEL_DIFFS := $(patsubst %.goal, %.diff, $(wildcard *.goal))
-TOPLEVEL_TYPECHECK_DIFFS :=  $(patsubst %.annotated.goal, annotated/%.typecheck.diff, $(wildcard *.annotated.goal))
+TOPLEVEL_TYPECHECK_DIFFS :=  $(patsubst %.annotated.goal, %.typecheck.diff, $(wildcard *.annotated.goal))
 
 JAVA_FILES := $(wildcard *.java)
 
@@ -120,9 +120,9 @@ annotated/%.java: %.java %.jaif %.class
 
 ## Why doesn't -sourcepath version work for finding the JDK??
 
-annotated/%.typecheck.diff: annotated/%.java
+%.typecheck.diff: annotated/%.java
 # ".." in classpath is for helper classes like Cell.
-	set -o pipefail && cd annotated && $(JAVAC) -processor checkers.javari.JavariChecker -Xbootclasspath/p:${CHECKERS}/jdk/javari/jdk.jar -classpath .:${CLASSPATH} -implicit:class $*.java 2>&1 | tee $*.typecheck.diff
+	set -o pipefail && $(JAVAC) -processor checkers.javari.JavariChecker -Xbootclasspath/p:${CHECKERS}/jdk/javari/jdk.jar -classpath annotated:${CLASSPATH} -implicit:class annotated/$*.java 2>&1 | tee $*.typecheck.diff
 
 
 # Remove all .diff, .log files from the tests directory,
