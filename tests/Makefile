@@ -24,8 +24,11 @@ default : all
 all : toplevel jolden htmlparser tinySQL eclipsec results
 
 .PHONY: toplevel
-toplevel: $(TOPLEVEL_DIFFS)
-toplevel-all: $(TOPLEVEL_DIFFS) $(TOPLEVEL_TYPECHECK_DIFFS)
+toplevel: toplevel-diffs
+toplevel-all: toplevel-diffs toplevel-typecheck 
+toplevel-diffs: $(TOPLEVEL_DIFFS)
+# TODO: add typecheck targets to the subprojects
+toplevel-typecheck: $(TOPLEVEL_TYPECHECK_DIFFS)
 
 
 ## I'm hoping this is not necessary, because a change to any file then
