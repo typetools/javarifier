@@ -32,9 +32,9 @@ results: ../VerifyDiffs.class
 ${TESTNAME}.jaif: ../../javarifier.jar
 	${JAVARIFIER} \
 	-programCPEntries . \
+	-useWorldAsStubs \
 	-output $@ \
 	-outputFormat annotationIndexFile \
-	-stubs ${JAVA_HOME}/jre/lib/rt.jar \
 	${MAINCLASS} \
 	2>&1 | tee ${TESTNAME}.log
 
