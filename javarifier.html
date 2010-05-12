@@ -268,12 +268,16 @@ the classpath of your JDK jarfiles.  For example:
 <p>A stub class gives Javari types for an external library.
 The <a href="http://types.cs.washington.edu/checker-framework/">Checker
 Framework</a> comes with annotated versions of part of the JDK,
-which Javarifier uses.
+which Javarifier uses by default.
 </p>
 
-<p>If you get the error "Attempted to resolve signatures for WORLD class ...",
-then your stub library is missing the given class, or you have not
-specified the stub library location properly.
+<p>
+To inform Javari of additional stub classes (or
+fully-annotated Javari classes), use the <code>-stubs</code> argument,
+    followed by a classpath  to containing stub classes.  All classes
+    found in that classpath will be treated as stub classes.  For
+    example:
+    <pre><code> javarifier myPackage.myClassOne myPackage.myClassTwo -stubs /path/to/stubs/dir:/path/to/stubs.jar</code></pre>
 </p>
 
 <p>
@@ -284,13 +288,9 @@ The <code>-printStubs</code> flag causes Javarifier not to perform
 inference, but only to output a list of classes for which stubs are needed.
 </p>
 
-<p>
-To inform Javari of additional stub classes (or
-fully-annotated Javari classes), use the <code>-stubs</code> argument,
-    followed by a classpath  to containing stub classes.  All classes
-    found in that classpath will be treated as stub classes.  For
-    example:
-    <pre><code> javarifier myPackage.myClassOne myPackage.myClassTwo -stubs /path/to/stubs/dir:/path/to/stubs.jar</code></pre>
+<p>If you get the error "Attempted to resolve signatures for WORLD class ...",
+then your stub library is missing the given class, or you have not
+specified the stub library location properly.
 </p>
 
 <p>
@@ -505,7 +505,7 @@ Javarifier now works on the Eclipse compiler, which is over
 <hr/>
 
 <p>
-Last revised: February 25, 2010
+Last revised: May 11, 2010
 </p>
 
 </body>
