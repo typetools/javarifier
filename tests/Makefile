@@ -77,7 +77,6 @@ scene-lib.jaif :
 	cd ${ANNOTATION_SCENE_LIB} && ant bin
 	cd .. && ./javarify.sh \
 	${ANNOTATION_SCENE_LIB}/bin \
-	-stubs ${SOOT_STUBS} \
 	-world ${JRE1_6_0} \
 	-output tests/scene-lib.jaif \
 	-outputFormat annotationIndexFile \
