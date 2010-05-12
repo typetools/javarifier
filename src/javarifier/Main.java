@@ -167,10 +167,12 @@ public class Main {
     try {
       soot.Main.main(args);
     } catch(Exception e) {
+      System.out.println("Soot args: " + Arrays.toString(args));
       System.out.println("Javarifier exception: " + e);
       e.printStackTrace();
       System.exit(1);
     } catch(Error e) {
+      System.out.println("Soot args: " + Arrays.toString(args));
       System.out.println("Javarifier Error: " + e);
       e.printStackTrace();
       System.exit(1);
