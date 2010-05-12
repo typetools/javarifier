@@ -1,0 +1,6 @@
+import checkers.javari.quals.ReadOnly;
+public class EmptyBody {
+    public static void main (@ReadOnly String @ReadOnly [] args) {
+        // noop!
+    }
+}
