@@ -98,6 +98,9 @@ VerifyDiffs.class : VerifyDiffs.java
 
 # Actually runs the Javarifier to create the inferences.
 .PRECIOUS: %.jaif
+# TODO: Add
+#	$(shell cat $*.options) \
+# to the below command.  This will only affect OpenWorld.java for now
 %.jaif: %.class ../javarifier.jar
 	rm -f $@
 	${JAVARIFIER} \
