@@ -369,9 +369,7 @@ public class SootResolver
         // begin Javarifier
         if (SourceLocator.v().entryKindForClass(sc.getName())
                 == EntryKind.WORLD) {
-          throw new RuntimeException("Attempted to resolve signatures for "
-                  + "WORLD class " + sc.getName() + ".\n"
-                  + "That probably means you need to write a stub for it.");
+          throw new RuntimeException("Missing stub for class " + sc.getName());
         }
         // end Javarifier
         bringToHierarchy(sc);
