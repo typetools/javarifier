@@ -26,11 +26,16 @@ public class Options {
     private String programCPEntries = null;
     public String getProgramCPEntries() { return programCPEntries; }
     
+    // Note that the default StubCPEntries are always used, no matter what
+    // the stubCPEntries are.
     private String stubCPEntries = "";
     public String getStubCPEntries() { 
       return defaultStubCPEntries + 
              System.getProperty("path.separator") + 
-             stubCPEntries; 
+             stubCPEntries +
+             (useWorldAsStubs()
+              ? (System.getProperty("path.separator") + getWorldCPEntries())
+              : ""); 
     }
 
     private String worldCPEntries = "";
@@ -48,6 +53,14 @@ public class Options {
     
     private String outputFile = null;
     public String getOutputFile() { return outputFile; }
+
+    /**
+     * If false (the default), then missing stubs cause Javarifier to halt.
+     * If true, then Javarifier uses world classes as stubs, after both the
+     * default stub entries and the stub entries.
+     */
+    private boolean useWorldAsStubs = false;
+    public boolean useWorldAsStubs() { return useWorldAsStubs; }
 
     private OutputFormat outputFormat = OutputFormat.ANNOTATION_INDEX_FILE;
     public OutputFormat outputFormat() { return outputFormat; }
@@ -221,7 +234,8 @@ public class Options {
     
     public String[] processCmdLine(String[] args) {
 
-        for (int i = 0; i <  args.length; i++) {
+        for (int i = 0; i < args.length && args.length > 0; i++) {
+          // System.out.printf("i: %d, args: %s%n", i, Arrays.toString(args));
           i = Math.max(0, i); 
           // in case last argument parsed was at the very beginning of the 
           // array, in which case it and possibly the next arg have been removed
@@ -253,6 +267,11 @@ public class Options {
                             "Unrecognized output format " + outputFormatStr);
                 args = removeArgs(args, i, 2);
                 i--;
+                i--;
+            } else
+            if (args[i].equals("-useWorldAsStubs")) {
+                useWorldAsStubs = true;
+                args = removeArgs(args, i, 1);
                 i--;
             } else
             if (args[i].equals("-outputFilterLocals")) {
