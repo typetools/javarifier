@@ -17,6 +17,8 @@ JAVA_FILES := $(wildcard *.java)
 JAVARIFIER ?= ../scripts/javarifier
 JAVAC ?= $(CURDIR)/../../jsr308-langtools/dist/bin/javac
 
+AFU ?= ../../annotation-tools/annotation-file-utilities/scripts
+
 .PHONY: default
 default : all
 
@@ -121,7 +123,7 @@ VerifyDiffs.class : VerifyDiffs.java
 
 .PRECIOUS: annotated/%.java
 annotated/%.java: %.java %.jaif %.class
-	CLASSPATH=${CLASSPATH}:. insert-annotations-to-source -o @checkers.javari.quals.ThisMutable $*.jaif  $*.java
+	CLASSPATH=${CLASSPATH}:. $(AFU)/insert-annotations-to-source -o @checkers.javari.quals.ThisMutable $*.jaif  $*.java
 
 ## Why doesn't -sourcepath version work for finding the JDK??
 
