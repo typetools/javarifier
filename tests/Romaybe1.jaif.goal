@@ -1,0 +1,71 @@
+package checkers.javari.quals:
+annotation @ReadOnly: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
+
+package checkers.javari.quals:
+annotation @PolyRead: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
+
+package checkers.javari.quals:
+annotation @Mutable: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
+
+package :
+class Romaybe1:
+
+    method <init>()V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5:
+            type: @checkers.javari.quals.ReadOnly
+
+    method id(LRomaybe1$Day;)LRomaybe1$Day;:
+        return: @checkers.javari.quals.PolyRead
+        receiver: @checkers.javari.quals.ReadOnly
+        parameter #0:
+            type: @checkers.javari.quals.PolyRead
+        local 0 #0+2:
+            type: @checkers.javari.quals.ReadOnly
+        local 1 #0+2:
+            type: @checkers.javari.quals.PolyRead
+
+    method foo(LRomaybe1$Day;)V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        parameter #0:
+            type: @checkers.javari.quals.Mutable
+        local 0 #0+10:
+            type: @checkers.javari.quals.ReadOnly
+        local 1 #0+10:
+            type: @checkers.javari.quals.Mutable
+
+package :
+class Romaybe1$Day:
+
+    field day:
+
+    method <init>()V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5:
+            type: @checkers.javari.quals.ReadOnly
+
+    method <init>(I)V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        parameter #0:
+        local 0 #0+10:
+            type: @checkers.javari.quals.Mutable
+        local 1 #0+10:
+
+    method getDay()I:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5:
+            type: @checkers.javari.quals.ReadOnly
+
+    method setDay(I)V:
+        return:
+        receiver: @checkers.javari.quals.Mutable
+        parameter #0:
+        local 0 #0+6:
+            type: @checkers.javari.quals.Mutable
+        local 1 #0+6:
+
