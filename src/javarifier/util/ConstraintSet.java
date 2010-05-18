@@ -246,6 +246,7 @@ public class ConstraintSet<T extends javarifier.ConstraintVar>
             // Constraint not already satisfied, add to single guarded
             // constraint set for future consideration.
             guarded.put(b, c);
+            c.addCause(new Pair<javarifier.ConstraintVar, javarifier.ConstraintVar>(a,b));
           }
         }
       }

@@ -43,7 +43,7 @@ import soot.jimple.toolkits.callgraph.CallGraphBuilder;
  * The HeuristicsVisitor visits a Scene and hueristically sets
  * fields that should be excluded from the abstract state of the object
  * to be assignable.  (There are no heuristics yet for inferring
- * the mutable field annotation, but if they could be implemented here if
+ * the mutable field annotation, but they could be implemented here if
  * they existed.)
  * It will modify the Scene by calling SootField.setAssignable(true)
  * on each SootField that should be assignable.  This class is a visitor
@@ -63,7 +63,7 @@ import soot.jimple.toolkits.callgraph.CallGraphBuilder;
  *      containing class and thus form part of the specification
  *      of that class.
  *      Fields that are final should not be set to assignable because then
- *      the assignable annotation is meaningless, and this heuristic would
+ *      the assignable annotation is meaningless,  this heuristic would
  *      lead to a large number of fields that are supposed to represent
  *      constants to be inferred as assignable
  *      Also, only instance fields may inferred to be assignable;
