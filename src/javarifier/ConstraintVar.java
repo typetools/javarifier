@@ -7,8 +7,11 @@ package javarifier;
  */
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 import javarifier.JrType.MutType;
+import javarifier.util.Pair;
 
 public class ConstraintVar {
 
@@ -22,6 +25,7 @@ public class ConstraintVar {
         this.value = value;
         this.type = type;
         this.context = context;
+        this.evidence = new VarEvidence();
         checkRep();
     }
 
@@ -62,16 +66,19 @@ public class ConstraintVar {
     }
 
     // For debugging
-    private ConstraintVar cause;
+    public VarEvidence evidence;
     public void addCause(ConstraintVar c) {
-        if (cause == null) {
-            cause = c;
-        }
+	if(evidence != null) evidence.add(c);
     }
-    public ConstraintVar getCause() {
-        return cause;
+    public void addCause(Pair<ConstraintVar,ConstraintVar> c) {
+	if(evidence != null) evidence.add(c);
     }
-
+    public VarEvidence getEvidence() {
+	return evidence;
+    }
+    public void setSource(SourceCause c) {
+        if(evidence != null) evidence.setCause(c);
+    }
 
     private static boolean eq(Object o1, Object o2) {
         return (o1 == o2) || (o1 != null && o1.equals(o2));

@@ -12,6 +12,7 @@ import soot.SootClass;
 import soot.SootField;
 import soot.SootMethod;
 import soot.Value;
+import soot.BriefUnitPrinter;
 import soot.jimple.ArrayRef;
 import soot.jimple.AssignStmt;
 import soot.jimple.CastExpr;
@@ -106,11 +107,11 @@ public class ConstraintGenerator extends SceneVisitor {
                     System.out.println("caseAssignStmt: " + stmt);
                 }
 
-                defaultCase(stmt);
+                SourceLocation loc = new SourceLocation(enclosingMethod, stmt);
+                defaultCase(stmt, loc);
 
                 Value lhs = stmt.getLeftOp();
                 Value rhs = stmt.getRightOp();
-
 
                 boolean missingLhsBaseType = false;
                 String missingLhsBaseTypeMessage = "";
@@ -128,13 +129,12 @@ public class ConstraintGenerator extends SceneVisitor {
                         if (missingDebugInfo.add(noDebugClass)) {
                             System.err.println(errorMessage);
                         }
-                        //TODO:
                         missingLhsBaseType = true;
                         missingLhsBaseTypeMessage = errorMessage;
                         //throw new RuntimeException(errorMessage);
                     }
                 }
-
+            
                 if (lhs instanceof Local &&
                     rhs instanceof Constant) {
                     // x = 1 : none
@@ -151,11 +151,18 @@ public class ConstraintGenerator extends SceneVisitor {
 
                     JrType xType = x.getJrType();
 
+                    String xName = x.getName();
+
                     // TODO: missing lhs?
                     if (xType != null) {
-
-                        if (! ((InstanceFieldRef) lhs).getField().assignable()) {
-                            cm.mutable3(x, xType);
+                        SootField field = ((InstanceFieldRef) lhs).getField();
+                        String tName = field.getDeclaringClass().getShortName();
+                        if (!field.assignable()) {
+                            // TODO: Check that message makes sense in the wild
+                            String fName = field.getName();
+                            SourceCause cause = new SourceCause(loc, xName + "." + fName + " = " + "CONSTANT;",
+                                 xName + " is mutable, since " + tName + "." +  fName + " isn't assignable" );
+                            cm.mutable3(x, xType, cause);
                         }
                     }
 
@@ -169,8 +176,15 @@ public class ConstraintGenerator extends SceneVisitor {
                     JrType xType = x.getJrType();
                     JrType yType = y.getJrType();
 
+                    String xName = x.getName();
+                    String yName = y.getName();
+
+                    // TODO: Check that message makes sense in the wild
+                    SourceCause cause = new SourceCause(loc, xName + " = " + yName,
+                        "\"" + yName + "\" must be mutable because \"" + xName + "\" is");
+                
                     cm.subtype(y, yType,
-                               x, xType);
+                           x, xType, cause);
 
                 } else if (lhs instanceof StaticFieldRef &&
                            rhs instanceof Local) {
@@ -182,8 +196,16 @@ public class ConstraintGenerator extends SceneVisitor {
                     JrType sfType = sf.getJrType();
                     JrType yType = y.getJrType();
 
+                    String tName = sf.getDeclaringClass().getShortName();
+                    String sfName = sf.getName();
+                    String yName = y.getName();
+
+                    // TODO: Check that message makes sense in the wild
+                    SourceCause cause = new SourceCause(loc, tName + "." + sfName + " = " + yName,
+                        "\"" + yName + "\" must be mutable because \"" + sfName + "\" is");
+                
                     cm.subtype(y, yType,
-                               sf, sfType);
+                           sf, sfType, cause);
 
                 } else if (lhs instanceof Local &&
                            rhs instanceof StaticFieldRef) {
@@ -195,8 +217,16 @@ public class ConstraintGenerator extends SceneVisitor {
                     JrType xType = x.getJrType();
                     JrType sfType = sf.getJrType();
 
+                    String xName = x.getName();
+                    String tName = sf.getDeclaringClass().getShortName();
+                    String sfName = sf.getName();
+                    
+                    // TODO: Check that message makes sense in the wild
+                    SourceCause cause = new SourceCause(loc, xName + " = " + tName + "." + sfName,
+                        "\"" + sfName + "\" must be mutable because \"" + xName + "\" is");
+                
                     cm.subtype(sf, sfType,
-                               x,  xType);
+                            x,  xType, cause);
 
 
                 } else if (lhs instanceof InstanceFieldRef &&
@@ -212,15 +242,24 @@ public class ConstraintGenerator extends SceneVisitor {
                     JrType fType = f.getJrType();
                     JrType yType = y.getJrType();
 
+                    String xName = x.getName();
+                    String fName = f.getName();
+                    String tName = f.getDeclaringClass().getShortName();
+                    String yName = y.getName();
+
+                    String st = xName + "." + fName + " = " + yName + ";";
+
                     // TODO: missing lhs
                     // TODO: assert that if anyone is null, you don't have to do anything
                     if (xType != null) {
                         if (! f.assignable()) {
-                            cm.mutable3(x, xType);
+                            cm.mutable3(x, xType, new SourceCause(loc, st,
+                                    "\"" + xName + "\" is mutable, since \"" + tName + "." + fName + "\" isn't assignable"));
                         }
 
                         cm.subtype2(null,  null, y, yType,
-                                    x,    xType, f, fType);
+                                    x,    xType, f, fType, new SourceCause(loc, st,
+                                    "\"" + yName + "\" is mutable if \"" + tName + "." + fName + "\" is"));
                     }
 
 
@@ -236,8 +275,18 @@ public class ConstraintGenerator extends SceneVisitor {
                     JrType yType = y.getJrType();
                     JrType fType = f.getJrType();
 
+                    String xName = x.getName();
+                    String yName = y.getName();
+                    String tName = f.getDeclaringClass().getShortName();
+                    String fName = f.getName();
+                    
+                    // TODO: Check that message makes sense in the wild
+                    SourceCause cause = new SourceCause(loc, xName + " = " + yName + "." + fName,
+                        "means that \"" + tName + "." + fName + "\" must be mutable because \"" + xName + "\" is, " +
+                        " and if \"" + tName + "." + fName + "\" isn't mutable, then \"" + yName + "\" must be mutable because \"" + xName + "\" is.");
+                
                     cm.subtype2(   y, yType, f, fType,
-                                   null,  null, x, xType);
+                        null,  null, x, xType, cause);
 
 
                 } else if (lhs instanceof Local &&
@@ -245,34 +294,44 @@ public class ConstraintGenerator extends SceneVisitor {
                     // x = (Type) y : y? < x?
 
                     if (lhs instanceof Local && ((CastExpr) rhs).getOp() instanceof Local) {
-        		Local x = (Local) lhs;
-        		Local y = (Local) ((CastExpr) rhs).getOp();
+                		Local x = (Local) lhs;
+                		Local y = (Local) ((CastExpr) rhs).getOp();
 
-        		JrType xType = x.getJrType();
-        		JrType yType = y.getJrType();
+                		JrType xType = x.getJrType();
+                		JrType yType = y.getJrType();
 
-        		cm.subtype(y, yType,
-                                   x, xType);
+                        String xName = x.getName();
+                        String yName = y.getName();
+                        String tName = ((CastExpr) rhs).getCastType().toString();
+                		
+                        SourceCause cause = new SourceCause(loc, xName + " = (" + tName + ") " + yName, 
+                            "\"" + yName + "\" must be mutable because \"" + xName + "\" is");
+                        
+                		cm.subtype(y, yType,
+                				   x, xType, cause);
                     }
-
-
                 } else if (lhs instanceof ArrayRef) {
                     // array a[x] = ...
 
                     Local a = (Local) ((ArrayRef) lhs).getBase();
                     ArrayType aType = (ArrayType) a.getJrType();
-                    cm.mutable(a, aType);
+                    String aName = a.getName();
+
+                    cm.mutable(a, aType, new SourceCause(loc, aName + "[...] = ...;",
+                        "means that \"" + aName + "\" must be mutable"));
 
                     if (rhs instanceof Local) {
                         // array a[x] = y : y <: a [0 LOW] AND a
 
                         Local y = (Local) rhs;
                         JrType yType = y.getJrType();
-                        
-                        cm.subtype(y, yType,
-                                   a, aType.getElemType().getLowerBound());
-                    }
 
+                        String yName = y.getName();
+                                                
+                        cm.subtype(y, yType,
+                            a, aType.getElemType().getLowerBound(), new SourceCause(loc, aName + "[...] = " + yName,
+                            "means that \"" + yName + "\" must be mutable because the elements of \"" + aName + "\" are mutable."));
+                    }
                 } else if (lhs instanceof Local &&
                            rhs instanceof ArrayRef) {
                     // x = a[y] : a [0 UP] <: x
@@ -283,8 +342,15 @@ public class ConstraintGenerator extends SceneVisitor {
                     JrType xType = x.getJrType();
                     ArrayType aType = (ArrayType) a.getJrType();
 
+                    String xName = x.getName();
+                    String aName = a.getName();
+                
+                    // TODO: Check that message makes sense in the wild
+                    SourceCause cause = new SourceCause(loc, xName + " = " + aName + "[...];",
+                        "The elements of \"" + aName + "\" must be mutable because \"" + xName + "\" is mutable.");
+            
                     cm.subtype(a, aType.getElemType().getUpperBound(),
-                               x, xType);
+                       x, xType, cause);
 
 
                 } else if (lhs instanceof Local &&
@@ -311,7 +377,8 @@ public class ConstraintGenerator extends SceneVisitor {
 
         public void caseReturnStmt(ReturnStmt stmt) {
             // return x : x <: m_ret
-            defaultCase(stmt);
+            SourceLocation loc = new SourceLocation(enclosingMethod, stmt);
+            defaultCase(stmt, loc);
             Value val = stmt.getOp();
 
             if (val instanceof Local) {
@@ -321,13 +388,13 @@ public class ConstraintGenerator extends SceneVisitor {
                 JrType xType = x.getJrType();
                 JrType retType = m.getJrReturnType();
 
-                cm.subtype(x, xType,
-                           m, retType);
+                // TODO: better cause here
+                cm.subtype(x, xType, m, retType, new SourceCause(loc, "Mutable return value"));
 
             }
         }
 
-        public void defaultCase(Object obj) {
+        public void defaultCase(Object obj, SourceLocation loc) {
             Stmt stmt = (Stmt) obj;
             try {
                 if (stmt instanceof AssignStmt &&
@@ -358,18 +425,19 @@ public class ConstraintGenerator extends SceneVisitor {
                     Local  y     = (methInvk instanceof InstanceInvokeExpr) ? (Local) ((InstanceInvokeExpr) methInvk).getBase() : null;
                     JrType yType = (methInvk instanceof InstanceInvokeExpr) ? y.getJrType() : null;
 
+                    SourceCause cause = new SourceCause(loc, "Assignment of " + x.getName() + " to mutable result of " + m.getName());
 
                     // To fix polyread bug, here you don't want to just generally subtype
                     // m <: x, because this applies  x -> m (return value) for both
                     // contexts.  Instead, you want x -> m^mut.
                     cm.subtype2InvokeWithoutReadOnly(y,    yType, m, retType,
-                                                     null, null,  x, xType);
-                    handleMethodInvk(methInvk, x, xType);
+                                             null, null, x, xType, cause);
+                    handleMethodInvk(methInvk, x, xType, loc);
                 } else if (stmt.containsInvokeExpr()) {
                     // Method invocation expressions (where the return values are
                     // not assigned to a variable, such as void methods).
                     InvokeExpr invokeExpr = stmt.getInvokeExpr();
-                    handleMethodInvk(invokeExpr, null, null);
+                    handleMethodInvk(invokeExpr, null, null, loc);
                 }
 
             } catch (RuntimeException e) {
@@ -377,16 +445,16 @@ public class ConstraintGenerator extends SceneVisitor {
             }
         }
 
-        private void handleMethodInvk(InvokeExpr methInvk, Local x, JrType xType) {
+    private void handleMethodInvk(InvokeExpr methInvk, Local x, JrType xType, SourceLocation loc) {
             // y.m(z) or m(z)
 
             SootMethod m = methInvk.getMethod();
-
+        String name = m.getName();
             List<Value> zs = methInvk.getArgs();
 
             if (methInvk instanceof InstanceInvokeExpr &&
                 (! (methInvk instanceof SpecialInvokeExpr &&
-                    methInvk.getMethod().getName().equals("<init>")))) { // Don't operate on constructors
+                name.equals("<init>")))) { // Don't operate on constructors
 
                 InstanceInvokeExpr iMethInvk =
                     (InstanceInvokeExpr) methInvk;
@@ -397,9 +465,11 @@ public class ConstraintGenerator extends SceneVisitor {
                 Param  thisParam = m.getReceiver();
                 JrType thisParamType = thisParam.getJrType();
 
+                SourceCause cause = new SourceCause(loc, "Receiver of call to " + name + " must be mutable");
+
                 cm.subtype3(null, null,  y,         yType,
                             y,    yType, thisParam, thisParamType,
-                            x,    xType);
+                        x,    xType, cause);
             }
             for (int i = 0; i < zs.size(); i++) {
                 if (zs.get(i) instanceof Local) { // Some args can be int constants and not locals
@@ -418,10 +488,13 @@ public class ConstraintGenerator extends SceneVisitor {
                         (methInvk instanceof InstanceInvokeExpr) ?
                         ((Local) ((InstanceInvokeExpr) methInvk).getBase()).getJrType() : null;
 
+
+                    SourceCause cause = new SourceCause(loc, "Argument " + i + " of call to " + name + " must be mutable");
+
                     //                    cm.setSkipReadOnly(false);
                     cm.subtype3(null, null,  z,     zType,
                                 y,    yType, param, paramType,
-                                x,    xType);
+                                x,    xType, cause);
                     //                cm.setSkipReadOnly(true);
 
                 }

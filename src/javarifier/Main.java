@@ -60,6 +60,7 @@ public class Main {
   private static final String[] sootDefaultArgs = {
     "-w",
     "-whole-program",
+    "-keep-line-number",
     "-f",
     "jimple",
     "-print-tags",
@@ -244,7 +245,6 @@ public class Main {
     /**
      * Generates a set of Javarifier constraints over the given scene,
      * solves those constraints and then applies them.
-     * This should
      * @param scene
      */
     private void javarifyScene(Scene scene) {
@@ -296,7 +296,7 @@ public class Main {
         printNonQuiet("OpenWorld finished.");
       }
 
-      ConstraintTracker.printCauses();
+      //ConstraintTracker.printCauses();
 
       return cm;
     }
@@ -330,7 +330,9 @@ public class Main {
         }
       }
 
-      VarTracker.printCauses(solved);
+      if (Options.v().dumpCauses()) {
+        VarTracker.printCauses(solved);
+      }
 
       // Apply constraints to the references by marking non-readonly
       // references as either mutable, polyread or this-mutable.
