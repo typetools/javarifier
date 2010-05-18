@@ -51,6 +51,13 @@ public class SubtypeConstraints extends SceneVisitor {
     // Each parameter must have identical type
     // Return type of mSub must be a subtype of mSuper
     public void subtype(SootMethod mSub, SootMethod mSuper) {
+        SourceLocation loc = new SourceLocation(mSub);
+
+        String subName = mSub.getDeclaringClass().getName();
+        String superName = mSuper.getDeclaringClass().getName();
+
+        String fstr = "function " + mSub.getName() + " in " + subName + " <: " + superName;
+    
         Param r1 = mSub.getReceiver();
         Param r2 = mSuper.getReceiver();
         // TODO: uncomment in order to make subtype method a forced subtype
@@ -58,8 +65,10 @@ public class SubtypeConstraints extends SceneVisitor {
         // have methods be invariant in their parameters.
         // cm.subtype(r1, r1.getJrType(),
         //            r2, r2.getJrType());
+        //TODO: Check that the explanation makes sense
         cm.subtype(r2, r2.getJrType(),
-                   r1, r1.getJrType());
+                   r1, r1.getJrType(),
+          new SourceCause(loc, fstr, "Covariant return types"));
 
         for (int i = 0; i < mSub.getParameters().size(); i++) {
             Param p1 = mSub.getParameters().get(i);
@@ -69,12 +78,16 @@ public class SubtypeConstraints extends SceneVisitor {
             // have methods be invariant in their parameters.
             // cm.subtype(p1, p1.getJrType(),
             //           p2, p2.getJrType());
+            //TODO: Check that the explanation makes sense
             cm.subtype(p2, p2.getJrType(),
-                       p1, p1.getJrType());
+                       p1, p1.getJrType(),
+              new SourceCause(loc, "parameter " + Integer.toString(i) + " of " + fstr, "Contravariant parameter types"));
         }
 
+        
         cm.subtype(mSub, mSub.getJrType(),
-                   mSuper, mSuper.getJrType());
+                   mSuper, mSuper.getJrType(),
+          new SourceCause(loc, fstr, "this-mutability subtype"));
     }
 
 }

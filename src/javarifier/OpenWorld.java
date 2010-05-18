@@ -55,14 +55,14 @@ public class OpenWorld extends SceneVisitor {
 
 
         public void visitClassType(ClassType type) {
-            cm.mutable4(meth, type, Context.MUTABLE);
+            cm.mutable4(meth, type, Context.MUTABLE, new SourceCause(new SourceLocation(meth), "Public return in open world"));
             for (TypeArg targ : type.getTypeArgs()) {
                 targ.accept(this);
             }
         }
 
         public void visitArrayType(ArrayType type) {
-            cm.mutable4(meth, type, Context.MUTABLE);
+            cm.mutable4(meth, type, Context.MUTABLE, new SourceCause(new SourceLocation(meth), "Public return in open world"));
             super.visitArrayType(type);
         }
 
@@ -82,12 +82,12 @@ public class OpenWorld extends SceneVisitor {
 
 
         public void visitClassType(ClassType type) {
-            cm.mutable4(field, type, Context.NONE);
+            cm.mutable4(field, type, Context.NONE, new SourceCause(new SourceLocation(field), "Public field in open world"));
             super.visitClassType(type);
         }
 
         public void visitArrayType(ArrayType type) {
-            cm.mutable4(field, type, Context.NONE);
+            cm.mutable4(field, type, Context.NONE, new SourceCause(new SourceLocation(field), "Public field in open world"));
             super.visitArrayType(type);
         }
 

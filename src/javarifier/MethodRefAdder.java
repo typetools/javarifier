@@ -32,11 +32,11 @@ public class MethodRefAdder extends SceneVisitor {
         }
     }
 
-    public void visitLocal(Local loc) {
+    public void visitLocal(Local local) {
       // Want to set method before super class visit's Local in case
       // it assumes that the method has already been set.
-        loc.setMethod(currentMethod);
-        super.visitLocal(loc);
+        local.setMethod(currentMethod);
+        super.visitLocal(local);
     }
 
 }

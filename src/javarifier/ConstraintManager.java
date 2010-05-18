@@ -31,7 +31,7 @@ import java.util.*;
  * (5) twice guarded, denoted as "z -> x -> y" or "z => x -> y", which implies
  * that if "z" is mutable, then "x" being mutable implies "y" being mutable. <p>
  *
- * Although it is convent to speak of constraints involving only program
+ * Although it is convenient to speak of constraints involving only program
  * variables (as I did above), truthfully, constraints involve pairs of program
  * variables and types.  For example, for the variable "x", declared as
  * "String[] x;", constraints can be placed on the array itself, the lower bound
@@ -230,10 +230,10 @@ public class ConstraintManager {
      *                   null, null, rhsValue, rhsType);
      */
     public void subtype(JrTyped lhsValue, JrType lhsType,
-                        JrTyped rhsValue, JrType rhsType) {
-
+                        JrTyped rhsValue, JrType rhsType, SourceCause cause) {
+        
         subtype2(null, null, lhsValue, lhsType,
-                 null, null, rhsValue, rhsType);
+                 null, null, rhsValue, rhsType, cause);
     }
 
 
@@ -250,10 +250,10 @@ public class ConstraintManager {
      *                   null, null);
      */
     public void subtype2(JrTyped lhsEnv, JrType lhsEnvType, JrTyped lhsValue, JrType lhsType,
-                         JrTyped rhsEnv, JrType rhsEnvType, JrTyped rhsValue, JrType rhsType) {
+                         JrTyped rhsEnv, JrType rhsEnvType, JrTyped rhsValue, JrType rhsType, SourceCause cause) {
         subtype3(lhsEnv, lhsEnvType, lhsValue, lhsType,
                  rhsEnv, rhsEnvType, rhsValue, rhsType,
-                 null, null);
+                 null, null, cause);
     }
 
     /**
@@ -261,11 +261,11 @@ public class ConstraintManager {
      * each constraint for the READONLY context on type arguments.
      */
     public void subtype2InvokeWithoutReadOnly(JrTyped lhsEnv, JrType lhsEnvType, JrTyped lhsValue, JrType lhsType,
-        JrTyped rhsEnv, JrType rhsEnvType, JrTyped rhsValue, JrType rhsType) {
+        JrTyped rhsEnv, JrType rhsEnvType, JrTyped rhsValue, JrType rhsType, SourceCause cause) {
       boolean startSkipReadOnly = shouldSkipReadonlyContext();
       setSkipReadOnly(true);
       subtype2(lhsEnv, lhsEnvType, lhsValue, lhsType,
-          rhsEnv, rhsEnvType, rhsValue, rhsType);
+          rhsEnv, rhsEnvType, rhsValue, rhsType, cause);
       setSkipReadOnly(startSkipReadOnly);
 }
 
@@ -285,7 +285,7 @@ public class ConstraintManager {
     // reason why these two tasks were separated into two methods.
     public void subtype3(JrTyped lhsEnv, JrType lhsEnvType, JrTyped lhsValue, JrType lhsType,
                          JrTyped rhsEnv, JrType rhsEnvType, JrTyped rhsValue, JrType rhsType,
-                         JrTyped guard,  JrType guardType) {
+                         JrTyped guard,  JrType guardType, SourceCause cause) {
 
         if (Options.v().debugSubtyping()) {
             System.out.println("debugSubtyping1>> "
@@ -334,7 +334,7 @@ public class ConstraintManager {
 
         subtype4(newLhsEnv, newLhsEnvType, newLhsValue, newLhsType,
                  newRhsEnv, newRhsEnvType, newRhsValue, newRhsType,
-                 newGuard, newGuardType);
+                 newGuard, newGuardType, cause);
     }
 
     private static Pair<JrTyped, MutType> resolveEnv(JrTyped env, JrType envType) {
@@ -405,7 +405,7 @@ public class ConstraintManager {
      */
     private void subtype4(JrTyped lhsEnv, MutType lhsEnvType, JrTyped lhsValue, MutType lhsType,
                           JrTyped rhsEnv, MutType rhsEnvType, JrTyped rhsValue, MutType rhsType,
-                          JrTyped guard,  MutType guardType) {
+                          JrTyped guard,  MutType guardType, SourceCause cause) {
 
         if (Options.v().debugSubtyping()) {
             System.out.println("debugSubtyping2>> "
@@ -430,7 +430,7 @@ public class ConstraintManager {
             if (lhsEnv != null) {
                 if (lhsValue instanceof SootField) {
                     if (! Mutability.MUTABLE.equals(((MutType) lhsType).getMutability())) {
-                        guards(rhsValue, rhsType, lhsEnv, lhsEnvType);
+                        guards(rhsValue, rhsType, lhsEnv, lhsEnvType, cause);
                     }
                 }
             }
@@ -438,12 +438,12 @@ public class ConstraintManager {
         if (guard == null) {
             if (lhsValue instanceof SootMethod &&
                 lhsType.getIndex().equals(TypeIndex.topLevel())) {
-                guards4(rhsValue, rhsType, Context.MUTABLE, lhsValue, lhsType, Context.MUTABLE);
+                guards4(rhsValue, rhsType, Context.MUTABLE, lhsValue, lhsType, Context.MUTABLE, cause);
             } else {
                 // x = y
                 // x -> y
                 guards(rhsValue, rhsType,
-                       lhsValue, lhsType);
+                       lhsValue, lhsType, cause);
             }
         } else {
             // guard = m(x)
@@ -453,10 +453,10 @@ public class ConstraintManager {
             // m(0)^ro -> x^mut
             guards3(rhsValue, (MutType) rhsType,
                     lhsValue, (MutType) lhsType,
-                    guard, (MutType) guardType);
+                    guard, (MutType) guardType, cause);
 
             guards2(rhsValue, (MutType) rhsType,
-                    lhsValue, (MutType) lhsType);
+                    lhsValue, (MutType) lhsType, cause);
         }
 
 
@@ -494,11 +494,11 @@ public class ConstraintManager {
               setInferringTypeArgs(true);
                 subtype3(lhsEnv, lhsEnvType, lhsValue, lhsClassType.getTypeArgs().get(i).getUpperBound(),
                          rhsEnv, rhsEnvType, rhsValue, rhsClassType.getTypeArgs().get(i).getUpperBound(),
-                         null,  null);
+                         null, null, cause);
 
                 subtype3(rhsEnv, rhsEnvType, rhsValue, rhsClassType.getTypeArgs().get(i).getLowerBound(),
                          lhsEnv, lhsEnvType, lhsValue, lhsClassType.getTypeArgs().get(i).getLowerBound(),
-                         null, null);
+                         null, null, cause);
               setInferringTypeArgs(false);
             }
         } else if (lhsType instanceof ArrayType) {
@@ -514,14 +514,12 @@ public class ConstraintManager {
 
             subtype3(lhsEnv, lhsEnvType, lhsValue, lhsArrayType.getElemType().getUpperBound(),
                      rhsEnv, rhsEnvType, rhsValue, rhsArrayType.getElemType().getUpperBound(),
-                     null, null);
+                     null, null, cause);
 
             subtype3(rhsEnv, rhsEnvType, rhsValue, rhsArrayType.getElemType().getLowerBound(),
                      lhsEnv, lhsEnvType, lhsValue, lhsArrayType.getElemType().getLowerBound(),
-                     null, null);
+                     null, null, cause);
         }
-
-
     }
 
     /**
@@ -548,7 +546,7 @@ public class ConstraintManager {
      * lhsValue : lhsType -> rhsValue : rhsType
      */
     public void guards(JrTyped lhsValue, MutType lhsType,
-                        JrTyped rhsValue, MutType rhsType) {
+                        JrTyped rhsValue, MutType rhsType, SourceCause cause) {
 
         if (Options.v().debugConstraintGeneration() || Options.v().debugSubtyping()) {
             System.out.println("guards():  " + lhsValue + " " + lhsType + " -> " + rhsValue + " " + rhsType);
@@ -574,8 +572,8 @@ public class ConstraintManager {
             rhsMut = ConstraintVar.create(rhsValue, rhsType, Context.MUTABLE);
         }
 
-        ConstraintTracker.add(lhsRo,  rhsRo,  new RuntimeException());
-        ConstraintTracker.add(lhsMut, rhsMut, new RuntimeException());
+        ConstraintTracker.add(lhsRo,  rhsRo,  cause);
+        ConstraintTracker.add(lhsMut, rhsMut, cause);
 
         if (Options.v().debugConstraintGeneration() || Options.v().debugSubtyping()) {
             System.out.println("  ro : " + lhsRo + " -> " + rhsRo);
@@ -611,20 +609,22 @@ public class ConstraintManager {
      * guarded constraints generated by guards3.)
      */
     private void guards2(JrTyped lhsValue, MutType lhsType,
-                         JrTyped rhsValue, MutType rhsType) {
+                         JrTyped rhsValue, MutType rhsType, SourceCause cause) {
 
         ConstraintVar lhs    = ConstraintVar.create(lhsValue, lhsType, Context.READONLY);
         ConstraintVar rhsRo  = ConstraintVar.create(rhsValue, rhsType, Context.READONLY);
         ConstraintVar rhsMut = ConstraintVar.create(rhsValue, rhsType, Context.MUTABLE);
 
         if (!shouldSkipReadonlyContext()) {
-          cs.add(lhs, rhsRo);
+            ConstraintTracker.add(lhs,  rhsRo,  cause);
+            cs.add(lhs, rhsRo);
         } else {
-          if (Options.v().debugConstraintGeneration()) {
-            System.out.println("guards2(): omit constraint: " + lhs + " \n -> " + rhsRo);
-          }
+            if (Options.v().debugConstraintGeneration()) {
+                System.out.println("guards2(): omit constraint: " + lhs + " \n -> " + rhsRo);
+            }
         }
-
+        
+        ConstraintTracker.add(lhs, rhsMut, cause);
         cs.add(lhs, rhsMut);
     }
 
@@ -642,7 +642,7 @@ public class ConstraintManager {
      */
     private void guards3(JrTyped lhsValue, MutType lhsType,
                          JrTyped rhsValue, MutType rhsType,
-                         JrTyped guard,    MutType guardType) {
+                         JrTyped guard,    MutType guardType, SourceCause cause) {
 
         ConstraintVar guardRo  = ConstraintVar.create(guard, guardType, Context.READONLY);
         ConstraintVar guardMut = ConstraintVar.create(guard, guardType, Context.MUTABLE);
@@ -651,12 +651,15 @@ public class ConstraintManager {
         ConstraintVar rhsMut   = ConstraintVar.create(rhsValue, rhsType, Context.MUTABLE);
 
         if (!shouldSkipReadonlyContext()) {
-          cs.add(guardRo,  lhs, rhsRo);
+            ConstraintTracker.add(guardRo, lhs,  rhsRo,  cause);
+            cs.add(guardRo, lhs, rhsRo);
         } else {
-          if (Options.v().debugConstraintGeneration()) {
-            System.out.println("guards3(): omit constraint: " + guardRo + " \n => " + lhs + " \n -> " + rhsRo);
-          }
+            if (Options.v().debugConstraintGeneration()) {
+              System.out.println("guards3(): omit constraint: " + guardRo + " \n => " + lhs + " \n -> " + rhsRo);
+            }
         }
+        
+        ConstraintTracker.add(guardMut, lhs, rhsMut, cause);
         cs.add(guardMut, lhs, rhsMut);
     }
 
@@ -665,10 +668,11 @@ public class ConstraintManager {
      * lhsValue^lhsContext : lhsType  ->  rhsValue^rhsContext : rhsType
      */
     private void guards4(JrTyped lhsValue, MutType lhsType, Context lhsContext,
-                         JrTyped rhsValue, MutType rhsType, Context rhsContext) {
+                         JrTyped rhsValue, MutType rhsType, Context rhsContext, SourceCause cause) {
 
         ConstraintVar lhs = ConstraintVar.create(lhsValue, lhsType, lhsContext);
         ConstraintVar rhs = ConstraintVar.create(rhsValue, rhsType, rhsContext);
+        ConstraintTracker.add(lhs, rhs, cause);
         cs.add(lhs, rhs);
     }
 
@@ -679,7 +683,7 @@ public class ConstraintManager {
      *
      * Where "type" is not a type variable.
      */
-    public void mutable(JrTyped value, MutType type) {
+    public void mutable(JrTyped value, MutType type, SourceCause cause) {
 
         if (value instanceof SootField) {
             ConstraintVar var = ConstraintVar.create(value, type, Context.NONE);
@@ -687,9 +691,10 @@ public class ConstraintManager {
         } else {
             ConstraintVar var1 = ConstraintVar.create(value, type, Context.READONLY);
             ConstraintVar var2 = ConstraintVar.create(value, type, Context.MUTABLE);
+            var1.setSource(cause);
+            var2.setSource(cause);
             cs.add(var1);
             cs.add(var2);
-
         }
 
     }
@@ -700,12 +705,12 @@ public class ConstraintManager {
      *
      * Where "type" may be a type variable.
      */
-    public void mutable3(JrTyped value, JrType type) {
+    public void mutable3(JrTyped value, JrType type, SourceCause cause) {
 
         JrTyped value2 = type instanceof VarType ? (VarType) type : value;
         MutType type2  = (MutType) (value instanceof VarType ? ((VarType) type).bound() : type);
 
-        mutable(value2, type2);
+        mutable(value2, type2, cause);
     }
 
 
@@ -715,12 +720,12 @@ public class ConstraintManager {
      *
      * Where "type" may be a type variable.
      */
-    public void mutable4(JrTyped value, JrType type, Context context) {
+    public void mutable4(JrTyped value, JrType type, Context context, SourceCause cause) {
 
         JrTyped value2 = type instanceof VarType ? (VarType) type : value;
         MutType type2  = (MutType) (value instanceof VarType ? ((VarType) type).bound() : type);
 
-        mutable2(value2, type2, context);
+        mutable2(value2, type2, context, cause);
     }
 
     /**
@@ -729,9 +734,10 @@ public class ConstraintManager {
      *
      * Where "type" is not a type variable.
      */
-    public void mutable2(JrTyped value, MutType type, Context context) {
+    public void mutable2(JrTyped value, MutType type, Context context, SourceCause cause) {
 
         ConstraintVar var = ConstraintVar.create(value, type, context);
+        var.setSource(cause);
         cs.add(var);
     }
 
