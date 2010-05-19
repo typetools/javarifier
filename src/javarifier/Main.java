@@ -332,7 +332,7 @@ public class Main {
 
       if (Options.v().dumpCauses()) {
         System.out.println("Causes:");
-        for (ConstraintVar var : vars) {
+        for (ConstraintVar var : solved) {
             System.out.println(var.causeString());
         }
         System.out.println("");
