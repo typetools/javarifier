@@ -361,9 +361,9 @@ public class ConstraintGenerator extends SceneVisitor {
                            rhs instanceof NewExpr) {
                     // Do nothing, let default case handle the arguments.
                 } else {
-                    System.out.printf("ConstraintGenerationSwitch: WARNING, unhandled except by defaultCase:%n" +
-                                      "  lhs(%s)=%s%n  rhs(%s)=%s%n",
-                                      lhs.getClass(), lhs, rhs.getClass(), rhs);
+                    // System.out.printf("ConstraintGenerationSwitch: WARNING, unhandled except by defaultCase:%n" +
+                    //                   "  lhs(%s)=%s%n  rhs(%s)=%s%n",
+                    //                   lhs.getClass(), lhs, rhs.getClass(), rhs);
                 }
 
             } catch (Exception e) {
