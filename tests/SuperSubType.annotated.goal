@@ -1,0 +1,31 @@
+import checkers.javari.quals.Mutable;
+import checkers.javari.quals.ReadOnly;
+public class SuperSubType {
+
+  public static class Day {
+    public int day;
+    public Day() @ReadOnly { }
+    public Day(int d) @ReadOnly { this.day = d; }
+    public int getDay() /*readonly*/ @ReadOnly { return day; }
+    public void setDay(int d) /*mutable*/ @Mutable { this.day = d; }
+  }
+
+  public static class SuperType {
+
+    public void foo(@Mutable Day x) @Mutable {
+      x.setDay(3);
+    }
+
+  }
+
+  public static class Subtype extends SuperType {
+
+    private Day d;
+
+    public void foo(@ReadOnly Day x) @Mutable {
+      d.setDay(3);
+    }
+
+  }
+
+}
