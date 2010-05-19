@@ -266,7 +266,9 @@
       <env key="JAVAC" file="${annotations-compiler}/dist/bin/javac" />
       <env key="CLASSPATH" path="${toString:libpath}"/>
       <env key="CHECKERS" path="${checkers}"/>
+      <env key="AFU" path="${afu}"/>
       <env key="JAVA_HOME" path="${env.JAVA_HOME}"/>
+      <env key="PATH" path="${afu}/scripts:${env.JAVA_HOME}/bin:${env.PATH}"/>
     </exec>
   </target>
 
@@ -283,6 +285,7 @@
       <env key="JAVAC" file="${annotations-compiler}/dist/bin/javac" />
       <env key="CLASSPATH" path="${checkers}/checkers.jar"/>
       <env key="CHECKERS" path="${checkers}"/>
+      <env key="AFU" path="${afu}"/>
       <env key="JAVA_HOME" path="${env.JAVA_HOME}"/>
       <env key="PATH" path="${afu}/scripts:${env.JAVA_HOME}/bin:${env.PATH}"/>
     </exec>
