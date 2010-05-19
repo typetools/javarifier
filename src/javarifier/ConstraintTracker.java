@@ -32,28 +32,4 @@ public class ConstraintTracker {
         return doubleCauses.get(new Pair<Pair<ConstraintVar, ConstraintVar>, ConstraintVar>(lhs, rhs));
     }
 
-    /*TODO: remove old code
-    
-    public static class ConstraintCause {
-        public ConstraintVar guard, left;
-        public SourceCause cause;
-        public ConstraintCause(ConstraintVar g, ConstraintVar l, SourceCause c) {
-            guard = g; left = l; cause = c;
-        }
-    }
-    
-    public static void add(ConstraintVar guard, ConstraintVar lhs, ConstraintVar rhs, SourceCause cause, RuntimeException e) {
-        if (Options.v().debugConstraints()) {
-            //TODO: do something better with trace or don't use it
-            StringBuilder buf = new StringBuilder();
-            buf.append(cause.getInfo());
-            buf.append("\n");
-            for (StackTraceElement se : e.getStackTrace()) {
-                buf.append("  " + se.toString()+"\n");
-            }
-            cause.setExpl(buf.toString());
-        }
-        add(guard, lhs, rhs, cause);
-    } */
-
 }

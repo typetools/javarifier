@@ -331,7 +331,11 @@ public class Main {
       }
 
       if (Options.v().dumpCauses()) {
-        VarTracker.printCauses(solved);
+        System.out.println("Causes:");
+        for (ConstraintVar var : vars) {
+            System.out.println(var.causeString());
+        }
+        System.out.println("");
       }
 
       // Apply constraints to the references by marking non-readonly
