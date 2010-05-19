@@ -18,7 +18,7 @@ JAVA_FILES := $(wildcard *.java)
 JAVARIFIER ?= ../scripts/javarifier
 JAVAC ?= $(CURDIR)/../../jsr308-langtools/dist/bin/javac
 
-AFU ?= ../../annotation-tools/annotation-file-utilities/scripts
+AFU ?= $(CURDIR)/../../annotation-tools/annotation-file-utilities/scripts
 
 .PHONY: default
 default : all
