@@ -86,13 +86,13 @@ scene-lib.jaif :
 	annotations.io.IndexFileParser annotations.io.IndexFileWriter \
 	2>&1 | tee tests/$scene-lib.log
 
-# Display results of all .diff files.
+# Display results of all .diff files.  Always succeeds.
 .PHONY: results
 results: VerifyDiffs.class
 	@echo ""
 	@echo "=== RESULTS ==="
 	@echo ""
-	@-java -classpath . VerifyDiffs --show_all
+	@java -classpath . VerifyDiffs --show_all
 
 # Remakes the little Java program that checks and compares diffs.
 VerifyDiffs.class : VerifyDiffs.java
