@@ -35,12 +35,11 @@ public class VerifyDiffs {
             gatherDiffs(allDiffs, dir);
             Collections.sort(allDiffs);
             for(File f : allDiffs) {
-              FileReader fr = new FileReader(f);
               String fileName = f.toString();
               if (fileName.startsWith("./")) {
                 fileName = fileName.substring(2);
               }
-              if(fr.read() != -1) { // if not empty, output error message
+              if(f.length() != 0) { // if not empty, output error message
                 System.out.println(fileName + " ...FAILED");
                 pass = false;
               } else {
@@ -48,7 +47,6 @@ public class VerifyDiffs {
                   System.out.println(fileName + " ...OK");
                 }
               }
-              fr.close();
             }
          } catch(Exception e) {
             System.out.println("verify diffs failed due to exception: "
