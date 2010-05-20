@@ -216,7 +216,8 @@
   </target>
 
   <!-- Remove all generated files. -->
-  <target name="clean" description="Remove all generated files.">
+  <target name="clean" depends="init-properties"
+	  description="Remove all generated files.">
     <delete dir="bin"/>
 
     <echo message="Deleting temporary directory: ${temp-bin}"/>
