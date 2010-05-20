@@ -4,22 +4,29 @@
  * it is empty.  If any file is non-empty, exits with an error exit status,
  * else exits with a 0 exit status.
  *
- * Usage: java VerifyDiffs [--show_all]
+ * Usage: java VerifyDiffs [--show_all] [--show_none]
  *
  * If --show_all option is used, all tests that pass will also be displayed.
  * If --show_all is not used, and all tests pass, then there will be no
  * output.
+ * If --show_none is used, then there is never any output; use this when you
+ * only care about the exit status.
  */
 import java.io.*;
 import java.util.*;
 
 public class VerifyDiffs {
-    private static boolean show_all = false;
+    enum OutputLevel { NONE, NORMAL, ALL };
+
+    private static OutputLevel outputLevel = OutputLevel.NORMAL;
 
     private static void parseArgs(String[] args) {
         for(String s : args) {
             if(s.equals("--show_all")) {
-                VerifyDiffs.show_all = true;
+              outputLevel = OutputLevel.ALL;
+            }
+            if(s.equals("--show_none")) {
+              outputLevel = OutputLevel.NONE;
             }
         }
     }
@@ -40,10 +47,12 @@ public class VerifyDiffs {
                 fileName = fileName.substring(2);
               }
               if(f.length() != 0) { // if not empty, output error message
-                System.out.println(fileName + " ...FAILED");
+                if(outputLevel != OutputLevel.NONE) {
+                  System.out.println(fileName + " ...FAILED");
+                }
                 pass = false;
               } else {
-                if(VerifyDiffs.show_all) {
+                if(outputLevel == OutputLevel.ALL) {
                   System.out.println(fileName + " ...OK");
                 }
               }
@@ -55,7 +64,7 @@ public class VerifyDiffs {
         }
 
         if(pass) {
-            if(VerifyDiffs.show_all) {
+            if(outputLevel == OutputLevel.ALL) {
                 System.out.println("All tests succeeded.");
             }
         } else {
