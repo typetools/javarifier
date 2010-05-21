@@ -236,7 +236,6 @@ public class ConstraintManager {
                  null, null, rhsValue, rhsType, cause);
     }
 
-
     /**
      * Adds the unguarded constraint:
      * lhsEnv : lhsEnvType |- lhsValue^? : lhsType <: rhsEnv : rhsEnvType |- rhsValue^? : rhsType
@@ -572,9 +571,11 @@ public class ConstraintManager {
             rhsMut = ConstraintVar.create(rhsValue, rhsType, Context.MUTABLE);
         }
 
-        ConstraintTracker.add(lhsRo,  rhsRo,  cause);
-        ConstraintTracker.add(lhsMut, rhsMut, cause);
-
+        if(cause != null) {
+            ConstraintTracker.add(lhsRo,  rhsRo,  cause);
+            ConstraintTracker.add(lhsMut, rhsMut, cause);
+        }
+        
         if (Options.v().debugConstraintGeneration() || Options.v().debugSubtyping()) {
             System.out.println("  ro : " + lhsRo + " -> " + rhsRo);
             System.out.println("  mut: " + lhsMut + " -> " + rhsMut);
@@ -672,7 +673,7 @@ public class ConstraintManager {
 
         ConstraintVar lhs = ConstraintVar.create(lhsValue, lhsType, lhsContext);
         ConstraintVar rhs = ConstraintVar.create(rhsValue, rhsType, rhsContext);
-        ConstraintTracker.add(lhs, rhs, cause);
+        if(cause != null) ConstraintTracker.add(lhs, rhs, cause);
         cs.add(lhs, rhs);
     }
 
@@ -744,6 +745,7 @@ public class ConstraintManager {
 //     public void mutable3(ConstraintVar var) {
 //         cs.add(var);
 //     }
+
 
     public String toString() {
         return cs.toString();

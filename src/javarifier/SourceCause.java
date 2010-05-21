@@ -19,7 +19,7 @@ public class SourceCause {
     }
 
     public String toString() {
-        return stmt + " " + expl + " " + location.toString();
+        return stmt + " " + expl + " " + (location != null ? location.toString() : "");
     }
 
     public SourceLocation getLocation() { return location; }
