@@ -1,0 +1,22 @@
+import checkers.javari.quals.Mutable;
+import checkers.javari.quals.ReadOnly;
+
+
+/**
+ * This class tests non-parameteric, non-static field assignments to
+ * and from locals.
+ */
+public class FieldAssignments {
+
+    private /*this-mutable*/ FieldAssignments f;
+
+    private /*readonly*/ @ReadOnly FieldAssignments g;
+
+    public void foo() /*mutable*/ @Mutable {
+        /*readonly*/ @ReadOnly FieldAssignments x = this.g;
+        this.g = x;
+
+        /*mutable*/ @Mutable FieldAssignments y = this.f;
+        y.f.g = y;
+    }
+}
