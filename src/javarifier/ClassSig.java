@@ -45,7 +45,7 @@ public class ClassSig extends Signature {
     public ClassType getThisType() {
         return thisType;
     }
-    
+
     public List<ClassType> getSuperTypes() {
         return superTypes;
     }
@@ -73,7 +73,7 @@ public class ClassSig extends Signature {
         newThisType.setIndex(thisType.getIndex());
         thisType = newThisType;
     }
-    
+
     /*
     public String toString() {
         return super.toString() + ", thisType " + thisType.toString()

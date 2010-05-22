@@ -162,7 +162,7 @@ public class TypeInitializer extends SceneVisitor {
             if (jrtype instanceof ClassType) {
               outerClassType = (ClassType) jrtype; // The first argument is the outerclass reference
             }
-          } catch(Exception e) {
+          } catch (Exception e) {
             throw new RuntimeException(
                 "\n TypeInitializer.visitMethod: methSig.getParam() returned something other than ClassType: "
                 + "\n   from method: " + method.getName() + " with signature: " + methSig.toString()

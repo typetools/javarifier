@@ -13,7 +13,7 @@ class SceneLocationVisitor extends SceneVisitor {
         programLocation = new SourceLocation(clazz);
         super.visitClass(clazz);
     }
-    
+
     public void visitField(SootField f) {
         programLocation = new SourceLocation(f);
         super.visitField(f);

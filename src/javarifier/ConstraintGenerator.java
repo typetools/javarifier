@@ -134,7 +134,7 @@ public class ConstraintGenerator extends SceneVisitor {
                         //throw new RuntimeException(errorMessage);
                     }
                 }
-            
+
                 if (lhs instanceof Local &&
                     rhs instanceof Constant) {
                     // x = 1 : none
@@ -182,7 +182,7 @@ public class ConstraintGenerator extends SceneVisitor {
                     // TODO: Check that message makes sense in the wild
                     SourceCause cause = new SourceCause(loc, xName + " = " + yName,
                         "\"" + yName + "\" must be mutable because \"" + xName + "\" is");
-                
+
                     cm.subtype(y, yType,
                            x, xType, cause);
 
@@ -203,7 +203,7 @@ public class ConstraintGenerator extends SceneVisitor {
                     // TODO: Check that message makes sense in the wild
                     SourceCause cause = new SourceCause(loc, tName + "." + sfName + " = " + yName,
                         "\"" + yName + "\" must be mutable because \"" + sfName + "\" is");
-                
+
                     cm.subtype(y, yType,
                            sf, sfType, cause);
 
@@ -220,11 +220,11 @@ public class ConstraintGenerator extends SceneVisitor {
                     String xName = x.getName();
                     String tName = sf.getDeclaringClass().getShortName();
                     String sfName = sf.getName();
-                    
+
                     // TODO: Check that message makes sense in the wild
                     SourceCause cause = new SourceCause(loc, xName + " = " + tName + "." + sfName,
                         "\"" + sfName + "\" must be mutable because \"" + xName + "\" is");
-                
+
                     cm.subtype(sf, sfType,
                             x,  xType, cause);
 
@@ -279,12 +279,12 @@ public class ConstraintGenerator extends SceneVisitor {
                     String yName = y.getName();
                     String tName = f.getDeclaringClass().getShortName();
                     String fName = f.getName();
-                    
+
                     // TODO: Check that message makes sense in the wild
                     SourceCause cause = new SourceCause(loc, xName + " = " + yName + "." + fName,
                         "means that \"" + tName + "." + fName + "\" must be mutable because \"" + xName + "\" is, " +
                         " and if \"" + tName + "." + fName + "\" isn't mutable, then \"" + yName + "\" must be mutable because \"" + xName + "\" is.");
-                
+
                     cm.subtype2(   y, yType, f, fType,
                         null,  null, x, xType, cause);
 
@@ -303,10 +303,10 @@ public class ConstraintGenerator extends SceneVisitor {
                         String xName = x.getName();
                         String yName = y.getName();
                         String tName = ((CastExpr) rhs).getCastType().toString();
-                		
-                        SourceCause cause = new SourceCause(loc, xName + " = (" + tName + ") " + yName, 
+
+                        SourceCause cause = new SourceCause(loc, xName + " = (" + tName + ") " + yName,
                             "\"" + yName + "\" must be mutable because \"" + xName + "\" is");
-                        
+
                 		cm.subtype(y, yType,
                 				   x, xType, cause);
                     }
@@ -327,7 +327,7 @@ public class ConstraintGenerator extends SceneVisitor {
                         JrType yType = y.getJrType();
 
                         String yName = y.getName();
-                                                
+
                         cm.subtype(y, yType,
                             a, aType.getElemType().getLowerBound(), new SourceCause(loc, aName + "[...] = " + yName,
                             "means that \"" + yName + "\" must be mutable because the elements of \"" + aName + "\" are mutable."));
@@ -344,11 +344,11 @@ public class ConstraintGenerator extends SceneVisitor {
 
                     String xName = x.getName();
                     String aName = a.getName();
-                
+
                     // TODO: Check that message makes sense in the wild
                     SourceCause cause = new SourceCause(loc, xName + " = " + aName + "[...];",
                         "The elements of \"" + aName + "\" must be mutable because \"" + xName + "\" is mutable.");
-            
+
                     cm.subtype(a, aType.getElemType().getUpperBound(),
                        x, xType, cause);
 

@@ -55,13 +55,13 @@ public class StubConstraints extends SceneLocationVisitor {
               mutType.setMutability(Mutability.MUTABLE);
             }
           }
-            typed.getJrType().accept(new StubConstraintsHelper(typed, cm, loc));
+          typed.getJrType().accept(new StubConstraintsHelper(typed, cm, loc));
         }
 
         private JrTyped val;
         private ConstraintManager cm;
         private SourceLocation loc;
-        
+
         public StubConstraintsHelper(JrTyped val, ConstraintManager cm, SourceLocation loc) {
             this.val = val;
             this.cm = cm;

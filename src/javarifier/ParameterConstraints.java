@@ -29,9 +29,9 @@ public class ParameterConstraints extends SceneVisitor {
 
     public void visitBody(Body body) {
         SootMethod sm = body.getMethod();
-        
+
         //TODO: more info
-        
+
         if (! sm.isStatic() && (! sm.getName().equals("<init>"))) {
             Local thisLocal = body.getThisLocal();
             JrType thisLocalType = thisLocal.getJrType();

@@ -34,7 +34,7 @@ public class JVMLSigParser {
     public static ClassSig parseClassSig(SootClass sc, String signature) {
         String name = sc.getName();
         try {
-        	if (Options.v().debugSigParser()) {
+            if (Options.v().debugSigParser()) {
                 System.out.println("parseClassSig: " + signature);
             }
 
@@ -128,7 +128,7 @@ public class JVMLSigParser {
         }
 
         List<Pair<VarType, JrType>> params = parseTypeParamList();
-        
+
         List<ClassType> superTypes = parseSuperTypes();
 
         List<TypeArg> thisArgs = new ArrayList<TypeArg>(params.size());

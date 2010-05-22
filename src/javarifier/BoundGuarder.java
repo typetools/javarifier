@@ -97,16 +97,16 @@ public class BoundGuarder extends SceneLocationVisitor {
               VarType targVarType = targ.getTypeParam();
               MutType targVarTypeMut = targVarType.bound();
               JrType targVarTypeMutType = targVarTypeMut.substitute(env);
-              MutType bound = (MutType) targVarTypeMutType; 
+              MutType bound = (MutType) targVarTypeMutType;
               //MutType bound = (MutType) targ.getTypeParam().bound().substitute(env);
-            
+
               SourceCause cause =
                 new SourceCause(loc, "Type argument upperbound subtype of type variable");
-            
+
               cm.subtype(val, targ.getUpperBound(),
                   val, bound, cause);
-            } catch(NullPointerException e) {
-              // it's ok, either of these can reasonably be null, so ignore 
+            } catch (NullPointerException e) {
+              // it's ok, either of these can reasonably be null, so ignore
               // the constraint since there's nothing to constrain
             }
             visitTypeArg(targ);
@@ -115,7 +115,7 @@ public class BoundGuarder extends SceneLocationVisitor {
         public void visitTypeArg(TypeArg targ) {
             SourceCause cause =
               new SourceCause(loc, "Type argument lowerbound subtype of upperbound");
-            
+
             // Enforces that a lowerbound of a type argument must be a
             // subtype of the upperbound of the type argument
                 cm.subtype(val, targ.getLowerBound(),

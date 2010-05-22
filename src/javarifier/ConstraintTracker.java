@@ -7,7 +7,7 @@ import java.util.*;
 public class ConstraintTracker {
 
     // indexed on the rhs so that they can be traversed from result to cause
-    private static Map<Pair<ConstraintVar, ConstraintVar>, SourceCause> singleCauses = 
+    private static Map<Pair<ConstraintVar, ConstraintVar>, SourceCause> singleCauses =
                new HashMap<Pair<ConstraintVar, ConstraintVar>, SourceCause>();
     private static Map<Pair<Pair<ConstraintVar, ConstraintVar>, ConstraintVar>, SourceCause> doubleCauses =
                new HashMap<Pair<Pair<ConstraintVar, ConstraintVar>, ConstraintVar>, SourceCause>();
