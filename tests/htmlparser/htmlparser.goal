@@ -8906,14 +8906,14 @@ class ChainedException:
         local 0 #0+20:
             type: @checkers.javari.quals.ReadOnly
         local 1 #5+15:
-            type: @checkers.javari.quals.PolyRead
+            type: @checkers.javari.quals.ReadOnly
                 inner-type 0: @checkers.javari.quals.ReadOnly
         local 2 #13+7:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.ReadOnly
 
     method getMessageList()Ljava/util/Vector;:
-        return: @checkers.javari.quals.Mutable
+        return: @checkers.javari.quals.ReadOnly
             inner-type 0: @checkers.javari.quals.ReadOnly
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+105:
