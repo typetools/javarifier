@@ -1,11 +1,10 @@
 import checkers.javari.quals.Mutable;
 import checkers.javari.quals.ReadOnly;
-import checkers.javari.quals.PolyRead;
 import java.util.Vector;
 
 public class VectorCopyInto {
 
-  public @ReadOnly String @ReadOnly [] getMessageChain2(@PolyRead Vector v)
+  public @ReadOnly String @ReadOnly [] getMessageChain2(@ReadOnly Vector v)
   @ReadOnly {
     @ReadOnly String @Mutable [] chain = new String[v.size()];
     v.copyInto (chain);
