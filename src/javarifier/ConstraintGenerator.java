@@ -229,7 +229,7 @@ public class ConstraintGenerator extends SceneVisitor {
                             x,  xType, cause);
 
 
-		} else if (lhs instanceof InstanceFieldRef &&
+                } else if (lhs instanceof InstanceFieldRef &&
                            rhs instanceof Local) {
                     // x.f = y : (!assignable(f) => x?), (y? <: f)
 
@@ -307,8 +307,8 @@ public class ConstraintGenerator extends SceneVisitor {
                         SourceCause cause = new SourceCause(loc, xName + " = (" + tName + ") " + yName,
                             "\"" + yName + "\" must be mutable because \"" + xName + "\" is");
 
-                		cm.subtype(y, yType,
-                				   x, xType, cause);
+                                cm.subtype(y, yType,
+                                                   x, xType, cause);
                     }
                 } else if (lhs instanceof ArrayRef) {
                     // array a[x] = ...
@@ -451,7 +451,7 @@ public class ConstraintGenerator extends SceneVisitor {
                 }
 
             } catch (RuntimeException e) {
-        	throw new RuntimeException(stmt.toString(), e);
+                throw new RuntimeException(stmt.toString(), e);
             }
         }
 

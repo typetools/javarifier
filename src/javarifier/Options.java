@@ -440,22 +440,22 @@ public class Options {
                 i--;
             } else
             if (args[i].equals("-debugASM")) {
-            	debugASM = true;
+                debugASM = true;
                 args = removeArgs(args, i, 1);
                 i--;
             } else
             if (args[i].equals("-debugConstraints")) {
-            	debugConstraints = true;
+                debugConstraints = true;
                 args = removeArgs(args, i, 1);
                 i--;
             } else
             if (args[i].equals("-debugMethodTransform")) {
-            	debugMethodTransform = true;
+                debugMethodTransform = true;
                 args = removeArgs(args, i, 1);
                 i--;
             } else
             if (args[i].equals("-debugConstraintGeneration")) {
-            	debugConstraintGeneration = true;
+                debugConstraintGeneration = true;
                 args = removeArgs(args, i, 1);
                 i--;
             } else

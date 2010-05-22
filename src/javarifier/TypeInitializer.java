@@ -26,30 +26,30 @@ public class TypeInitializer extends SceneVisitor {
 
 
     public void visitScene(Scene s) {
-    	// Must process classes from outermost to innermost
-    	// for ClassSigature adding code to work.
-    	List<SootClass> orderedClasses = new ArrayList<SootClass>();
-    	List<SootClass> worklist = new ArrayList<SootClass>(s.getClasses());
+        // Must process classes from outermost to innermost
+        // for ClassSigature adding code to work.
+        List<SootClass> orderedClasses = new ArrayList<SootClass>();
+        List<SootClass> worklist = new ArrayList<SootClass>(s.getClasses());
       List<SootClass> toRemove = new ArrayList<SootClass>();
-//    	while (worklist.size() != 0) {
-//    		for (int i = 0; i < worklist.size(); i++) {
-//				SootClass clazz = worklist.get(i);
+//      while (worklist.size() != 0) {
+//              for (int i = 0; i < worklist.size(); i++) {
+//                              SootClass clazz = worklist.get(i);
 //
-//				if (clazz.resolvingLevel() < SootClass.HIERARCHY) {
-//					worklist.remove(i);
-//					i--;
-//					continue;
-//				}
+//                              if (clazz.resolvingLevel() < SootClass.HIERARCHY) {
+//                                      worklist.remove(i);
+//                                      i--;
+//                                      continue;
+//                              }
 //
-//				if (clazz.hasOuterClass()
-//						&& !orderedClasses.contains(clazz.getOuterClass())) {
-//					continue;
-//				}
-//				orderedClasses.add(clazz);
-//				worklist.remove(i);
-//				i--;
-//			}
-//    	}
+//                              if (clazz.hasOuterClass()
+//                                              && !orderedClasses.contains(clazz.getOuterClass())) {
+//                                      continue;
+//                              }
+//                              orderedClasses.add(clazz);
+//                              worklist.remove(i);
+//                              i--;
+//                      }
+//      }
       while(worklist.size() != 0) {
         toRemove.clear();
         for (SootClass c : worklist) {
@@ -67,9 +67,9 @@ public class TypeInitializer extends SceneVisitor {
         worklist.removeAll(toRemove);
       }
 
-    	for (SootClass clazz : orderedClasses) {
-    		visitClass(clazz);
-    	}
+        for (SootClass clazz : orderedClasses) {
+                visitClass(clazz);
+        }
         hasRun = true;
     }
 
@@ -91,8 +91,8 @@ public class TypeInitializer extends SceneVisitor {
             classSignature.add(sc.getOuterMethod().getSig());
         }
         if (sc.hasOuterClass() && ! sc.isStatic()) {
-        	// works b/c classes are orded outermost to innermost.  No recursion is needed for outer-outer classes.
-        	classSignature.add(sc.getOuterClass().getSig());
+                // works b/c classes are orded outermost to innermost.  No recursion is needed for outer-outer classes.
+                classSignature.add(sc.getOuterClass().getSig());
         }
         sc.setSig(classSignature);
 
@@ -111,7 +111,7 @@ public class TypeInitializer extends SceneVisitor {
         }
         // HMMM This won't work if the outer reference isn't called "this$0"
         if (field.getName().equals("this$0") && field.getDeclaringClass().hasOuterClass()) {
-        	field.setJrType(field.getDeclaringClass().getOuterClass().getSig().getThisType().copy());
+                field.setJrType(field.getDeclaringClass().getOuterClass().getSig().getThisType().copy());
         }
     }
 
@@ -133,7 +133,7 @@ public class TypeInitializer extends SceneVisitor {
 
 
         } else {
-        	sig = sTag.getSignature();
+                sig = sTag.getSignature();
         }
 
 
@@ -148,12 +148,12 @@ public class TypeInitializer extends SceneVisitor {
         methSig.setOwner(method);
 
         if (method.getName().equals("<init>") &&
-        	method.getDeclaringClass().hasOuterClass() &&
-        	! method.getDeclaringClass().isStatic()) {
-        	// Inner class constructors have the form:
-        	// <init>(LOuterClass;LOtherArguments;)
-        	// The problem is that LOuterClass; is always raw.
-        	// We must add in the correct type arguments, which are just the type parameters of the outerclass.
+                method.getDeclaringClass().hasOuterClass() &&
+                ! method.getDeclaringClass().isStatic()) {
+                // Inner class constructors have the form:
+                // <init>(LOuterClass;LOtherArguments;)
+                // The problem is that LOuterClass; is always raw.
+                // We must add in the correct type arguments, which are just the type parameters of the outerclass.
 
           ClassType outerClassType = null;
           JrType jrtype = null;
@@ -171,14 +171,14 @@ public class TypeInitializer extends SceneVisitor {
           }
           if (outerClassType != null) {
                 ClassType fixedOuterRef = method.getDeclaringClass().getOuterClass().getSig().getThisType().copy();
-        	if (! outerClassType.getBaseType().equals(fixedOuterRef.getBaseType())) {
+                if (! outerClassType.getBaseType().equals(fixedOuterRef.getBaseType())) {
             // jaime: don't throw exception, silently ignore
 //            System.out.println("\n TypeInitializer.visitMethod: problem with class: " + jaime_sc);
-//        		throw new RuntimeException("\n TypeInitializer.visitMethod: mismatch between class types: "
+//                      throw new RuntimeException("\n TypeInitializer.visitMethod: mismatch between class types: "
 //                + "\n    outer class type: " + outerClassType
 //                + "\n    fixedOuterRef: " + fixedOuterRef);
           }
-        	methSig.getParams().set(0, fixedOuterRef);
+                methSig.getParams().set(0, fixedOuterRef);
 
           }
         }

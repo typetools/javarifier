@@ -50,6 +50,6 @@ public enum Mutability {
         }
       }
       throw new RuntimeException("Mutability: unknown Mutability for" +
-      		"annotation: " + annotationName);
+                "annotation: " + annotationName);
     }
 }

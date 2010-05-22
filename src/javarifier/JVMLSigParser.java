@@ -401,10 +401,10 @@ public class JVMLSigParser {
             } else if (curr == '<') {
                 args.addAll(parseTypeArgList());
             } else if (curr == '.') {
-            	// entering inner class
-            	// JVML syntax: LOuterClass<TS;>.InnerClass<LDate;>;
-            	baseType.append('$'); // soot's syntax for inner class
-            	index++;
+                // entering inner class
+                // JVML syntax: LOuterClass<TS;>.InnerClass<LDate;>;
+                baseType.append('$'); // soot's syntax for inner class
+                index++;
             } else {
                 baseType.append(curr);
                 index++;
