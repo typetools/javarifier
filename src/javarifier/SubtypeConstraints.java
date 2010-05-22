@@ -8,7 +8,7 @@ import soot.SourceLocator.EntryKind;
 import java.util.*;
 
 public class SubtypeConstraints extends SceneVisitor {
-    
+
     public void visitClass(SootClass sc) {
         if (sc.entryKind() == EntryKind.PROGRAM)
             super.visitClass(sc);
@@ -57,7 +57,7 @@ public class SubtypeConstraints extends SceneVisitor {
         String superName = mSuper.getDeclaringClass().getName();
 
         String fstr = "function " + mSub.getName() + " in " + subName + " <: " + superName;
-    
+
         Param r1 = mSub.getReceiver();
         Param r2 = mSuper.getReceiver();
         // TODO: uncomment in order to make subtype method a forced subtype
@@ -84,7 +84,7 @@ public class SubtypeConstraints extends SceneVisitor {
               new SourceCause(loc, "parameter " + Integer.toString(i) + " of " + fstr, "Contravariant parameter types"));
         }
 
-        
+
         cm.subtype(mSub, mSub.getJrType(),
                    mSuper, mSuper.getJrType(),
           new SourceCause(loc, fstr, "this-mutability subtype"));

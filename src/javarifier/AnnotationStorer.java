@@ -172,7 +172,7 @@ public class AnnotationStorer {
     MethodSig ms = sm.getSig();
     try {
       storeTypeParameters(ms.getTypeParams(), am.bounds);
-    } catch(RuntimeException e) {
+    } catch (RuntimeException e) {
       throw wrap(e, "method signature");
     }
 
