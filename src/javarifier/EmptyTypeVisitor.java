@@ -4,7 +4,6 @@ import javarifier.JrType.*;
 
 public class EmptyTypeVisitor implements TypeVisitor {
 
-  
     public void visitClassType(ClassType t) {
         for (TypeArg targ : t.getTypeArgs()) {
             targ.accept(this);

@@ -12,7 +12,7 @@ import javarifier.util.Pair;
  * lower bounds of a type argument.
  *
  * For example, with the type: List&lt;Set&lt;Date&gt;&gt;, one may wish to
- * specify the List&lt;Set&lt;Date&gt;&gt;, the Set&lt;Date&gt;, or 
+ * specify the List&lt;Set&lt;Date&gt;&gt;, the Set&lt;Date&gt;, or
  * the Date part of the
  * type.  Note in this case, that the upper and lower bounds of the
  * type arguments are identical.  List&lt;? extends Date&gt; is a case where
@@ -26,7 +26,7 @@ import javarifier.util.Pair;
  * List part of List&lt;Date&gt;, however.
  *
  * The term "top level" is used to describe an entire type.  The top
- * level of List&lt;Date&gt; is List<&lt;Date&gt;.  The term "base type" 
+ * level of List&lt;Date&gt; is List<&lt;Date&gt;.  The term "base type"
  * is used to
  * describe the Java 1.4 part of the type.  For example, the base type
  * of List&lt;Date&gt; is List.  The term "element type" is used to describe
@@ -39,7 +39,7 @@ import javarifier.util.Pair;
  *
  * TypeIndex was designed for use with JrType, but can be used in
  * other contexts.
- * 
+ *
  * A TypeIndex is 0-based for indexing VarTypes and Bounds.
  */
 public class TypeIndex {
@@ -60,9 +60,9 @@ public class TypeIndex {
     /**
      * The top level type.
      */
-    private static TypeIndex topLevel = 
+    private static TypeIndex topLevel =
       new TypeIndex(new ArrayList<Pair<VarType, Bound>>(0));
-    
+
     /**
      * An index refering to the top level of a (possibly) parametric
      * type; for example, for List&lt;Date&gt;, it would refer to
@@ -99,7 +99,7 @@ public class TypeIndex {
     }
 
     /**
-     * Returns a type index that is the same as this, without the 
+     * Returns a type index that is the same as this, without the
      * last type parameter.
      */
     public TypeIndex removeLast() {
