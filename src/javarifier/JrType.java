@@ -798,7 +798,7 @@ public abstract class JrType {
          */
         public JrType substitute(ClassType env) {
             throw new RuntimeException("Cannot substitute a VarType; must " +
-            		"substitute either the upper or the lower bound");
+                        "substitute either the upper or the lower bound");
         }
 
         /**

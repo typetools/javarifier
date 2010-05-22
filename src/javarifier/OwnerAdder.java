@@ -65,7 +65,7 @@ public class OwnerAdder extends SceneVisitor {
     private class OwnerAdderHelper extends EmptyTypeVisitor {
 
       @Override
-    	public void visitVarType(VarType t) {
+        public void visitVarType(VarType t) {
         SootClass originalEnclosingClass = enclosingClass;
         SootMethod originalEnclosingMethod = enclosingMethod;
         try {
@@ -73,60 +73,60 @@ public class OwnerAdder extends SceneVisitor {
           // Every loop either returns, throws exception, or walks further up
           // the class hierarchy, so you will always get termination.
           while(true) {
-                VarType param;
-                if (enclosingMethod != null) {
-                    MethodSig enclosingMethodSig = enclosingMethod.getSig();
-                    if (enclosingMethodSig == null) {
-                      throw new RuntimeException("OwnerAdderHelper.visitVarType: enclosing method has null sig: " + enclosingMethod);
-                    }
-                    param = enclosingMethodSig.maybeGetByName(t.getTypeParam());
-                    if (param != null) {
-                        t.setOwner(param.getOwner());
-                        return;
-                    }
-                }
-                // We can't just make the enclosing class the owner because the
-                // type parameter may have been aliased into it from an outer
-                // class.
-                if (enclosingClass == null) {
-                  throw new RuntimeException("OwnerAdderHelper.visitVarType: enclosingClass is null");
-                }
-                ClassSig enclosingClassSig = enclosingClass.getSig();
-                if (enclosingClassSig == null) {
-                  throw new RuntimeException("OwnerAdderHelper.visitVarType: enclosing class has null sig: " + enclosingClassSig);
-                }
-                param = enclosingClassSig.maybeGetByName(t.getTypeParam());
-                if (param != null) {
-                    t.setOwner(param.getOwner());
-                    return;
-                }
+              VarType param;
+              if (enclosingMethod != null) {
+                  MethodSig enclosingMethodSig = enclosingMethod.getSig();
+                  if (enclosingMethodSig == null) {
+                    throw new RuntimeException("OwnerAdderHelper.visitVarType: enclosing method has null sig: " + enclosingMethod);
+                  }
+                  param = enclosingMethodSig.maybeGetByName(t.getTypeParam());
+                  if (param != null) {
+                      t.setOwner(param.getOwner());
+                      return;
+                  }
+              }
+              // We can't just make the enclosing class the owner because the
+              // type parameter may have been aliased into it from an outer
+              // class.
+              if (enclosingClass == null) {
+                throw new RuntimeException("OwnerAdderHelper.visitVarType: enclosingClass is null");
+              }
+              ClassSig enclosingClassSig = enclosingClass.getSig();
+              if (enclosingClassSig == null) {
+                throw new RuntimeException("OwnerAdderHelper.visitVarType: enclosing class has null sig: " + enclosingClassSig);
+              }
+              param = enclosingClassSig.maybeGetByName(t.getTypeParam());
+              if (param != null) {
+                  t.setOwner(param.getOwner());
+                  return;
+              }
 
-                // In case of doubly-nested classes, i.e. AbstractMap$2$1, the
-                // class AbstractMap$2$1 won't have type parameters, but the class
-                // AbstractMap will.  Need to keep checking up the chain of classes:
-                // use SootClass.outerClass
-                if (enclosingClass != null) {
-                  //System.out.println("Failed with: " + enclosingClass);
-                  //System.out.println("Trying: " + enclosingClass.getOuterClass());
-                  enclosingClass = enclosingClass.getOuterClass();
-                  enclosingMethod = enclosingClass.getOuterMethod();
-                  continue;
-                }
+              // In case of doubly-nested classes, i.e. AbstractMap$2$1, the
+              // class AbstractMap$2$1 won't have type parameters, but the class
+              // AbstractMap will.  Need to keep checking up the chain of classes:
+              // use SootClass.outerClass
+              if (enclosingClass != null) {
+                //System.out.println("Failed with: " + enclosingClass);
+                //System.out.println("Trying: " + enclosingClass.getOuterClass());
+                enclosingClass = enclosingClass.getOuterClass();
+                enclosingMethod = enclosingClass.getOuterMethod();
+                continue;
+              }
 
-               throw new RuntimeException(
-                   "OwnerAdderHelper.visitVarType: Could not find owner for: "
-                   + t.getTypeParam() + "\n in enclosingClass: "
-                   + enclosingClass + " or enclosingMethod: "
-                   + ((enclosingMethod == null) ? "null" : enclosingMethod));
+             throw new RuntimeException(
+                 "OwnerAdderHelper.visitVarType: Could not find owner for: "
+                 + t.getTypeParam() + "\n in enclosingClass: "
+                 + enclosingClass + " or enclosingMethod: "
+                 + ((enclosingMethod == null) ? "null" : enclosingMethod));
           }
         } catch (NullPointerException e) {
           throw new RuntimeException("OwnerAdderHelper.visitVarType: " +
-          		"caught null pointer exception: " + e.getMessage(), e);
+                "caught null pointer exception: " + e.getMessage(), e);
         } finally {
           enclosingClass = originalEnclosingClass;
           enclosingMethod = originalEnclosingMethod;
         }
-        }
+      }
     }
 
 }

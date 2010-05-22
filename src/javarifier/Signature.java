@@ -27,10 +27,10 @@ public class Signature {
      * @param others
      */
     protected void add(List<Pair<VarType, JrType>> others) {
-    	List<Pair<VarType, JrType>> newParams = new ArrayList<Pair<VarType, JrType>>(typeParams.size() + others.size());
-    	newParams.addAll(typeParams);
-    	newParams.addAll(others);
-    	this.typeParams = Collections.unmodifiableList(newParams);
+        List<Pair<VarType, JrType>> newParams = new ArrayList<Pair<VarType, JrType>>(typeParams.size() + others.size());
+        newParams.addAll(typeParams);
+        newParams.addAll(others);
+        this.typeParams = Collections.unmodifiableList(newParams);
     }
 
     public void setTypeParams(List<Pair<VarType, JrType>> typeParams) {

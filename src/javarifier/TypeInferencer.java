@@ -233,32 +233,32 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
                    rhs instanceof CastExpr) {
             // x = (Type) y
 
-        	if (lhs instanceof Local && ((CastExpr) rhs).getOp() instanceof Local) {
+            if (lhs instanceof Local && ((CastExpr) rhs).getOp() instanceof Local) {
 
-        		Local x = (Local) lhs;
-        		Local y = (Local) ((CastExpr) rhs).getOp();
-
-		        JrType xType = x.getJrType();
-	            JrType yType = y.getJrType();
+                Local x = (Local) lhs;
+                Local y = (Local) ((CastExpr) rhs).getOp();
+                
+                JrType xType = x.getJrType();
+                JrType yType = y.getJrType();
 
                     // HMMM The point of a cast is to change the type, so why
                     // are we inferring the same type?!  For now, comment this
                     // out so we don't infer a type from the cast at all, and
                     // hope that the correct type is inferred another way.
-//	            if (! (xType == null && yType == null)) {
+//                  if (! (xType == null && yType == null)) {
 //
-//	            	if (xType == null) {
-//	            		xType = yType.copyResettingMutabilities();
-//	            		x.setJrType(xType);
+//                      if (xType == null) {
+//                              xType = yType.copyResettingMutabilities();
+//                              x.setJrType(xType);
 //
-//	            	}
-//	            	if (yType == null) {
-//	            		yType = xType.copyResettingMutabilities();
-//	            		y.setJrType(yType);
+//                      }
+//                      if (yType == null) {
+//                              yType = xType.copyResettingMutabilities();
+//                              y.setJrType(yType);
 //
-//	            	}
-//	            }
-        	}
+//                      }
+//                  }
+                }
         } else if (lhs instanceof ArrayRef &&
                    rhs instanceof Local) {
             // array a[x] = y
@@ -369,8 +369,8 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
             }
         } else if (lhs instanceof Local &&
                    rhs instanceof NewExpr) {
-        	// x = new Foo<Date>();
-        	// Do nothing.  This case is handled in the method invk code.
+                // x = new Foo<Date>();
+                // Do nothing.  This case is handled in the method invk code.
 
         } else if (lhs instanceof Local &&
                    rhs instanceof NewArrayExpr) {
@@ -425,32 +425,32 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
     @Override
     public void caseIdentityStmt(IdentityStmt stmt) {
 
-    	Value lhs = stmt.getLeftOp();
-    	Value rhs = stmt.getRightOp();
-    	if (lhs instanceof Local) {
-			Local x = (Local) lhs;
-			SootMethod meth = x.getMethod();
-			JrType xType = x.getJrType();
+        Value lhs = stmt.getLeftOp();
+        Value rhs = stmt.getRightOp();
+        if (lhs instanceof Local) {
+                        Local x = (Local) lhs;
+                        SootMethod meth = x.getMethod();
+                        JrType xType = x.getJrType();
 
-			JrType yType = null;
-			if (rhs instanceof ThisRef) {
-    			Param y = meth.getReceiver();
-    			yType = y.getJrType();
-    		} else if (rhs instanceof ParameterRef){
-    			Param y = meth.getParameter(((ParameterRef) rhs).getIndex());
-    			yType = y.getJrType();
-    		}
-			if (xType == null && yType != null) {
-				xType = yType.copyResettingMutabilities();
-				x.setJrType(xType);
-			}
+                        JrType yType = null;
+                        if (rhs instanceof ThisRef) {
+                        Param y = meth.getReceiver();
+                        yType = y.getJrType();
+                } else if (rhs instanceof ParameterRef){
+                        Param y = meth.getParameter(((ParameterRef) rhs).getIndex());
+                        yType = y.getJrType();
+                }
+                        if (xType == null && yType != null) {
+                                xType = yType.copyResettingMutabilities();
+                                x.setJrType(xType);
+                        }
 
-    	}
+        }
     }
 
 
     public void defaultCase(Object obj) {
-    	Stmt stmt = (Stmt) obj;
+        Stmt stmt = (Stmt) obj;
         if (stmt.containsInvokeExpr()) {
             InvokeExpr invokeExpr = stmt.getInvokeExpr();
             handleMethodInvk(invokeExpr);
@@ -519,9 +519,9 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
 
 //            // Handle constructor "recievers" specially
 //            if (methInvk instanceof SpecialInvokeExpr &&
-//            	methInvk.getMethod().getName().equals("<init>")) {
+//              methInvk.getMethod().getName().equals("<init>")) {
 //
-//            	SpecialInvokeExpr constructorInvk = (SpecialInvokeExpr) methInvk;
+//              SpecialInvokeExpr constructorInvk = (SpecialInvokeExpr) methInvk;
 //
 //            }
 
