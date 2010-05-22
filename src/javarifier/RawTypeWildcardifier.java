@@ -18,7 +18,7 @@ public class RawTypeWildcardifier extends SceneVisitor {
     public void visitType(JrType type) {
         type.accept(new RTWHelper());
     }
-    
+
     private static class RTWHelper extends EmptyTypeVisitor {
         RTWHelper() {}
 

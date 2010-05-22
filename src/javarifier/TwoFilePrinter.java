@@ -17,7 +17,7 @@ import soot.SootMethod;
 public class TwoFilePrinter extends SceneVisitor {
     final Writer readOnlysOut;
     final Writer mutablesOut;
-    
+
     public TwoFilePrinter(Writer readOnlysOut, Writer mutablesOut) {
         this.readOnlysOut = readOnlysOut;
         this.mutablesOut = mutablesOut;
@@ -41,7 +41,7 @@ public class TwoFilePrinter extends SceneVisitor {
         check(displaySig, meth, Mutability.READONLY, readOnlysOut);
         check(displaySig, meth, Mutability.MUTABLE, mutablesOut);
     }
-    
+
     private void check(String line, SootMethod meth,
             Mutability mut, Writer out) {
         boolean gotOne = false;
@@ -64,7 +64,7 @@ public class TwoFilePrinter extends SceneVisitor {
             }
         }
     }
-    
+
     private boolean hasMut(Param param, Mutability mut) {
         JrType type = param.getJrType();
         return type instanceof MutType && ((MutType) type).getMutability() == mut;

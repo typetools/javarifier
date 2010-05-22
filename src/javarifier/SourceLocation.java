@@ -24,12 +24,12 @@ public class SourceLocation {
     // unless debugging information is available, these will stay this way
     public String filePath = "";
     public int lineNumber = -1;
-    
+
     public SourceLocation(ClassMember member) {
         className = member.getDeclaringClass().getName();
-        if(member instanceof SootMethod) {
+        if (member instanceof SootMethod) {
             memberName = ((SootMethod)member).getName();
-        } else if(member instanceof SootField) {
+        } else if (member instanceof SootField) {
             memberName = ((SootField)member).getName();
         }
         getDebugTags((Host) member);
@@ -42,22 +42,22 @@ public class SourceLocation {
     }
 
     public SourceLocation(Body body) {
-        this(body.getMethod());  
+        this(body.getMethod());
     }
 
     public SourceLocation(SootClass clazz) {
         className = clazz.getName();
         getDebugTags((Host) clazz);
     }
-    
+
     private void getDebugTags(Host h) {
-        for(Tag tag : (Collection<Tag>)h.getTags()) {
+        for (Tag tag : (Collection<Tag>)h.getTags()) {
             if (tag instanceof LineNumberTag) {
                 byte[] value = tag.getValue();
                 lineNumber = ((value[0] & 0xff) << 8) | (value[1] & 0xff);
             } else if (tag instanceof SourceLnPosTag) {
                 //TODO: also keep track of endLn() ?
-                lineNumber = ((SourceLnPosTag) tag).startLn(); 
+                lineNumber = ((SourceLnPosTag) tag).startLn();
             } else if (tag instanceof SourceLineNumberTag) {
                 lineNumber = ((SourceLineNumberTag) tag).getLineNumber();
             } else if (tag instanceof SourceFileTag) {

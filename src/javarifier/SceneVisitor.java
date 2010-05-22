@@ -3,8 +3,8 @@ package javarifier;
 /**
  * SceneVisitor defines a default visitor class that will visit every
  * program element in a Scene.  Overriding classes can simply choose to perform
- * a particular action for each visited program element, or may choose to 
- * visit only a subset of some program elements, since typically, only 
+ * a particular action for each visited program element, or may choose to
+ * visit only a subset of some program elements, since typically, only
  * visitScene(Scene) is called directly.
  */
 import soot.Scene;
@@ -42,7 +42,7 @@ public class SceneVisitor {
                 for (SootField f : (Collection<SootField>) clazz.getFields()) {
                   try {
                     visitField(f);
-                  } catch(Exception e) {
+                  } catch (Exception e) {
                     throw e;
                   }
                 }

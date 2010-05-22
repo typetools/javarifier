@@ -8,11 +8,11 @@ import org.objectweb.asm.commons.*;
 
 public class BridgeMethodMarker extends EmptyVisitor {
     SootClass clazz;
-    
+
     BridgeMethodMarker(SootClass clazz) {
         this.clazz = clazz;
     }
-    
+
     @Override
     public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
         if ((access & Opcodes.ACC_BRIDGE) != 0) {
@@ -21,7 +21,7 @@ public class BridgeMethodMarker extends EmptyVisitor {
         }
         return super.visitMethod(access, name, desc, signature, exceptions);
     }
-    
+
     public static void mark(Scene s) {
         for (Object clazz1 : s.getClasses()) {
             SootClass clazz = (SootClass) clazz1;
@@ -37,5 +37,5 @@ public class BridgeMethodMarker extends EmptyVisitor {
         clazz = Scene.v().getSootClass(name.replace('/','.'));
         super.visit(version, access, name, signature, superName, interfaces);
     }
-    
+
 }

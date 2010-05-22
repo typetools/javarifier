@@ -28,15 +28,15 @@ public class MethodSig extends Signature {
 
   /**
    * Constructs a new MethodSig.
-   * 
+   *
    * @param typeParams - any type parameters on the method
    * @param receiverType - the type of the receiver
    * @param params - the types of the parameters
    * @param returnType - the type of the return value
    */
-  public MethodSig(List<Pair<VarType, JrType>> typeParams, 
-      JrType receiverType, 
-      List<JrType> params, 
+  public MethodSig(List<Pair<VarType, JrType>> typeParams,
+      JrType receiverType,
+      List<JrType> params,
       JrType returnType) {
     super(typeParams);
     this.receiverType = receiverType;
@@ -88,7 +88,7 @@ public class MethodSig extends Signature {
    * {@inheritDoc}
    */
   public String toString() {
-    return super.toString() + " " + returnType + " " + params + 
+    return super.toString() + " " + returnType + " " + params +
     " " + receiverType;
   }
 
