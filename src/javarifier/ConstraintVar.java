@@ -27,7 +27,7 @@ public class ConstraintVar {
     private SourceCause sourceCause;
     private Pair<ConstraintVar, ConstraintVar> constraintCause;
     private Set<Pair<ConstraintVar, ConstraintVar>> guarded;
-    
+
     private ConstraintVar(JrTyped value, MutType type, Context context) {
         this.value = value;
         this.type = type;
@@ -70,14 +70,14 @@ public class ConstraintVar {
     public Context getContext() {
         return context;
     }
-    
+
     // sets the direct cause
     public void addCause(ConstraintVar v) {
-        if(constraintCause == null && sourceCause == null) {
-            if(guarded != null) {
+        if (constraintCause == null && sourceCause == null) {
+            if (guarded != null) {
                 //checks to see if this was originally from a double guard
-                for(Pair<ConstraintVar, ConstraintVar> guard : guarded) {
-                    if(guard.second == v) {
+                for (Pair<ConstraintVar, ConstraintVar> guard : guarded) {
+                    if (guard.second == v) {
                         constraintCause = guard;
                         guarded = null;
                         return;
@@ -92,8 +92,8 @@ public class ConstraintVar {
     // adds a potential double guard cause
     public void addCause(Pair<ConstraintVar, ConstraintVar> v) {
         //If we don't have a concrete cause yet, keep information regarding double guards
-        if(constraintCause == null && sourceCause == null) {
-            if(guarded == null) guarded = new HashSet<Pair<ConstraintVar,ConstraintVar>>();
+        if (constraintCause == null && sourceCause == null) {
+            if (guarded == null) guarded = new HashSet<Pair<ConstraintVar,ConstraintVar>>();
             guarded.add(v);
         }
     }
@@ -105,7 +105,7 @@ public class ConstraintVar {
     public SourceCause getSource() {
         return sourceCause;
     }
-    
+
     //returns a string which represents the shortest cause
     public String causeString() {
         StringBuilder buf = new StringBuilder();
@@ -118,9 +118,9 @@ public class ConstraintVar {
         buf.append(prefix);
         buf.append(this.toString());
         buf.append("\n");
-        
-        if(constraintCause == null) {
-            if(sourceCause == null) {
+
+        if (constraintCause == null) {
+            if (sourceCause == null) {
                 buf.append("ERROR: NO CAUSE\n");
             } else {
                 buf.append(prefix);
@@ -131,14 +131,14 @@ public class ConstraintVar {
             SourceCause cause = constraintCause.first != null ?
                 ConstraintTracker.lookupCause(constraintCause,        this)
               : ConstraintTracker.lookupCause(constraintCause.second, this);
-            if(cause != null) {
+            if (cause != null) {
                 buf.append(prefix);
                 buf.append(cause.toString());
                 buf.append("\n");
             } else {
                 buf.append("ERROR: NO CONSTRAINT CAUSE\n");
             }
-            if(constraintCause.first != null) {
+            if (constraintCause.first != null) {
                 buf.append(prefix);
                 buf.append("GUARD:\n");
                 constraintCause.first.causeRec(prefix+"    ", buf);

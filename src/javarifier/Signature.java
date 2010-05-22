@@ -32,7 +32,7 @@ public class Signature {
     	newParams.addAll(others);
     	this.typeParams = Collections.unmodifiableList(newParams);
     }
-    
+
     public void setTypeParams(List<Pair<VarType, JrType>> typeParams) {
         this.typeParams = typeParams;
     }

@@ -119,7 +119,7 @@ public class OwnerAdder extends SceneVisitor {
                    + enclosingClass + " or enclosingMethod: "
                    + ((enclosingMethod == null) ? "null" : enclosingMethod));
           }
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
           throw new RuntimeException("OwnerAdderHelper.visitVarType: " +
           		"caught null pointer exception: " + e.getMessage(), e);
         } finally {

@@ -10,32 +10,32 @@ import javarifier.Main;
 import javarifier.Options;
 
 /**
- * ConstraintSet models a set that contains unguarded, guarded and 
+ * ConstraintSet models a set that contains unguarded, guarded and
  * double-guarded constraints.
- * 
- * For example, an unguarded constraint is the simple constraint variable "a".  
- * This type of constraint means that the reference "a" is mutable. 
- * 
+ *
+ * For example, an unguarded constraint is the simple constraint variable "a".
+ * This type of constraint means that the reference "a" is mutable.
+ *
  * This class never modifies any of the constraints that are inserted into it.
- * 
- * Refer to Jaime Quinonez's thesis (javari/design/thesis-jaime or 
+ *
+ * Refer to Jaime Quinonez's thesis (javari/design/thesis-jaime or
  * available online at:
  * <a href="http://pag.csail.mit.edu/javari">http://pag.csail.mit.edu/javari</a>
  * )
  * for a description of what these constraints represent in the program.
- * A "constraint variable" in the documentation (which is equivalent to 
+ * A "constraint variable" in the documentation (which is equivalent to
  * an "unguarded constraint") is represented by javarifier.ConstraintVar
- * 
- * Guarded constraints represent the fact that a reference is mutable if 
+ *
+ * Guarded constraints represent the fact that a reference is mutable if
  * another reference happens to be mutable.  A single guarded constraint, of the
  * form "a -&gt; b", means that if the reference "a" is mutable, then "b" is
  * mutable.  A double-guarded constraint, of the form "a -&gt; (b -&gt; c)", means
  * that if "a" is mutable and "b" is mutable, then you have that "c" is mutable.
- * The double guarded constraint should be thought of as there being two 
+ * The double guarded constraint should be thought of as there being two
  * conditions that need to be met for the last reference to be mutable.
  * The constraints: "a -&gt; (b -&gt; c)" and "b -&gt; (a -&gt; c)" have exactly the same
  * meaning.
- * 
+ *
  * A constraint set solution is the set of variables known to be true
  * according to the constraints added to the set.  For example, given "a",
  * "a -&gt; b", "c -&gt; d", the solution is "a, b".  Another example is "e -&gt; (f
@@ -50,23 +50,23 @@ import javarifier.Options;
  * and guarded constraints by using a map to store the relationships over
  * all constraint variables.  That is, mapping a constraint variable "a" to
  * the constraint variable "b" represents the guarded constraint "a-&gt;b".
- * There are no classes such as "GuardedConstraint" or 
+ * There are no classes such as "GuardedConstraint" or
  * "DoubleGuardedConstraint."
  * This representation is necessary because the algorithm specifies that one
  * should be able to look up all guarded constraints with a certain constraint
  * variable as the guard in constant time.
- * 
+ *
  * For single-guarded constraints, the guarded map stores a mapping from
  * the guard to the set of constraint variables it guards.  The
  * constraints "a-&gt;b", "a-&gt;c", "c-&gt;d" are represented as the map:
  * { a-&gt;{b,c}, c-&gt;{d} }
- * 
+ *
  * For double-guarded constraint, the twiceGuarded map stores a mapping from
- * the guard to the single-guarded constraints it guards.  The 
+ * the guard to the single-guarded constraints it guards.  The
  * constraints "a-&gt;b-&gt;c", "a-&gt;b-&gt;d", "b-&gt;d-&gt;c" are represented as the map:
  * { a-&gt;{b-&gt;c,b-&gt;d}, b-&gt;{d-&gt;c} }
  */
-public class ConstraintSet<T extends javarifier.ConstraintVar> 
+public class ConstraintSet<T extends javarifier.ConstraintVar>
   implements Iterable<T> {
 
     /** Unguarded constraints. */
@@ -80,7 +80,7 @@ public class ConstraintSet<T extends javarifier.ConstraintVar>
 
     /**
      * Double-guarded constraints.  A MultiMap maps a key (the guard) to a set
-     * of values (the consequents in double-guarded constraints with that 
+     * of values (the consequents in double-guarded constraints with that
      * guard).
      * The representation of the single-guarded constraints here is as a pair.
      * They are converted to the map representation when (and if) they are
@@ -89,36 +89,36 @@ public class ConstraintSet<T extends javarifier.ConstraintVar>
     private MultiMap<T, Pair<T, T>> twiceGuarded
         = new HashMultiMap<T, Pair<T, T>>();
 
-    /** 
-     * Adds the unguarded constraint c to the unguarded constraint set. 
+    /**
+     * Adds the unguarded constraint c to the unguarded constraint set.
      */
     public void add(T c) {
         unguarded.add(c);
     }
 
-    /** 
-     * Adds the guarded constraint c1 -&gt; c2 to the unguarded constraint set. 
+    /**
+     * Adds the guarded constraint c1 -&gt; c2 to the unguarded constraint set.
      */
     public void add(T c1, T c2) {
         guarded.put(c1, c2);
     }
 
-    /** 
+    /**
      * Adds the guarded constraint c1 -&gt; (c2 -&gt; c3) to the double-guarded
-     * constraint set. 
+     * constraint set.
      */
     public void add(T c1, T c2, T c3) {
         twiceGuarded.put(c1, new Pair<T, T>(c2, c3));
     }
 
     /**
-     * Returns a new ConstraintSet that contains the unguarded, guarded, 
-     * and double-guarded constraints from both 
+     * Returns a new ConstraintSet that contains the unguarded, guarded,
+     * and double-guarded constraints from both
      * the input constraint set and this constraint set.
-     * It does not modify either the input constraint set or this constraint 
+     * It does not modify either the input constraint set or this constraint
      * set.  It adds the constraints directly, without copying them, because
      * constraints are immutable.
-     * 
+     *
      * @param cs the constraint set to combine with this
      * @return a new ConstraintSet containing the union of constraints from
      *  this and cs
@@ -143,18 +143,18 @@ public class ConstraintSet<T extends javarifier.ConstraintVar>
      * and returns the resulting set of unguarded constraints.  These are
      * all the variables known to be mutable in a program.
      *
-     * Solving the constraints does not modify this. 
-     * 
+     * Solving the constraints does not modify this.
+     *
      * This algorithm takes linear time in the total number of constraints
      * (in expectation, reliant on hash
      * maps taking constant time for lookups and additions in expectation).
-     * 
-     * The algorithm for solving constraints takes linear time in the total 
+     *
+     * The algorithm for solving constraints takes linear time in the total
      * number of constraints.  The basic algorithm is to use a work-list
      * of all the unguarded constraints left to propagate.  The work-list
      * is initialized with all the unguarded constraints.  For each unguarded
      * constraint in the work-list, that constraint is used to possibly
-     * satisfy the guards for some single-guarded and double-guarded 
+     * satisfy the guards for some single-guarded and double-guarded
      * constraints.
      * For single-guarded constraints, the algorithm looks up all consequents
      * guarded by a given guard, and adds those to the unguarded constraint set
@@ -162,9 +162,9 @@ public class ConstraintSet<T extends javarifier.ConstraintVar>
      * set.
      * For double-guarded constraints, the algorithm looks up all consequents
      * guarded by a given guard.  Each of these consequents is a single-guarded
-     * constraint of the form "a-&gt;b".  If "a" is already in the unguarded 
+     * constraint of the form "a-&gt;b".  If "a" is already in the unguarded
      * constraint set, the algorithm adds "b" to the unguarded constraint set,
-     * and to the work-list if it was not already in the unguarded constraint 
+     * and to the work-list if it was not already in the unguarded constraint
      * set.  If "a" is not in the unguarded constraint set, the algorithm adds
      * "a-&gt;b" to the single-guarded constraint set.
      *
@@ -176,7 +176,7 @@ public class ConstraintSet<T extends javarifier.ConstraintVar>
       // - Let U be the set of unguarded constraints, of the form "a"
       // - Let G be the set of guarded constraints, of the form "a->b"
       // - Let D be the set of double-guarded constraints, of the form "a->b->c"
-      //     
+      //
       // initialize W with all the constraints from U
       // while W is not empty
       //   pop a constraint "a" from W
@@ -193,12 +193,12 @@ public class ConstraintSet<T extends javarifier.ConstraintVar>
 
       // Note that extracting the commonality of adding to workList if
       // not already in unguarded shouldn't be extracted out because
-      // you would have to pass around these worklists, and I think 
+      // you would have to pass around these worklists, and I think
       // it obstructs the explicit description of the algorithm
-      
+
       // Calling ConstraintVar.addCause() is not a mutation because this
       // is debug information.
-      
+
       // Shadow fields, this method is not supposed to mutate this.
       Set<T> unguarded = new LinkedHashSet<T>(this.unguarded);
       MultiMap<T, T> guarded = new HashMultiMap<T, T>(this.guarded);
@@ -252,16 +252,16 @@ public class ConstraintSet<T extends javarifier.ConstraintVar>
       }
       return unguarded;
     }
-    
-    /** 
+
+    /**
      * Returns an iterator over the unguarded constraint set of this, after
      * solving.
-     * Same as this.solve().iterator() 
+     * Same as this.solve().iterator()
      */
     public Iterator<T> iterator() {
       return solve().iterator();
     }
-    
+
     /**
      * Returns a string representation of this, with each constraint on its
      * own line.  Given constraint variables "a", "b" and "c",
@@ -283,12 +283,12 @@ public class ConstraintSet<T extends javarifier.ConstraintVar>
       }
       for (T key : twiceGuarded.keySet()) {
         for (Pair<T, T> val : twiceGuarded.get(key)) {
-          ret.append("GG: " + key + " => " + val.first() + 
+          ret.append("GG: " + key + " => " + val.first() +
                      " -> " + val.second());
           ret.append(String.format("/%n"));
         }
       }
-      
+
       return ret.toString();
     }
 }

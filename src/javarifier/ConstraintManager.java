@@ -231,7 +231,7 @@ public class ConstraintManager {
      */
     public void subtype(JrTyped lhsValue, JrType lhsType,
                         JrTyped rhsValue, JrType rhsType, SourceCause cause) {
-        
+
         subtype2(null, null, lhsValue, lhsType,
                  null, null, rhsValue, rhsType, cause);
     }
@@ -365,7 +365,7 @@ public class ConstraintManager {
 
         try {
             x = ((ClassType) envType).shallowSearchForTypeArg(env, valueTypeVT);
-        } catch(Exception e) {
+        } catch (Exception e) {
           //System.out.println("ConstraintManager.resolveVarType: caught exception: " + e);
           return null;
         }
@@ -623,7 +623,7 @@ public class ConstraintManager {
                 System.out.println("guards2(): omit constraint: " + lhs + " \n -> " + rhsRo);
             }
         }
-        
+
         ConstraintTracker.add(lhs, rhsMut, cause);
         cs.add(lhs, rhsMut);
     }
@@ -658,7 +658,7 @@ public class ConstraintManager {
               System.out.println("guards3(): omit constraint: " + guardRo + " \n => " + lhs + " \n -> " + rhsRo);
             }
         }
-        
+
         ConstraintTracker.add(guardMut, lhs, rhsMut, cause);
         cs.add(guardMut, lhs, rhsMut);
     }
