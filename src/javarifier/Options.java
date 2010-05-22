@@ -8,7 +8,7 @@ import soot.SootResolver;
 
 /**
  * This class manages all the options available when running Javarifier.
- * It offers a single, through {@link Options#v()}, that can be 
+ * It offers a single, through {@link Options#v()}, that can be
  * queried for each individual option.
  * {@link Options#processCmdLine(String[])} sets all the options from the
  * command line arguments.
@@ -25,32 +25,32 @@ public class Options {
 
     private String programCPEntries = null;
     public String getProgramCPEntries() { return programCPEntries; }
-    
+
     // Note that the default StubCPEntries are always used, no matter what
     // the stubCPEntries are.
     private String stubCPEntries = "";
-    public String getStubCPEntries() { 
-      return defaultStubCPEntries + 
-             System.getProperty("path.separator") + 
+    public String getStubCPEntries() {
+      return defaultStubCPEntries +
+             System.getProperty("path.separator") +
              stubCPEntries +
              (useWorldAsStubs()
               ? (System.getProperty("path.separator") + getWorldCPEntries())
-              : ""); 
+              : "");
     }
 
     private String worldCPEntries = "";
-    public String getWorldCPEntries() { 
+    public String getWorldCPEntries() {
       return defaultWorldCPEntries +
              System.getProperty("path.separator") +
-             worldCPEntries; 
+             worldCPEntries;
     }
 
     private String defaultStubCPEntries ="";
     public String getDefaultStubCPEntries() { return defaultStubCPEntries; }
-    
+
     private String defaultWorldCPEntries = "";
     public String getDefaultWorldCPEntries() { return defaultWorldCPEntries; }
-    
+
     private String outputFile = null;
     public String getOutputFile() { return outputFile; }
 
@@ -197,33 +197,33 @@ public class Options {
 
     private boolean debugAnnotationLoading = false;
     public boolean debugAnnotationLoading() { return debugAnnotationLoading; }
-    
+
     private boolean debugAnnotationStoring = false;
     public boolean debugAnnotationStoring() { return debugAnnotationStoring; }
 
     private boolean reallyQuiet = false;
     public boolean reallyQuiet() { return reallyQuiet; }
-    
+
     private boolean printStubs = false;
     public boolean justPrintStubs() { return printStubs; }
-    
+
     private boolean printVersion = false;
     public boolean printVersion() { return printVersion; }
-    
+
     private boolean printUsage = false;
     public boolean printUsage() { return printUsage; }
-    
+
     private boolean applyHeuristics = false;
     public boolean applyHeuristics() { return applyHeuristics; }
-    
+
     /**
-     * The skipEmpty flag indicates that annotations should not be outputted 
+     * The skipEmpty flag indicates that annotations should not be outputted
      *  for empty code.  That is, there should be no annotations for interfaces
      *  and abstract methods.
      */
     private boolean skipEmpty = false;
     public boolean skipEmpty() { return skipEmpty; }
-    
+
     /**
      * The includeImmutableClasses indicates that @ReadOnly annotations
      * should be output even for references that are of some type that is known
@@ -231,13 +231,13 @@ public class Options {
      */
     private boolean includeImmutableClasses = false;
     public boolean includeImmutableClasses() { return includeImmutableClasses; }
-    
+
     public String[] processCmdLine(String[] args) {
 
         for (int i = 0; i < args.length && args.length > 0; i++) {
           // System.out.printf("i: %d, args: %s%n", i, Arrays.toString(args));
-          i = Math.max(0, i); 
-          // in case last argument parsed was at the very beginning of the 
+          i = Math.max(0, i);
+          // in case last argument parsed was at the very beginning of the
           // array, in which case it and possibly the next arg have been removed
             if (args[i].equals("-openWorld")) {
                 openWorld = true;
@@ -250,7 +250,7 @@ public class Options {
                 args = removeArgs(args, i, 2);
                 i--;
                 i--;
-            } else 
+            } else
             if (args[i].equals("-outputFormat")) {
                 String outputFormatStr = args[i+1];
                 if (outputFormatStr.equals("scenePrinter"))
@@ -474,7 +474,7 @@ public class Options {
             if (args[i].equals("-debugAnnotationStoring")) {
                 debugAnnotationStoring = true;
                 args = removeArgs(args, i, 1);
-            } else if (args[i].equals("-Q") || args[i].equals("-q") || 
+            } else if (args[i].equals("-Q") || args[i].equals("-q") ||
                 args[i].equals("--quiet")) {
               reallyQuiet = true;
               args = removeArgs(args, i, 1);
@@ -491,7 +491,7 @@ public class Options {
               args = removeArgs(args, i, 1);
               i--;
             } else
-            if (args[i].equals("-help") || 
+            if (args[i].equals("-help") ||
                 args[i].equals("--help")) {
               printUsage = true;
               args = removeArgs(args, i, 1);
