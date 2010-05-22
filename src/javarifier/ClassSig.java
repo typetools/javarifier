@@ -59,15 +59,15 @@ public class ClassSig extends Signature {
      * @param other The Signature from which the other parameters are accessed from.
      */
     public void add(Signature other) {
-    	super.add(other.getTypeParams());
+        super.add(other.getTypeParams());
         List<TypeArg> params = new ArrayList<TypeArg>(thisType.getTypeArgs().size() + other.getTypeParams().size());
         for (Pair<VarType, JrType> param : other.getTypeParams()) {
                 TypeArg ta = new TypeArg(param.first.copy(), param.first.copy());
                 ta.setTypeParam(new VarType(param.first.getTypeParam()));
-        	params.add(ta);
+                params.add(ta);
         }
         for (TypeArg arg : thisType.getTypeArgs()) {
-        	params.add(arg.copy());
+                params.add(arg.copy());
         }
         ClassType newThisType = new ClassType(thisType.getMutability(), thisType.getBaseType(), params);
         newThisType.setIndex(thisType.getIndex());
