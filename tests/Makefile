@@ -103,7 +103,7 @@ VerifyDiffs.class : VerifyDiffs.java
 # TODO: Add
 #	$(shell cat $*.options) \
 # to the below command.  This will only affect OpenWorld.java for now
-%.jaif: %.class ../javarifier.jar
+%.jaif: %.class ../bin
 	rm -f $@
 	${JAVARIFIER} \
 	-programCPEntries . \
