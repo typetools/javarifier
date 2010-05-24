@@ -141,11 +141,8 @@ public class Options {
     private boolean dumpOpenWorldCons = false;
     public boolean dumpOpenWorldCons() { return dumpOpenWorldCons; }
 
-
     private boolean dumpCauses = false;
     public boolean dumpCauses() { return dumpCauses; }
-
-
 
     private String debugVar = null;
     public String debugVar() { return debugVar; }
