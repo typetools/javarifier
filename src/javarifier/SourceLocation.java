@@ -15,9 +15,11 @@ import soot.Body;
 
 import java.util.Collection;
 
-// Stores which class and member a particular sooty thing belongs to, and
-// attempts to extract line number information
-// Used for debugging purposes / communicating with the user.
+/**
+ *   Stores which class and member a particular sooty thing belongs to, and
+ * attempts to extract line number information
+ * Used for debugging purposes / communicating with the user.
+ */
 public class SourceLocation {
     private String className, memberName;
 
@@ -51,9 +53,10 @@ public class SourceLocation {
     }
 
     private void getDebugTags(Host h) {
-        for (Tag tag : (Collection<Tag>)h.getTags()) {
+        for (Tag tag : (Collection<Tag>) h.getTags()) {
             if (tag instanceof LineNumberTag) {
                 byte[] value = tag.getValue();
+                //TODO: this assumes LOC < 65k
                 lineNumber = ((value[0] & 0xff) << 8) | (value[1] & 0xff);
             } else if (tag instanceof SourceLnPosTag) {
                 //TODO: also keep track of endLn() ?
@@ -68,6 +71,7 @@ public class SourceLocation {
 
     public String toString() {
         // it seems that filePath is nearly never set, so it's left out here.
-        return (lineNumber != -1 ? "(line " + Integer.toString(lineNumber) + ")" : "") + " " + className + "." + memberName;
+        return (lineNumber != -1 ? "(line " + Integer.toString(lineNumber) + ")"
+                                 : "") + " " + className + "." + memberName;
     }
 }
