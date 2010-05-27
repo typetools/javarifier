@@ -1,7 +1,8 @@
 package javarifier;
 
-/* represents a location in the program, and information explaining why this
-/* location caused a constraint or variable to be inferred.
+/**
+ *  Stores a location in the program, and information explaining why this
+ * location caused a constraint or variable to be inferred.
  */
 public class SourceCause {
 
