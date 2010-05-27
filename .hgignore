@@ -1,0 +1,30 @@
+### glob syntax rules
+syntax: glob
+
+javarifier.jar
+javarifier.zip
+
+TAGS
+*~
+
+tests/annotated
+tests/*.class
+tests/**/*.class
+tests/*.diff
+tests/**/*.diff
+tests/*.log
+tests/**/*.log
+tests/*.jaif
+tests/**/*.jaif
+sootOutput
+bin/**/*.class
+
+bin/soot
+src/soot
+
+### regexp syntax rules
+syntax: regexp
+
+# Not a glob because it starts with # which looks like a comment.
+(.*/)?\#[^/]*\#$
+(.*/)?\.\#.*
