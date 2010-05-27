@@ -43,8 +43,9 @@ set it to your java home directory:
 
 In order to properly run tests, and execute some tools, and utilize the
 checker framework, it is necessary that you also have the following
-environment variables set:
-        
+environment variables set, for example:
+
+        export JAVARI_ANNOTATION_WORKSPACE="/home/YOUR_NAME/jsr308"
         export CHECKERS=$JAVARI_ANNOTATION_WORKSPACE/checker-framework/checkers
 	export PATH=$CHECKERS/binary:$PATH
 
@@ -56,6 +57,7 @@ Next, build each of the above projects in the order they were referenced above:
         ant
         cd ../checker-framework/checkers
         ant
+        cd ../../
 
 If any of these builds fail, consult that project's README file.
 
