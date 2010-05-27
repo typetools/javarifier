@@ -45,7 +45,7 @@ In order to properly run tests, and execute some tools, and utilize the
 checker framework, it is necessary that you also have the following
 environment variables set, for example:
 
-        export JAVARI_ANNOTATION_WORKSPACE="/home/YOUR_NAME/jsr308"
+        export JAVARI_ANNOTATION_WORKSPACE=$HOME/jsr308
         export CHECKERS=$JAVARI_ANNOTATION_WORKSPACE/checker-framework/checkers
 	export PATH=$CHECKERS/binary:$PATH
 
