@@ -296,7 +296,9 @@ public class Main {
         printNonQuiet("OpenWorld finished.");
       }
 
-      //ConstraintTracker.printCauses();
+      if (Options.v().debugConstraints()) {
+          ConstraintTracker.printCauses();
+      }   
 
       return cm;
     }

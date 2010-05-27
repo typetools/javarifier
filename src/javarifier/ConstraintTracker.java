@@ -32,4 +32,11 @@ public class ConstraintTracker {
         return doubleCauses.get(new Pair<Pair<ConstraintVar, ConstraintVar>, ConstraintVar>(lhs, rhs));
     }
 
+    public static void printCauses() {
+        System.out.println("Constraint Causes");
+        for (Pair<ConstraintVar, ConstraintVar> cause : singleCauses.keySet()) {
+            System.out.println(cause.first() + " -> " + cause.first());
+            System.out.println("  " + singleCauses.get(cause).toString());
+        }
+    }
 }
