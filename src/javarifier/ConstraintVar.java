@@ -23,10 +23,32 @@ public class ConstraintVar {
 
     private final Context context;
 
-    //cause-tracking fields
+
+    // cause-tracking fields
+
+    // Rep invariant:
+    // this is known to be mutable <=> ((sourceCause != null) || (constraintCause != null))
+    // this is not known to be mutable <=> ((sourceCause == null) && (constraintCause == null))
+    // this is known to be mutable <=> (guarded == null)
+    /**
+     * Non-null if this was mutable to start with -- no constraint had to
+     * be fired to make this mutable.
+     */
     private SourceCause sourceCause;
+    /**
+     * Null if this is not yet known to be mutable.
+     * Non-null if this is known to be mutable:
+     *  * If a normal constraint was fired to make this mutable, then the Pair is <non-null, null>.
+     *  * If a double-guarded constraint was fired to make this mutable, then the Pair is <non-null, non-null>.
+     */
     private Pair<ConstraintVar, ConstraintVar> constraintCause;
+    /**
+     * Records partial firing of double-guards (their transformation into
+     * single guards).  Multiple double-guards may be turned into
+     * single-guards before finally this is known to be mutable.
+     */
     private Set<Pair<ConstraintVar, ConstraintVar>> guarded;
+
 
     private ConstraintVar(JrTyped value, MutType type, Context context) {
         this.value = value;
