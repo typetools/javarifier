@@ -235,6 +235,8 @@ public class ConstraintSet<T extends javarifier.ConstraintVar>
           T b = consequent.first;
           T c = consequent.second;
 
+          c.addCause(new Pair<javarifier.ConstraintVar, javarifier.ConstraintVar>(a,b));
+
           // If single-guarded constraint has guard already known to be mutable,
           // act just like when satisfying guards from guarded constraint set.
           if (unguarded.contains(b)) {
@@ -246,7 +248,6 @@ public class ConstraintSet<T extends javarifier.ConstraintVar>
             // Constraint not already satisfied, add to single guarded
             // constraint set for future consideration.
             guarded.put(b, c);
-            c.addCause(new Pair<javarifier.ConstraintVar, javarifier.ConstraintVar>(a,b));
           }
         }
       }
