@@ -7,24 +7,27 @@ package javarifier;
 public class SourceCause {
 
     // what caused the constraint to form
-    // example: "(line 86) Board.foobar"
-    // better would be:  "Board.java:86: " which can be prepended and then interpreted by tools just as compiler error messages are
+    // example: "Board.java:86:"
     private SourceLocation location;
     // example:  "$e0 = l0.board"
     private String stmt;
     // example:  "means that ..."  (? is that correct?)
     private String expl;
 
-    public SourceCause(SourceLocation l, String s) {
-        location = l; stmt = s; expl = "";
+    public SourceCause(SourceLocation l, String e) {
+        location = l; stmt = ""; expl = e;
     }
 
     public SourceCause(SourceLocation l, String s, String e) {
         location = l; stmt = s; expl = e;
     }
 
-    public String toString() {
-        return stmt + " " + expl + " " + (location != null ? location.toString() : "");
+    public String toString() { return prefixedString(""); }
+
+    public String prefixedString(String prefix) {
+        return prefix + (location != null ? location.toString() : "") +
+               (stmt != "" ? " <<" + stmt + ">>" : "") + 
+               (expl != "" ? "\n" + prefix + expl : "");
     }
 
     public SourceLocation getLocation() { return location; }
