@@ -361,15 +361,35 @@ constraint is also given.  Here is the layout of this information:
 
 <pre>
 &lt;Var1&gt;
-Why Var2 implies Var1
+  <b>ClassName</b>.java:53: &lt;&lt; <b>Stmt1</b> &gt;&gt;
+  Why Var2 implies Var1
 &lt;Var2&gt;
-Why Var3 and Var4 implies Var2
+  <b>ClassName</b>.java:: <b>MemberName</b> &lt;&lt; <b>Stmt2</b> &gt;&gt;
+  Why Var3 and Var4 implies Var2
 GUARD:
 	&lt;Var3&gt;
-	Why Var3 is directly apparent
+	  <b>ClassName</b>.java:: <b>MemberName</b> &lt;&lt; <b>Stmt3</b> &gt;&gt;
+   Why Var3 is directly apparent 
 &lt;Var4&gt;
-Why Var4 is directly apparent
+<b>ClassName</b>.java:: <b>MemberName</b>
+Stub
 </pre>
+
+<p>
+<b>ClassName</b>.java:<b>LineNumber</b>: indicates the class name and line number
+information. If line number information, or other debug information
+hasn't been generated on compile (-g compiler flag), then this might
+not be available, and it might take the form <b>ClassName</b>.java:: <b>methodName</b>.
+It is also possible for location information to not be available and not print.
+</p> 
+
+<p>
+"Stub" indicates that the variable is known via a stub declaration.
+<b>Stmtn</b> indicates a cursory statement of the form eg. "$e1 = $e2;",
+"name.field = $e2", "name[...] = $e3", etc.  $e<b>n</b> indicates a variable 
+introduced by javarifier.  "GUARD" introduces a sub-chain of causes for the
+inferred mutability of the variable.
+</p>
 
 <p>
 If this is not sufficient to understand the output, then you can also

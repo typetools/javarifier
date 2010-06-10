@@ -51,7 +51,10 @@ public class SourceLocation {
         className = clazz.getName();
         getDebugTags((Host) clazz);
     }
-
+    
+    /* Collects any line-number and file information
+     *   primarily for cause-tracking purposes.
+     */
     private void getDebugTags(Host h) {
         for (Tag tag : (Collection<Tag>) h.getTags()) {
             if (tag instanceof LineNumberTag) {
@@ -71,7 +74,10 @@ public class SourceLocation {
 
     public String toString() {
         // it seems that filePath is nearly never set, so it's left out here.
-        return (lineNumber != -1 ? "(line " + Integer.toString(lineNumber) + ")"
-                                 : "") + " " + className + "." + memberName;
+        if (lineNumber != -1) {
+            return className + ".java:" + Integer.toString(lineNumber) + ":";
+        } else {
+            return memberName == "" ? className + ".java::" : className + ":1: " + memberName;
+        }
     }
 }

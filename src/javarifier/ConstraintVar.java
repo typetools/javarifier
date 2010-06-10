@@ -23,13 +23,12 @@ public class ConstraintVar {
 
     private final Context context;
 
-
     // cause-tracking fields
 
     // Rep invariant:
     // this is known to be mutable <=> ((sourceCause != null) || (constraintCause != null))
     // this is not known to be mutable <=> ((sourceCause == null) && (constraintCause == null))
-    // this is known to be mutable <=> (guarded == null)
+    // this is known to be mutable <=> (partialGuardCauses == null)
     /**
      * Non-null if this was mutable to start with -- no constraint had to
      * be fired to make this mutable.
@@ -39,15 +38,17 @@ public class ConstraintVar {
      * Null if this is not yet known to be mutable.
      * Non-null if this is known to be mutable:
      *  * If a normal constraint was fired to make this mutable, then the Pair is <non-null, null>.
-     *  * If a double-guarded constraint was fired to make this mutable, then the Pair is <non-null, non-null>.
+     *  * If a double-partialGuardCauses constraint was fired to make this mutable, then the Pair is <non-null, non-null>.
      */
     private Pair<ConstraintVar, ConstraintVar> constraintCause;
-    /**
-     * Records partial firing of double-guards (their transformation into
+    /** Records partial firing of double-guards (their transformation into
      * single guards).  Multiple double-guards may be turned into
      * single-guards before finally this is known to be mutable.
+     * This is stored as a map from the unresolved constraint
+     * variable to the resolved constraint variable, as this is the
+     * information needed to determine if the double-guard is necessary.
      */
-    private Set<Pair<ConstraintVar, ConstraintVar>> guarded;
+    private Map<ConstraintVar, ConstraintVar> partialGuardCauses;
 
 
     private ConstraintVar(JrTyped value, MutType type, Context context) {
@@ -75,9 +76,9 @@ public class ConstraintVar {
     }
 
     private boolean checkRep() {
-      if (type == null || context == null) {
-         throw new RuntimeException("Null pointer: " + this);
-      }
+        if (type == null || context == null) {
+            throw new RuntimeException("Null pointer: " + this);
+        }
         return true;
     }
 
@@ -93,78 +94,110 @@ public class ConstraintVar {
         return context;
     }
 
-    // sets the direct cause
+    /** Sets a direct, single cause of the constraint variable.
+     * 
+     * If this was the inner guard of a previous, partially fired
+     * constraint, then that fact is stored as a pair of <a, b> in
+     * constraintCause.  Otherwise, a pair of <null, b> is stored.
+     * 
+     * If a constraintCause is already known, it is presumed to be simpler,
+     * and preserved.
+     */
     public void addCause(ConstraintVar v) {
-        if (constraintCause == null && sourceCause == null) {
-            if (guarded != null) {
-                //checks to see if this was originally from a double guard
-                for (Pair<ConstraintVar, ConstraintVar> guard : guarded) {
-                    if (guard.second == v) {
-                        constraintCause = guard;
-                        guarded = null;
-                        return;
-                    }
-                }
-            }
-            //just a regular single
-            constraintCause = new Pair<ConstraintVar, ConstraintVar>(null, v);
-            guarded = null;
+        // If a direct cause was already found, or there's a source cause,
+        // we don't need to record it.
+        if (constraintCause != null || sourceCause != null) return;
+        ConstraintVar guard = null;
+        if (partialGuardCauses != null) {
+            //checks to see if this was potentially from a double guard
+            guard = partialGuardCauses.get(v);
         }
+        constraintCause = new Pair<ConstraintVar, ConstraintVar>(guard, v);
+        partialGuardCauses = null;
     }
-    // adds a potential double guard cause
+
+    /** Adds a partially fired double guard of the form a -> (b -> c). 
+     *    v.first  Represents a, which is known mutable
+     *    v.second Represents b, which may be mutable
+     *    this     Represents c
+     *
+     * If b has already been associated, this is ignored.
+     */
     public void addCause(Pair<ConstraintVar, ConstraintVar> v) {
-        //If we don't have a concrete cause yet, keep information regarding double guards
-        if (constraintCause == null && sourceCause == null) {
-            if (guarded == null) guarded = new HashSet<Pair<ConstraintVar,ConstraintVar>>();
-            guarded.add(v);
+        // If we don't have a concrete cause yet, keep information regarding double guards
+        if (constraintCause != null || sourceCause != null) return;
+        if (partialGuardCauses == null) {
+            // Initialize map storing partially-completed guards.
+            partialGuardCauses = new HashMap<ConstraintVar,ConstraintVar>();
+        }
+        if(partialGuardCauses.get(v.second) == null) {
+            // Since this key does not yet exist, there isn't a prior
+            // double-cause association for this variable.  We assume that
+            // earlier causes are more succinct 
+            partialGuardCauses.put(v.second, v.first);
         }
     }
-    //sets a direct source cause for the variable (usually related directly to the nature of its declaration)
+
+    /** Sets a direct source cause for the variable.
+     * After this happens, addCause will cease to have any effect.
+     * Subsequent calls will overwrite the source cause.
+     */
     public void setSource(SourceCause x) {
         sourceCause = x;
-        guarded = null;
+        partialGuardCauses = null;
     }
+
+    /** Retrieves the direct source cause for a variable.
+     * This is null if none exists.
+     */
     public SourceCause getSource() {
         return sourceCause;
     }
 
-    //returns a string which represents the shortest cause
+    // returns a string which represents the shortest cause
     public String causeString() {
         StringBuilder buf = new StringBuilder();
         causeRec("", buf);
         return buf.toString();
     }
 
-    //recursive helper for causeString
-    private void causeRec(String prefix, StringBuilder buf) {
-        buf.append(prefix);
-        buf.append(this.toString());
-        buf.append("\n");
+    // utilized in the following function
+    protected void prefixedLine(StringBuilder buf, String a, String b) {
+        buf.append(a); buf.append(b); buf.append("\n"); 
+    }
+
+    /** Recursive helper for causeString, recursively prints the stored
+     * causes, attempting to yield the shortest possible complete cause
+     * chain for the variable.
+     */
+    protected void causeRec(String prefix, StringBuilder buf) {
+        prefixedLine(buf, prefix, this.toString());
 
         if (constraintCause == null) {
-            if (sourceCause == null) {
-                buf.append("ERROR: NO CAUSE\n");
-            } else {
-                buf.append(prefix);
-                buf.append(sourceCause.toString());
-                buf.append("\n");
-            }
+                buf.append(sourceCause == null ? "ERROR: NO CAUSE\n" :
+                           sourceCause.prefixedString(prefix + "  ") + "\n");
         } else {
-            SourceCause cause = constraintCause.first != null ?
-                ConstraintTracker.lookupCause(constraintCause,        this)
-              : ConstraintTracker.lookupCause(constraintCause.second, this);
-            if (cause != null) {
-                buf.append(prefix);
-                buf.append(cause.toString());
-                buf.append("\n");
-            } else {
-                buf.append("ERROR: NO CONSTRAINT CAUSE\n");
+            //  Caveat: Rather than just assuming that a non-null
+            // constraintCause.first indicates a double-guard, we 
+            // check if there is a direct cause stored in the tracker, as
+            // this is preferable.
+            SourceCause cause = ConstraintTracker.lookupCause(constraintCause.second, this);
+            Boolean useDouble = false;
+            if(cause == null && constraintCause.first != null) {
+                        cause = ConstraintTracker.lookupCause(constraintCause, this);
+                useDouble = true;
             }
-            if (constraintCause.first != null) {
-                buf.append(prefix);
-                buf.append("GUARD:\n");
+            
+            // If there's a cause for this constraint, print it, indented
+            buf.append(cause == null ? "ERROR: NO CONSTRAINT CAUSE\n" :
+                       cause.prefixedString(prefix + "  ") + "\n");
+            
+            // If this is a double guard, print that.
+            if (useDouble) {
+                prefixedLine(buf, prefix, "GUARD:\n");
                 constraintCause.first.causeRec(prefix+"    ", buf);
             }
+            
             constraintCause.second.causeRec(prefix, buf);
         }
     }
