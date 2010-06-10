@@ -95,11 +95,11 @@ public class ConstraintVar {
     }
 
     /** Sets a direct, single cause of the constraint variable.
-     * 
+     *
      * If this was the inner guard of a previous, partially fired
      * constraint, then that fact is stored as a pair of <a, b> in
      * constraintCause.  Otherwise, a pair of <null, b> is stored.
-     * 
+     *
      * If a constraintCause is already known, it is presumed to be simpler,
      * and preserved.
      */
@@ -116,7 +116,7 @@ public class ConstraintVar {
         partialGuardCauses = null;
     }
 
-    /** Adds a partially fired double guard of the form a -> (b -> c). 
+    /** Adds a partially fired double guard of the form a -> (b -> c).
      *    v.first  Represents a, which is known mutable
      *    v.second Represents b, which may be mutable
      *    this     Represents c
@@ -133,7 +133,7 @@ public class ConstraintVar {
         if(partialGuardCauses.get(v.second) == null) {
             // Since this key does not yet exist, there isn't a prior
             // double-cause association for this variable.  We assume that
-            // earlier causes are more succinct 
+            // earlier causes are more succinct
             partialGuardCauses.put(v.second, v.first);
         }
     }
@@ -163,7 +163,7 @@ public class ConstraintVar {
 
     // utilized in the following function
     protected void prefixedLine(StringBuilder buf, String a, String b) {
-        buf.append(a); buf.append(b); buf.append("\n"); 
+        buf.append(a); buf.append(b); buf.append("\n");
     }
 
     /** Recursive helper for causeString, recursively prints the stored
@@ -178,7 +178,7 @@ public class ConstraintVar {
                            sourceCause.prefixedString(prefix + "  ") + "\n");
         } else {
             //  Caveat: Rather than just assuming that a non-null
-            // constraintCause.first indicates a double-guard, we 
+            // constraintCause.first indicates a double-guard, we
             // check if there is a direct cause stored in the tracker, as
             // this is preferable.
             SourceCause cause = ConstraintTracker.lookupCause(constraintCause.second, this);
@@ -187,17 +187,17 @@ public class ConstraintVar {
                         cause = ConstraintTracker.lookupCause(constraintCause, this);
                 useDouble = true;
             }
-            
+
             // If there's a cause for this constraint, print it, indented
             buf.append(cause == null ? "ERROR: NO CONSTRAINT CAUSE\n" :
                        cause.prefixedString(prefix + "  ") + "\n");
-            
+
             // If this is a double guard, print that.
             if (useDouble) {
                 prefixedLine(buf, prefix, "GUARD:\n");
                 constraintCause.first.causeRec(prefix+"    ", buf);
             }
-            
+
             constraintCause.second.causeRec(prefix, buf);
         }
     }

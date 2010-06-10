@@ -575,7 +575,7 @@ public class ConstraintManager {
             ConstraintTracker.add(lhsRo,  rhsRo,  cause);
             ConstraintTracker.add(lhsMut, rhsMut, cause);
         }
-        
+
         if (Options.v().debugConstraintGeneration() || Options.v().debugSubtyping()) {
             System.out.println("  ro : " + lhsRo + " -> " + rhsRo);
             System.out.println("  mut: " + lhsMut + " -> " + rhsMut);

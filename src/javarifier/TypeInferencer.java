@@ -237,7 +237,7 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
 
                 Local x = (Local) lhs;
                 Local y = (Local) ((CastExpr) rhs).getOp();
-                
+
                 JrType xType = x.getJrType();
                 JrType yType = y.getJrType();
 

@@ -1,6 +1,6 @@
 
 :: Run Javarifier over a set of class files and output inferred mutabilities.
-:: For usage information, run: javarifier.bat --help 
+:: For usage information, run: javarifier.bat --help
 :: See the javarifier.html documentation for more information.
 
 set JAVARIFIER_DIR=%~d0
