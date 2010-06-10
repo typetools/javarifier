@@ -1,0 +1,39 @@
+import checkers.javari.quals.Mutable;
+import checkers.javari.quals.ReadOnly;
+public class CellClient2<S extends /*mutable*/ @Mutable CellClient2.Day> {
+
+    public static class Cell<T> {
+	public @ReadOnly T val;
+	public T getVal() { return val; }
+	public void setVal(T val) { this.val = val; }
+    }
+
+    public static class Day {
+        public int day;
+        public Day() @ReadOnly { }
+        public Day(int d) @ReadOnly { this.day = d; }
+        public int getDay() /*readonly*/ @ReadOnly { return day; }
+        public void setDay(int d) /*mutable*/ @Mutable { this.day = d; }
+    }
+
+    private /*this-mutable*/ Cell<@ReadOnly S> f;
+
+    public CellClient2(S t) {
+        f = new Cell<S>();
+        f.setVal(t);
+    }
+
+    public /*readonly*/ @ReadOnly Cell<@ReadOnly S> getF() /*readonly*/ @ReadOnly {
+        return f;
+    }
+
+    public void foo() @ReadOnly {
+        /*readonly*/ @ReadOnly Cell<@ReadOnly S> tmp = getF();
+        /*mutable*/ @Mutable Day d = tmp.getVal();
+        d.setDay(2);
+    }
+
+    public void setDay(S t) /*mutable*/ {
+        f.setVal(t);
+    }
+}
