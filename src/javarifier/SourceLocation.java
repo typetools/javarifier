@@ -51,7 +51,7 @@ public class SourceLocation {
         className = clazz.getName();
         getDebugTags((Host) clazz);
     }
-    
+
     /* Collects any line-number and file information
      *   primarily for cause-tracking purposes.
      */

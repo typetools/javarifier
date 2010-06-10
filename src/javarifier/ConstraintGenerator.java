@@ -388,11 +388,11 @@ public class ConstraintGenerator extends SceneVisitor {
 
             }
         }
-        
+
         public void defaultCase(Object obj) {
             defaultCase(obj, null);
         }
-        
+
         public void defaultCase(Object obj, SourceLocation loc) {
             Stmt stmt = (Stmt) obj;
             try {
@@ -423,7 +423,7 @@ public class ConstraintGenerator extends SceneVisitor {
 
                     Local  y     = (methInvk instanceof InstanceInvokeExpr) ? (Local) ((InstanceInvokeExpr) methInvk).getBase() : null;
                     JrType yType = (methInvk instanceof InstanceInvokeExpr) ? y.getJrType() : null;
-                    
+
                     SourceCause cause = x == null || m == null ? null : new SourceCause(loc,
                         "Assignment of " + x.getName() + " to mutable result of " + m.getName());
 
@@ -464,7 +464,7 @@ public class ConstraintGenerator extends SceneVisitor {
 
                 Param  thisParam = m.getReceiver();
                 JrType thisParamType = thisParam.getJrType();
-                
+
                 SourceCause cause = new SourceCause(loc,
                     "Receiver of call to " + name + " must be mutable");
 

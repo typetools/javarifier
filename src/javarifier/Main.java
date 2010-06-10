@@ -298,7 +298,7 @@ public class Main {
 
       if (Options.v().debugConstraints()) {
           ConstraintTracker.printCauses();
-      }   
+      }
 
       return cm;
     }

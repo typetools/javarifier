@@ -235,7 +235,7 @@
       <arg value="${javarifier}/tests"/>
       <arg value="clean"/>
     </exec>
-  
+
   </target>
 
   <target name="bin" depends="init"
@@ -244,7 +244,7 @@
     <copy todir="bin">
       <fileset dir="src" excludes="**/*.java"/>
     </copy>
-    <javac destdir="bin" 
+    <javac destdir="bin"
            debug="on"
            fork="true"
            includeantruntime="false">
