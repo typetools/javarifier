@@ -11,7 +11,7 @@ JAVARIFIER USER DOCUMENTATION
 
 User documentation for Javarifier can be found at:
   distribution/doc/javarifier.html
-Or on the web at: 
+Or on the web at:
   http://types.cs.washington.edu/javarifier
 
 The rest of this file is intended for people who wish to build Javarifier.
@@ -125,7 +125,7 @@ RUNNING
 =======
 
 Full documentation for running Javarifier is in javarifier.html
-or on the web at: 
+or on the web at:
 	http://types.cs.washington.edu/javarifier
 
 If you want to run Javarifier using all the local class files, you can
@@ -135,7 +135,7 @@ run Javarifier using the javarifier script at:
 Make sure that this script is executable, and that the scripts directory is
 on your $PATH.
 
-To use this script, pass in the fully-qualified name of all 
+To use this script, pass in the fully-qualified name of all
 classes to javarify, as in:
         javarifier myPackage.MyClass
 
@@ -161,7 +161,7 @@ Jaime Quinonez's thesis, located at:
 Or on the web at:
         http://groups.csail.mit.edu/pag/pubs/Quinonez2008-abstract.html
 
-A condensed version is located in the paper titled 
+A condensed version is located in the paper titled
 "Inference of reference immutability", located at:
         javari/design/javarifier/paper.pdf
 Or on the web at:
@@ -169,7 +169,7 @@ Or on the web at:
 
 User documentation for the Javarifier tool can be found at:
         javarifier.html
-Or on the web at: 
+Or on the web at:
         http://types.cs.washington.edu/javarifier
 
 Slides from talks on Javarifier can be found in the talks/ directory.
@@ -181,12 +181,12 @@ IMPLEMENTATION NOTES
 Official Java 6 class file specification:
 http://jcp.org/aboutJava/communityprocess/pr/jsr202/index.html
 
-The Javarifier is split into two main components: modified Soot classes to 
-contain extra information so that Soot is a sufficient class representation, 
-and Javari-specific classes that actually implement the reference immutability 
-inference algorithm.  These components are in the src/soot and src/javarifier 
+The Javarifier is split into two main components: modified Soot classes to
+contain extra information so that Soot is a sufficient class representation,
+and Javari-specific classes that actually implement the reference immutability
+inference algorithm.  These components are in the src/soot and src/javarifier
 directories, respectively.  The implementation of the inference algorithm keeps
-a scene of all the classes (represented as Soot classes) it is trying to infer 
+a scene of all the classes (represented as Soot classes) it is trying to infer
 over, along with all the classes that it transitively depends on, including any
 world classes (typically the annotated JDK).
 
@@ -197,9 +197,9 @@ Javarifier uses a modified version of Soot 2.2.3
 (http://www.sable.mcgill.ca/soot/) to translate class files to jimple,
 which is a three-address language that is easy to analyze.
 All of the modified classes are contained in javari/javarifier/src/soot
-To update to a new version of Soot, download the new source code, make a diff 
-of the latest updates in javarifier/src/soot to the first version, then 
-apply these as a patch to the source of the new version of Soot. 
+To update to a new version of Soot, download the new source code, make a diff
+of the latest updates in javarifier/src/soot to the first version, then
+apply these as a patch to the source of the new version of Soot.
 
 
 The Javarifier source only includes the files that were actually modified;
@@ -254,7 +254,7 @@ SootField, and Local are all given new fields that reference these
 data structures.  These data structures are added to the Soot
 structures by JrTyper.
 
-To obtain Java 1.5 type signatures for locals JrTyper uses ASM.  
+To obtain Java 1.5 type signatures for locals JrTyper uses ASM.
 
 Second, Soot normally performs a number of optimizations that can harm
 our type analysis.  For example, Soot normally executes local

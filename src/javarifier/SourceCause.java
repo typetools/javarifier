@@ -26,7 +26,7 @@ public class SourceCause {
 
     public String prefixedString(String prefix) {
         return prefix + (location != null ? location.toString() : "") +
-               (stmt != "" ? " <<" + stmt + ">>" : "") + 
+               (stmt != "" ? " <<" + stmt + ">>" : "") +
                (expl != "" ? "\n" + prefix + expl : "");
     }
 
