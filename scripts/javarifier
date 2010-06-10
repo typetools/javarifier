@@ -23,6 +23,7 @@ BINDIR=$(dirname $0)
 JRDIR=${BINDIR}/..
 CHECKERS=${CHECKERS:-${BINDIR}/../../checker-framework/checkers}
 CHECKERS_JAR=${CHECKERS}/checkers.jar
+JSR308_JAR=${CHECKERS}/binary/jsr308-all.jar
 JAVARIFIER_JDK=${JAVARIFIER_JDK:-${CHECKERS}/jdk/javari/build/}
 JAVARIFIER_JDK_JAR=${JAVARIFIER_JDK_JAR:-${CHECKERS}/jdk/jdk.jar}
 AFU_BIN=${BINDIR}/../../annotation-tools/annotation-file-utilities/bin
@@ -34,7 +35,7 @@ JAVARIFIER_BIN=${JRDIR}/bin
 # Then, JAVARIFIER_BIN and AFU_JAR may be more recent than javarifier.jar.
 # Adding CHECKERS_JAR to defaultStubCPEntries permits use of Javari
 # keywords like @Assignable.
-java -ea -Xmx1024m -cp ${JAVARIFIER_BIN}:${AFU_BIN}:${AFU_JAR}:${JRDIR}/javarifier.jar:${JDK_JARS} \
+java -ea -Xmx1024m -Xbootclasspath/p:${JSR308_JAR} -cp ${JAVARIFIER_BIN}:${AFU_BIN}:${AFU_JAR}:${JRDIR}/javarifier.jar:${JDK_JARS} \
 	 javarifier.Main \
 	 -defaultStubCPEntries ${JAVARIFIER_JDK_JAR}:${CHECKERS_JAR} \
 	 -defaultWorldCPEntries ${JDK_JARS}:${CHECKERS_JAR} \
