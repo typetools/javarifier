@@ -28,7 +28,7 @@ all : toplevel jolden htmlparser tinySQL eclipsec results
 
 .PHONY: toplevel
 toplevel: toplevel-diffs
-toplevel-all: toplevel-diffs toplevel-typecheck 
+toplevel-all: toplevel-diffs toplevel-typecheck
 toplevel-diffs: $(TOPLEVEL_DIFFS)
 # TODO: add typecheck targets to the subprojects
 toplevel-typecheck: $(TOPLEVEL_TYPECHECK_DIFFS)
@@ -130,7 +130,7 @@ annotated/%.java: %.java %.jaif %.class
 
 %.typecheck.diff: annotated/%.java
 # ".." in classpath is for helper classes like Cell.
-	set -o pipefail && $(JAVAC) -processor checkers.javari.JavariChecker -Xbootclasspath/p:${CHECKERS}/jdk/javari/jdk.jar -classpath annotated:${CLASSPATH}:${CHECKERS}/checkers.jar -implicit:class annotated/$*.java 2>&1 | tee $*.typecheck.diff
+	set -o pipefail && $(JAVAC) -processor checkers.javari.JavariChecker -Xbootclasspath/p:${CHECKERS}/jdk/jdk.jar -classpath annotated:${CLASSPATH}:${CHECKERS}/checkers.jar -implicit:class annotated/$*.java 2>&1 | tee $*.typecheck.diff
 
 
 # Remove all .diff, .log files from the tests directory,
