@@ -21,12 +21,14 @@ import java.util.Collection;
  * Used for debugging purposes / communicating with the user.
  */
 public class SourceLocation {
-    private String className, memberName;
+    private String className;
+    private String memberName;
 
-    // unless debugging information is available, these will stay this way
+    // If debugging information is available, these will be assigned
     public String filePath = "";
     public int lineNumber = -1;
-
+    
+    // Return the location of a ClassMember
     public SourceLocation(ClassMember member) {
         className = member.getDeclaringClass().getName();
         if (member instanceof SootMethod) {
@@ -37,16 +39,20 @@ public class SourceLocation {
         getDebugTags((Host) member);
     }
 
+    // Determine the line location of a particular Host, and glean className /
+    // memberName information from the passed SootMember.
     public SourceLocation(SootMethod member, Host h) {
         className = member.getDeclaringClass().getName();
         memberName = member.getName();
         getDebugTags(h);
     }
 
+    // Determine's the location of a particular Host
     public SourceLocation(Body body) {
         this(body.getMethod());
     }
 
+    // Determine the location of a particular class, leaving memberName=""
     public SourceLocation(SootClass clazz) {
         className = clazz.getName();
         getDebugTags((Host) clazz);
@@ -72,12 +78,20 @@ public class SourceLocation {
         }
     }
 
+    // toString in a format akin to compiler output, eg:
+    //    Board.java:86:
+    //    Plank.java:93: methodName    -- also yielding method information
+    //    Plank.java::                 -- no debug information available
+    //
+    // TODO: Note that the outputted filename is just the class name with
+    // ".java" appended, so inner classes do not work properly.
+    // eg, Parent.Inner.java
     public String toString() {
         // it seems that filePath is nearly never set, so it's left out here.
         if (lineNumber != -1) {
             return className + ".java:" + Integer.toString(lineNumber) + ":";
         } else {
-            return memberName == "" ? className + ".java::" : className + ":1: " + memberName;
+            return memberName == "" ? className + ".java::" : className + " " + memberName;
         }
     }
 }
