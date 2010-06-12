@@ -9,6 +9,8 @@ import soot.SourceLocator.EntryKind;
 
 import javarifier.JrType.*;
 
+// Generates constraints from Stub classes, if passed a non-stub class,
+// does nothing.
 public class StubConstraints extends SceneLocationVisitor {
 
     public static ConstraintManager generate(Scene s) {
@@ -82,11 +84,11 @@ public class StubConstraints extends SceneLocationVisitor {
             switch (mut) {
             case MUTABLE :
             case THIS_MUTABLE :
-                cm.mutable2(val, type, Context.READONLY,cause);
-                cm.mutable2(val, type, Context.MUTABLE,cause);
+                cm.mutable2(val, type, Context.READONLY, cause);
+                cm.mutable2(val, type, Context.MUTABLE, cause);
                 break;
             case POLYREAD :
-                cm.mutable2(val, type, Context.MUTABLE,cause);
+                cm.mutable2(val, type, Context.MUTABLE, cause);
                 break;
             case READONLY :
                 break;
