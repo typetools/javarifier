@@ -9,11 +9,6 @@ import java.util.*;
 
 public class SubtypeConstraints extends SceneVisitor {
 
-    public void visitClass(SootClass sc) {
-        if (sc.entryKind() == EntryKind.PROGRAM)
-            super.visitClass(sc);
-    }
-
     public static ConstraintManager generate(Scene s) {
         SubtypeConstraints generator = new SubtypeConstraints(s);
         generator.visitScene(s);
@@ -24,15 +19,20 @@ public class SubtypeConstraints extends SceneVisitor {
         return generator.getConstraints();
     }
 
+    private Scene s;
     private ConstraintManager cm = new ConstraintManager();
+
+    public SubtypeConstraints(Scene s) {
+        this.s = s;
+    }
+
     public ConstraintManager getConstraints() {
         return cm;
     }
 
-    private Scene s;
-
-    public SubtypeConstraints(Scene s) {
-        this.s = s;
+    public void visitClass(SootClass sc) {
+        if (sc.entryKind() == EntryKind.PROGRAM)
+            super.visitClass(sc);
     }
 
     public void visitMethod(SootMethod meth) {
@@ -81,7 +81,7 @@ public class SubtypeConstraints extends SceneVisitor {
             //TODO: Check that the explanation makes sense
             cm.subtype(p2, p2.getJrType(),
                        p1, p1.getJrType(),
-              new SourceCause(loc, "parameter " + Integer.toString(i) + " of " + fstr, "Contravariant parameter types"));
+              new SourceCause(loc, "parameter " + i + " of " + fstr, "Contravariant parameter types"));
         }
 
 

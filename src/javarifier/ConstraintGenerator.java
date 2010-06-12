@@ -35,7 +35,7 @@ public class ConstraintGenerator extends SceneVisitor {
         cg.visitScene(s);
 
         if (Options.v().dumpGeneratorConstraints()) {
-            System.out.println("Generator Constraints:");
+            System.out.println("Constraint Generator:");
             System.out.println(cg.getConstraints());
         }
 
@@ -77,7 +77,7 @@ public class ConstraintGenerator extends SceneVisitor {
             stmt.apply(conGen);
         }
 
-        cm =  cm.combine(conGen.getConstraintManager());
+        cm = cm.combine(conGen.getConstraintManager());
     }
 
 
@@ -85,13 +85,14 @@ public class ConstraintGenerator extends SceneVisitor {
 
         private ConstraintManager cm;
 
-        /**
-         * The method in which this stmt appears.
-         */
+        //  The method which is being processed, all stmts analyzed here
+        //  are inside it.
         private SootMethod enclosingMethod;
 
         public ConstraintGenerationSwitch(SootMethod enclosingMethod) {
             this.enclosingMethod = enclosingMethod;
+            //TODO: verify that it makes sense to create a constraint
+            //manager per method
             cm = new ConstraintManager();
         }
 
