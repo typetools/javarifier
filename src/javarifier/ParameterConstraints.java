@@ -5,6 +5,9 @@ import soot.SootMethod;
 import soot.Body;
 import soot.Local;
 
+// Adds constraints which connect up the variables which represent function
+// parameter recievers with the local variables associated.
+// (the parameter must be a subtype of the local)
 public class ParameterConstraints extends SceneVisitor {
 
     public static ConstraintManager constraints(Scene s) {
@@ -29,8 +32,6 @@ public class ParameterConstraints extends SceneVisitor {
 
     public void visitBody(Body body) {
         SootMethod sm = body.getMethod();
-
-        //TODO: more info
 
         if (! sm.isStatic() && (! sm.getName().equals("<init>"))) {
             Local thisLocal = body.getThisLocal();

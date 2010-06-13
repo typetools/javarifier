@@ -1,8 +1,7 @@
 package javarifier;
 
 /**
- * Stores a location in the program, and information explaining why this
- * location caused a constraint or variable to be inferred.
+ *  Stores both a location in the 
  */
 public class SourceCause {
 
@@ -11,7 +10,7 @@ public class SourceCause {
     private SourceLocation location;
     // example:  "$e0 = l0.board"
     private String stmt;
-    // example:  "means that ..."  (? is that correct?)
+    // example:  "means that ...",   "a -> b"
     private String expl;
 
     public SourceCause(SourceLocation l, String e) {
@@ -24,6 +23,7 @@ public class SourceCause {
 
     public String toString() { return prefixedString(""); }
 
+    //  prefix utilized to indent multiple lines properly and efficiently
     public String prefixedString(String prefix) {
         return prefix + (location != null ? location.toString() : "") +
                (stmt != "" ? " <<" + stmt + ">>" : "") +
