@@ -462,19 +462,19 @@ public class SourceLocator
                 String entry = (String) entry1;
                 entryKinds.put(entry, EntryKind.PROGRAM);
             }
-            String worldCPEntries1 = javarifier.Options.v().getWorldCPEntries();
+            String worldCPEntries1 = javarifier.Main.getWorldCPEntries();
             if (worldCPEntries1 != null) {
                 String[] worldCPEntries = worldCPEntries1.split(File.pathSeparator);
                 for (String entry : worldCPEntries)
                     putEntryKind1(entry, EntryKind.WORLD);
             }
-            String stubCPEntries1 = javarifier.Options.v().getStubCPEntries();
+            String stubCPEntries1 = javarifier.Main.getStubCPEntries();
             if (stubCPEntries1 != null) {
                 String[] stubCPEntries = stubCPEntries1.split(File.pathSeparator);
                 for (String entry : stubCPEntries)
                     putEntryKind1(entry, EntryKind.STUB);
             }
-            String programCPEntries1 = javarifier.Options.v().getProgramCPEntries();
+            String programCPEntries1 = javarifier.Main.getProgramCPEntries();
             if (programCPEntries1 != null) {
                 String[] programCPEntries = programCPEntries1.split(File.pathSeparator);
                 for (String entry : programCPEntries)

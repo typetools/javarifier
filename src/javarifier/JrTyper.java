@@ -33,7 +33,7 @@ public class JrTyper {
     }
 
     private static void printNonQuiet(String s) {
-      if (!Options.v().reallyQuiet()) {
+      if (!Main.reallyQuiet) {
         System.out.println(s);
       }
     }

@@ -29,7 +29,7 @@
 
 package soot.toolkits.scalar;
 
-import javarifier.Options; // [javarifier]
+import javarifier.Main; // [javarifier]
 
 import soot.options.*;
 
@@ -205,16 +205,16 @@ public class LocalSplitter extends BodyTransformer
                 Local desiredLocal = (Local) rep.getValue();
 
                 // Don't split source locals for javarifier.
-                if (javarifier.Options.v().doNotSplitSourceLocals()) {
+                if (javarifier.Main.doNotSplitSourceLocals) {
                     if (! desiredLocal.getName().startsWith("$")) {
-                        if (javarifier.Options.v().debugLocalSplitting()) {
+                        if (javarifier.Main.debugLocalSplitting) {
                             System.out.println("Skipping: " + desiredLocal);
                         }
                         continue;
                     }
                 }
 
-                if (javarifier.Options.v().debugLocalSplitting()) {
+                if (javarifier.Main.debugLocalSplitting) {
                     System.out.println("Splitting: " + desiredLocal);
                 }
 

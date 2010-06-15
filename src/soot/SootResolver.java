@@ -112,7 +112,7 @@ public class SootResolver
         for( int i = SootClass.BODIES; i >= SootClass.HIERARCHY; i-- ) {
             while( !worklist[i].isEmpty() ) {
                 SootClass sc = (SootClass) worklist[i].removeFirst();
-                if (javarifier.Options.v().debugResolve()) {
+                if (javarifier.Main.debugResolve) {
                     System.out.println("debugResolve>> processResolveWorklist " + sc + " level " + i);
                 }
                 if( resolveEverything() ) {
@@ -150,7 +150,7 @@ public class SootResolver
     private void addToResolveWorklist(SootClass sc, int desiredLevel) {
         if( sc.resolvingLevel() >= desiredLevel ) return;
         worklist[desiredLevel].add(sc);
-        if (javarifier.Options.v().debugResolve()) {
+        if (javarifier.Main.debugResolve) {
             System.out.println("debugResolve>> addToResolveWorklist " + currentClass + " -> " + sc + " level " + desiredLevel);
         }
     }
@@ -168,7 +168,7 @@ public class SootResolver
         
         // Javarifier: set the entry kind first thing
         sc.setEntryKind(SourceLocator.v().entryKindForClass(className));
-        if (javarifier.Options.v().debugResolve()) {
+        if (javarifier.Main.debugResolve) {
             System.out.println("debugResolve>> entry kind of "
                     + className + " is " + sc.entryKind());
         }
@@ -188,7 +188,7 @@ public class SootResolver
             Collection references = is.resolve(sc);
             // begin Javarifier
             if (sc.entryKind() == EntryKind.STUB) {
-                if (javarifier.Options.v().debugStubs()) {
+                if (javarifier.Main.debugStubs) {
                     System.out.println("bringToHierarchy Stub: " + sc.getName());
                 }
                 references = Collections.EMPTY_SET;
@@ -363,7 +363,7 @@ public class SootResolver
     * */
     private void bringToSignatures(SootClass sc) {
         if(sc.resolvingLevel() >= SootClass.SIGNATURES ) return;
-        if(javarifier.Options.v().justPrintStubs()) {
+        if(javarifier.Main.printStubs) {
           System.out.println("bringToSignatures Stub: " + sc.getName());
         } else
         // begin Javarifier

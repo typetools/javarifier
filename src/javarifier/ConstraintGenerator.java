@@ -34,7 +34,7 @@ public class ConstraintGenerator extends SceneVisitor {
         ConstraintGenerator cg = new ConstraintGenerator();
         cg.visitScene(s);
 
-        if (Options.v().dumpGeneratorConstraints()) {
+        if (Main.dumpGeneratorConstraints) {
             System.out.println("Constraint Generator:");
             System.out.println(cg.getConstraints());
         }
@@ -56,14 +56,14 @@ public class ConstraintGenerator extends SceneVisitor {
 
     @Override
         public void visitClass(SootClass sc) {
-        if (Options.v().debugConstraintGeneration()) {
+        if (Main.debugConstraintGeneration) {
             System.out.println("Generating constraints for class: " + sc.getName());
         }
 
         // Skip generating constraints for internals of stub classes.
         if (sc.resolvingLevel() >= SootClass.BODIES) {
             super.visitClass(sc);
-        } else if (Options.v().debugConstraintGeneration()) {
+        } else if (Main.debugConstraintGeneration) {
             System.out.println("ConstraintGenerator skipping stub class: " + sc.getName());
         }
     }
@@ -103,7 +103,7 @@ public class ConstraintGenerator extends SceneVisitor {
         public void caseAssignStmt(AssignStmt stmt) {
             try {
 
-                if (Options.v().debugConstraintGeneration()) {
+                if (Main.debugConstraintGeneration) {
                     System.out.println("caseAssignStmt: " + stmt);
                 }
 
@@ -160,7 +160,8 @@ public class ConstraintGenerator extends SceneVisitor {
                         if (!field.assignable()) {
                             String fName = field.getName();
                             SourceCause cause = new SourceCause(loc, xName + "." + fName + " = " + "CONSTANT;",
-                                 xName + " is mutable, since " + tName + "." +  fName + " isn't assignable" );
+                                "!assignable(" + tName + "." + fName + ") => " + xName);
+                                 
                             cm.mutable3(x, xType, cause);
                         }
                     }
@@ -178,8 +179,8 @@ public class ConstraintGenerator extends SceneVisitor {
                     String xName = x.getName();
                     String yName = y.getName();
 
-                    SourceCause cause = new SourceCause(loc, xName + " = " + yName,
-                        "\"" + yName + "\" must be mutable because \"" + xName + "\" is");
+                    SourceCause cause = new SourceCause(loc,
+                        xName + " = " + yName, yName + " <: " + xName);
 
                     cm.subtype(y, yType,
                            x, xType, cause);
@@ -198,8 +199,9 @@ public class ConstraintGenerator extends SceneVisitor {
                     String sfName = sf.getName();
                     String yName = y.getName();
 
-                    SourceCause cause = new SourceCause(loc, tName + "." + sfName + " = " + yName,
-                        "\"" + yName + "\" must be mutable because \"" + sfName + "\" is");
+                    SourceCause cause = new SourceCause(loc,
+                        tName + "." + sfName + " = " + yName,
+                        yName + " <: " + tName + "." + sfName);
 
                     cm.subtype(y, yType,
                            sf, sfType, cause);
@@ -219,7 +221,7 @@ public class ConstraintGenerator extends SceneVisitor {
                     String sfName = sf.getName();
 
                     SourceCause cause = new SourceCause(loc, xName + " = " + tName + "." + sfName,
-                        "\"" + sfName + "\" must be mutable because \"" + xName + "\" is");
+                        tName + "." + sfName  + " <: " + sfName);
 
                     cm.subtype(sf, sfType,
                             x,  xType, cause);
@@ -254,8 +256,7 @@ public class ConstraintGenerator extends SceneVisitor {
                         }
 
                         cm.subtype2(null,  null, y, yType,
-                                    x,    xType, f, fType, new SourceCause(loc, st,
-                                    "\"" + yName + "\" is mutable if \"" + tName + "." + fName + "\" is"));
+                                    x,    xType, f, fType, new SourceCause(loc, st, yName + " <: " + tName + "." + fName));
                     }
 
 
@@ -278,8 +279,8 @@ public class ConstraintGenerator extends SceneVisitor {
 
                     // TODO: Check that message makes sense in the wild
                     SourceCause cause = new SourceCause(loc, xName + " = " + yName + "." + fName,
-                        "means that \"" + tName + "." + fName + "\" must be mutable because \"" + xName + "\" is, " +
-                        " and if \"" + tName + "." + fName + "\" isn't mutable, then \"" + yName + "\" must be mutable because \"" + xName + "\" is.");
+                        "(!mutable( " + tName + "." + fName + " ) => ( " + xName + " -> "
+                        + yName + " )), " + tName + "." + fName + " <: " + xName);
 
                     cm.subtype2(   y, yType, f, fType,
                         null,  null, x, xType, cause);
@@ -301,7 +302,7 @@ public class ConstraintGenerator extends SceneVisitor {
                         String tName = ((CastExpr) rhs).getCastType().toString();
 
                         SourceCause cause = new SourceCause(loc, xName + " = (" + tName + ") " + yName,
-                            "\"" + yName + "\" must be mutable because \"" + xName + "\" is");
+                            yName + " <: " + xName);
 
                                 cm.subtype(y, yType,
                                                    x, xType, cause);
@@ -314,7 +315,7 @@ public class ConstraintGenerator extends SceneVisitor {
                     String aName = a.getName();
 
                     cm.mutable(a, aType, new SourceCause(loc, aName + "[...] = ...;",
-                        "means that \"" + aName + "\" must be mutable"));
+                        "\"" + aName + "\" must be mutable"));
 
                     if (rhs instanceof Local) {
                         // array a[x] = y : y <: a [0 LOW] AND a
@@ -324,9 +325,10 @@ public class ConstraintGenerator extends SceneVisitor {
 
                         String yName = y.getName();
 
-                        cm.subtype(y, yType,
-                            a, aType.getElemType().getLowerBound(), new SourceCause(loc, aName + "[...] = " + yName,
-                            "means that \"" + yName + "\" must be mutable because the elements of \"" + aName + "\" are mutable."));
+                        cm.subtype(y, yType, a, aType.getElemType().getLowerBound(),
+                          new SourceCause(loc, aName + "[...] = " + yName,
+                            yName + " <: " + aName + "[0 LOW],  and " +
+                            aName + " must be mutable"));
                     }
                 } else if (lhs instanceof Local &&
                            rhs instanceof ArrayRef) {
@@ -342,7 +344,7 @@ public class ConstraintGenerator extends SceneVisitor {
                     String aName = a.getName();
 
                     SourceCause cause = new SourceCause(loc, xName + " = " + aName + "[...];",
-                        "The elements of \"" + aName + "\" must be mutable because \"" + xName + "\" is mutable.");
+                        aName + "[0 UP] <: " + aName);
 
                     cm.subtype(a, aType.getElemType().getUpperBound(),
                        x, xType, cause);
@@ -380,13 +382,16 @@ public class ConstraintGenerator extends SceneVisitor {
             if (val instanceof Local) {
                 Local x = (Local) val;
                 SootMethod m = enclosingMethod;
-
+                
                 JrType xType = x.getJrType();
                 JrType retType = m.getJrReturnType();
+ 
+                String name = m.getName();
 
                 // TODO: better cause here
-                cm.subtype(x, xType, m, retType, new SourceCause(loc, "Mutable return value"));
-
+                cm.subtype(x, xType, m, retType, new SourceCause(loc,
+                    x.getName() + " <: " + name + ".return,    where " 
+                    + name + ".return indicates the return type"));
             }
         }
 
@@ -467,7 +472,8 @@ public class ConstraintGenerator extends SceneVisitor {
                 JrType thisParamType = thisParam.getJrType();
 
                 SourceCause cause = new SourceCause(loc,
-                    "Receiver of call to " + name + " must be mutable");
+                    y.getName() + " <: " + name + ".this,    where " + name
+                    + ".this is the receiver of the call to " + name);
 
                 cm.subtype3(null, null,  y,         yType,
                             y,    yType, thisParam, thisParamType,
@@ -491,7 +497,8 @@ public class ConstraintGenerator extends SceneVisitor {
                         ((Local) ((InstanceInvokeExpr) methInvk).getBase()).getJrType() : null;
 
                     SourceCause cause = new SourceCause(loc,
-                        "Argument " + (i + 1) + " of call to " + name + " must be mutable");
+                        z.getName() + " <: " + name + ".args[" + i + "],    where " +
+                        name + ".args[n] represents the nth parameter");
 
                     //                    cm.setSkipReadOnly(false);
                     cm.subtype3(null, null,  z,     zType,

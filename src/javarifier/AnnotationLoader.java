@@ -113,10 +113,10 @@ public class AnnotationLoader {
    */
   private static void loadClass(SootClass sc, AClass ac) {
     boolean isStub = ((sc.entryKind() == EntryKind.STUB)
-                      || Options.v().justPassThrough());
+                      || Main.justPassThrough);
 
     if (sc.resolvingLevel() == SootClass.DANGLING) {
-      if (Options.v().debugStubs()) {
+      if (Main.debugStubs) {
         System.out.println("AnnotationLoader skipping dangling class: " + sc);
       }
       return;

@@ -34,7 +34,7 @@ public class JVMLSigParser {
     public static ClassSig parseClassSig(SootClass sc, String signature) {
         String name = sc.getName();
         try {
-            if (Options.v().debugSigParser()) {
+            if (Main.debugSigParser) {
                 System.out.println("parseClassSig: " + signature);
             }
 
@@ -74,11 +74,11 @@ public class JVMLSigParser {
      */
     public static MethodSig parseMethodSig(String signature, ClassType receiverType) {
         try {
-            if (Options.v().debugSigParser()) {
+            if (Main.debugSigParser) {
                 System.out.printf("parseMethodSig: \"%s\" \"%s\"%n", signature, receiverType);
             }
             MethodSig sig = (new JVMLSigParser(signature, true)).parseMethodSig(receiverType);
-            if (Options.v().debugSigParser()) {
+            if (Main.debugSigParser) {
                 System.out.println("parseMethodSig => " + sig);
             }
             return  sig;
@@ -115,7 +115,7 @@ public class JVMLSigParser {
 
     private ClassSig parseClassSig(String name) {
 
-        if (Options.v().debugSigParser()) {
+        if (Main.debugSigParser) {
             System.out.println("parseClassSig: " + signature + " " + index);
         }
 
@@ -146,7 +146,7 @@ public class JVMLSigParser {
 
     // Format: "<T:LSet<LDate;>;S:Foo;>"
     private List<Pair<VarType, JrType>> parseTypeParamList() {
-        if (Options.v().debugSigParser()) {
+        if (Main.debugSigParser) {
             System.out.println("parseTypeParamList: " + signature + " " + index);
         }
 
@@ -177,7 +177,7 @@ public class JVMLSigParser {
     }
 
     private Pair<VarType, JrType> parseTypeParamDecl() {
-        if (Options.v().debugSigParser()) {
+        if (Main.debugSigParser) {
             System.out.println("parseTypeParamDecl: " + signature + " " + index);
         }
 
@@ -233,7 +233,7 @@ public class JVMLSigParser {
     }
 
     private JrType parseJrType() {
-        if (Options.v().debugSigParser()) {
+        if (Main.debugSigParser) {
             System.out.println("parseJrType: " + signature + " " + index);
         }
 
@@ -264,14 +264,14 @@ public class JVMLSigParser {
         } else {
             throw new RuntimeException("Invalid signature: " + signature);
         }
-        if (Options.v().debugSigParser()) {
+        if (Main.debugSigParser) {
             System.out.println("parseJrType => " + ret);
         }
         return ret;
     }
 
     private TypeArg parseTypeArg() {
-        if (Options.v().debugSigParser()) {
+        if (Main.debugSigParser) {
             System.out.println("parseTypeArg: " + signature + " " + index);
         }
 
@@ -328,7 +328,7 @@ public class JVMLSigParser {
     }
 
     private ArrayType parseArrayType() {
-        if (Options.v().debugSigParser()) {
+        if (Main.debugSigParser) {
             System.out.println("parseArrayType: " + signature + " " + index);
         }
 
@@ -347,7 +347,7 @@ public class JVMLSigParser {
 
     private List<TypeArg> parseTypeArgList() {
 
-        if (Options.v().debugSigParser()) {
+        if (Main.debugSigParser) {
             System.out.println("parseTypeArgList: " + signature + " " + index);
         }
 
@@ -374,7 +374,7 @@ public class JVMLSigParser {
 
     /** signature is in the form LMap<LFoo;LBaz;>; */
     private ClassType parseClassType() {
-        if (Options.v().debugSigParser()) {
+        if (Main.debugSigParser) {
             System.out.println("parseClassType: " + signature + " " + index);
         }
 
@@ -453,7 +453,7 @@ public class JVMLSigParser {
 
 
     private VarType parseVarType() {
-        if (Options.v().debugSigParser()) {
+        if (Main.debugSigParser) {
             System.out.println("parseVarType: " + signature + " " + index);
         }
 
@@ -481,7 +481,7 @@ public class JVMLSigParser {
 
 
     private VarType parseTypeParam() {
-        if (Options.v().debugSigParser()) {
+        if (Main.debugSigParser) {
             System.out.println("parseTypeParam: " + signature + " " + index);
         }
 
@@ -498,7 +498,7 @@ public class JVMLSigParser {
     }
 
     private PrimType parsePrimType() {
-        if (Options.v().debugSigParser()) {
+        if (Main.debugSigParser) {
             System.out.println("parsePrimType: " + signature + " " + index);
         }
 
@@ -511,7 +511,7 @@ public class JVMLSigParser {
     }
 
     private VoidType parseVoidType() {
-        if (Options.v().debugSigParser()) {
+        if (Main.debugSigParser) {
             System.out.println("parseVoidType: " + signature + " " + index);
         }
 
