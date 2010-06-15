@@ -194,7 +194,7 @@ public class ConstraintVar {
 
             // If this is a double guard, print that.
             if (useDouble) {
-                prefixedLine(buf, prefix, "GUARD:\n");
+                prefixedLine(buf, prefix, "GUARD:");
                 constraintCause.first.causeRec(prefix+"    ", buf);
             }
 

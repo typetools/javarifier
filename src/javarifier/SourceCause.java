@@ -1,8 +1,18 @@
 package javarifier;
 
 /**
- *  Stores both a location in the 
+ *  Used to store an location and information relating to the cause of the
+ *  existance of a constraint.
+ *
+ *  This does not store causation for inference steps - see
+ *  ConstraintVar for this information (constraintCause field)
+ *
+ *  SourceCauses are stored by ConstraintVar (sourceCause field) in the
+ *  case that that variable is directly inferrable as mutable from the
+ *  source code.  They are also recorded by ConstraintTracker, in order to 
+ *  record information for debugging the source of constraints.
  */
+
 public class SourceCause {
 
     // what caused the constraint to form
