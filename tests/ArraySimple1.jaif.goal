@@ -1,0 +1,24 @@
+package checkers.javari.quals:
+annotation @ReadOnly: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
+
+package checkers.javari.quals:
+annotation @Mutable: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
+
+package :
+class ArraySimple1:
+
+    method <init>()V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5:
+            type: @checkers.javari.quals.ReadOnly
+
+    method foo()V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+10:
+            type: @checkers.javari.quals.ReadOnly
+        local 1 #5+5:
+            type: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.ReadOnly
+
