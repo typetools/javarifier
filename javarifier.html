@@ -361,17 +361,17 @@ constraint is also given.  Here is the layout of this information:
 
 <pre>
 &lt;Var1&gt;
-  <b>ClassName</b>.java:53: &lt;&lt; <b>Stmt1</b> &gt;&gt;
-  Why Var2 implies Var1
+  <b>ClassName</b>:53: <b>Stmt1</b> 
+  Var1 &lt;: Var2 
 &lt;Var2&gt;
-  <b>ClassName</b>.java:: <b>MemberName</b> &lt;&lt; <b>Stmt2</b> &gt;&gt;
+  <b>ClassName</b>:: <b>MemberName</b> <b>Stmt2</b> 
   Why Var3 and Var4 implies Var2
 GUARD:
 	&lt;Var3&gt;
-	  <b>ClassName</b>.java:: <b>MemberName</b> &lt;&lt; <b>Stmt3</b> &gt;&gt;
+	  <b>ClassName</b>:: <b>MemberName</b> <b>Stmt3</b>; 
    Why Var3 is directly apparent
 &lt;Var4&gt;
-<b>ClassName</b>.java:: <b>MemberName</b>
+<b>ClassName</b>:: <b>MemberName</b>
 Stub
 </pre>
 
