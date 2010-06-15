@@ -16,7 +16,7 @@ public class OpenWorld extends SceneVisitor {
     public static ConstraintManager generate(Scene s) {
         OpenWorld generator = new OpenWorld();
         generator.visitScene(s);
-        if (Options.v().dumpOpenWorldCons()) {
+        if (Main.dumpOpenWorldCons) {
             System.out.println("Open world constraints:");
             System.out.println(generator.getConstraints());
         }

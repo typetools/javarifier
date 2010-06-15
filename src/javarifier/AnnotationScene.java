@@ -44,7 +44,7 @@ public class AnnotationScene {
                 ClassReader cr = ASMClassReaders.v().readerFor(sc.getName());
                 ClassFileReader.read(scene1, cr);
             }
-            String extraIndexFile = Options.v().getExtraAnnotationInputFile();
+            String extraIndexFile = Main.extraAnnotationInputFile;
             if (extraIndexFile != null) {
                 try {
                     IndexFileParser.parse(new LineNumberReader(new FileReader(extraIndexFile)), scene1);
@@ -75,7 +75,7 @@ public class AnnotationScene {
             AMethod am = ac.methods.get("removeElement");
             //System.out.println("found!");
 
-            if (Options.v().debugAnnotationLoading()) {
+            if (Main.debugAnnotationLoading) {
                 // Write out the annotations for debugging
                 System.out.println("Loaded annotations:");
                 try {

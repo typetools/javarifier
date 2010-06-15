@@ -286,7 +286,7 @@ public class ConstraintManager {
                          JrTyped rhsEnv, JrType rhsEnvType, JrTyped rhsValue, JrType rhsType,
                          JrTyped guard,  JrType guardType, SourceCause cause) {
 
-        if (Options.v().debugSubtyping()) {
+        if (Main.debugSubtyping) {
             System.out.println("debugSubtyping1>> "
                + lhsEnv + ": " + lhsEnvType + " |- " + lhsValue + ": " + lhsType + " (" + lhsValue.getJrType() + ": " + lhsType.getIndex() + ") <: "
                + rhsEnv + ": " + rhsEnvType + " |- " + rhsValue + ": " + rhsType + " (" + rhsValue.getJrType() + ": " + rhsType.getIndex() + ")" );
@@ -406,7 +406,7 @@ public class ConstraintManager {
                           JrTyped rhsEnv, MutType rhsEnvType, JrTyped rhsValue, MutType rhsType,
                           JrTyped guard,  MutType guardType, SourceCause cause) {
 
-        if (Options.v().debugSubtyping()) {
+        if (Main.debugSubtyping) {
             System.out.println("debugSubtyping2>> "
                                + lhsEnv + ": " + lhsEnvType + " |- " + lhsValue + ": " + lhsType + " (" + lhsValue.getJrType() + ": " + lhsType.getIndex() + ") <: "
                                +  rhsEnv + ": " + rhsEnvType + " |- " + rhsValue + ": " + rhsType + "(" + rhsValue.getJrType() + ": " + rhsType.getIndex() + ")" );
@@ -547,7 +547,7 @@ public class ConstraintManager {
     public void guards(JrTyped lhsValue, MutType lhsType,
                         JrTyped rhsValue, MutType rhsType, SourceCause cause) {
 
-        if (Options.v().debugConstraintGeneration() || Options.v().debugSubtyping()) {
+        if (Main.debugConstraintGeneration || Main.debugSubtyping) {
             System.out.println("guards():  " + lhsValue + " " + lhsType + " -> " + rhsValue + " " + rhsType);
         }
 
@@ -575,8 +575,8 @@ public class ConstraintManager {
             ConstraintTracker.add(lhsRo,  rhsRo,  cause);
             ConstraintTracker.add(lhsMut, rhsMut, cause);
         }
-
-        if (Options.v().debugConstraintGeneration() || Options.v().debugSubtyping()) {
+        
+        if (Main.debugConstraintGeneration || Main.debugSubtyping) {
             System.out.println("  ro : " + lhsRo + " -> " + rhsRo);
             System.out.println("  mut: " + lhsMut + " -> " + rhsMut);
         }
@@ -584,7 +584,7 @@ public class ConstraintManager {
         if (!shouldSkipReadonlyContext()) {
           cs.add(lhsRo, rhsRo);
         } else {
-          if (Options.v().debugConstraintGeneration()) {
+          if (Main.debugConstraintGeneration) {
             System.out.println("guards(): omit constraint: " + lhsRo + " \n -> " + rhsRo);
           }
         }
@@ -620,7 +620,7 @@ public class ConstraintManager {
             ConstraintTracker.add(lhs,  rhsRo,  cause);
             cs.add(lhs, rhsRo);
         } else {
-            if (Options.v().debugConstraintGeneration()) {
+            if (Main.debugConstraintGeneration) {
                 System.out.println("guards2(): omit constraint: " + lhs + " \n -> " + rhsRo);
             }
         }
@@ -655,7 +655,7 @@ public class ConstraintManager {
             ConstraintTracker.add(guardRo, lhs,  rhsRo,  cause);
             cs.add(guardRo, lhs, rhsRo);
         } else {
-            if (Options.v().debugConstraintGeneration()) {
+            if (Main.debugConstraintGeneration) {
               System.out.println("guards3(): omit constraint: " + guardRo + " \n => " + lhs + " \n -> " + rhsRo);
             }
         }

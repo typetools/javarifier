@@ -18,7 +18,7 @@ public class BoundGuarder extends SceneLocationVisitor {
         BoundGuarder guarder = new BoundGuarder();
         guarder.visitScene(s);
 
-        if (Options.v().dumpBoundGuards()) {
+        if (Main.dumpBoundGuards) {
             System.out.println("\nBound Guards:");
             System.out.println(guarder.getConstraints()+"\n");
         }
@@ -47,7 +47,7 @@ public class BoundGuarder extends SceneLocationVisitor {
     private static class BoundGuarderHelper extends EmptyTypeVisitor {
 
         public static void guards(JrTyped val, JrType type, ConstraintManager cm, SourceLocation loc) {
-            if (Options.v().debugBoundGuarder()) {
+            if (Main.debugBoundGuarder) {
                 System.out.println("debugBoundGuarder>> val: " + val + ": " + type);
             }
 
@@ -83,7 +83,7 @@ public class BoundGuarder extends SceneLocationVisitor {
          */
         private void checkClassTypeArg(TypeArg targ, ClassType env) {
 
-            if (Options.v().debugBoundGuarder()) {
+            if (Main.debugBoundGuarder) {
                 System.out.println("debugBoundGuarder>> targ: " + targ);
             }
 

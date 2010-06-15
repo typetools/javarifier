@@ -19,7 +19,7 @@ public class Incorporater extends SceneVisitor {
 //     public static void incorporate(Scene scene, MultiMap<Object, ConstraintVar> results) {
 //         Incorporater incorporater = new Incorporater(results);
 //         incorporater.visitScene(scene);
-//         if (Options.v().debugConstraintIncorporating()) {
+//         if (Main.debugConstraintIncorporating) {
 //             System.out.println(ScenePrinter.print(scene));
 //         }
 
