@@ -88,7 +88,7 @@
       <ant dir="${annotations-compiler}" antfile="make/build.xml"
           inheritAll="false" target="build"/>
       <ant dir="${checkers}" target="build" inheritAll="false"/>
-      <antcall target="plume-lib"/>
+      <!-- <antcall target="plume-lib"/> -->
   </target>
 
   <target name="plume-lib" depends="init-properties"
@@ -123,7 +123,7 @@
     </exec>
   </target>
 
-  <target name="init" depends="init-properties, build-dependencies"
+  <target name="init" depends="init-properties, plume-lib, build-dependencies"
     description="Initialize properties and build required projects">
   </target>
 
