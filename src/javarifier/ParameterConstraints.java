@@ -32,6 +32,7 @@ public class ParameterConstraints extends SceneVisitor {
 
     public void visitBody(Body body) {
         SootMethod sm = body.getMethod();
+        String name = sm.getName();
 
         if (! sm.isStatic() && (! sm.getName().equals("<init>"))) {
             Local thisLocal = body.getThisLocal();
@@ -40,15 +41,22 @@ public class ParameterConstraints extends SceneVisitor {
             Param receiver = sm.getReceiver();
             JrType receiverType = receiver.getJrType();
 
-            SourceCause cause = new SourceCause(new SourceLocation(sm), "Receiver must be mutable");
+
+            SourceCause cause = new SourceCause(new SourceLocation(sm),
+                name + ".this <: " + thisLocal.getName() + ",    where " +
+                name + ".this indicates the type of the receiver");
             cm.subtype2(null, null, receiver,  receiverType,
                         null, null, thisLocal, thisLocalType, cause);
-
         }
         for (int i = 0; i < sm.getParameters().size(); i++) {
-            SourceCause cause = new SourceCause(new SourceLocation(sm), "Local parameter variable " + i + " of " + body.getMethod().getName() + " must be mutable because the parameter is.");
+            Local paramLocal = body.getParameterLocal(i);
+            JrType paramLocalType = paramLocal.getJrType();
+            
+            SourceCause cause = new SourceCause(new SourceLocation(sm),
+                name+".args[" + i + "] <: " + paramLocal.getName() + ",    where " +
+                name+".args[n] indicates the type of the parameter");
             cm.subtype2(null, null, sm.getParameter(i), sm.getParameter(i).getJrType(),
-                        null, null, body.getParameterLocal(i), body.getParameterLocal(i).getJrType(), cause);
+                        null, null, paramLocal, paramLocalType, cause);
         }
     }
 }
