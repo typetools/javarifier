@@ -106,10 +106,10 @@ VerifyDiffs.class : VerifyDiffs.java
 %.jaif: %.class ../bin
 	rm -f $@
 	${JAVARIFIER} \
-	-programCPEntries . \
-	-output $@ \
-	-outputFormat annotationIndexFile \
-	-outputMainClassFirst \
+	--programCPEntries . \
+	--output $@ \
+	--outputFormat annotationIndexFile \
+	--outputMainClassFirst \
 	$* \
 	2>&1 | tee $*.log
 

@@ -16,7 +16,7 @@ public class StubConstraints extends SceneLocationVisitor {
     public static ConstraintManager generate(Scene s) {
         StubConstraints g = new StubConstraints();
         g.visitScene(s);
-        if (Options.v().dumpStubCons()) {
+        if (Main.dumpStubCons) {
             System.out.println("Stub Constraints");
             System.out.println(g.getConstraints());
         }
@@ -51,7 +51,7 @@ public class StubConstraints extends SceneLocationVisitor {
           if (type instanceof MutType) {
             MutType mutType = (MutType) type;
             if (mutType.getMutability().equals(Mutability.UNKNOWN)) {
-              if (Options.v().debugStubs()) {
+              if (Main.debugStubs) {
                 System.out.println("recognized unknown mutability constraint, converting to mutable: " + typed + " with type: " + typed.getJrType());
               }
               mutType.setMutability(Mutability.MUTABLE);

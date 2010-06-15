@@ -37,7 +37,7 @@ public class TypeInferencer extends SceneVisitor {
 
     public static void infer(Scene s) {
         (new TypeInferencer()).visitScene(s);
-        if (Options.v().debugTypeInference()) {
+        if (Main.debugTypeInference) {
             System.out.println(ScenePrinter.print(s));
         }
     }

@@ -12,7 +12,7 @@ public class SubtypeConstraints extends SceneVisitor {
     public static ConstraintManager generate(Scene s) {
         SubtypeConstraints generator = new SubtypeConstraints(s);
         generator.visitScene(s);
-        if (Options.v().dumpSubtypeCons()) {
+        if (Main.dumpSubtypeCons) {
             System.out.println("Subtype Constraints");
             System.out.println(generator.getConstraints());
         }

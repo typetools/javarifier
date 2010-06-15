@@ -14,7 +14,7 @@ public class ParameterConstraints extends SceneVisitor {
         ParameterConstraints pc = new ParameterConstraints();
         pc.visitScene(s);
 
-        if (Options.v().dumpParamCons()) {
+        if (Main.dumpParamCons) {
             System.out.println("Parameter Cons:");
             System.out.println(pc.getConstraints());
         }
