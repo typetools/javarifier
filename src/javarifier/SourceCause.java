@@ -23,10 +23,10 @@ public class SourceCause {
 
     public String toString() { return prefixedString(""); }
 
-    //  prefix utilized to indent multiple lines properly and efficiently
+    //  prefix utilized to indent multiple lines efficiently
     public String prefixedString(String prefix) {
         return prefix + (location != null ? location.toString() : "") +
-               (stmt != "" ? " <<" + stmt + ">>" : "") +
+               (stmt != "" ? stmt : "") +
                (expl != "" ? "\n" + prefix + expl : "");
     }
 

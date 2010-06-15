@@ -73,25 +73,24 @@ public class SourceLocation {
             } else if (tag instanceof SourceLineNumberTag) {
                 lineNumber = ((SourceLineNumberTag) tag).getLineNumber();
             } else if (tag instanceof SourceFileTag) {
+                // this should work, however presently it appears that the
+                // hosts which contain line number tags are not the ones
+                // which contain source file tags.
                 filePath = ((SourceFileTag) tag).getSourceFile();
             }
         }
     }
 
-    // toString in a format akin to compiler output, eg:
-    //    Board.java:86:
-    //    Plank.java:93: methodName    -- also yielding method information
-    //    Plank.java::                 -- no debug information available
-    //
-    // TODO: Note that the outputted filename is just the class name with
-    // ".java" appended, so inner classes do not work properly.
-    // eg, Parent.Inner.java
+    // toString in a format like this, eg:
+    //    namespace.blah.Board:86:
+    //    namespace.blah.Plank::             -- no debug information available
+    //    namespace.blah.Plank:: bend        -- but method name info available
     public String toString() {
         // it seems that filePath is nearly never set, so it's left out here.
         if (lineNumber != -1) {
-            return className + ".java:" + Integer.toString(lineNumber) + ":";
+            return className + ":" + Integer.toString(lineNumber) + ":";
         } else {
-            return memberName == "" ? className + ".java::" : className + " " + memberName;
+            return memberName == "" ? className + "::" : className + " " + memberName;
         }
     }
 }

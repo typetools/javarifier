@@ -117,7 +117,7 @@ public class ConstraintVar {
     }
 
     /** Adds a partially fired double guard of the form a -> (b -> c).
-     *    v.first  Represents a, which is known mutable
+     *    v.first  Represents a, which is known mutable 
      *    v.second Represents b, which may be mutable
      *    this     Represents c
      *
