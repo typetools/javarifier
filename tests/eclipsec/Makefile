@@ -36,10 +36,10 @@ results: ../VerifyDiffs.class
 # Actually runs the Javarifier to create the inferences.
 ${TESTNAME}.jaif: ../../javarifier.jar
 	${JAVARIFIER} \
-	-programCPEntries . \
-	-useWorldAsStubs \
-	-output $@ \
-	-outputFormat annotationIndexFile \
+	--programCPEntries . \
+	--useWorldAsStubs \
+	--output $@ \
+	--outputFormat annotationIndexFile \
 	${MAINCLASS} \
 	2>&1 | tee ${TESTNAME}.log
 

@@ -112,8 +112,8 @@ public class AnnotationStorer {
     // An interface has all "empty" methods, so don't output the
     // inferred annotations if user doesn't want empty methods/classes
     // annotated.
-    if (Options.v().skipEmpty() && sc.isInterface()) {
-      if (Options.v().debugAnnotationStoring()) {
+    if (Main.skipEmpty && sc.isInterface()) {
+      if (Main.debugAnnotationStoring) {
         System.out.println("AnnotationStorer skipping interface: " +
             sc.getName());
       }
@@ -158,8 +158,8 @@ public class AnnotationStorer {
     // If a method is abstract, don't output any annotations for it.
     // This is useful when comparing Javarifier results to results that
     // do not annotate abstract methods.
-    if (Options.v().skipEmpty() && sm.isAbstract()) {
-      if (Options.v().debugAnnotationStoring()) {
+    if (Main.skipEmpty && sm.isAbstract()) {
+      if (Main.debugAnnotationStoring) {
         System.out.println("AnnotationStorer skipping abstract method: " + sm);
       }
       return;
@@ -205,9 +205,9 @@ public class AnnotationStorer {
         isImmutable = AnnotationLoader.classIsUnmodifiable(
             ctParam.getBaseType());
       }
-      if (!Options.v().includeImmutableClasses() &&
+      if (!Main.includeImmutableClasses &&
           isImmutable) {
-        if (Options.v().debugAnnotationStoring()) {
+        if (Main.debugAnnotationStoring) {
           System.out.println("AnnotationStorer skipping parameter " +
               " (with type of immutable class): " + sParam);
         }

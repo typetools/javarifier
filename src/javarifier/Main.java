@@ -13,6 +13,10 @@ import java.util.Set;
 import javarifier.JrType.VarType;
 import soot.Scene;
 import soot.SootField;
+import plume.Option;
+import plume.OptionGroup;
+import plume.Options;
+import plume.Unpublicized;
 
 /**
  * Javarifier implements the refrence immutability inference algorithm for
@@ -40,9 +44,7 @@ import soot.SootField;
 //that has mutability information.
 //- Soot uses the singleton design pattern, and much of Javarifier has
 //taken the same format.  The method v() is used to extract the singleton
-//in all cases.  For example, javarifier.Options implements the singleton
-//design pattern, and the singleton is obtained by calling
-//javarifier.Options.v()
+//in all cases.
 //- The main representation for containing classes is a Scene, which is
 //Soot's format.  It contains a set of SootClass objects, one for
 //each class in the scene.
@@ -53,6 +55,425 @@ public class Main {
    */
   public static final String versionString = "Javarifier version 0.1.3";
 
+  /**
+   * Print the short usage message.  This does not include verbosity or
+   * debugging options.
+   */
+  @OptionGroup ("General Options")
+  @Option (value="-h Print short usage message", aliases={"-help"})
+  public static boolean help = false;
+
+  /**
+   * Print the extended usage message which includes verbosity and debugging
+   * options but not internal options.
+   */
+  @Option ("-H Print extended usage message (includes debugging options)")
+  public static boolean allHelp = false;
+
+  /**
+   * Print the current Javarifier version.
+   */
+  @Option (value="-v Print program version", aliases={"-version"})
+  public static boolean version = false;
+  // end option group "General Options"
+  
+  /**
+   * Be quiet, do not print much information.
+   */
+  @OptionGroup("Execution Options")
+  @Option ("-Q Be quiet, do not print much information")
+  public static boolean reallyQuiet = false;
+
+  /**
+   * Use heuristics to set fields that should be excluded from the abstract
+   * state of the object to be assignable.
+   * @see javarifier.HeuristicsVisitor
+   */
+  @Option ("Use heuristics to determine @Assignable fields")
+  public static boolean applyHeuristics = false;
+
+  /**
+   * Forces all public method return types to have mutable (or polyread) types
+   * and all public fields to have this-mutable types.
+   * @see javarifier.OpenWorld
+   */
+  @Option ("Force all public method return types to be @Mutable and public fields @ThisMutable")
+  public static boolean openWorld = false;
+
+  /**
+   * Do not split source locals.
+   */
+  // This option does not appear to be used anywhere.
+  @Unpublicized
+  @Option ("Do not split source locals")
+  public static boolean doNotSplitSourceLocals = true; // Should be True
+  // end option group "Execution Options"
+
+  /**
+   * Specify a colon-delimited classpath other than <b>$CLASSPATH</b> for
+   * Javarifier to use to lookup classes being analyzed.
+   */
+  @OptionGroup ("Input Options")
+  @Option ("Specify a classpath to use to lookup classes being analyzed")
+  public static String programCPEntries = null;
+
+  public static String getProgramCPEntries() {
+    if (programCPEntries == null)
+      return "";
+    else
+      return programCPEntries;
+  }
+  
+  /**
+   * Specify a colon-delimited classpath to look for stub classes. All
+   * classes found in this path will be treated as stub classes.
+   */
+  @Option (value="Specify a classpath for stub classes", aliases={"--stubs"})
+  public static String stubCPEntries = null;
+
+  // Note that the default StubCPEntries are always used, no matter what
+  // the stubCPEntries are.
+  public static String getStubCPEntries() { 
+    return defaultStubCPEntries + 
+           (stubCPEntries == null ? ""
+            : (System.getProperty("path.separator") + stubCPEntries)) +
+           (useWorldAsStubs
+            ? (System.getProperty("path.separator") + getWorldCPEntries())
+            : ""); 
+  }
+
+  /**
+   * By default, Javarifier assumes that the JDK classes required by the
+   * program classes on which you are running Javarifier are in your
+   * <b>$CLASSPATH</b>. If this is not the case, or if you wish to reference
+   * a different JDK, you may use this followed by the colon-delimited
+   * classpath of your JDK jarfiles.
+   */
+  @Option (value="Specify a classpath for JDK jarfiles", aliases={"--world"})
+  public static String worldCPEntries = null;
+
+  public static String getWorldCPEntries() { 
+    return defaultWorldCPEntries +
+           (worldCPEntries == null ? ""
+            : (System.getProperty("path.separator") + worldCPEntries)); 
+  }
+
+  /**
+   * If false (the default), then missing stubs cause Javarifier to halt.
+   * If true, then Javarifier uses world classes as stubs, after both the
+   * default stub entries and the stub entries.
+   */
+  @Option ("Do not halt on missing stubs")
+  public static boolean useWorldAsStubs = false;
+
+  /**
+   * If specified, annotations will be loaded from this annotation file as well as
+   * the class files for all classes in the Soot scene.
+   */
+  @Option ("<filename> Specify extra file from which to load annotations")
+  public static String extraAnnotationInputFile = null;
+  // end option group "Input Options"
+
+  /**
+   * By default, all output, including the results, is printed to standard
+   * out. Use this option to output the results to an annotation file. Note
+   * that Javarifier outputs the results for all classes into a single file.
+   */
+  @OptionGroup("Output Options")
+  @Option (value="<filename> Output annotations to a file", aliases={"--output"})
+  public static String outputFile = null;
+
+
+  /**
+   * Specify the output annotation format. Valid options are:
+   * <ul>
+   * <li><b>annotationIndexFile</b>, alias <b>index</b>
+   * <li><b>scenePrinter</b>
+   * <li><b>twoFiles</b>
+   * <li><b>shay</b>
+   * </ul>
+   * See {@link javarifier.OutputFormat} for a description of these formats.
+   */
+  @Option (value="<format> Specify the output annotation format")
+  public static String outputFormat = "index";
+
+  public static OutputFormat outputFormat() {
+      if (outputFormat.equals("annotationIndexFile")
+          || outputFormat.equals("index"))
+          return OutputFormat.ANNOTATION_INDEX_FILE;
+      else if (outputFormat.equals("scenePrinter"))
+          return OutputFormat.SCENE_PRINTER;
+      else if (outputFormat.equals("twoFiles"))
+          return OutputFormat.TWO_FILES;
+      else if (outputFormat.equals("shay"))
+          return OutputFormat.SHAY;
+      else
+          throw new IllegalArgumentException(
+              "Unrecognized output format " + outputFormat);
+  }
+
+  /**
+   * Tells {@link ScenePrinter} to omit a bunch of uninteresting local
+   * variables from the output.  These are generally the ones that cannot be
+   * annotated in source code, so this option is good for comparing
+   * Javarifier results with manual annotations.
+   */
+  @Option ("Omit local variables from output")
+  public static boolean outputFilterLocals = false;
+
+  /**
+   * Tells {@link ScenePrinter} to output "omitted" instead of the type for
+   * elements not of the given construct.  The construct can be "field",
+   * "local", "parameter", "receiver", or "return".  Useful to study the
+   * types assigned to elements of each kind separately.
+   */
+  @Option ("<construct> Only output annotations for the given construct.")
+  public static String outputLimitKind = null;
+
+  /**
+   * Tells {@link ScenePrinter} to output fields and methods sorted by name
+   * instead of by order of appearance in the class file.  If several methods
+   * have the same name, they are outputted in the order they appear in the
+   * class file.
+   */
+  @Option ("Output fields and methods sorted by name")
+  public static boolean outputSortMembers = false;
+
+  /**
+   * Tells {@link ScenePrinter} to output all the classes mentioned on the
+   * command line (in the order of first mention on the command line) before
+   * all the other classes.
+   */
+  @Option ("Output annotations for command-line specified classes first")
+  public static boolean outputMainClassFirst = false;
+
+  /**
+   * The skipEmpty flag indicates that annotations should not be outputted 
+   * for empty code.  That is, there should be no annotations for interfaces
+   * and abstract methods.
+   */
+  @Option ("Do not output annotations for interfaces or abstract methods")
+  public static boolean skipEmpty = false;
+  
+  /**
+   * The includeImmutableClasses flag indicates that @ReadOnly annotations
+   * should be output even for references that are of some type that is known
+   * to be @Unmodifiable, such as java.lang.String.
+   */
+  @Option ("Output annotations for immutable classes")
+  public static boolean includeImmutableClasses = false;
+  // end option group "Output Options"
+
+  /**
+   * Do not perform inference.  Just read annotations (treating even program
+   * classes as fully annotated), expand defaults and @Unmodifiable, and write
+   * the results back out.  Use this mode to convert manual annotations to a
+   * form in which they can be compared to Javarifier annotations.
+   */
+  @OptionGroup ("Utility Options (no inference)")
+  @Option ("Read annotations, expand defaults, and write the results")
+  public static boolean justPassThrough = false;
+
+  /**
+   * Do not perform inference.  Just output a list of classes for which stubs
+   * are needed to perform inference.  In the future, an option such as
+   * '-missingStubs' may be added which only outputs a list of stubs which are
+   * needed but missing.
+   */
+  @Option ("Output a list of stub classes needed to perform inference")
+  public static boolean printStubs = false;
+  // end option group "Utility Options (no inference)"
+
+  /**
+   * The <code>-dumpCauses</code> flag enumerates the causes for each type
+   * qualifier Javarifier infers.  For each annotation this outputs the
+   * shortest-length inference chain.  See the section on
+   * <code>-dumpCauses</code> in the manual for more information.
+   */
+  @OptionGroup (value="Verbosity Options", unpublicized=true)
+  @Option ("Dump shortest-length inference chain for each annotation")
+  public static boolean dumpCauses = false;
+
+  /**
+   * Dump the raw constraints generated by Javarifier during its inference
+   * process.  See the section on <code>-dumpConstraints</code> in the manual
+   * for information.
+   */
+  @Option ("Dump raw constraints generated by Javarifier")
+  public static boolean dumpConstraints = false;
+
+  /**
+   * Dump results.
+   */
+  @Option ("Dump results")
+  public static boolean dumpResults = false;
+
+  /**
+   * Dump generator constraints.
+   * @see javarifier.ConstraintGenerator
+   */
+  @Option ("Dump generator constraints")
+  public static boolean dumpGeneratorConstraints = false;
+
+  /**
+   * Dump bound guards.
+   * @see javarifier.BoundGuarder
+   */
+  @Option ("Dump bound guards")
+  public static boolean dumpBoundGuards = false;
+
+  /**
+   * Dump parameter constraints.
+   * @see javarifier.ParameterConstraints
+   */
+  @Option ("Dump parameter constraints")
+  public static boolean dumpParamCons = false;
+
+  /**
+   * Dump stub constraints.
+   * @see javarifier.StubConstraints
+   */
+  @Option ("Dump stub constraints")
+  public static boolean dumpStubCons = false;
+
+  /**
+   * Dump subtype constraints.
+   * @see javarifier.SubtypeConstraints
+   */
+  @Option ("Dump subtype constraints")
+  public static boolean dumpSubtypeCons = false;
+
+  /**
+   * Dump open world constraints.
+   * @see javarifier.OpenWorld
+   */
+  @Option ("Dump open world constraints")
+  public static boolean dumpOpenWorldCons = false;
+
+  /**
+   * Debug local splitting.
+   * @see soot.toolkits.scalar.LocalSplitter
+   */
+  @OptionGroup (value="Debugging Options", unpublicized=true)
+  @Option ("Debug local splitting")
+  public static boolean debugLocalSplitting = false;
+
+  /**
+   * Debug stubs.
+   */
+  @Option ("Debug stubs")
+  public static boolean debugStubs = false;
+
+  /**
+   * Debug signature resolver.
+   * @see javarifier.TypeInitializer
+   */
+  @Option ("Debug signature resolver")
+  public static boolean debugResolver = false;
+
+  /**
+   * Debug Soot resolver.
+   * @see soot.SootResolver
+   */
+  @Option ("Debug Soot resolver")
+  public static boolean debugResolve = false;
+
+  /**
+   * Debug type inference.
+   * @see javarifier.TypeInferencer
+   */
+  @Option ("Debug type inference")
+  public static boolean debugTypeInference = false;
+
+  /**
+   * Debug bound guarder.
+   * @see javarifier.BoundGuarder
+   */
+  @Option ("Debug bound guarder")
+  public static boolean debugBoundGuarder = false;
+
+  /**
+   * Debug subtyping.
+   * @see javarifier.ConstraintManager
+   */
+  @Option ("Debug subtyping")
+  public static boolean debugSubtyping = false;
+
+  /**
+   * Debug constraint generation.
+   * @see javarifier.ConstraintGenerator
+   * @see javarifier.ConstraintManager
+   */
+  @Option ("Debug constraint generation")
+  public static boolean debugConstraintGeneration = false;
+
+  /**
+   * Debug constraints.
+   * @see javarifier.ConstraintTracker#printCauses
+   */
+  @Option ("Debug constaints")
+  public static boolean debugConstraints = false;
+
+  /**
+   * Debug signature parser.
+   * @see javarifier.JVMLSigParser
+   */
+  @Option ("Debug signature parser")
+  public static boolean debugSigParser = false;
+
+  /**
+   * Debug constraint incorporating.
+   * @see javarifier.Incorporater
+   */
+  @Option ("Debug constraint incorporating")
+  public static boolean debugConstraintIncorporating = false;
+
+  /**
+   * Debug annotation loading.
+   * @see javarifier.AnnotationScene
+   */
+  @Option ("Debug annotation loading")
+  public static boolean debugAnnotationLoading = false;
+  
+  /**
+   * Debug annotation storing.
+   * @see javarifier.AnnotationStorer
+   */
+  @Option ("Debug annotation storing")
+  public static boolean debugAnnotationStoring = false;
+
+  // The following options don't appear to be used anywhere.
+  @Unpublicized
+  @Option ("debugVar")
+  public static String debugVar = null;
+
+  @Unpublicized
+  @Option ("Debug ASM")
+  public static boolean debugASM = false;
+
+  @Unpublicized
+  @Option ("Debug method transform")
+  public static boolean debugMethodTransform = false;
+
+  @Unpublicized
+  @Option ("Debug solve")
+  public static boolean debugSolve = false;
+  // end option group "Debugging Options"
+
+  /**
+   * Set the default classpath for stub classes.
+   */
+  @OptionGroup(value="Internal Options", unpublicized=true)
+  @Option ("Set the default classpath for stub classes")
+  public static String defaultStubCPEntries = null;
+  
+  /**
+   * Set the default classpath for JDK jarfiles.
+   */
+  @Option ("Set the default classpath for JDK jarfiles")
+  public static String defaultWorldCPEntries = null;
+  // end option group "Internal Options"
+  
   /**
    * An array of all the default arguments that must be passed to Soot
    * for it to load all the class files.
@@ -107,6 +528,11 @@ public class Main {
   /** All the classes in the command-line to run inference over. */
   static String[] args;
 
+  /** One line synopsis of usage */
+  private static String usage_string
+    = "javarifier [options] <program-classpath> "
+    + "<space-seperated-list-of-classes-to-analyze>";
+
   /**
    * The main method to perform the inference algorithm.  See user
    * documentation an explanation of the options.
@@ -114,27 +540,28 @@ public class Main {
    * @param args - command-line options
    */
   public static void main(String[] args) {
+    Options options = new Options (usage_string, Main.class);
     String[] commandLineArgs = null;
+    commandLineArgs = options.parse_or_usage (args);
 
-    try {
-      // processes javarifier options and removes them from args
-      commandLineArgs = Options.v().processCmdLine(args);
-    } catch (Exception e) {
-      System.out.println("Bad arguments:");
-      for (String arg : args) {
-        System.out.println("  " + arg);
-      }
-      e.printStackTrace(System.out);
-      printUsage();
+    if (allHelp) {
+      System.out.println(
+        options.usage("General Options",
+                      "Execution Options",
+                      "Input Options",
+                      "Output Options",
+                      "Utility Options (no inference)",
+                      "Verbosity Options",
+                      "Debugging Options"));
       return;
     }
 
-    if (Options.v().printUsage()) {
-      printUsage();
+    if (help) {
+      options.print_usage();
       return;
     }
 
-    if (Options.v().printVersion()) {
+    if (version) {
       System.out.println(versionString);
       return;
     }
@@ -149,9 +576,9 @@ public class Main {
     // must always supply it
     String sep = System.getProperty("path.separator");
     String sootCP =
-      Options.v().getProgramCPEntries() + sep +
-      Options.v().getStubCPEntries() + sep +
-      Options.v().getWorldCPEntries();
+      getProgramCPEntries() + sep +
+      getStubCPEntries() + sep +
+      getWorldCPEntries();
     argsList.add(sootCP);
 
     // now the rest of the command-line args
@@ -179,14 +606,6 @@ public class Main {
       System.exit(1);
     }
   }
-
-  /** Prints usage information. */
-  private static void printUsage() {
-    System.out.println("Javarifier usage: ");
-    System.out.println("  javarifier <program-classpath> " +
-    "<space-separated list of fully-qualified classes to analyze>");
-  }
-
 
 
   /**
@@ -216,7 +635,7 @@ public class Main {
      * {@link AnnotationLoader#loadAllAnnotations(Scene)}.
      */
     private void prepareScene(Scene scene) {
-      if (Options.v().justPrintStubs()) {
+      if (Main.printStubs) {
         return;
       }
 
@@ -248,7 +667,7 @@ public class Main {
      * @param scene
      */
     private void javarifyScene(Scene scene) {
-      if (Options.v().justPrintStubs()) {
+      if (Main.printStubs) {
         return;
       }
       // Constraint generation
@@ -267,7 +686,7 @@ public class Main {
       cm = cm.combine(stubCons);
       printNonQuiet("StubConstraints finished.");
 
-      if (Options.v().applyHeuristics()) {
+      if (Main.applyHeuristics) {
         HeuristicsVisitor.applyHeuristics(Scene.v());
       }
 
@@ -290,13 +709,13 @@ public class Main {
       cm = cm.combine(subtypeCons);
       printNonQuiet("SubtypeConstraints finished.");
 
-      if (Options.v().openWorld()) {
+      if (Main.openWorld) {
         ConstraintManager openWorldCons = OpenWorld.generate(Scene.v());
         cm = cm.combine(openWorldCons);
         printNonQuiet("OpenWorld finished.");
       }
 
-      if (Options.v().debugConstraints()) {
+      if (Main.debugConstraints) {
           ConstraintTracker.printCauses();
       }
 
@@ -324,7 +743,7 @@ public class Main {
       Set<ConstraintVar> solved = cm.solve();
       printNonQuiet("Solved constraints.");
 
-      if (Options.v().dumpConstraints()) {
+      if (Main.dumpConstraints) {
         System.out.println("cm:\n" + cm + "\n");
         System.out.println("Solved:");
         for (ConstraintVar var : solved) {
@@ -332,7 +751,7 @@ public class Main {
         }
       }
 
-      if (Options.v().dumpCauses()) {
+      if (Main.dumpCauses) {
         System.out.println("Causes:");
         for (ConstraintVar var : solved) {
             System.out.println(var.causeString());
@@ -397,7 +816,7 @@ public class Main {
      */
     protected void internalTransform(String name, Map options) {
       // All Soot resolving will be done when we reach this point.
-      if (Options.v().justPrintStubs()) {
+      if (Main.printStubs) {
         return;
       }
 
@@ -405,15 +824,15 @@ public class Main {
 
       prepareScene(Scene.v());
 
-      if (!Options.v().justPassThrough())
+      if (!Main.justPassThrough)
         javarifyScene(Scene.v());
 
-      if (Options.v().dumpResults()) {
+      if (Main.dumpResults) {
         String results = ScenePrinter.print(Scene.v());
         System.out.println(results);
       }
 
-      String outFile = Options.v().getOutputFile();
+      String outFile = Main.outputFile;
       printNonQuiet("");
       printNonQuiet("Writing Javari's results to " +
           (outFile == null ? "standard output" : outFile));
@@ -423,7 +842,7 @@ public class Main {
                       ? new OutputStreamWriter(System.out)
                       : new FileWriter(outFile));
           Scene scene = Scene.v();
-          Options.v().outputFormat().write(Scene.v(), out);
+          Main.outputFormat().write(Scene.v(), out);
           out.close();
       } catch (IOException e) {
         throw new RuntimeException(e);
@@ -435,7 +854,7 @@ public class Main {
      * Prints the given String if the command-line option permits it.
      */
     private void printNonQuiet(String s) {
-      if (!Options.v().reallyQuiet()) {
+      if (!Main.reallyQuiet) {
         System.out.println(s);
       }
     }

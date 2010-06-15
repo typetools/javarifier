@@ -30,36 +30,36 @@ results: ../VerifyDiffs.class
 voronoi.jaif: ../../javarifier.jar
 	cd voronoi && javac -g *.java
 	${JAVARIFIER} \
-	-programCPEntries voronoi \
-	-output $@ \
-	-outputFormat annotationIndexFile \
+	--programCPEntries voronoi \
+	--output $@ \
+	--outputFormat annotationIndexFile \
 	Edge EdgePair MyDouble Vec2 Vertex Voronoi \
 	2>&1 | tee voronoi.log
 
 health.jaif: ../../javarifier.jar
 	cd health && javac -g *.java
 	${JAVARIFIER} \
-	-programCPEntries health \
-	-output $@ \
-	-outputFormat annotationIndexFile \
+	--programCPEntries health \
+	--output $@ \
+	--outputFormat annotationIndexFile \
 	Health Hospital List Patient Results Village \
 	2>&1 | tee health.log
 
 mst.jaif: ../../javarifier.jar
 	cd mst && javac -g *.java
 	${JAVARIFIER} \
-	-programCPEntries mst \
-	-output $@ \
-	-outputFormat annotationIndexFile \
+	--programCPEntries mst \
+	--output $@ \
+	--outputFormat annotationIndexFile \
 	BlueReturn Graph HashEntry Hashtable MST Vertex \
 	2>&1 | tee mst.log
 
 perimeter.jaif: ../../javarifier.jar
 	cd perimeter && javac -g *.java
 	${JAVARIFIER} \
-	-programCPEntries perimeter \
-	-output $@ \
-	-outputFormat annotationIndexFile \
+	--programCPEntries perimeter \
+	--output $@ \
+	--outputFormat annotationIndexFile \
 	BlackNode GreyNode NorthEast NorthWest Perimeter QuadTreeNode Quadrant \
 	SouthEast SouthWest WhiteNode \
 	2>&1 | tee perimeter.log
@@ -67,54 +67,54 @@ perimeter.jaif: ../../javarifier.jar
 em3d.jaif: ../../javarifier.jar
 	cd em3d && javac -g *.java
 	${JAVARIFIER} \
-	-programCPEntries em3d \
-	-output $@ \
-	-outputFormat annotationIndexFile \
+	--programCPEntries em3d \
+	--output $@ \
+	--outputFormat annotationIndexFile \
 	BiGraph Em3d Graph Node \
 	2>&1 | tee em3d.log
 
 treeadd.jaif: ../../javarifier.jar
 	cd treeadd && javac -g *.java
 	${JAVARIFIER} \
-	-programCPEntries treeadd \
-	-output $@ \
-	-outputFormat annotationIndexFile \
+	--programCPEntries treeadd \
+	--output $@ \
+	--outputFormat annotationIndexFile \
 	TreeAdd TreeNode \
 	2>&1 | tee treeadd.log
 
 bh.jaif: ../../javarifier.jar
 	cd bh && javac -g *.java
 	${JAVARIFIER} \
-	-programCPEntries bh \
-	-output $@ \
-	-outputFormat annotationIndexFile \
+	--programCPEntries bh \
+	--output $@ \
+	--outputFormat annotationIndexFile \
 	BH Body Cell MathVector Node Tree \
 	2>&1 | tee bh.log
 
 tsp.jaif: ../../javarifier.jar
 	cd tsp && javac -g *.java
 	${JAVARIFIER} \
-	-programCPEntries tsp \
-	-output $@ \
-	-outputFormat annotationIndexFile \
+	--programCPEntries tsp \
+	--output $@ \
+	--outputFormat annotationIndexFile \
 	TSP Tree \
 	2>&1 | tee tsp.log
 
 power.jaif: ../../javarifier.jar
 	cd power && javac -g *.java
 	${JAVARIFIER} \
-	-programCPEntries power \
-	-output $@ \
-	-outputFormat annotationIndexFile \
+	--programCPEntries power \
+	--output $@ \
+	--outputFormat annotationIndexFile \
 	Branch Demand Lateral Leaf Power Root \
 	2>&1 | tee power.log
 
 bisort.jaif: ../../javarifier.jar
 	cd bisort && javac -g *.java
 	${JAVARIFIER} \
-	-programCPEntries bisort \
-	-output $@ \
-	-outputFormat annotationIndexFile \
+	--programCPEntries bisort \
+	--output $@ \
+	--outputFormat annotationIndexFile \
 	BiSort Value \
 	2>&1 | tee bisort.log
 

@@ -34,7 +34,7 @@ public class ConstraintGenerator extends SceneVisitor {
         ConstraintGenerator cg = new ConstraintGenerator();
         cg.visitScene(s);
 
-        if (Options.v().dumpGeneratorConstraints()) {
+        if (Main.dumpGeneratorConstraints) {
             System.out.println("Constraint Generator:");
             System.out.println(cg.getConstraints());
         }
@@ -56,14 +56,14 @@ public class ConstraintGenerator extends SceneVisitor {
 
     @Override
         public void visitClass(SootClass sc) {
-        if (Options.v().debugConstraintGeneration()) {
+        if (Main.debugConstraintGeneration) {
             System.out.println("Generating constraints for class: " + sc.getName());
         }
 
         // Skip generating constraints for internals of stub classes.
         if (sc.resolvingLevel() >= SootClass.BODIES) {
             super.visitClass(sc);
-        } else if (Options.v().debugConstraintGeneration()) {
+        } else if (Main.debugConstraintGeneration) {
             System.out.println("ConstraintGenerator skipping stub class: " + sc.getName());
         }
     }
@@ -103,7 +103,7 @@ public class ConstraintGenerator extends SceneVisitor {
         public void caseAssignStmt(AssignStmt stmt) {
             try {
 
-                if (Options.v().debugConstraintGeneration()) {
+                if (Main.debugConstraintGeneration) {
                     System.out.println("caseAssignStmt: " + stmt);
                 }
 

@@ -98,7 +98,7 @@ public enum OutputFormat {
             if (sc.entryKind() == EntryKind.PROGRAM)
                 classes.add(sc);
 
-        if (Options.v().outputMainClassFirst()) {
+        if (Main.outputMainClassFirst) {
             // Move main classes (from the command line) to the beginning.
             // The result consists of:
             // - all program classes listed in the command line, ordered by
