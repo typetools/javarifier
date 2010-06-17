@@ -7,7 +7,6 @@ import java.util.Set;
 
 import javarifier.ConstraintVar;
 import javarifier.Main;
-import javarifier.Options;
 
 /**
  * ConstraintSet models a set that contains unguarded, guarded and

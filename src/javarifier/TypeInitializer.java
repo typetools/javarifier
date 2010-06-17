@@ -75,7 +75,7 @@ public class TypeInitializer extends SceneVisitor {
 
     @Override
     public void visitClass(SootClass sc) {
-        if (Options.v().debugResolver()) {
+        if (Main.debugResolver) {
             System.out.println("Resolving signatures: " + sc);
         }
 

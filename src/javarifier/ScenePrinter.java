@@ -57,7 +57,7 @@ public class ScenePrinter extends SceneVisitor {
             // Sort members if appropriate.
             SootField[] fields = ((Collection<SootField>) clazz.getFields())
                 .toArray(new SootField[clazz.getFields().size()]);
-            if (Options.v().outputSortMembers()) {
+            if (Main.outputSortMembers) {
                 Arrays.sort(fields, new Comparator<SootField>() {
                     public int compare(SootField m1, SootField m2) {
                         return m1.getName().compareTo(m2.getName());
@@ -69,7 +69,7 @@ public class ScenePrinter extends SceneVisitor {
             }
             SootMethod[] meths = ((Collection<SootMethod>) clazz.getMethods())
                 .toArray(new SootMethod[clazz.getMethods().size()]);
-            if (Options.v().outputSortMembers()) {
+            if (Main.outputSortMembers) {
                 Arrays.sort(meths, new Comparator<SootMethod>() {
                     public int compare(SootMethod m1, SootMethod m2) {
                         return m1.getName().compareTo(m2.getName());
@@ -88,8 +88,8 @@ public class ScenePrinter extends SceneVisitor {
      * printed, considering {@link Options#outputLimitKind()}.
      */
     private String typeAsKind(JrType type, String kind) {
-        if (Options.v().outputLimitKind() == null
-                || Options.v().outputLimitKind().equals(kind)) {
+        if (Main.outputLimitKind == null
+                || Main.outputLimitKind.equals(kind)) {
           if (type == null)  {
             return "omitted";
           }
@@ -124,7 +124,7 @@ public class ScenePrinter extends SceneVisitor {
 
             for (int i = 0; i < meth.getParameterCount(); i++) {
                 Local argLocal = body.getParameterLocal(i);
-                if (Options.v().outputFilterLocals())
+                if (Main.outputFilterLocals)
                     locals.remove(argLocal); // Only print once
                 Param param = meth.getParameters().get(i);
                 String paramTypeString = typeAsKind(param.getJrType(), "parameter");
@@ -136,7 +136,7 @@ public class ScenePrinter extends SceneVisitor {
             buf.append(") ");
             if (! meth.isStatic()) {
                 Local thisArg = body.getThisLocal();
-                if (Options.v().outputFilterLocals())
+                if (Main.outputFilterLocals)
                     locals.remove(thisArg); // Only print once
                 Param thisParam = meth.getReceiver();
                 if (! meth.getName().equals("<init>"))
@@ -144,7 +144,7 @@ public class ScenePrinter extends SceneVisitor {
             }
             buf.append("{\n");
             for (Local loc : locals) {
-                if (!Options.v().outputFilterLocals()
+                if (!Main.outputFilterLocals
                         || loc.isSourceLocal() && loc.getName().indexOf('$') == -1) {
                 //if (loc.getJrType() != null) {
                     buf.append("    " + loc.getName() + ": " + typeAsKind(loc.getJrType(), "local") + "\n");
