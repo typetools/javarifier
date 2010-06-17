@@ -1,0 +1,29 @@
+import checkers.javari.quals.ReadOnly;
+import checkers.javari.quals.Mutable;
+import java.util.*;
+
+public class GenericFieldAndParameter {
+
+    public static class Day {
+        public int day;
+        public Day() @ReadOnly { }
+        public Day(int d) @ReadOnly { this.day = d; }
+        public int getDay() /*readonly*/ @ReadOnly { return day; }
+        public void setDay(int d) /*mutable*/ @Mutable { this.day = d; }
+    }
+
+    public Set<@ReadOnly Day> set;
+    public @ReadOnly Set<@ReadOnly Integer> ints;
+
+    public GenericFieldAndParameter() @ReadOnly {
+    }
+
+    // The parameter doesn't get changed; only a field gets changed
+    public void foo(@ReadOnly Set<@ReadOnly Boolean> bools) @Mutable {
+        set.add(new Day());
+    }
+
+    public void foo(@ReadOnly ArrayList<@Mutable Red> reds) @ReadOnly {
+        reds.get(0).set(1);
+    }
+}
