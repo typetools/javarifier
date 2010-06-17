@@ -25,7 +25,12 @@
           <li><a href="#using-world">Specifying library jarfiles</a></li>
           <li><a href="#using-stubs">Using stub classes</a></li>
           <li><a href="#using-heuristics">Applying heuristics to exclude fields from the abstract state</a></li>
-          <li><a href="#using-debug">Understanding and debugging Javarifier output</a></li>
+          <li><a href="#using-debug">Understanding and debugging Javarifier output</a>
+            <ul>
+              <li><a href="#print-cause-tree">Printing the cause tree</a></li>
+              <li><a href="#print-constraints">Printing constraints</a></li>
+              <li><a href="#print-constraint-variable">Printing a constraint variable</a></li>
+            </ul></li>
           <li><a href="#test-suite">Running the Javarifier test suite</a></li>
         </ul></li>
       <li><a href="#feedback">Feedback</a>
@@ -277,8 +282,8 @@ fully-annotated Javari classes), use the <code>-stubs</code> argument,
     followed by a classpath  to containing stub classes.  All classes
     found in that classpath will be treated as stub classes.  For
     example:
-    <pre><code> javarifier myPackage.myClassOne myPackage.myClassTwo -stubs /path/to/stubs/dir:/path/to/stubs.jar</code></pre>
 </p>
+    <pre><code> javarifier myPackage.myClassOne myPackage.myClassTwo -stubs /path/to/stubs/dir:/path/to/stubs.jar</code></pre>
 
 <p>
 If no stub class is available for a particular
@@ -344,6 +349,17 @@ can indicate a bug in Javarifier.
 </p>
 
 <p>
+For more details about the constraints beyond this section of the manual,
+see the paper
+<a href="http://www.cs.washington.edu/homes/mernst/pubs/infer-refimmutability-ecoop2008-abstract.html">"Inference
+of reference immutability"</a>.  Contact us if you need more help
+understanding the constraints.
+</p>
+
+
+<h4 id="print-cause-tree">Printing the cause tree</h4>
+
+<p>
 To understand why Javarifier inferred a particular type qualifier, you can
 enumerate the causes for each qualifier. Use the <code>-dumpCauses</code> flag, as in:
 </p>
@@ -351,12 +367,60 @@ enumerate the causes for each qualifier. Use the <code>-dumpCauses</code> flag, 
 <pre>javarifier myPackage.myClass -dumpCauses</pre>
 
 <p>
-For each annotation, this outputs the shortest-length inference chain.
-Variables are written in the same form as outputted by dumpConstraints,
-described below.  Rather than giving the raw constraints, this form justifies
-the inference with an english explanation.  When the files have been compiled
-with debugging symbols, a reference to the source line which caused the
-constraint is also given.  Here is the layout of this information:
+For each annotation, this outputs the shortest-length inference tree.  Each
+node of the tree is a <em>cause</em>, which explains why a particular
+variable is not readonly.
+That cause may refer to other variables, and the rest of the tree explains
+why those variables are not readonly.
+The tree is at most binary &mdash; each node has 0, 1, or 2 children.
+Most nodes have 1 child, making most of the tree a chain.
+</p>
+
+<p>
+A <em>cause</em> consists of:
+</p>
+<ul>
+  <li>Constraint variable (not a program variable!) of a variable that is
+      not readonly. (<b>TODO:</b> check that.)
+      See below for an <a href="#print-constraint-variable">explanation of its formatting</a>.
+</li>
+  <li>Source code information:  location, and pseudocode for an assignment.
+    The location takes one of three forms:
+    <ul>
+      <li>&ldquo;<b>ClassName</b>:<b>LineNumber</b>:&rdquo;, if debug
+          information (-g compiler flag) is available
+      </li>
+      <li>&ldquo;<b>ClassName</b>:: <b>methodName</b>&rdquo;, if debug information
+          is not available
+      </li>
+      <li>empty, if Javarifier has no source information for the constraint
+          (such as if the constraint came from a stub file, or subtyping
+          constraints in overriding relationships)
+      </li>
+    </ul>
+  The pseudocode is of the form "$e1 = $e2;",
+  "name.field = $e2", "name[...] = $e3", etc., where $e<b>n</b> indicates a
+    variable introduced by Javarifier.  
+  </li>
+  <li>An explanation.  This is sometimes the constraint that Javarifier generates
+  from the source code construct, and other times is an English description.</li>
+</ul>
+
+<p>
+When the explanation mentions one other variable (e.g., when the constraint
+leading to mutability of <tt>a</tt> is "b -> a"), the cause for the other
+variable is  printed directly below, at the same indentation level.
+When the explanation mentions two other variables
+(e.g., when the constraint
+leading to mutability of <tt>a</tt> is "c -> b -> a"), the cause for the
+first variable is printed indented, after the word "GUARD", and the cause
+for the second
+variable is  printed directly below, without any extra indentation.
+</p>
+
+
+<p>
+Here is an abstract example of the output:
 </p>
 
 <pre>
@@ -367,32 +431,23 @@ constraint is also given.  Here is the layout of this information:
   <b>ClassName</b>:: <b>MemberName</b> <b>Stmt2</b> 
   Why Var3 and Var4 implies Var2
 GUARD:
-	&lt;Var3&gt;
-	  <b>ClassName</b>:: <b>MemberName</b> <b>Stmt3</b>; 
-   Why Var3 is directly apparent
+  &lt;Var3&gt;
+    <b>ClassName</b>:: <b>MemberName</b> <b>Stmt3</b>
+    Why Var3 is directly apparent
 &lt;Var4&gt;
-<b>ClassName</b>:: <b>MemberName</b>
-Stub
+  <b>ClassName</b>:: <b>MemberName</b>
+  Stub
 </pre>
 
 <p>
-<b>ClassName</b>.java:<b>LineNumber</b>: indicates the class name and line number
-information. If line number information, or other debug information
-hasn't been generated on compile (-g compiler flag), then this might
-not be available, and it might take the form <b>ClassName</b>.java:: <b>methodName</b>.
-It is also possible for location information to not be available and not print.
+A common explanation to appear at the end of a cause chain is 
+"Stub", which indicates that the variable is known via a stub declaration.
 </p>
 
-<p>
-"Stub" indicates that the variable is known via a stub declaration.
-<b>Stmtn</b> indicates a cursory statement of the form eg. "$e1 = $e2;",
-"name.field = $e2", "name[...] = $e3", etc.  $e<b>n</b> indicates a variable
-introduced by javarifier.  "GUARD" introduces a sub-chain of causes for the
-inferred mutability of the variable.
-</p>
+<h4 id="print-constraints">Printing constraints</h4>
 
 <p>
-If this is not sufficient to understand the output, then you can also
+If the cause tree is not sufficient to understand the output, then you can also
 examine the raw constraints generated by Javarifier during its inference
 process.  Use the <code>-dumpConstraints</code> flag, as in:
 </p>
@@ -407,53 +462,19 @@ The Javarifier constraints are of three types:
 <ul>
   <li>
     A line of the form "U: c1" indicates that the type in c1 must be mutable.
+    See below for an 
+    <a href="#print-constraint-variable">explanation of constraint variable
+    formatting</a>. 
+    An example of a constraint is
+    <pre><code>  U: &lt;Graph.createGraph.this: UNKNOWN Graph[] MUTABLE&gt;</code></pre>
+    This constraint indicates that the receiver (<code>this</code>) of method
+    <code>Graph.createGraph</code> must be mutable.
   </li>
   <li>A line of the form "G: c1 -> c2" indicates that if the type in c1 is
     mutable, then the type in c2 must be mutable.
   </li>
   <li>A line of the form "GG: c1 => c2 -> c3" indicates that if the types
     in both c1 and c2 are mutable, then the type in c3 must be mutable.
-  </li>
-</ul>
-
-<p>
-An example of a constraint is
-</p>
-<pre><code>  U: &lt;Graph.createGraph.this: UNKNOWN LGraph;[] MUTABLE&gt;</code></pre>
-<ul>
-  <li>
-This constraint indicates that the receiver (<code>this</code>) of method
-<code>Graph.createGraph</code> must be mutable.
-  </li>
-  <li>
-  The string "LGraph;" is
-the JVML format for the Graph class.
-  </li>
-  <li>
-The string "UNKNOWN LGraph;[]" indicates that the mutability of the  Graph
-has not yet been determined.  (Due to the unguarded constraint, it will be
-mutable in the end.)
-  </li>
-  <li>
-  ctx:m represents the romaybe-context that the constraint is referring
-  to; this
-  is used for inferring romaybe (see the paper cited below for details).
-  Often the constraints are the same across contexts, so
-  you might have the following two constraints:
-<pre>
-  U: &lt;HashEntry.setNext.this: UNKNOWN LHashEntry;[] ctx:m&gt;
-  U: &lt;HashEntry.setNext.this: UNKNOWN LHashEntry;[] ctx:r&gt;</code>
-</pre>
-  </li>
-  <li>
-    For method receivers, the index -1 is used to refer to the receiver, as
-  in the following constraint:
-<pre>  U: &lt;&lt;Hashtable: int hashMap(java.lang.Object)&gt;.-1: UNKNOWN LHashtable;[] ctx:m&gt;</pre>
-  </li>
-  <li>Local variables are named if the classfile has the LocalVariableTypeTable
-  attribute.  Otherwise, they are named by their index (e.g., "e0"), as are temporary
-  variables, as in:
-<pre>  U: &lt;Graph.createGraph.$e0: UNKNOWN LVertex;[] ctx:r&gt;</pre>
   </li>
 </ul>
 
@@ -465,15 +486,43 @@ constraints were generated).
 </p>
 
 
+<h4 id="print-constraint-variable">Printing a constraint variable</h4>
 
 <p>
-For more details about the constraints, see the
-paper <a
-href="http://www.cs.washington.edu/homes/mernst/pubs/infer-refimmutability-ecoop2008-abstract.html">"Inference
-of reference immutability"</a>.
-Contact us if you need more help understanding the
-constraints.
+An example of a constraint variable is:
 </p>
+
+<pre><code>  &lt;Graph.createGraph.this: UNKNOWN Graph[] MUTABLE&gt;</code></pre>
+
+<ul>
+  <li>
+The string "UNKNOWN Graph[]" indicates that the mutability of the Graph
+has not yet been determined.  (Due to the unguarded constraint, it will be
+mutable in the end.)
+  </li>
+  <li>
+  ctx:m represents the romaybe-context that the constraint is referring
+  to; this
+  is used for inferring romaybe (see the paper cited below for details).
+  Often the constraints are the same across contexts, so
+  you might have the following two constraints:
+<pre>
+  U: &lt;HashEntry.setNext.this: UNKNOWN HashEntry[] ctx:m&gt;
+  U: &lt;HashEntry.setNext.this: UNKNOWN HashEntry[] ctx:r&gt;
+</pre>
+  </li>
+  <li>
+    For method receivers, the index -1 is used to refer to the receiver, as
+  in the following constraint:
+<pre>  U: &lt;&lt;Hashtable: int hashMap(java.lang.Object)&gt;.-1: UNKNOWN Hashtable[] ctx:m&gt;</pre>
+  </li>
+  <li>Local variables are named if the classfile has the LocalVariableTypeTable
+  attribute.  Otherwise, they are named by their index (e.g., "e0"), as are temporary
+  variables, as in:
+<pre>  U: &lt;Graph.createGraph.$e0: UNKNOWN Vertex[] ctx:r&gt;</pre>
+  </li>
+</ul>
+
 
 <h3 id="test-suite"> Running the Javarifier test suite </h3>
 <p>
@@ -557,7 +606,7 @@ Javarifier now works on the Eclipse compiler, which is over
 <hr/>
 
 <p>
-Last revised: June 15, 2010
+Last revised: June 17, 2010
 </p>
 
 </body>
