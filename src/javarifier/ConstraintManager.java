@@ -266,7 +266,19 @@ public class ConstraintManager {
       subtype2(lhsEnv, lhsEnvType, lhsValue, lhsType,
           rhsEnv, rhsEnvType, rhsValue, rhsType, cause);
       setSkipReadOnly(startSkipReadOnly);
-}
+    }
+
+    // Duck typing hack.
+    // TODO: replace with interface
+    // returns the empty string if there is no getName method, or null
+    private String getObjName(JrTyped obj) {
+        if (obj == null) return "";
+        try {
+            return (String)obj.getClass().getMethod("getName").invoke(obj);
+        } catch (Exception e) {
+            return "";
+        }
+    }
 
 
     /**
@@ -285,6 +297,22 @@ public class ConstraintManager {
     public void subtype3(JrTyped lhsEnv, JrType lhsEnvType, JrTyped lhsValue, JrType lhsType,
                          JrTyped rhsEnv, JrType rhsEnvType, JrTyped rhsValue, JrType rhsType,
                          JrTyped guard,  JrType guardType, SourceCause cause) {
+
+        //TODO: move to subtype4, and get mutabilities / upper lower bounds
+        String subtypeDebug = "";
+        if(guard != null) {
+            subtypeDebug += getObjName(guard) + " -> ";
+        }
+        if(lhsEnv != null) {
+            subtypeDebug += getObjName(lhsEnv) + " |- ";
+        }
+        subtypeDebug += getObjName(lhsValue) + " <: ";
+        if(rhsEnv != null) {
+            subtypeDebug += getObjName(rhsEnv) + " |- ";
+        }
+        subtypeDebug += getObjName(rhsValue); 
+        
+        cause.setSubtyping(subtypeDebug);
 
         if (Main.debugSubtyping) {
             System.out.println("debugSubtyping1>> "
