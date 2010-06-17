@@ -25,4 +25,9 @@ public class Param implements JrTyped {
     public String toString() {
         return meth + "." + index;
     }
+
+    public String getName() {
+        //TODO: make index output more user friendly
+        return meth.getName() + "." + index;
+    }
 }

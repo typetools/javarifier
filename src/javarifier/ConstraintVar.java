@@ -184,7 +184,7 @@ public class ConstraintVar {
             SourceCause cause = ConstraintTracker.lookupCause(constraintCause.second, this);
             Boolean useDouble = false;
             if(cause == null && constraintCause.first != null) {
-                        cause = ConstraintTracker.lookupCause(constraintCause, this);
+                cause = ConstraintTracker.lookupCause(constraintCause, this);
                 useDouble = true;
             }
 

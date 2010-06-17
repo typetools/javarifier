@@ -390,6 +390,7 @@ public class ConstraintGenerator extends SceneVisitor {
 
                 // TODO: better cause here
                 cm.subtype(x, xType, m, retType, new SourceCause(loc,
+                    "return " + x.getName() + ";",
                     x.getName() + " <: " + name + ".return,    where " 
                     + name + ".return indicates the return type"));
             }
