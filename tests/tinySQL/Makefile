@@ -32,6 +32,7 @@ ${TESTNAME}.jaif: ../../javarifier.jar
 	${JAVARIFIER} \
 	-programCPEntries . \
 	-useWorldAsStubs \
+        -dumpCauses \
 	-output $@ \
 	-outputFormat annotationIndexFile \
 	${MAINCLASS} \

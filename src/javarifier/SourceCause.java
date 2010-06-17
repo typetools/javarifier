@@ -19,30 +19,33 @@ public class SourceCause {
     // example: "Board.java:86:"
     private SourceLocation location;
     // example:  "$e0 = l0.board"
-    private String stmt;
+    private String statement;
     // example:  "means that ...",   "a -> b"
-    private String expl;
+    private String explanation;
+    private String subtyping;
 
     public SourceCause(SourceLocation l, String e) {
-        location = l; stmt = ""; expl = e;
+        location = l; statement = ""; explanation = e; subtyping = "";
     }
 
     public SourceCause(SourceLocation l, String s, String e) {
-        location = l; stmt = s; expl = e;
+        location = l; statement = s; explanation = e; subtyping = "";
     }
 
     public String toString() { return prefixedString(""); }
 
     //  prefix utilized to indent multiple lines efficiently
     public String prefixedString(String prefix) {
-        return prefix + (location != null ? location.toString() : "") +
-               (stmt != "" ? stmt : "") +
-               (expl != "" ? "\n" + prefix + expl : "");
+        String result = "";
+        if(location != null || statement != "") {
+            result = prefix + (location != null ? location.toString() : "") +
+                              (statement != "" ? statement : "");
+        }
+        if(subtyping != null && subtyping != "") result += (result != "" ? "\n" : "") + prefix + subtyping;
+        else if(explanation != "") result += (result != "" ? "\n" : "") + prefix + explanation;
+        return result;
     }
 
-    public SourceLocation getLocation() { return location; }
-    public String getStmt() { return stmt; }
-    public String getExpl() { return expl; }
-
-    public void setExpl(String e) { expl = e; }
+    public void setExplanation(String e) { explanation = e; }
+    public void setSubtyping(String s) { subtyping = s; }
 }
