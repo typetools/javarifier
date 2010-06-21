@@ -1,6 +1,7 @@
 package javarifier;
 
 import javarifier.JrType.*;
+import plume.UtilMDE;
 
 /**
  * Prints out an JrType, TypeArg, or TypeParam.  Uses a format
@@ -44,7 +45,7 @@ public class TypePrinter extends EmptyTypeVisitor {
     public void visitClassType(ClassType t) {
         output.append(t.getMutability() + " ");
         // baseType is sometimes in Java format, sometimes in JVML format
-        String baseType = t.getBaseType();
+        String baseType = UtilMDE.classnameFromJvm(t.getBaseType());
         // output.append(baseType.substring(0, baseType.length()-1));
         output.append(baseType);
         if (t.getTypeArgs().size() != 0) {
