@@ -171,7 +171,8 @@ public class ConstraintVar {
      * chain for the variable.
      */
     protected void causeRec(String prefix, StringBuilder buf) {
-        prefixedLine(buf, prefix, this.toString());
+        String str = this.toString();
+        prefixedLine(buf, prefix, this.noBracketString());
 
         if (constraintCause == null) {
                 buf.append(sourceCause == null ? "ERROR: NO CAUSE\n" :
@@ -194,7 +195,7 @@ public class ConstraintVar {
 
             // If this is a double guard, print that.
             if (useDouble) {
-                prefixedLine(buf, prefix, "GUARD:");
+                prefixedLine(buf, prefix, "  GUARD:");
                 constraintCause.first.causeRec(prefix+"    ", buf);
             }
 
@@ -237,10 +238,14 @@ public class ConstraintVar {
         }
     }
 
-    public String toString() {
-        return "<" + value + ": " +
+    private String noBracketString() {
+        return value + ": " +
             (value == null ? type : value.getJrType())
-            + " " + type.getIndex() + " " + contextString(context) + ">";
+            + " " + type.getIndex() + " " + contextString(context);
+    }
+
+    public String toString() {
+        return "<" + noBracketString() + ">";
     }
 
     public int hashCode() {
