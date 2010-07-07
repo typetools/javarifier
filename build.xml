@@ -304,6 +304,25 @@
     </javadoc>
   </target>
 
+  <target name="update-opt-doc" depends="init"
+    description="Update the options documentation in the manual">
+    <property name="libpath" refid="libpath"/> 
+    <javadoc sourcefiles="src/javarifier/Main.java" failonerror="true">
+      <doclet name="plume.OptionsDoclet"> 
+        <param name="-docfile" value="javarifier.html"/>
+        <param name="-outfile" value="javarifier.html-tmp"/>
+      </doclet>
+      <classpath refid="libpath"/>
+      <arg value="-quiet"/>
+      <!--
+      This parameter is a hack. The bootclasspath does not include the classpath
+      specified on the command-line, hence we prepend it ourselves.
+      -->
+      <arg value="-J-Xbootclasspath/p:${libpath}"/>
+    </javadoc>
+    <move file="javarifier.html-tmp" tofile="javarifier.html"/>
+  </target>
+
   <!-- WARNING:  This target does not re-compile!  (It does not depend on
   "bin" or other similar targets.) -->
   <target name="run-tests" depends="init-properties"
