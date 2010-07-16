@@ -11,6 +11,7 @@ import soot.Scene;
 import soot.SootClass;
 import soot.SootField;
 import soot.SootMethod;
+import soot.Unit;
 import soot.Value;
 import soot.jimple.ArrayRef;
 import soot.jimple.AssignStmt;
@@ -73,8 +74,8 @@ public class ConstraintGenerator extends SceneVisitor {
         ConstraintGenerationSwitch conGen =
             new ConstraintGenerationSwitch(b.getMethod());
 
-        for (Stmt stmt : (Collection<Stmt>) b.getUnits()) {
-            stmt.apply(conGen);
+        for (Unit stmt : b.getUnits()) {
+            ((Stmt) stmt).apply(conGen);
         }
 
         cm = cm.combine(conGen.getConstraintManager());

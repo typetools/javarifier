@@ -32,8 +32,6 @@
 package soot.coffi;
 import soot.*;
 
-import java.io.*;
-
 /** A debugging attribute, this gives the types of local variables
  * within blocks of bytecode. - for java 1.5
  * @see attribute_info
@@ -65,7 +63,6 @@ class LocalVariableTypeTable_attribute extends attribute_info {
     */
    public String getLocalVariableType(cp_info constant_pool[],int idx,int code) {
       local_variable_type_table_entry e;
-      CONSTANT_Utf8_info cu;
       int i;
 
       // G.v().out.println("searching for type of local: " + idx + "at: " + code);
@@ -74,21 +71,23 @@ class LocalVariableTypeTable_attribute extends attribute_info {
          e = local_variable_type_table[i];
          if (e.index==idx &&
              (code==-1 ||
-        (code>=e.start_pc && code<=e.start_pc+e.length))){
-        //  (code>=e.start_pc && code<e.start_pc+e.length))) {
+	      (code>=e.start_pc && code<=e.start_pc+e.length))){
+	      //  (code>=e.start_pc && code<e.start_pc+e.length))) {
             // found the variable, now find its name.
             
             //G.v().out.println("found entry: " + i);
 
             if (constant_pool[e.signature_index] instanceof CONSTANT_Utf8_info)
-      {
-         String n = ((CONSTANT_Utf8_info)(constant_pool[e.signature_index])).convert();
+	    {
+	       String n = ((CONSTANT_Utf8_info)(constant_pool[e.signature_index])).convert();
+           // Begin javarifier changes
            //G.v().out.println("found type: "+n);
-         //if (Util.v().isValidJimpleName(n))
-       //return n;
-         //else
-       //return null;
-      }
+           // End javarifier changes
+	       //if (Util.v().isValidJimpleName(n))
+		   //return n;
+	       //else
+		   //return null;
+	    }
             else {
                throw new RuntimeException( "What? A local variable type table "
                        +"signature_index isn't a UTF8 entry?");
