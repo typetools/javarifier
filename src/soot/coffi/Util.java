@@ -30,15 +30,15 @@
 
 
 package soot.coffi;
-import soot.options.*;
 import soot.jimple.*;
-import soot.util.*;
 import java.util.*;
 import java.io.*;
-import soot.baf.*;
 import soot.tagkit.*;
 import soot.*;
+
+// Begin javarifier changes
 import javarifier.util.Pair;
+// End javarifier changes
 
 
 public class Util
@@ -296,8 +296,8 @@ public class Util
                         AnnotationDefault_attribute attr = (AnnotationDefault_attribute)methodInfo.attributes[j];
                         element_value [] input = new element_value[1];
                         input[0] = attr.default_value;
-                        ArrayList list = createElementTags(1, coffiClass, input);
-                        method.addTag(new AnnotationDefaultTag((AnnotationElem)list.get(0)));
+                        ArrayList<AnnotationElem> list = createElementTags(1, coffiClass, input);
+                        method.addTag(new AnnotationDefaultTag(list.get(0)));
                     }
                 }
             }
@@ -322,8 +322,8 @@ public class Util
                         || coffiClass.constant_pool[k] instanceof CONSTANT_InterfaceMethodref_info) {
                             Type[] types = jimpleTypesOfFieldOrMethodDescriptor(
                                 cp_info.getTypeDescr(coffiClass.constant_pool,k));
-                            for( int ii = 0; ii < types.length; ii++ ) {
-                                references.add(types[ii]);
+                            for (Type element : types) {
+                                references.add(element);
                             }
                         }
 
@@ -364,8 +364,6 @@ public class Util
                 String inner = null;
                 String outer = null;
                 String name = null;
-                int class_index;
-
                 if (e.inner_class_index != 0)
                     inner = ((CONSTANT_Utf8_info)coffiClass.constant_pool[((CONSTANT_Class_info)coffiClass.constant_pool[e.inner_class_index]).name_index]).convert();
                 if (e.outer_class_index != 0)
@@ -378,14 +376,12 @@ public class Util
         // set synthetic tags
         else if(coffiClass.attributes[i] instanceof Synthetic_attribute){
 		    
-		    Synthetic_attribute attr = (Synthetic_attribute)coffiClass.attributes[i];
-            bclass.addTag(new SyntheticTag());
+		    bclass.addTag(new SyntheticTag());
         }
         // set deprectaed tags
         else if(coffiClass.attributes[i] instanceof Deprecated_attribute){
 		    
-		    Deprecated_attribute attr = (Deprecated_attribute)coffiClass.attributes[i];
-            bclass.addTag(new DeprecatedTag());
+		    bclass.addTag(new DeprecatedTag());
         }
         else if (coffiClass.attributes[i] instanceof Signature_attribute){
             String generic_sig = ((CONSTANT_Utf8_info)(coffiClass.constant_pool[((Signature_attribute)coffiClass.attributes[i]).signature_index])).convert();
@@ -422,7 +418,7 @@ public class Util
         return types[types.length - 1];
     }
 
-    private ArrayList conversionTypes = new ArrayList();
+    private final ArrayList<Type> conversionTypes = new ArrayList<Type>();
     
     /*
     private Map cache = new HashMap();
@@ -533,10 +529,10 @@ public class Util
 */
 
 
-    private Map cache = new HashMap();
+    private final Map<String, Type[]> cache = new HashMap<String, Type[]>();
     public Type[] jimpleTypesOfFieldOrMethodDescriptor(String descriptor)
     {
-        Type[] ret = (Type[]) cache.get(descriptor);
+        Type[] ret = cache.get(descriptor);
         if( ret != null ) return ret;
         char[] d = descriptor.toCharArray();
         int p = 0;
@@ -626,7 +622,7 @@ swtch:
             conversionTypes.add(t);
         }
 
-        ret = (Type[]) conversionTypes.toArray(new Type[0]);
+        ret = conversionTypes.toArray(new Type[0]);
         cache.put(descriptor, ret);
         return ret;
     }
@@ -770,7 +766,9 @@ swtch:
         return className;
     }
 
-    public Local getLocal(Body b, String localName, local_variable_table_entry lvte) 
+    // Begin javarifier changes
+    public Local getLocal(Body b, String localName, local_variable_table_entry lvte)
+    // End javarifier changes
         throws soot.jimple.NoSuchLocalException
     {
         Iterator localIt = b.getLocals().iterator();
@@ -779,12 +777,14 @@ swtch:
         {
             Local local = (Local) localIt.next();
 
+            // Begin javarifier changes
             if(local.getName().equals(localName) &&
                     (lvte == null ||
                             local.isSourceLocal() &&
                             local.getSlotIndex() == lvte.index &&
                             local.getStart_pc() == lvte.start_pc &&
                             local.getLength() == lvte.length))
+            // End javarifier changes
                 return local;
         }
 
@@ -792,7 +792,9 @@ swtch:
     }
 
 
+    // Begin javarifier changes
     public boolean declaresLocal(Body b, String localName, local_variable_table_entry lvte)
+    // End javarifier changes
     {
         Iterator localIt = b.getLocals().iterator();
 
@@ -800,12 +802,14 @@ swtch:
         {
             Local local = (Local) localIt.next();
 
+            // Begin javarifier changes
             if(local.getName().equals(localName) &&
                     (lvte == null ||
                             local.isSourceLocal() &&
                             local.getSlotIndex() == lvte.index &&
                             local.getStart_pc() == lvte.start_pc &&
                             local.getLength() == lvte.length))
+            // End javarifier changes
                 return true;
         }
 
@@ -815,10 +819,12 @@ swtch:
      Local
         getLocalCreatingIfNecessary(JimpleBody listBody, String name, Type type)
     {
+        // Begin javarifier changes
         if(declaresLocal(listBody, name, null))
         {
             return getLocal(listBody, name, null);
         }
+        // End javarifier changes
         else {
             Local l = Jimple.v().newLocal(name, type);
             listBody.getLocals().add(l);
@@ -830,11 +836,11 @@ swtch:
     Local getLocalForIndex(JimpleBody listBody, int index)
     {
         String name = null;
+        // Begin javarifier changes
         Pair<local_variable_table_entry, String> info = null;
+        // End javarifier changes
         String debug_type = null;
         boolean assignedName = false;
-        boolean assignedType = false;
-        
         if(useFaithfulNaming && activeVariableTable != null)
         {
             if(activeOriginalIndex != -1)
@@ -848,34 +854,41 @@ swtch:
                 if(isWideLocalStore)
                     activeOriginalIndex++;
 
+                // Begin javarifier changes
                 info = activeVariableTable.getLocalVariableEntry(activeConstantPool, index, activeOriginalIndex);
+                // End javarifier changes
                 if (activeVariableTypeTable != null){
                debug_type = activeVariableTypeTable.getLocalVariableType(activeConstantPool, index, activeOriginalIndex);
                if (debug_type != null){
-                    assignedType = true;
                }
                 }
-                if(info != null) {
+                // Begin javarifier changes
+                if(info != null) { 
                     name = info.second;
                     assignedName = true;
                 }
+                // End javarifier changes
             }
         }  
         
         if(!assignedName)
             name = "l" + index;
 
+        // Begin javarifier changes
         if(declaresLocal(listBody, name, (info == null ? null : info.first)))
             return getLocal(listBody, name, (info == null ? null : info.first));
+        // End javarifier changes
         else {
             Local l = Jimple.v().newLocal(name,
                 UnknownType.v());
+            // Begin javarifier changes
             if (info != null) {
                 l.setSourceLocal(true);
                 l.setSlotIndex(info.first.index);
                 l.setStart_pc(info.first.start_pc);
                 l.setLength(info.first.length);
             }
+            // End javarifier changes
 
             listBody.getLocals().add(l);
             /*if (debug_type != null){
@@ -1008,10 +1021,10 @@ swtch:
         }
     }
     
-    private ArrayList createElementTags(int count, ClassFile coffiClass, element_value [] elems){
-        ArrayList list = new ArrayList();
+    private ArrayList<AnnotationElem> createElementTags(int count, ClassFile coffiClass, element_value [] elems){
+        ArrayList<AnnotationElem> list = new ArrayList<AnnotationElem>();
         for (int j = 0; j < count; j++){
-            element_value ev = (element_value)elems[j];
+            element_value ev = elems[j];
             char kind = ev.tag;
             String elemName = "default";
             if (ev.name_index != 0){
@@ -1076,7 +1089,7 @@ swtch:
                 array_element_value aev = (array_element_value)ev;
                 int num_vals = aev.num_values;
 
-                ArrayList elemVals = createElementTags(num_vals, coffiClass, aev.values);
+                ArrayList<AnnotationElem> elemVals = createElementTags(num_vals, coffiClass, aev.values);
                 AnnotationArrayElem elem = new AnnotationArrayElem(elemVals, kind, elemName);
                 list.add(elem);
             }

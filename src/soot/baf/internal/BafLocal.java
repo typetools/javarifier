@@ -3,7 +3,6 @@
 // Added getMethod and setMethod
 ////
 
-
 /* Soot - a J*va Optimization Framework
  * Copyright (C) 1999 Patrick Lam, Patrick Pominville and Raja Vallee-Rai
  *
@@ -24,7 +23,7 @@
  */
 
 /*
- * Modified by the Sable Research Group and others 1997-1999.
+ * Modified by the Sable Research Group and others 1997-1999.  
  * See the 'credits' file distributed with Soot for the complete list of
  * contributors.  (Soot is distributed at http://www.sable.mcgill.ca/soot)
  */
@@ -32,7 +31,9 @@
 
 package soot.baf.internal;
 
-import javarifier.JrType; // [Javarifier]
+// Begin javarifier changes
+import javarifier.JrType;
+// End javarifier changes
 
 import soot.*;
 import soot.util.*;
@@ -40,8 +41,7 @@ import java.util.*;
 
 public class BafLocal implements Local
 {
-
-    // begin Javarifier additions
+    // Begin javarifier changes
     // This code is not used by Javarifier but is included so that
     // BafLocal and JimpleLocal may have the same interface.
     // Javarifer only used JimpleLocals.
@@ -82,14 +82,14 @@ public class BafLocal implements Local
     public void setSlotIndex(int slotIndex) { this.slotIndex = slotIndex; }
     public int getStart_pc() { return start_pc; }
     public void setStart_pc(int start_pc) { this.start_pc = start_pc; }
-    // end Javarifier additions
+    // End javarifier changes
 
     String name;
     Type type;
 
     int fixedHashCode;
     boolean isHashCodeChosen;
-
+        
     public BafLocal(String name, Type t)
     {
         this.name = name;
@@ -103,7 +103,7 @@ public class BafLocal implements Local
     }
 
     /** Returns a hash code for this object, consistent with structural equality. */
-    public int equivHashCode()
+    public int equivHashCode() 
     {
         return name.hashCode() * 101 + type.hashCode() * 17;
     }
@@ -141,7 +141,7 @@ public class BafLocal implements Local
     public void toString( UnitPrinter up ) {
         up.local( this );
     }
-
+    
     public List getUseBoxes()
     {
         return AbstractUnit.emptyList;
