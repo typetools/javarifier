@@ -4,7 +4,6 @@
 //
 // Also added java 1.5 signature fields to the class such as getJrReturnType.
 
-
 /* Soot - a J*va Optimization Framework
  * Copyright (C) 1997-1999 Raja Vallee-Rai
  * Copyright (C) 2004 Ondrej Lhotak
@@ -26,20 +25,20 @@
  */
 
 /*
- * Modified by the Sable Research Group and others 1997-1999.
+ * Modified by the Sable Research Group and others 1997-1999.  
  * See the 'credits' file distributed with Soot for the complete list of
  * contributors.  (Soot is distributed at http://www.sable.mcgill.ca/soot)
  */
 
 package soot;
+import soot.tagkit.*;
+import soot.util.*;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
+import soot.dava.*;
+import soot.dava.toolkits.base.renamer.RemoveFullyQualifiedName;
 
+// Begin javarifier changes
 import javarifier.JrType;
 import javarifier.MethodSig;
 import javarifier.Mutability;
@@ -47,23 +46,20 @@ import javarifier.Param;
 import javarifier.JrType.ClassType;
 import javarifier.JrType.TypeArg;
 import soot.SourceLocator.EntryKind;
-import soot.dava.DavaBody;
-import soot.tagkit.AbstractHost;
-import soot.tagkit.Tag;
-import soot.util.IterableSet;
-import soot.util.Numberable;
-import soot.util.NumberedString;
+// End javarifier changes
 
 /**
-    Soot representation of a Java method.  Can be declared to belong to a SootClass.
+    Soot representation of a Java method.  Can be declared to belong to a SootClass. 
     Does not contain the actual code, which belongs to a Body.
     The getActiveBody() method points to the currently-active body.
 */
-public class SootMethod
+public class SootMethod 
     extends AbstractHost
+    // Begin javarifier changes
     implements ClassMember, Numberable, MethodOrMethodContext, javarifier.Signatured, javarifier.JrTyped {
+    // End javarifier changes
 
-    // Javarifer Change
+    // Begin javarifier changes
     public EntryKind entryKind() {
         return getDeclaringClass().entryKind();
     }
@@ -166,16 +162,15 @@ public class SootMethod
     public void setBridge(boolean isBridge) {
         this.isBridge = isBridge;
     }
-
-    // end Javarifer changes
+    // End javarifier changes
 
     public static final String constructorName = "<init>";
     public static final String staticInitializerName = "<clinit>";
-
+    public static boolean DEBUG=false;
     /** Name of the current method. */
     String name;
 
-    /** A list of parameter types taken by this <code>SootMethod</code> object,
+    /** A list of parameter types taken by this <code>SootMethod</code> object, 
       * in declaration order. */
     List parameterTypes;
 
@@ -195,7 +190,7 @@ public class SootMethod
     boolean isPhantom = false;
 
     /** Declared exceptions thrown by this method.  Created upon demand. */
-    List exceptions = null;
+    List<SootClass> exceptions = null;
 
     /** Active body associated with this method. */
     Body activeBody;
@@ -228,14 +223,7 @@ public class SootMethod
 
     /** Constructs a SootMethod with the given name, parameter types and return type. */
     public SootMethod(String name, List parameterTypes, Type returnType) {
-        this.name = name;
-        this.parameterTypes = new ArrayList();
-        this.parameterTypes.addAll(parameterTypes);
-        this.parameterTypes = Collections.unmodifiableList(this.parameterTypes);
-        this.returnType = returnType;
-        Scene.v().getMethodNumberer().add(this);
-        subsignature =
-            Scene.v().getSubSigNumberer().findOrAdd(getSubSignature());
+        this(name, parameterTypes, returnType, 0, Collections.<SootClass>emptyList());
     }
 
     /** Constructs a SootMethod with the given name, parameter types, return type and modifiers. */
@@ -244,39 +232,39 @@ public class SootMethod
         List parameterTypes,
         Type returnType,
         int modifiers) {
-        this.name = name;
-        this.parameterTypes = new ArrayList();
-        this.parameterTypes.addAll(parameterTypes);
-
-        this.returnType = returnType;
-        this.modifiers = modifiers;
-        Scene.v().getMethodNumberer().add(this);
-        subsignature =
-            Scene.v().getSubSigNumberer().findOrAdd(getSubSignature());
+        this(name, parameterTypes, returnType, modifiers, Collections.<SootClass>emptyList());
     }
 
-    /** Constructs a SootMethod with the given name, parameter types, return type,
+    /** Constructs a SootMethod with the given name, parameter types, return type, 
       * and list of thrown exceptions. */
     public SootMethod(
         String name,
         List parameterTypes,
         Type returnType,
         int modifiers,
-        List thrownExceptions) {
+        List<SootClass> thrownExceptions) {
         this.name = name;
         this.parameterTypes = new ArrayList();
         this.parameterTypes.addAll(parameterTypes);
+        this.parameterTypes = Collections.unmodifiableList(this.parameterTypes);
 
         this.returnType = returnType;
         this.modifiers = modifiers;
 
         if (exceptions == null && !thrownExceptions.isEmpty()) {
-            exceptions = new ArrayList();
+            exceptions = new ArrayList<SootClass>();
             this.exceptions.addAll(thrownExceptions);
+            /*DEBUG=true;
+            if(DEBUG)
+            	System.out.println("Added thrown exceptions"+thrownExceptions);
+            DEBUG=false;
+            */
         }
         Scene.v().getMethodNumberer().add(this);
         subsignature =
             Scene.v().getSubSigNumberer().findOrAdd(getSubSignature());
+        
+        
     }
 
     /** Returns the name of this method. */
@@ -298,7 +286,7 @@ public class SootMethod
 	    //setDeclared(true);
 	}
     }
-
+    
     /** Returns the class which declares the current <code>SootMethod</code>. */
     public SootClass getDeclaringClass() {
         if (!isDeclared)
@@ -421,7 +409,8 @@ public class SootMethod
             throw new RuntimeException(
                 "cannot get active body for phantom class: " + getSignature());
 
-        if (!hasActiveBody())
+		// ignore empty body exceptions if we are just computing coffi metrics
+        if (!soot.jbco.Main.metrics && !hasActiveBody())
             throw new RuntimeException(
                 "no active body present for method " + getSignature());
 
@@ -454,7 +443,7 @@ public class SootMethod
     }
 
     /**
-        Sets the active body for this method.
+        Sets the active body for this method. 
      */
     public void setActiveBody(Body body) {
         if ((declaringClass != null)
@@ -466,7 +455,7 @@ public class SootMethod
             throw new RuntimeException(
                 "cannot set body for non-concrete method! " + this);
 
-        if (body.getMethod() != this)
+        if (body!= null && body.getMethod() != this)
             body.setMethod(this);
 
         activeBody = body;
@@ -489,8 +478,11 @@ public class SootMethod
     }
     /** Adds the given exception to the list of exceptions thrown by this method. */
     public void addException(SootClass e) {
+    	if(DEBUG)
+    		System.out.println("Adding exception "+e);
+    	
         if (exceptions == null)
-            exceptions = new ArrayList();
+            exceptions = new ArrayList<SootClass>();
         else if (exceptions.contains(e))
             throw new RuntimeException(
                 "already throws exception " + e.getName());
@@ -500,8 +492,11 @@ public class SootMethod
 
     /** Removes the given exception from the list of exceptions thrown by this method. */
     public void removeException(SootClass e) {
+    	if(DEBUG)
+    		System.out.println("Removing exception "+e);
+
         if (exceptions == null)
-            exceptions = new ArrayList();
+            exceptions = new ArrayList<SootClass>();
 
         if (!exceptions.contains(e))
             throw new RuntimeException(
@@ -516,7 +511,7 @@ public class SootMethod
     }
 
     public void setExceptions(List exceptions) {
-        this.exceptions = new ArrayList();
+        this.exceptions = new ArrayList<SootClass>();
         this.exceptions.addAll(exceptions);
     }
 
@@ -524,9 +519,9 @@ public class SootMethod
      * Returns a backed list of the exceptions thrown by this method.
      */
 
-    public List getExceptions() {
+    public List<SootClass> getExceptions() {
         if (exceptions == null)
-            exceptions = new ArrayList();
+            exceptions = new ArrayList<SootClass>();
 
         return exceptions;
     }
@@ -586,7 +581,7 @@ public class SootMethod
         StringBuffer buffer = new StringBuffer();
         for( Iterator typeIt = getParameterTypes().iterator(); typeIt.hasNext(); ) {
             final Type type = (Type) typeIt.next();
-            buffer.append(soot.jimple.JasminClass.jasminDescriptorOf(type));
+            buffer.append(AbstractJasminClass.jasminDescriptorOf(type));
         }
         return buffer.toString().intern();
     }
@@ -602,7 +597,7 @@ public class SootMethod
         buffer.append(
             "<" + Scene.v().quotedNameOf(getDeclaringClass().getName()) + ": ");
         buffer.append(name);
-        buffer.append(soot.jimple.JasminClass.jasminDescriptorOf(makeRef()));
+        buffer.append(AbstractJasminClass.jasminDescriptorOf(makeRef()));
         buffer.append(">");
 
         return buffer.toString().intern();
@@ -714,42 +709,23 @@ public class SootMethod
         else {
             Type t = this.getReturnType();
 
-            String tempString = t.toString();
+            String tempString = t.toString();    
+            
+            /*
+             * Added code to handle RuntimeExcepotion thrown by getActiveBody
+             */
+            if(hasActiveBody()){
+            	DavaBody body = (DavaBody) getActiveBody();
+            	IterableSet importSet = body.getImportList();
 
-			Map options = PhaseOptions.v().getPhaseOptions("db.renamer");
-	        boolean force = PhaseOptions.getBoolean(options, "remove-fully-qualified");
-			if (force) {
-				DavaBody body = (DavaBody) getActiveBody();
-				IterableSet set = body.get_PackagesUsed();
-
-				// get the package name of the object if one exists
-				String packageName = null;
-				if (tempString.lastIndexOf('.') > 0) {// 0 doesnt make sense
-					packageName = tempString.substring(0, tempString
-							.lastIndexOf('.'));
-				}
-				if (packageName != null) {
-					// System.out.println("Parameter belongs to package"+packageName);
-					// check if package is not contained in packages retrieved
-					if (!set.contains(packageName)) {
-						// add package
-						body.addPackage(packageName);
-						// System.out.println(packageName+ "added to list");
-					} else {
-						// System.out.println(packageName+ "already in list");
-					}
-
-					// change tempString to just the object type name
-					tempString = tempString.substring(tempString
-							.lastIndexOf('.') + 1);
-				}
-			}
-
+            	if(!importSet.contains(tempString)){
+            		body.addToImportList(tempString);
+            	}
+            	tempString = RemoveFullyQualifiedName.getReducedName(importSet,tempString,t);
+            }
+									
 			buffer.append(tempString + " ");
 
-
-
-            //buffer.append(t + " ");
             buffer.append(Scene.v().quotedNameOf(this.getName()));
         }
 
@@ -761,51 +737,30 @@ public class SootMethod
         while (typeIt.hasNext()) {
             Type t = (Type) typeIt.next();
 			String tempString = t.toString();
-
+            
             /*
 			 *  Nomair A. Naeem 7th Feb 2006
 			 *  It is nice to remove the fully qualified type names
 			 *  of parameters if the package they belong to have been imported
 			 *  javax.swing.ImageIcon should be just ImageIcon if javax.swing is imported
-			 *  If not imported WHY NOT..import it!!
+			 *  If not imported WHY NOT..import it!! 
 			 */
-
-			Map options = PhaseOptions.v().getPhaseOptions("db.renamer");
-	        boolean force = PhaseOptions.getBoolean(options, "remove-fully-qualified");
-			if (force) {
+			if(hasActiveBody()){
 				DavaBody body = (DavaBody) getActiveBody();
-				IterableSet set = body.get_PackagesUsed();
+				IterableSet importSet = body.getImportList();
 
-				// get the package name of the object if one exists
-				String packageName = null;
-				if (tempString.lastIndexOf('.') > 0) {// 0 doesnt make sense
-					packageName = tempString.substring(0, tempString
-							.lastIndexOf('.'));
+				if(!importSet.contains(tempString)){
+					body.addToImportList(tempString);
 				}
-				if (packageName != null) {
-					//System.out.println("Parameter belongs to");
-					// package"+packageName);
-					// check if package is not contained in packages retrieved
-					if (!set.contains(packageName)) {
-						// add package
-						body.addPackage(packageName);
-						// System.out.println(packageName+ "added to list");
-					} else {
-						// System.out.println(packageName+ "already in list");
-					}
-
-					// change tempString to just the object type name
-					tempString = tempString.substring(tempString
-							.lastIndexOf('.') + 1);
-				}
+				tempString = RemoveFullyQualifiedName.getReducedName(importSet,tempString,t);
 			}
-
-			buffer.append(tempString);
-
+									
+			buffer.append(tempString + " ");
+			
             buffer.append(" ");
             if (hasActiveBody()){
                 buffer.append(((DavaBody) getActiveBody()).get_ParamMap().get(new Integer(count++)));
-	    }
+            }
             else {
                 if (t == BooleanType.v())
                     buffer.append("z" + count++);
@@ -842,15 +797,15 @@ public class SootMethod
 
         // Print exceptions
         if (exceptions != null) {
-            Iterator exceptionIt = this.getExceptions().iterator();
+            Iterator<SootClass> exceptionIt = this.getExceptions().iterator();
 
             if (exceptionIt.hasNext()) {
                 buffer.append(
-                    " throws " + ((SootClass) exceptionIt.next()).getName());
+                    " throws " + exceptionIt.next().getName());
 
                 while (exceptionIt.hasNext()) {
                     buffer.append(
-                        ", " + ((SootClass) exceptionIt.next()).getName());
+                        ", " + exceptionIt.next().getName());
                 }
             }
         }
@@ -859,7 +814,7 @@ public class SootMethod
     }
 
     /**
-     * Returns the declaration of this method, as used at the top of textual body representations
+     * Returns the declaration of this method, as used at the top of textual body representations 
      *  (before the {}'s containing the code for representation.)
      */
     public String getDeclaration() {
@@ -901,15 +856,15 @@ public class SootMethod
 
         // Print exceptions
         if (exceptions != null) {
-            Iterator exceptionIt = this.getExceptions().iterator();
+            Iterator<SootClass> exceptionIt = this.getExceptions().iterator();
 
             if (exceptionIt.hasNext()) {
                 buffer.append(
-                    " throws " + ((SootClass) exceptionIt.next()).getName());
+                    " throws " + exceptionIt.next().getName());
 
                 while (exceptionIt.hasNext()) {
                     buffer.append(
-                        ", " + ((SootClass) exceptionIt.next()).getName());
+                        ", " + exceptionIt.next().getName());
                 }
             }
         }
