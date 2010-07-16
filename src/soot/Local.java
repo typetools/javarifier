@@ -3,7 +3,6 @@
 // Added setMethod and getMethod methods.
 ////
 
-
 /* Soot - a J*va Optimization Framework
  * Copyright (C) 1997-1999 Raja Vallee-Rai
  *
@@ -24,7 +23,7 @@
  */
 
 /*
- * Modified by the Sable Research Group and others 1997-1999.
+ * Modified by the Sable Research Group and others 1997-1999.  
  * See the 'credits' file distributed with Soot for the complete list of
  * contributors.  (Soot is distributed at http://www.sable.mcgill.ca/soot)
  */
@@ -32,12 +31,11 @@
 
 package soot;
 
-import javarifier.JrType; // [Javarifier]
+// Begin javarifier changes
+import javarifier.JrType;
+// End javarifier changes
 
-import soot.*;
 import soot.util.*;
-import java.util.*;
-import java.io.*;
 
 /** A local variable, used within Body
  * classes.  Intermediate representations must use an implementation
@@ -45,7 +43,7 @@ import java.io.*;
  *  */
 public interface Local extends Value, Numberable, Immediate, javarifier.JrTyped
 {
-
+    // Begin javarifier changes
     /**
      * Returns the JrType of the current variable; this method was
      * added for Javarifier.
@@ -63,6 +61,7 @@ public interface Local extends Value, Numberable, Immediate, javarifier.JrTyped
 
     /** This method was added for Javarifier. */
     public void setMethod(SootMethod meth);
+    // End javarifier changes
 
     /** Returns the name of the current Local variable. */
     public String getName();
@@ -73,6 +72,7 @@ public interface Local extends Value, Numberable, Immediate, javarifier.JrTyped
     /** Sets the type of the current variable. */
     public void setType(Type t);
 
+    // Begin javarifier changes
     public boolean isSourceLocal();
 
     public void setSourceLocal(boolean isSourceLocal);
@@ -88,4 +88,5 @@ public interface Local extends Value, Numberable, Immediate, javarifier.JrTyped
     public int getStart_pc();
 
     public void setStart_pc(int start_pc);
+    // End javarifier changes
 }

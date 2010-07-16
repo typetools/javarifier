@@ -18,6 +18,7 @@
  */
 
 package soot;
+import soot.JavaClassProvider.JarException;
 import soot.options.*;
 import java.util.*;
 import java.util.zip.*;
@@ -30,6 +31,8 @@ public class SourceLocator
     public SourceLocator( Singletons.Global g ) {}
     public static SourceLocator v() { return G.v().soot_SourceLocator(); }
 
+    protected Set<ClassLoader> additionalClassLoaders = new HashSet<ClassLoader>();
+    
     /** Given a class name, uses the soot-class-path to return a ClassSource for the given class. */
     public ClassSource getClassSource(String className) 
     {
@@ -39,16 +42,41 @@ public class SourceLocator
         if( classProviders == null ) {
             setupClassProviders();
         }
-        for( Iterator cpIt = classProviders.iterator(); cpIt.hasNext(); ) {
-            final ClassProvider cp = (ClassProvider) cpIt.next();
-            ClassSource ret = cp.find(className);
-            if( ret != null ) return ret;
+        JarException ex = null;
+        for (ClassProvider cp : classProviders) {
+            try {
+	        	ClassSource ret = cp.find(className);
+	            if( ret != null ) return ret;
+            } catch(JarException e) {
+            	ex = e;
+            }
         }
+        if(ex!=null) throw ex;
+        for(final ClassLoader cl: additionalClassLoaders) {
+            try {
+            	ClassSource ret = new ClassProvider() {
+					
+					public ClassSource find(String className) {
+				        String fileName = className.replace('.', '/') + ".class";
+						return new CoffiClassSource(className, cl.getResourceAsStream(fileName));
+					}
+
+            	}.find(className);
+	            if( ret != null ) return ret;
+            } catch(JarException e) {
+            	ex = e;
+            }
+        }
+        if(ex!=null) throw ex;
         return null;
+    }
+    
+    public void additionalClassLoader(ClassLoader c) {
+    	additionalClassLoaders.add(c);
     }
 
     private void setupClassProviders() {
-        classProviders = new LinkedList();
+        classProviders = new LinkedList<ClassProvider>();
         switch( Options.v().src_prec() ) {
             case Options.src_prec_class:
                 classProviders.add(new CoffiClassProvider());
@@ -73,23 +101,22 @@ public class SourceLocator
         }
     }
 
-    private List classProviders;
-    public void setClassProviders( List classProviders ) {
+    private List<ClassProvider> classProviders;
+    public void setClassProviders( List<ClassProvider> classProviders ) {
         this.classProviders = classProviders;
     }
 
-    private List classPath;
-    public List classPath() { return classPath; }
+    private List<String> classPath;
+    public List<String> classPath() { return classPath; }
     public void invalidateClassPath() {
         classPath = null;
     }
 
-    private List sourcePath;
-    public List sourcePath() {
+    private List<String> sourcePath;
+    public List<String> sourcePath() {
         if( sourcePath == null ) {
-            sourcePath = new ArrayList();
-            for( Iterator dirIt = classPath.iterator(); dirIt.hasNext(); ) {
-                final String dir = (String) dirIt.next();
+            sourcePath = new ArrayList<String>();
+            for (String dir : classPath) {
                 if( !isJar(dir) ) sourcePath.add(dir);
             }
         }
@@ -108,8 +135,8 @@ public class SourceLocator
 	return false;
     }
 
-    public List getClassesUnder(String aPath) {
-        List fileNames = new ArrayList();
+    public List<String> getClassesUnder(String aPath) {
+        List<String> fileNames = new ArrayList<String>();
 
 	if (isJar(aPath)) {
 	    List inputExtensions = new ArrayList(2);
@@ -147,18 +174,18 @@ public class SourceLocator
 		files[0] = file;
 	    }
 
-	    for (int i = 0; i < files.length; i++) {
-		if (files[i].isDirectory()) {
-		    List l =
+	    for (File element : files) {
+		if (element.isDirectory()) {
+		    List<String> l =
 			getClassesUnder(
-					aPath + File.separatorChar + files[i].getName());
-		    Iterator it = l.iterator();
+					aPath + File.separatorChar + element.getName());
+		    Iterator<String> it = l.iterator();
 		    while (it.hasNext()) {
-			String s = (String) it.next();
-			fileNames.add(files[i].getName() + "." + s);
+			String s = it.next();
+			fileNames.add(element.getName() + "." + s);
 		    }
 		} else {
-		    String fileName = files[i].getName();
+		    String fileName = element.getName();
 
 		    if (fileName.endsWith(".class")) {
 			int index = fileName.lastIndexOf(".class");
@@ -248,17 +275,18 @@ public class SourceLocator
     }
 
     /* This is called after sootClassPath has been defined. */
-    public Set classesInDynamicPackage(String str) {
-        HashSet set = new LinkedHashSet(0);
+    public Set<String> classesInDynamicPackage(String str) {
+        // Begin javarifier changes
+        HashSet<String> set = new LinkedHashSet<String>(0);
+        // End javarifier changes
         StringTokenizer strtok = new StringTokenizer(
                 Scene.v().getSootClassPath(), String.valueOf(File.pathSeparatorChar));
         while (strtok.hasMoreTokens()) {
             String path = strtok.nextToken();
 
             // For jimple files
-            List l = getClassesUnder(path);
-            for( Iterator filenameIt = l.iterator(); filenameIt.hasNext(); ) {
-                final String filename = (String) filenameIt.next();
+            List<String> l = getClassesUnder(path);
+            for (String filename : l) {
                 if (filename.startsWith(str))
                     set.add(filename);
             }
@@ -272,8 +300,8 @@ public class SourceLocator
                     path = path + File.pathSeparatorChar;
             }
             l = getClassesUnder(path);
-            for (Iterator it = l.iterator(); it.hasNext();)
-                set.add(str + "." + ((String) it.next()));
+            for (String string : l)
+				set.add(str + "." + string);
         }
         return set;
     }
@@ -315,12 +343,9 @@ public class SourceLocator
         return ret;
     }
 
-    private boolean windows = System.getProperty("os.name").startsWith("Windows");
-    private String cwd = System.getProperty("user.dir");
-
     /** Explodes a class path into a list of individual class path entries. */
-    protected List explodeClassPath( String classPath ) {
-        List ret = new ArrayList();
+    protected List<String> explodeClassPath( String classPath ) {
+        List<String> ret = new ArrayList<String>();
 
         StringTokenizer tokenizer = 
             new StringTokenizer(classPath, File.pathSeparator);
@@ -337,6 +362,7 @@ public class SourceLocator
         return ret;
     }
     public static class FoundFile {
+        // Begin javarifier changes
         FoundFile( String classpathEntry, ZipFile zipFile, ZipEntry entry ) {
             this.classpathEntry = classpathEntry;
             this.zipFile = zipFile;
@@ -347,6 +373,7 @@ public class SourceLocator
             this.file = file;
         }
         public String classpathEntry; // Javarifier -- check against stubCPEntries
+        // End javarifier changes
         public File file;
         public ZipFile zipFile;
         public ZipEntry entry;
@@ -381,8 +408,7 @@ public class SourceLocator
 
     /** Searches for a file with the given name in the exploded classPath. */
     public FoundFile lookupInClassPath( String fileName ) {
-        for( Iterator dirIt = classPath.iterator(); dirIt.hasNext(); ) {
-            final String dir = (String) dirIt.next();
+        for (String dir : classPath) {
             FoundFile ret;
             if(isJar(dir)) {
                 ret = lookupInJar(dir, fileName);
@@ -396,7 +422,9 @@ public class SourceLocator
     private FoundFile lookupInDir(String dir, String fileName) {
         File f = new File( dir+File.separatorChar+fileName );
         if( f.canRead() ) {
+            // Begin javarifier changes
             return new FoundFile(dir, f);
+            // End javarifier changes
         }
         return null;
     }
@@ -405,17 +433,19 @@ public class SourceLocator
             ZipFile jarFile = new ZipFile(jar);
             ZipEntry entry = jarFile.getEntry(fileName);
             if( entry == null ) return null;
+            // Begin javarifier changes
             return new FoundFile(jar, jarFile, entry);
+            // End javarifier changes
         } catch( IOException e ) {
             throw new RuntimeException( "Caught IOException "+e+" looking in jar file "+jar+" for file "+fileName );
         }
     }
-    private HashMap sourceToClassMap;
+    private HashMap<String, String> sourceToClassMap;
 
-    public HashMap getSourceToClassMap(){
+    public HashMap<String, String> getSourceToClassMap(){
         return sourceToClassMap;
     }
-    public void setSourceToClassMap(HashMap map){
+    public void setSourceToClassMap(HashMap<String, String> map){
         sourceToClassMap = map;
     }
     public void addToSourceToClassMap(String key, String val) {
@@ -436,13 +466,13 @@ public class SourceLocator
         if (sourceToClassMap != null) {
             //System.out.println("in source map: "+sourceToClassMap);
             if (sourceToClassMap.get(javaClassName) != null) {
-                javaClassName = (String)sourceToClassMap.get(javaClassName);
+                javaClassName = sourceToClassMap.get(javaClassName);
             }
         }
         return javaClassName;
     }
 
-    // begin Javarifier
+    // Begin javarifier changes
     public static enum EntryKind {
         PROGRAM, STUB, WORLD
     }
@@ -491,6 +521,6 @@ public class SourceLocator
         else
             return entryKinds.get(ff.classpathEntry);
     }
-    // end Javarifier
+    // End javarifier changes
 }
 

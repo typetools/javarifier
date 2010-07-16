@@ -1,8 +1,3 @@
-////
-// Javarifier changes: added getJrType and setJrType methods.
-////
-
-
 /* Soot - a J*va Optimization Framework
  * Copyright (C) 1997-1999 Raja Vallee-Rai
  * Copyright (C) 2004 Ondrej Lhotak
@@ -24,7 +19,7 @@
  */
 
 /*
- * Modified by the Sable Research Group and others 1997-1999.
+ * Modified by the Sable Research Group and others 1997-1999.  
  * See the 'credits' file distributed with Soot for the complete list of
  * contributors.  (Soot is distributed at http://www.sable.mcgill.ca/soot)
  */
@@ -32,12 +27,12 @@
 
 package soot;
 
-import javarifier.JrType; // [Javarifier]
-import javarifier.JVMLSigParser; // [Javarifier]
+// Begin javarifier changes
+import javarifier.JrType;
+import javarifier.JVMLSigParser;
+// End javarifier changes
 
 import soot.tagkit.*;
-import soot.jimple.*;
-import java.util.*;
 import soot.util.*;
 import soot.jimple.paddle.PaddleField;
 import soot.jimple.spark.pag.SparkField;
@@ -45,9 +40,11 @@ import soot.jimple.spark.pag.SparkField;
 /**
     Soot representation of a Java field.  Can be declared to belong to a SootClass.
 */
+// Begin javarifier changes
 public class SootField extends AbstractHost implements ClassMember, SparkField, Numberable, PaddleField, javarifier.JrTyped
 {
-
+// End javarifier changes
+    // Begin javarifier changes
     private JrType jrType;
     /**
      * Returns the JrType of the current variable; this method was
@@ -91,7 +88,7 @@ public class SootField extends AbstractHost implements ClassMember, SparkField, 
 //     public void setMutable(boolean b) {
 //         mutable = b;
 //     }
-
+    // End javarifier changes
     String name;
     Type type;
     int modifiers;
@@ -141,15 +138,15 @@ public class SootField extends AbstractHost implements ClassMember, SparkField, 
         return buffer.toString().intern();
 
     }
-
+  
     public String getSubSignature()
     {
         StringBuffer buffer = new StringBuffer();
         buffer.append(getType() + " " + Scene.v().quotedNameOf(getName()));
         return buffer.toString().intern();
     }
-
-    public SootClass getDeclaringClass()
+    
+    public SootClass getDeclaringClass() 
     {
         if(!isDeclared)
             throw new RuntimeException("not declared: "+getName()+" "+getType());
@@ -161,14 +158,14 @@ public class SootField extends AbstractHost implements ClassMember, SparkField, 
     {
         return isPhantom;
     }
-
+    
     public void setPhantom(boolean value)
     {
         if( value ) {
-            if( !Scene.v().allowsPhantomRefs() )
+            if( !Scene.v().allowsPhantomRefs() ) 
                 throw new RuntimeException( "Phantom refs not allowed" );
             if( declaringClass != null && !declaringClass.isPhantom() )
-                throw new
+                throw new 
                     RuntimeException( "Declaring class would have to be phantom" );
         }
         isPhantom = value;
@@ -240,7 +237,7 @@ public class SootField extends AbstractHost implements ClassMember, SparkField, 
     {
         if (!declaringClass.isApplicationClass())
             throw new RuntimeException("Cannot set modifiers of a field from a non-app class!");
-
+            
         this.modifiers = modifiers;
     }
 
@@ -283,3 +280,9 @@ public class SootField extends AbstractHost implements ClassMember, SparkField, 
         return Scene.v().makeFieldRef(declaringClass, name, type, isStatic());
     }
 }
+
+
+
+
+
+

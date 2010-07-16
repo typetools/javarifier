@@ -1,6 +1,3 @@
-// Javarifier changes: added resolve code and getClassSig code.
-
-
 /* Soot - a J*va Optimization Framework
  * Copyright (C) 1997-1999 Raja Vallee-Rai
  *
@@ -21,7 +18,7 @@
  */
 
 /*
- * Modified by the Sable Research Group and others 1997-1999.
+ * Modified by the Sable Research Group and others 1997-1999.  
  * See the 'credits' file distributed with Soot for the complete list of
  * contributors.  (Soot is distributed at http://www.sable.mcgill.ca/soot)
  */
@@ -32,12 +29,13 @@
 
 package soot;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import soot.tagkit.*;
+import soot.util.*;
+import java.util.*;
+import soot.dava.toolkits.base.misc.*;
+import soot.options.*;
 
+// Begin javarifier changes
 import javarifier.ASMClassReaders;
 import javarifier.ClassSig;
 import javarifier.TypeInitializer;
@@ -45,15 +43,7 @@ import javarifier.TypeInitializer;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.commons.EmptyVisitor;
-
-import soot.dava.toolkits.base.misc.PackageNamer;
-import soot.options.Options;
-import soot.tagkit.AbstractHost;
-import soot.util.Chain;
-import soot.util.HashChain;
-import soot.util.Numberable;
-import soot.util.NumberedString;
-import soot.util.SmallNumberedMap;
+// End javarifier changes
 
 /*
  * Incomplete and inefficient implementation.
@@ -77,7 +67,6 @@ import soot.util.SmallNumberedMap;
 */
 public class SootClass extends AbstractHost implements Numberable, javarifier.Signatured
 {
-
     // Start javarifier changes
     private ClassSig classSig;
      public ClassSig getSig() {
@@ -130,31 +119,33 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
     
     // End javarifier changes
 
-    
     protected String name, shortName, fixedShortName, packageName, fixedPackageName;
     protected int modifiers;
-    protected Chain fields = new HashChain();
+    protected Chain<SootField> fields = new HashChain<SootField>();
     protected SmallNumberedMap subSigToMethods = new SmallNumberedMap( Scene.v().getSubSigNumberer() );
     // methodList is just for keeping the methods in a consistent order. It
     // needs to be kept consistent with subSigToMethods.
-    protected List methodList = new ArrayList();
-    protected Chain interfaces = new HashChain();
+    protected List<SootMethod> methodList = new ArrayList<SootMethod>();
+    protected Chain<SootClass> interfaces = new HashChain<SootClass>();
 
     protected boolean isInScene;
     protected SootClass superClass;
-    
+    protected SootClass outerClass;
+
+    // Start javarifier changes
     protected int outerStuffChecked = 0;
     // These are initialized when outerStuffChecked becomes 1 (class)
-    protected SootClass outerClass;
     protected boolean hasOuterReference;
     protected String outerMethodName1;
     protected String outerMethodDesc1;
     // This is initialized when outerStuffChecked becomes 2 (method)
     protected SootMethod outerMethod;
+    // End javarifier changes
+
 
     protected boolean isPhantom;
-
-
+    
+    
     /**
         Constructs an empty SootClass with the given name and modifiers.
     */
@@ -197,19 +188,13 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
     public void checkLevel( int level ) {
         if( !Scene.v().doneResolving() ) return;
         if( resolvingLevel < level ) {
-            /*
-            try {
-            */
-                throw new RuntimeException(
-                    "This operation requires resolving level "+
-                    levelToString(level)+" but "+name+
-                    " is at resolving level "+levelToString(resolvingLevel) );
-                /*
-            } catch( RuntimeException e ) {
-                System.out.println("RESOLVING ERROR: "+e.toString());
-                e.printStackTrace();
-            }
-            */
+        	String hint = "\nIf you are extending Soot, try to add the following call before calling soot.Main.main(..):\n" +
+        			      "Scene.v().addBasicClass("+getName()+","+levelToString(level)+");\n" +
+        			      "Otherwise, try whole-program mode (-w).";
+            throw new RuntimeException(
+                "This operation requires resolving level "+
+                levelToString(level)+" but "+name+
+                " is at resolving level "+levelToString(resolvingLevel) + hint);
         }
     }
 
@@ -243,7 +228,7 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
      * Returns a backed Chain of fields.
      */
 
-    public Chain getFields()
+    public Chain<SootField> getFields()
     {
         checkLevel(SIGNATURES);
         return fields;
@@ -260,7 +245,7 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
         Adds the given field to this class.
     */
 
-    public void addField(SootField f)
+    public void addField(SootField f) 
     {
         checkLevel(SIGNATURES);
         if(f.isDeclared())
@@ -268,18 +253,18 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
 
 	if(declaresField(f.getName()))
             throw new RuntimeException("Field already exists : "+f.getName());
-
+ 
         fields.add(f);
         f.isDeclared = true;
         f.declaringClass = this;
-
+        
     }
 
     /**
         Removes the given field from this class.
     */
 
-    public void removeField(SootField f)
+    public void removeField(SootField f) 
     {
         checkLevel(SIGNATURES);
         if(!f.isDeclared() || f.getDeclaringClass() != this)
@@ -290,19 +275,19 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
     }
 
     /**
-        Returns the field of this class with the given name and type.
+        Returns the field of this class with the given name and type. 
     */
 
     public SootField getField( String name, Type type ) {
         checkLevel(SIGNATURES);
-        for( Iterator fieldIt = this.getFields().iterator(); fieldIt.hasNext(); ) {
-            final SootField field = (SootField) fieldIt.next();
+        for( Iterator<SootField> fieldIt = this.getFields().iterator(); fieldIt.hasNext(); ) {
+            final SootField field = fieldIt.next();
             if(field.name.equals(name) && field.type.equals(type))
                 return field;
         }
         throw new RuntimeException("No field " + name + " in class " + getName());
     }
-
+    
     /**
         Returns the field of this class with the given name.  Throws a RuntimeException if there
         are more than one.
@@ -314,11 +299,11 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
         boolean found = false;
         SootField foundField = null;
 
-        Iterator fieldIt = getFields().iterator();
+        Iterator<SootField> fieldIt = getFields().iterator();
 
         while(fieldIt.hasNext())
         {
-            SootField field = (SootField) fieldIt.next();
+            SootField field = fieldIt.next();
 
             if(field.name.equals(name))
             {
@@ -337,23 +322,23 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
             throw new RuntimeException("No field " + name + " in class " + getName());
     }
 
-
-    /*
+    
+    /*    
         Returns the field of this class with the given subsignature.
     */
 
     public SootField getField(String subsignature)
     {
         checkLevel(SIGNATURES);
-        for( Iterator fieldIt = this.getFields().iterator(); fieldIt.hasNext(); ) {
-            final SootField field = (SootField) fieldIt.next();
+        for( Iterator<SootField> fieldIt = this.getFields().iterator(); fieldIt.hasNext(); ) {
+            final SootField field = fieldIt.next();
             if( field.getSubSignature().equals( subsignature ) ) return field;
         }
 
         throw new RuntimeException("No field " + subsignature + " in class " + getName());
     }
 
-
+    
     /**
         Does this class declare a field with the given subsignature?
     */
@@ -361,15 +346,15 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
     public boolean declaresField(String subsignature)
     {
         checkLevel(SIGNATURES);
-        for( Iterator fieldIt = this.getFields().iterator(); fieldIt.hasNext(); ) {
-            final SootField field = (SootField) fieldIt.next();
+        for( Iterator<SootField> fieldIt = this.getFields().iterator(); fieldIt.hasNext(); ) {
+            final SootField field = fieldIt.next();
             if( field.getSubSignature().equals( subsignature ) ) return true;
         }
         return false;
     }
 
-
-    /*
+    
+    /*    
         Returns the method of this class with the given subsignature.
     */
 
@@ -393,9 +378,9 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
         SootMethod ret = (SootMethod) subSigToMethods.get( subsignature );
         return ret != null;
     }
-
-
-    /*
+    
+    
+    /*    
         Returns the method of this class with the given subsignature.
     */
 
@@ -404,7 +389,8 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
         checkLevel(SIGNATURES);
         return getMethod( Scene.v().getSubSigNumberer().findOrAdd( subsignature ) );
     }
-    
+
+    // Begin javarifier changes
     /**
      * Similar to getMethod(String subsignature), except it ignores the return 
      * type of the method.  Returns null if the method is not found.
@@ -438,7 +424,8 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
       return subsignature.getString().substring(
                subsignature.getString().indexOf(" ")).trim();
     }
-    
+    // End javarifier changes
+
     /**
         Does this class declare a method with the given subsignature?
     */
@@ -448,8 +435,8 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
         checkLevel(SIGNATURES);
         return declaresMethod( Scene.v().getSubSigNumberer().findOrAdd( subsignature ) );
     }
-
-
+    
+    
     /**
         Does this class declare a field with the given name?
     */
@@ -457,11 +444,11 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
     public boolean declaresFieldByName(String name)
     {
         checkLevel(SIGNATURES);
-        Iterator fieldIt = getFields().iterator();
+        Iterator<SootField> fieldIt = getFields().iterator();
 
         while(fieldIt.hasNext())
         {
-            SootField field = (SootField) fieldIt.next();
+            SootField field = fieldIt.next();
 
             if(field.name.equals(name))
                 return true;
@@ -470,7 +457,7 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
         return false;
     }
 
-
+    
     /**
         Does this class declare a field with the given name and type.
     */
@@ -478,11 +465,11 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
     public boolean declaresField(String name, Type type)
     {
         checkLevel(SIGNATURES);
-        Iterator fieldIt = getFields().iterator();
+        Iterator<SootField> fieldIt = getFields().iterator();
 
         while(fieldIt.hasNext())
         {
-            SootField field = (SootField) fieldIt.next();
+            SootField field = fieldIt.next();
 
             if(field.name.equals(name) &&
                 field.type.equals(type))
@@ -506,16 +493,16 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
      * Returns an iterator over the methods in this class.
      */
 
-    public Iterator methodIterator()
+    public Iterator<SootMethod> methodIterator()
     {
         checkLevel(SIGNATURES);
         return methodList.iterator();
     }
 
-    public List getMethods() {
+    public List<SootMethod> getMethods() {
         checkLevel(SIGNATURES);
-        ArrayList ret = new ArrayList();
-        for( Iterator it = methodIterator(); it.hasNext(); )
+        ArrayList<SootMethod> ret = new ArrayList<SootMethod>();
+        for( Iterator<SootMethod> it = methodIterator(); it.hasNext(); )
             ret.add( it.next() );
         return ret;
     }
@@ -524,8 +511,8 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
             Type returnType )
     {
         checkLevel(SIGNATURES);
-        for( Iterator methodIt = methodIterator(); methodIt.hasNext(); ) {
-            final SootMethod method = (SootMethod) methodIt.next();
+        for( Iterator<SootMethod> methodIt = methodIterator(); methodIt.hasNext(); ) {
+            final SootMethod method = methodIt.next();
             if(method.getName().equals(name) &&
                 parameterTypes.equals(method.getParameterTypes()) &&
                 returnType.equals(method.getReturnType()))
@@ -538,9 +525,10 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
             name + "(" + parameterTypes + ")" + " : " + returnType );
     }
     /**
-        Attempts to retrieve the method with the given name, parameters and return type.
+        Attempts to retrieve the method with the given name, parameters and return type.  
     */
 
+    // Begin javarifier changes
     // Add for the convenience of the Javarifier
     public SootMethod getMethodByDescriptor(String methodName, String descriptor)
     {
@@ -549,6 +537,7 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
         return getMethod(methodName, allTypes.subList(0, allTypes.size() - 1),
                 allTypes.get(allTypes.size() - 1));
     }
+    // End javarifier changes
 
     /**
         Attempts to retrieve the method with the given name and parameters.  This method
@@ -556,24 +545,24 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
         given name and parameter.
     */
 
-    public SootMethod getMethod(String name, List parameterTypes)
+    public SootMethod getMethod(String name, List parameterTypes) 
     {
         checkLevel(SIGNATURES);
         boolean found = false;
         SootMethod foundMethod = null;
-
-        Iterator methodIt = methodIterator();
+        
+        Iterator<SootMethod> methodIt = methodIterator();
 
         while(methodIt.hasNext())
         {
-            SootMethod method = (SootMethod) methodIt.next();
+            SootMethod method = methodIt.next();
 
             if(method.getName().equals(name) &&
                 parameterTypes.equals(method.getParameterTypes()))
             {
                 if(found)
                     throw new RuntimeException("ambiguous method");
-                else {
+                else {                    
                     found = true;
                     foundMethod = method;
                 }
@@ -586,30 +575,30 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
             throw new RuntimeException("couldn't find method "+name+"("+parameterTypes+") in "+this);
     }
 
-
+    
      /**
         Attempts to retrieve the method with the given name.  This method
         may throw an AmbiguousMethodException if there are more than one method with the
         given name.
     */
 
-    public SootMethod getMethodByName(String name)
+    public SootMethod getMethodByName(String name) 
     {
         checkLevel(SIGNATURES);
         boolean found = false;
         SootMethod foundMethod = null;
-
-        Iterator methodIt = methodIterator();
+        
+        Iterator<SootMethod> methodIt = methodIterator();
 
         while(methodIt.hasNext())
         {
-            SootMethod method = (SootMethod) methodIt.next();
+            SootMethod method = methodIt.next();
 
             if(method.getName().equals(name))
             {
                 if(found)
                     throw new RuntimeException("ambiguous method");
-                else {
+                else {                    
                     found = true;
                     foundMethod = method;
                 }
@@ -628,17 +617,17 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
     public boolean declaresMethod(String name, List parameterTypes)
     {
         checkLevel(SIGNATURES);
-        Iterator methodIt = methodIterator();
+        Iterator<SootMethod> methodIt = methodIterator();
 
         while(methodIt.hasNext())
         {
-            SootMethod method = (SootMethod) methodIt.next();
+            SootMethod method = methodIt.next();
 
             if(method.getName().equals(name) &&
                 method.getParameterTypes().equals(parameterTypes))
                 return true;
         }
-
+        
         return false;
     }
 
@@ -649,19 +638,19 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
     public boolean declaresMethod(String name, List parameterTypes, Type returnType)
     {
         checkLevel(SIGNATURES);
-        Iterator methodIt = methodIterator();
+        Iterator<SootMethod> methodIt = methodIterator();
 
         while(methodIt.hasNext())
         {
-            SootMethod method = (SootMethod) methodIt.next();
+            SootMethod method = methodIt.next();
 
             if(method.getName().equals(name) &&
                 method.getParameterTypes().equals(parameterTypes) &&
                 method.getReturnType().equals(returnType))
-
+                
                 return true;
         }
-
+        
         return false;
     }
 
@@ -681,7 +670,7 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
             if(method.getName().equals(name))
                 return true;
         }
-
+        
         return false;
     }
 
@@ -696,7 +685,7 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
         Adds the given method to this class.
     */
 
-    public void addMethod(SootMethod m)
+    public void addMethod(SootMethod m) 
     {
         checkLevel(SIGNATURES);
         if(m.isDeclared())
@@ -706,7 +695,7 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
         if(declaresMethod(m.getName(), m.getParameterTypes()))
             throw new RuntimeException("duplicate signature for: " + m.getName());
         */
-
+        
         if(subSigToMethods.get(m.getNumberedSubSignature()) != null ) {
             throw new RuntimeException(
                     "Attempting to add method "+m.getSubSignature()+" to class "+this+", but the class already has a method with that signature.");
@@ -715,14 +704,14 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
         methodList.add(m);
         m.isDeclared = true;
         m.declaringClass = this;
-
+        
     }
 
     /**
         Removes the given method from this class.
     */
 
-    public void removeMethod(SootMethod m)
+    public void removeMethod(SootMethod m) 
     {
         checkLevel(SIGNATURES);
         if(!m.isDeclared() || m.getDeclaringClass() != this)
@@ -772,7 +761,7 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
      * Returns a backed Chain of the interfaces that are directly implemented by this class. (see getInterfaceCount())
      */
 
-    public Chain getInterfaces()
+    public Chain<SootClass> getInterfaces()
     {
         checkLevel(HIERARCHY);
         return interfaces;
@@ -785,11 +774,11 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
     public boolean implementsInterface(String name)
     {
         checkLevel(HIERARCHY);
-        Iterator interfaceIt = getInterfaces().iterator();
+        Iterator<SootClass> interfaceIt = getInterfaces().iterator();
 
         while(interfaceIt.hasNext())
         {
-            SootClass SootClass = (SootClass) interfaceIt.next();
+            SootClass SootClass = interfaceIt.next();
 
             if(SootClass.getName().equals(name))
                 return true;
@@ -814,7 +803,7 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
         Removes the given class from the list of interfaces which are direclty implemented by this class.
     */
 
-    public void removeInterface(SootClass interfaceClass)
+    public void removeInterface(SootClass interfaceClass) 
     {
         checkLevel(HIERARCHY);
         if(!implementsInterface(interfaceClass.getName()))
@@ -829,7 +818,7 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
         the java.lang.Object class.  Note that interfaces are
         subclasses of the java.lang.Object class.  */
 
-
+    
     public boolean hasSuperclass()
     {
         checkLevel(HIERARCHY);
@@ -841,11 +830,13 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
         Returns the superclass of this class. (see hasSuperclass())
     */
 
-    public SootClass getSuperclass()
+    public SootClass getSuperclass() 
     {
         checkLevel(HIERARCHY);
-        if(superClass == null)
+        if(superClass == null && !isPhantom()) 
             throw new RuntimeException("no superclass for "+getName());
+        else if (isPhantom())
+        	return null;
         else
             return superClass;
     }
@@ -860,6 +851,7 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
         superClass = c;
     }
 
+    // Begin javarifier changes
     private void checkOuterClass() {
         if (outerStuffChecked < 1) {
             outerClass = null;
@@ -891,28 +883,36 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
             outerStuffChecked = 1;
         }
     }
+    // End javarifier changes
 
     public boolean hasOuterClass(){
         checkLevel(HIERARCHY);
+        // Begin javarifier changes
         checkOuterClass();
+        // End javarifier changes
         return outerClass != null;
     }
 
     public SootClass getOuterClass(){
         checkLevel(HIERARCHY);
+        // Begin javarifier changes
         checkOuterClass();
+        // End javarifier changes
         if (outerClass == null)
             throw new RuntimeException("no outer class");
-        else
+        else 
             return outerClass;
     }
 
     public void setOuterClass(SootClass c){
         checkLevel(HIERARCHY);
+        // Begin javarifier changes
         throw new UnsupportedOperationException();
         //outerClass = c;
+        // End javarifier changes
     }
-
+    
+    // Begin javarifier changes
     public @Deprecated boolean hasOuterReference(){
         checkLevel(HIERARCHY);
         checkOuterClass();
@@ -938,11 +938,12 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
             outerStuffChecked = 2;
         }
     }
-
+    
     public SootMethod getOuterMethod() {
         checkOuterMethod();
         return outerMethod;
     }
+    // End javarifier changes
 
     /**
         Returns the name of this class.
@@ -998,7 +999,7 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
 	if (PackageNamer.v().has_FixedNames()) {
 	    if (fixedPackageName == null)
 		fixedPackageName = PackageNamer.v().get_FixedPackageName( packageName);
-
+	    
 	    return fixedPackageName;
 	}
 
@@ -1009,10 +1010,10 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
         Sets the name of this class.
     */
 
-    private void setName(String name)
+    public void setName(String name)
     {
         this.name = name;
-
+	
 	shortName = name;
 	packageName = "";
 
@@ -1047,26 +1048,29 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
     /** Returns true if some method in this class has an active Baf body. */
     public boolean containsBafBody()
     {
-        Iterator methodIt = methodIterator();
-
+        Iterator<SootMethod> methodIt = methodIterator();
+        
         while(methodIt.hasNext())
         {
-            SootMethod m = (SootMethod) methodIt.next();
-
-            if(m.hasActiveBody() &&
+            SootMethod m = methodIt.next();
+            
+            if(m.hasActiveBody() && 
                 m.getActiveBody() instanceof soot.baf.BafBody)
             {
                 return true;
             }
         }
-
+        
         return false;
     }
-
+    
     private RefType refType;
-    void setRefType( RefType refType ) { this.refType = refType; }
+    
+    // made public for obfuscator..
+    public void setRefType( RefType refType ) { this.refType = refType; }
+    
     public boolean hasRefType() { return refType != null; }
-
+    
     /** Returns the RefType corresponding to this class. */
     public RefType getType()
     {
@@ -1085,14 +1089,14 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
         checkLevel(SIGNATURES);
         // Rename fields.  Ignore collisions for now.
         {
-            Iterator fieldIt = this.getFields().iterator();
+            Iterator<SootField> fieldIt = this.getFields().iterator();
             int fieldCount = 0;
 
             if(fieldIt.hasNext())
             {
                 while(fieldIt.hasNext())
                   {
-                      SootField f = (SootField)fieldIt.next();
+                      SootField f = fieldIt.next();
                       if (!privateOnly || Modifier.isPrivate(f.getModifiers()))
                         {
                           String newFieldName = "__field"+(fieldCount++);
@@ -1104,14 +1108,14 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
 
         // Rename methods.  Again, ignore collisions for now.
         {
-            Iterator methodIt = this.methodIterator();
+            Iterator<SootMethod> methodIt = methodIterator();
             int methodCount = 0;
 
             if(methodIt.hasNext())
             {
                 while(methodIt.hasNext())
                   {
-                      SootMethod m = (SootMethod)methodIt.next();
+                      SootMethod m = methodIt.next();
                       if (!privateOnly || Modifier.isPrivate(m.getModifiers()))
                         {
                           String newMethodName = "__method"+(methodCount++);
@@ -1122,7 +1126,7 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
         }
     }
 
-    /** Convenience method returning true if this class is an application class.
+    /** Convenience method returning true if this class is an application class. 
      *
      * @see Scene#getApplicationClasses() */
     public boolean isApplicationClass()
@@ -1133,7 +1137,7 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
     /** Makes this class an application class. */
     public void setApplicationClass()
     {
-        Chain c = Scene.v().getContainingChain(this);
+        Chain<SootClass> c = Scene.v().getContainingChain(this);
         if (c != null)
             c.remove(this);
         Scene.v().getApplicationClasses().add(this);
@@ -1152,7 +1156,7 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
     /** Makes this class a library class. */
     public void setLibraryClass()
     {
-        Chain c = Scene.v().getContainingChain(this);
+        Chain<SootClass> c = Scene.v().getContainingChain(this);
         if (c != null)
             c.remove(this);
         Scene.v().getLibraryClasses().add(this);
@@ -1171,19 +1175,19 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
     /** Makes this class a phantom class. */
     public void setPhantomClass()
     {
-        Chain c = Scene.v().getContainingChain(this);
+        Chain<SootClass> c = Scene.v().getContainingChain(this);
         if (c != null)
             c.remove(this);
         Scene.v().getPhantomClasses().add(this);
         isPhantom = true;
     }
-
+    
     /** Convenience method returning true if this class is phantom. */
     public boolean isPhantom()
     {
         return isPhantom;
     }
-
+    
     /** Marks this class as phantom, without notifying the Scene. */
     public void setPhantom(boolean value)
     {
@@ -1192,7 +1196,7 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
                 throw new RuntimeException("don't know how to de-phantomize this class");
             else
                 return;
-
+        
         setPhantomClass();
     }
     /**
@@ -1224,3 +1228,4 @@ public class SootClass extends AbstractHost implements Numberable, javarifier.Si
 
     private int number = 0;
 }
+
