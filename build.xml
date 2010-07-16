@@ -74,9 +74,9 @@
         <pathelement location="${annotations-compiler}/dist/lib/javac.jar"/>
         <pathelement location="${afu}/annotation-file-utilities.jar"/>
         <pathelement location="${javarifier}/bin"/>
-        <pathelement location="${javarifier}/lib/jasminclasses-2.2.3.jar"/>
-        <pathelement location="${javarifier}/lib/polyglotclasses-1.3.2.jar"/>
-        <pathelement location="${javarifier}/lib/sootclasses-2.2.3.jar"/>
+        <pathelement location="${javarifier}/lib/jasminclasses-2.4.0.jar"/>
+        <pathelement location="${javarifier}/lib/polyglotclasses-1.3.5.jar"/>
+        <pathelement location="${javarifier}/lib/sootclasses-2.4.0.jar"/>
       </path>
 
   </target>
@@ -135,11 +135,11 @@
 
     <echo message="Copying over necessary files to ${temp-bin}"/>
 
-    <unjar src="${javarifier}/lib/jasminclasses-2.2.3.jar"
+    <unjar src="${javarifier}/lib/jasminclasses-2.4.0.jar"
 	   dest="${temp-bin}"/>
-    <unjar src="${javarifier}/lib/polyglotclasses-1.3.2.jar"
+    <unjar src="${javarifier}/lib/polyglotclasses-1.3.5.jar"
 	   dest="${temp-bin}"/>
-    <unjar src="${javarifier}/lib/sootclasses-2.2.3.jar"
+    <unjar src="${javarifier}/lib/sootclasses-2.4.0.jar"
 	   dest="${temp-bin}"/>
     <unjar src="${afu}/annotation-file-utilities.jar"
 	   dest="${temp-bin}"/>

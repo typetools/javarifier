@@ -18,7 +18,7 @@
  */
 
 /*
- * Modified by the Sable Research Group and others 1997-1999.
+ * Modified by the Sable Research Group and others 1997-1999.  
  * See the 'credits' file distributed with Soot for the complete list of
  * contributors.  (Soot is distributed at http://www.sable.mcgill.ca/soot)
  */
@@ -28,16 +28,16 @@
 
 
 package soot.toolkits.scalar;
-
-import javarifier.Main; // [javarifier]
-
 import soot.options.*;
 
 import soot.*;
-import soot.jimple.*;
 import soot.toolkits.graph.*;
 import soot.util.*;
 import java.util.*;
+
+// Begin javarifier changes
+import javarifier.Main;
+// End javarifire changes
 
 /**
  *    A BodyTransformer that attemps to indentify and separate uses of a local
@@ -56,7 +56,7 @@ import java.util.*;
  *
  *    @see BodyTransformer
  *    @see LocalPacker
- *    @see Body
+ *    @see Body 
  */
 public class LocalSplitter extends BodyTransformer
 {
@@ -66,18 +66,20 @@ public class LocalSplitter extends BodyTransformer
     protected void internalTransform(Body body, String phaseName, Map options)
     {
         Chain units = body.getUnits();
-
+        // Begin javarifier changes
         // A web is a set of local variable uses which must be
         // represented by a single local.
         List<List<ValueBox>> webs = new ArrayList<List<ValueBox>>();
+        // End javarifier changes
 
-        if(soot.options.Options.v().verbose())
+        if(Options.v().verbose())
             G.v().out.println("[" + body.getMethod().getName() + "] Splitting locals...");
 
-
+        // Begin javarifier changes
         //Map boxToSet = new HashMap(units.size() * 2 + 1, 0.7f);
+        // End javarifier changes
 
-        if(soot.options.Options.v().time())
+        if(Options.v().time())
                 Timers.v().splitPhase1Timer.start();
 
         // Go through the definitions, building the webs
@@ -85,26 +87,30 @@ public class LocalSplitter extends BodyTransformer
             ExceptionalUnitGraph graph = new ExceptionalUnitGraph(body);
 
             LocalDefs localDefs;
-
+            
             localDefs = new SmartLocalDefs(graph, new SimpleLiveLocals(graph));
 
             LocalUses localUses = new SimpleLocalUses(graph, localDefs);
-
-            if(soot.options.Options.v().time())
+            
+            if(Options.v().time())
                 Timers.v().splitPhase1Timer.end();
-
-            if(soot.options.Options.v().time())
+    
+            if(Options.v().time())
                 Timers.v().splitPhase2Timer.start();
 
+            // Begin javarifier changes
             // All the boxes that have been visited thus far.
             Set<ValueBox> markedBoxes = new LinkedHashSet<ValueBox>();
-            Map<ValueBox, Unit> boxToUnit = new HashMap(units.size() * 2 + 1, 0.7f);
+            // End javarifier changes
+            Map<ValueBox, Unit> boxToUnit = new HashMap<ValueBox, Unit>(units.size() * 2 + 1, 0.7f);
 
+            // Begin javarifier changes
             Iterator<Unit> codeIt = units.iterator();
+            // End javarifier changes
 
             while(codeIt.hasNext())
             {
-                // The stmt being exaimed
+                // The stmt being examined
                 Unit s = (Unit) codeIt.next();
 
                 if (s.getDefBoxes().size() > 1)
@@ -120,33 +126,34 @@ public class LocalSplitter extends BodyTransformer
 
                 if(lo instanceof Local && !markedBoxes.contains(loBox))
                 {
-                    //
-                    LinkedList<Unit> defsToVisit = new LinkedList();
-                    LinkedList<ValueBox> boxesToVisit = new LinkedList();
+                    LinkedList<Unit> defsToVisit = new LinkedList<Unit>();
+                    LinkedList<ValueBox> boxesToVisit = new LinkedList<ValueBox>();
 
+                    // Begin javarifier changes
                     List<ValueBox> web = new ArrayList();
+                    // End javarifier changes
                     webs.add(web);
-
+                                        
                     defsToVisit.add(s);
                     markedBoxes.add(loBox);
-
+                    
                     while(!boxesToVisit.isEmpty() || !defsToVisit.isEmpty())
-                        {
+                    {
                         if(!defsToVisit.isEmpty())
                         {
-                            Unit d = (Unit) defsToVisit.removeFirst();
+                            Unit d = defsToVisit.removeFirst();
 
-                            web.add((ValueBox) d.getDefBoxes().get(0));
+                            web.add(d.getDefBoxes().get(0));
 
                             // Add all the uses of this definition to the queue
                             {
-                                List<UnitValueBoxPair> uses = localUses.getUsesOf(d);
-                                Iterator<UnitValueBoxPair> useIt = uses.iterator();
-
+                                List uses = localUses.getUsesOf(d);
+                                Iterator useIt = uses.iterator();
+    
                                 while(useIt.hasNext())
                                 {
                                     UnitValueBoxPair use = (UnitValueBoxPair) useIt.next();
-
+    
                                     if(!markedBoxes.contains(use.valueBox))
                                     {
                                         markedBoxes.add(use.valueBox);
@@ -157,21 +164,23 @@ public class LocalSplitter extends BodyTransformer
                             }
                         }
                         else {
-                            ValueBox box = (ValueBox) boxesToVisit.removeFirst();
+                            ValueBox box = boxesToVisit.removeFirst();
 
                             web.add(box);
 
                             // Add all the definitions of this use to the queue.
-                            {
+                            {               
                                 List<Unit> defs = localDefs.getDefsOfAt((Local) box.getValue(),
-                                    (Unit) boxToUnit.get(box));
+                                    boxToUnit.get(box));
                                 Iterator<Unit> defIt = defs.iterator();
-
+    
                                 while(defIt.hasNext())
                                 {
-                                    Unit u = (Unit) defIt.next();
+                                    Unit u = defIt.next();
 
+                                    // Begin javarifier changes
                                     Iterator<ValueBox> defBoxesIter = u.getDefBoxes().iterator();
+                                    // End javarifier changes
                                     ValueBox b;
 
                                     for (; defBoxesIter.hasNext(); )
@@ -182,7 +191,7 @@ public class LocalSplitter extends BodyTransformer
                                             markedBoxes.add(b);
                                             defsToVisit.addLast(u);
                                         }
-                                    }
+                                    }    
                                 }
                             }
                         }
@@ -193,17 +202,22 @@ public class LocalSplitter extends BodyTransformer
 
         // Assign locals appropriately.
         {
-            Map<Local, Integer> localToUseCount = new HashMap(body.getLocalCount() * 2 + 1, 0.7f);
+            Map<Local, Integer> localToUseCount = new HashMap<Local, Integer>(body.getLocalCount() * 2 + 1, 0.7f);
+            // Begin javarifier changes
             Iterator<List<ValueBox>> webIt = webs.iterator();
+            // End javarifier changes
 
             while(webIt.hasNext())
             {
+                // Begin javarifier changes
                 // List of ValueBox's of Local's
                 List<ValueBox> web = (List) webIt.next();
+                // End javarifier changes
 
                 ValueBox rep = (ValueBox) web.get(0);
                 Local desiredLocal = (Local) rep.getValue();
 
+                // Begin javarifier changes
                 // Don't split source locals for javarifier.
                 if (javarifier.Main.doNotSplitSourceLocals) {
                     if (! desiredLocal.getName().startsWith("$")) {
@@ -217,6 +231,7 @@ public class LocalSplitter extends BodyTransformer
                 if (javarifier.Main.debugLocalSplitting) {
                     System.out.println("Splitting: " + desiredLocal);
                 }
+                // End javarifier changes
 
                 if(!localToUseCount.containsKey(desiredLocal))
                 {
@@ -227,18 +242,20 @@ public class LocalSplitter extends BodyTransformer
                 else {
                     // generate a new local
 
-                    int useCount = ((Integer) localToUseCount.get(desiredLocal)).intValue() + 1;
+                    int useCount = localToUseCount.get(desiredLocal).intValue() + 1;
                     localToUseCount.put(desiredLocal, new Integer(useCount));
-
+        
                     Local local = (Local) desiredLocal.clone();
                     local.setName(desiredLocal.getName() + "#" + useCount);
-
+                    
                     body.getLocals().add(local);
 
                     // Change all boxes to point to this new local
                     {
+                        // Begin javarifier changes
                         // Iterator of ValueBox's of Local's
                         Iterator<ValueBox> j = web.iterator();
+                        // End javarifier changes
 
                         while(j.hasNext())
                         {
@@ -250,9 +267,9 @@ public class LocalSplitter extends BodyTransformer
                 }
             }
         }
-
-        if(soot.options.Options.v().time())
+        
+        if(Options.v().time())
             Timers.v().splitPhase2Timer.end();
 
-    }
+    }   
 }

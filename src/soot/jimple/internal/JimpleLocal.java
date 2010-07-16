@@ -4,7 +4,6 @@
 // Modified toString to also print enclosing method's name and class name
 ////
 
-
 /* Soot - a J*va Optimization Framework
  * Copyright (C) 1999 Patrick Lam
  *
@@ -25,7 +24,7 @@
  */
 
 /*
- * Modified by the Sable Research Group and others 1997-1999.
+ * Modified by the Sable Research Group and others 1997-1999.  
  * See the 'credits' file distributed with Soot for the complete list of
  * contributors.  (Soot is distributed at http://www.sable.mcgill.ca/soot)
  */
@@ -33,28 +32,20 @@
 
 package soot.jimple.internal;
 
-import java.util.Iterator;
-import java.util.List;
+import soot.tagkit.*;
+import soot.*;
+import soot.jimple.*;
+import soot.baf.*;
+import soot.util.*;
+import java.util.*;
 
+// Begin javarifier changes
 import javarifier.JrType;
-import soot.AbstractUnit;
-import soot.Local;
-import soot.Scene;
-import soot.SootMethod;
-import soot.SootResolver;
-import soot.Type;
-import soot.Unit;
-import soot.UnitPrinter;
-import soot.baf.Baf;
-import soot.jimple.ConvertToBaf;
-import soot.jimple.JimpleToBafContext;
-import soot.jimple.JimpleValueSwitch;
-import soot.tagkit.Tag;
-import soot.util.Switch;
+// End javarifier changes
 
 public class JimpleLocal implements Local, ConvertToBaf
 {
-    // begin Javarifier added
+    // Begin javarifier changes
     private JrType jrType;
       private boolean gone = false;
     /**
@@ -108,9 +99,7 @@ public class JimpleLocal implements Local, ConvertToBaf
     public void setSlotIndex(int slotIndex) { this.slotIndex = slotIndex; }
     public int getStart_pc() { return start_pc; }
     public void setStart_pc(int start_pc) { this.start_pc = start_pc; }
-    
-    // end Javarifier added
-
+    // End javarifier changes
 
     String name;
     Type type;
@@ -133,7 +122,7 @@ public class JimpleLocal implements Local, ConvertToBaf
     }
 
     /** Returns a hash code for this object, consistent with structural equality. */
-    public int equivHashCode()
+    public int equivHashCode() 
     {
         return name.hashCode() * 101 + type.hashCode() * 17;
     }
@@ -141,12 +130,14 @@ public class JimpleLocal implements Local, ConvertToBaf
     /** Returns a clone of the current JimpleLocal. */
     public Object clone()
     {
+        // Begin javarifier changes
         JimpleLocal jl = new JimpleLocal(name, type);
         jl.isSourceLocal = isSourceLocal;
         jl.slotIndex = slotIndex;
         jl.start_pc = start_pc;
         jl.length = length;
         return jl;
+        // End javarifier changes
     }
 
     /** Returns the name of this object. */
@@ -167,7 +158,7 @@ public class JimpleLocal implements Local, ConvertToBaf
         if(!isHashCodeChosen)
         {
             // Set the hash code for this object
-
+            
             if(name != null & type != null)
                 fixedHashCode = name.hashCode() + 19 * type.hashCode();
             else if(name != null)
@@ -176,13 +167,13 @@ public class JimpleLocal implements Local, ConvertToBaf
                 fixedHashCode = type.hashCode();
             else
                 fixedHashCode = 1;
-
+                
             isHashCodeChosen = true;
         }
-
+        
         return fixedHashCode;
     }
-
+    
     /** Returns the type of this local. */
     public Type getType()
     {
@@ -197,9 +188,11 @@ public class JimpleLocal implements Local, ConvertToBaf
 
     public String toString()
     {
+        // Begin javarifier changes
         return  meth != null ? meth.getDeclaringClass().getName()+"."+meth.getName()+"."+getName() : getName();
+        // End javarifier changes
     }
-
+    
     public void toString(UnitPrinter up) {
         up.local(this);
     }
@@ -214,7 +207,7 @@ public class JimpleLocal implements Local, ConvertToBaf
         ((JimpleValueSwitch) sw).caseLocal(this);
     }
 
-    public void convertToBaf(JimpleToBafContext context, List out)
+    public void convertToBaf(JimpleToBafContext context, List<Unit> out)
     {
 	Unit u = Baf.v().newLoadInst(getType(),context.getBafLocalOfJimpleLocal(this));
         out.add(u);
@@ -228,3 +221,4 @@ public class JimpleLocal implements Local, ConvertToBaf
 
     private int number = 0;
 }
+
