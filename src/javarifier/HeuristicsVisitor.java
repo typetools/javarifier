@@ -291,8 +291,8 @@ public class HeuristicsVisitor extends SceneVisitor {
     //  and it records fields/writes.
     FieldUsageSwitch fus = new FieldUsageSwitch(this, body.getMethod());
 
-    for (Stmt stmt : (Collection<Stmt>) body.getUnits()) {
-      stmt.apply(fus);
+    for (Unit stmt : body.getUnits()) {
+      ((Stmt) stmt).apply(fus);
     }
   }
 

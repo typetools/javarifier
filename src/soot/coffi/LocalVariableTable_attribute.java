@@ -30,10 +30,10 @@
 
 
 package soot.coffi;
-import soot.*;
 
-import java.io.*;
+// Begin javarifier changes
 import javarifier.util.Pair;
+// End javarifier changes
 
 /** A debugging attribute, this gives the names of local variables
  * within blocks of bytecode.
@@ -52,12 +52,14 @@ class LocalVariableTable_attribute extends attribute_info {
     * @return name of the local variable, or <i>null</i> if not found.
     * @see LocalVariableTable_attribute#getLocalVariableName(cp_info[], int, int)
     */
+   // Begin javarifier changes
    public String getLocalVariableName(cp_info constant_pool[],int idx) {
       return getLocalVariableEntry(constant_pool,idx).second;
    }
    public Pair<local_variable_table_entry, String> getLocalVariableEntry(cp_info constant_pool[],int idx) {
       return getLocalVariableEntry(constant_pool,idx,-1);
    }
+   // End javarifier changes
    /** Locates the name of the given local variable for the specified code offset.
     * @param constant_pool constant pool for the associated class.
     * @param idx local variable index.
@@ -66,12 +68,13 @@ class LocalVariableTable_attribute extends attribute_info {
     * @return name of the local variable, or <i>null</i> if not found.
     * @see LocalVariableTable_attribute#getLocalVariableName(cp_info[], int)
     */
+   // Begin javarifier changes
    public String getLocalVariableName(cp_info constant_pool[],int idx,int code) {
       return getLocalVariableEntry(constant_pool,idx,code).second;
    }
    public Pair<local_variable_table_entry, String> getLocalVariableEntry(cp_info constant_pool[],int idx,int code) {
+   // End javarifier changes
       local_variable_table_entry e;
-      CONSTANT_Utf8_info cu;
       int i;
 
       // G.v().out.println("searching for name of local: " + idx + "at: " + code);
@@ -90,7 +93,9 @@ class LocalVariableTable_attribute extends attribute_info {
 	    {
 	       String n = ((CONSTANT_Utf8_info)(constant_pool[e.name_index])).convert();
 	       if (Util.v().isValidJimpleName(n))
-		   return new Pair<local_variable_table_entry, String>(e, n);
+           // Begin javarifier changes
+           return new Pair<local_variable_table_entry, String>(e, n);
+           // End javarifier changes
 	       else
 		   return null;
 	    }
