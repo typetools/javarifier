@@ -64,8 +64,8 @@ public class Main {
   public static boolean help = false;
 
   /**
-   * Print the extended usage message which includes verbosity and debugging
-   * options but not internal options.
+   * Print the extended usage message.
+   * This includes verbosity and debugging options but not internal options.
    */
   @Option ("-H Print extended usage message (includes debugging options)")
   public static boolean allHelp = false;
