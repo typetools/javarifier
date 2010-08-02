@@ -3,10 +3,10 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/asmx"/>
-	<classpathentry kind="lib" path="lib/jasminclasses-2.2.3.jar"/>
-	<classpathentry kind="lib" path="lib/polyglotclasses-1.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/sootclasses-2.2.3.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/scene-lib"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/plume-lib"/>
+	<classpathentry kind="lib" path="lib/jasminclasses-2.4.0.jar"/>
+	<classpathentry kind="lib" path="lib/polyglotclasses-1.3.5.jar"/>
+	<classpathentry kind="lib" path="lib/sootclasses-2.4.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
