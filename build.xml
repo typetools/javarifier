@@ -310,17 +310,16 @@
     <javadoc sourcefiles="src/javarifier/Main.java" failonerror="true">
       <doclet name="plume.OptionsDoclet"> 
         <param name="-docfile" value="javarifier.html"/>
-        <param name="-outfile" value="javarifier.html-tmp"/>
       </doclet>
       <classpath refid="libpath"/>
       <arg value="-quiet"/>
+      <arg value="-i"/>
       <!--
       This parameter is a hack. The bootclasspath does not include the classpath
       specified on the command-line, hence we prepend it ourselves.
       -->
       <arg value="-J-Xbootclasspath/p:${libpath}"/>
     </javadoc>
-    <move file="javarifier.html-tmp" tofile="javarifier.html"/>
   </target>
 
   <!-- WARNING:  This target does not re-compile!  (It does not depend on
