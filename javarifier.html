@@ -537,46 +537,46 @@ indicate whether the tests passed or failed.
 <ul>
   <li>General Options
     <ul>
-      <li> <b>-h --help=&lt;boolean&gt;</b>. Print the short usage message.  This does not include verbosity or
- debugging options. <i>Aliases</i>: <b>-help</b>. [default false]</li>
-      <li> <b>-H --allHelp=&lt;boolean&gt;</b>. Print the extended usage message which includes verbosity and debugging
+      <li><b>-h</b> <b>-help</b> <b>--help=</b><i>boolean</i>. Print the short usage message.  This does not include verbosity or
+ debugging options. [default false]</li>
+      <li><b>-H</b> <b>--allHelp=</b><i>boolean</i>. Print the extended usage message which includes verbosity and debugging
  options but not internal options. [default false]</li>
-      <li> <b>-v --version=&lt;boolean&gt;</b>. Print the current Javarifier version. <i>Aliases</i>: <b>-version</b>. [default false]</li>
+      <li><b>-v</b> <b>-version</b> <b>--version=</b><i>boolean</i>. Print the current Javarifier version. [default false]</li>
     </ul>
   </li>
   <li>Execution Options
     <ul>
-      <li> <b>-Q --reallyQuiet=&lt;boolean&gt;</b>. Be quiet, do not print much information. [default false]</li>
-      <li> <b>--applyHeuristics=&lt;boolean&gt;</b>. Use heuristics to set fields that should be excluded from the abstract
+      <li><b>-Q</b> <b>--reallyQuiet=</b><i>boolean</i>. Be quiet, do not print much information. [default false]</li>
+      <li><b>--applyHeuristics=</b><i>boolean</i>. Use heuristics to set fields that should be excluded from the abstract
  state of the object to be assignable. See: <code>javarifier.HeuristicsVisitor</code>. [default false]</li>
-      <li> <b>--openWorld=&lt;boolean&gt;</b>. Forces all public method return types to have mutable (or polyread) types
+      <li><b>--openWorld=</b><i>boolean</i>. Forces all public method return types to have mutable (or polyread) types
  and all public fields to have this-mutable types. See: <code>javarifier.OpenWorld</code>. [default false]</li>
     </ul>
   </li>
   <li>Input Options
     <ul>
-      <li> <b>--programCPEntries=&lt;string&gt;</b>. Specify a colon-delimited classpath other than <b>$CLASSPATH</b> for
+      <li><b>--programCPEntries=</b><i>string</i>. Specify a colon-delimited classpath other than <b>$CLASSPATH</b> for
  Javarifier to use to lookup classes being analyzed. [no default]</li>
-      <li> <b>--stubCPEntries=&lt;string&gt;</b>. Specify a colon-delimited classpath to look for stub classes. All
- classes found in this path will be treated as stub classes. <i>Aliases</i>: <b>--stubs</b>. [no default]</li>
-      <li> <b>--worldCPEntries=&lt;string&gt;</b>. By default, Javarifier assumes that the JDK classes required by the
+      <li><b>--stubs</b> <b>--stubCPEntries=</b><i>string</i>. Specify a colon-delimited classpath to look for stub classes. All
+ classes found in this path will be treated as stub classes. [no default]</li>
+      <li><b>--world</b> <b>--worldCPEntries=</b><i>string</i>. By default, Javarifier assumes that the JDK classes required by the
  program classes on which you are running Javarifier are in your
  <b>$CLASSPATH</b>. If this is not the case, or if you wish to reference
  a different JDK, you may use this followed by the colon-delimited
- classpath of your JDK jarfiles. <i>Aliases</i>: <b>--world</b>. [no default]</li>
-      <li> <b>--useWorldAsStubs=&lt;boolean&gt;</b>. If false (the default), then missing stubs cause Javarifier to halt.
+ classpath of your JDK jarfiles. [no default]</li>
+      <li><b>--useWorldAsStubs=</b><i>boolean</i>. If false (the default), then missing stubs cause Javarifier to halt.
  If true, then Javarifier uses world classes as stubs, after both the
  default stub entries and the stub entries. [default false]</li>
-      <li> <b>--extraAnnotationInputFile=&lt;filename&gt;</b>. If specified, annotations will be loaded from this annotation file as well as
+      <li><b>--extraAnnotationInputFile=</b><i>filename</i>. If specified, annotations will be loaded from this annotation file as well as
  the class files for all classes in the Soot scene. [no default]</li>
     </ul>
   </li>
   <li>Output Options
     <ul>
-      <li> <b>--outputFile=&lt;filename&gt;</b>. By default, all output, including the results, is printed to standard
+      <li><b>--output</b> <b>--outputFile=</b><i>filename</i>. By default, all output, including the results, is printed to standard
  out. Use this option to output the results to an annotation file. Note
- that Javarifier outputs the results for all classes into a single file. <i>Aliases</i>: <b>--output</b>. [no default]</li>
-      <li> <b>--outputFormat=&lt;format&gt;</b>. Specify the output annotation format. Valid options are:
+ that Javarifier outputs the results for all classes into a single file. [no default]</li>
+      <li><b>--outputFormat=</b><i>format</i>. Specify the output annotation format. Valid options are:
  <ul>
  <li><b>annotationIndexFile</b>, alias <b>index</b>
  <li><b>scenePrinter</b>
@@ -584,36 +584,36 @@ indicate whether the tests passed or failed.
  <li><b>shay</b>
  </ul>
  See <code>javarifier.OutputFormat</code> for a description of these formats. [default index]</li>
-      <li> <b>--outputFilterLocals=&lt;boolean&gt;</b>. Tells <code>ScenePrinter</code> to omit a bunch of uninteresting local
+      <li><b>--outputFilterLocals=</b><i>boolean</i>. Tells <code>ScenePrinter</code> to omit a bunch of uninteresting local
  variables from the output.  These are generally the ones that cannot be
  annotated in source code, so this option is good for comparing
  Javarifier results with manual annotations. [default false]</li>
-      <li> <b>--outputLimitKind=&lt;construct&gt;</b>. Tells <code>ScenePrinter</code> to output "omitted" instead of the type for
+      <li><b>--outputLimitKind=</b><i>construct</i>. Tells <code>ScenePrinter</code> to output "omitted" instead of the type for
  elements not of the given construct.  The construct can be "field",
  "local", "parameter", "receiver", or "return".  Useful to study the
  types assigned to elements of each kind separately. [no default]</li>
-      <li> <b>--outputSortMembers=&lt;boolean&gt;</b>. Tells <code>ScenePrinter</code> to output fields and methods sorted by name
+      <li><b>--outputSortMembers=</b><i>boolean</i>. Tells <code>ScenePrinter</code> to output fields and methods sorted by name
  instead of by order of appearance in the class file.  If several methods
  have the same name, they are outputted in the order they appear in the
  class file. [default false]</li>
-      <li> <b>--outputMainClassFirst=&lt;boolean&gt;</b>. Tells <code>ScenePrinter</code> to output all the classes mentioned on the
+      <li><b>--outputMainClassFirst=</b><i>boolean</i>. Tells <code>ScenePrinter</code> to output all the classes mentioned on the
  command line (in the order of first mention on the command line) before
  all the other classes. [default false]</li>
-      <li> <b>--skipEmpty=&lt;boolean&gt;</b>. The skipEmpty flag indicates that annotations should not be outputted 
+      <li><b>--skipEmpty=</b><i>boolean</i>. The skipEmpty flag indicates that annotations should not be outputted 
  for empty code.  That is, there should be no annotations for interfaces
  and abstract methods. [default false]</li>
-      <li> <b>--includeImmutableClasses=&lt;boolean&gt;</b>. The includeImmutableClasses flag indicates that @ReadOnly annotations
+      <li><b>--includeImmutableClasses=</b><i>boolean</i>. The includeImmutableClasses flag indicates that @ReadOnly annotations
  should be output even for references that are of some type that is known
  to be @Unmodifiable, such as java.lang.String. [default false]</li>
     </ul>
   </li>
   <li>Utility Options (no inference)
     <ul>
-      <li> <b>--justPassThrough=&lt;boolean&gt;</b>. Do not perform inference.  Just read annotations (treating even program
+      <li><b>--justPassThrough=</b><i>boolean</i>. Do not perform inference.  Just read annotations (treating even program
  classes as fully annotated), expand defaults and @Unmodifiable, and write
  the results back out.  Use this mode to convert manual annotations to a
  form in which they can be compared to Javarifier annotations. [default false]</li>
-      <li> <b>--printStubs=&lt;boolean&gt;</b>. Do not perform inference.  Just output a list of classes for which stubs
+      <li><b>--printStubs=</b><i>boolean</i>. Do not perform inference.  Just output a list of classes for which stubs
  are needed to perform inference.  In the future, an option such as
  '-missingStubs' may be added which only outputs a list of stubs which are
  needed but missing. [default false]</li>
@@ -621,43 +621,43 @@ indicate whether the tests passed or failed.
   </li>
   <li>Verbosity Options
     <ul>
-      <li> <b>--dumpCauses=&lt;boolean&gt;</b>. The <code>-dumpCauses</code> flag enumerates the causes for each type
+      <li><b>--dumpCauses=</b><i>boolean</i>. The <code>-dumpCauses</code> flag enumerates the causes for each type
  qualifier Javarifier infers.  For each annotation this outputs the
  shortest-length inference chain.  See the section on
  <code>-dumpCauses</code> in the manual for more information. [default false]</li>
-      <li> <b>--dumpConstraints=&lt;boolean&gt;</b>. Dump the raw constraints generated by Javarifier during its inference
+      <li><b>--dumpConstraints=</b><i>boolean</i>. Dump the raw constraints generated by Javarifier during its inference
  process.  See the section on <code>-dumpConstraints</code> in the manual
  for information. [default false]</li>
-      <li> <b>--dumpResults=&lt;boolean&gt;</b>. Dump results. [default false]</li>
-      <li> <b>--dumpGeneratorConstraints=&lt;boolean&gt;</b>. Dump generator constraints. See: <code>javarifier.ConstraintGenerator</code>. [default false]</li>
-      <li> <b>--dumpBoundGuards=&lt;boolean&gt;</b>. Dump bound guards. See: <code>javarifier.BoundGuarder</code>. [default false]</li>
-      <li> <b>--dumpParamCons=&lt;boolean&gt;</b>. Dump parameter constraints. See: <code>javarifier.ParameterConstraints</code>. [default false]</li>
-      <li> <b>--dumpStubCons=&lt;boolean&gt;</b>. Dump stub constraints. See: <code>javarifier.StubConstraints</code>. [default false]</li>
-      <li> <b>--dumpSubtypeCons=&lt;boolean&gt;</b>. Dump subtype constraints. See: <code>javarifier.SubtypeConstraints</code>. [default false]</li>
-      <li> <b>--dumpOpenWorldCons=&lt;boolean&gt;</b>. Dump open world constraints. See: <code>javarifier.OpenWorld</code>. [default false]</li>
+      <li><b>--dumpResults=</b><i>boolean</i>. Dump results. [default false]</li>
+      <li><b>--dumpGeneratorConstraints=</b><i>boolean</i>. Dump generator constraints. See: <code>javarifier.ConstraintGenerator</code>. [default false]</li>
+      <li><b>--dumpBoundGuards=</b><i>boolean</i>. Dump bound guards. See: <code>javarifier.BoundGuarder</code>. [default false]</li>
+      <li><b>--dumpParamCons=</b><i>boolean</i>. Dump parameter constraints. See: <code>javarifier.ParameterConstraints</code>. [default false]</li>
+      <li><b>--dumpStubCons=</b><i>boolean</i>. Dump stub constraints. See: <code>javarifier.StubConstraints</code>. [default false]</li>
+      <li><b>--dumpSubtypeCons=</b><i>boolean</i>. Dump subtype constraints. See: <code>javarifier.SubtypeConstraints</code>. [default false]</li>
+      <li><b>--dumpOpenWorldCons=</b><i>boolean</i>. Dump open world constraints. See: <code>javarifier.OpenWorld</code>. [default false]</li>
     </ul>
   </li>
   <li>Debugging Options
     <ul>
-      <li> <b>--debugLocalSplitting=&lt;boolean&gt;</b>. Debug local splitting. See: <code>soot.toolkits.scalar.LocalSplitter</code>. [default false]</li>
-      <li> <b>--debugStubs=&lt;boolean&gt;</b>. Debug stubs. [default false]</li>
-      <li> <b>--debugResolver=&lt;boolean&gt;</b>. Debug signature resolver. See: <code>javarifier.TypeInitializer</code>. [default false]</li>
-      <li> <b>--debugResolve=&lt;boolean&gt;</b>. Debug Soot resolver. See: <code>soot.SootResolver</code>. [default false]</li>
-      <li> <b>--debugTypeInference=&lt;boolean&gt;</b>. Debug type inference. See: <code>javarifier.TypeInferencer</code>. [default false]</li>
-      <li> <b>--debugBoundGuarder=&lt;boolean&gt;</b>. Debug bound guarder. See: <code>javarifier.BoundGuarder</code>. [default false]</li>
-      <li> <b>--debugSubtyping=&lt;boolean&gt;</b>. Debug subtyping. See: <code>javarifier.ConstraintManager</code>. [default false]</li>
-      <li> <b>--debugConstraintGeneration=&lt;boolean&gt;</b>. Debug constraint generation. See: <code>javarifier.ConstraintGenerator</code>, <code>javarifier.ConstraintManager</code>. [default false]</li>
-      <li> <b>--debugConstraints=&lt;boolean&gt;</b>. Debug constraints. See: <code>javarifier.ConstraintTracker#printCauses</code>. [default false]</li>
-      <li> <b>--debugSigParser=&lt;boolean&gt;</b>. Debug signature parser. See: <code>javarifier.JVMLSigParser</code>. [default false]</li>
-      <li> <b>--debugConstraintIncorporating=&lt;boolean&gt;</b>. Debug constraint incorporating. See: <code>javarifier.Incorporater</code>. [default false]</li>
-      <li> <b>--debugAnnotationLoading=&lt;boolean&gt;</b>. Debug annotation loading. See: <code>javarifier.AnnotationScene</code>. [default false]</li>
-      <li> <b>--debugAnnotationStoring=&lt;boolean&gt;</b>. Debug annotation storing. See: <code>javarifier.AnnotationStorer</code>. [default false]</li>
+      <li><b>--debugLocalSplitting=</b><i>boolean</i>. Debug local splitting. See: <code>soot.toolkits.scalar.LocalSplitter</code>. [default false]</li>
+      <li><b>--debugStubs=</b><i>boolean</i>. Debug stubs. [default false]</li>
+      <li><b>--debugResolver=</b><i>boolean</i>. Debug signature resolver. See: <code>javarifier.TypeInitializer</code>. [default false]</li>
+      <li><b>--debugResolve=</b><i>boolean</i>. Debug Soot resolver. See: <code>soot.SootResolver</code>. [default false]</li>
+      <li><b>--debugTypeInference=</b><i>boolean</i>. Debug type inference. See: <code>javarifier.TypeInferencer</code>. [default false]</li>
+      <li><b>--debugBoundGuarder=</b><i>boolean</i>. Debug bound guarder. See: <code>javarifier.BoundGuarder</code>. [default false]</li>
+      <li><b>--debugSubtyping=</b><i>boolean</i>. Debug subtyping. See: <code>javarifier.ConstraintManager</code>. [default false]</li>
+      <li><b>--debugConstraintGeneration=</b><i>boolean</i>. Debug constraint generation. See: <code>javarifier.ConstraintGenerator</code>, <code>javarifier.ConstraintManager</code>. [default false]</li>
+      <li><b>--debugConstraints=</b><i>boolean</i>. Debug constraints. See: <code>javarifier.ConstraintTracker#printCauses</code>. [default false]</li>
+      <li><b>--debugSigParser=</b><i>boolean</i>. Debug signature parser. See: <code>javarifier.JVMLSigParser</code>. [default false]</li>
+      <li><b>--debugConstraintIncorporating=</b><i>boolean</i>. Debug constraint incorporating. See: <code>javarifier.Incorporater</code>. [default false]</li>
+      <li><b>--debugAnnotationLoading=</b><i>boolean</i>. Debug annotation loading. See: <code>javarifier.AnnotationScene</code>. [default false]</li>
+      <li><b>--debugAnnotationStoring=</b><i>boolean</i>. Debug annotation storing. See: <code>javarifier.AnnotationStorer</code>. [default false]</li>
     </ul>
   </li>
   <li>Internal Options
     <ul>
-      <li> <b>--defaultStubCPEntries=&lt;string&gt;</b>. Set the default classpath for stub classes. [no default]</li>
-      <li> <b>--defaultWorldCPEntries=&lt;string&gt;</b>. Set the default classpath for JDK jarfiles. [no default]</li>
+      <li><b>--defaultStubCPEntries=</b><i>string</i>. Set the default classpath for stub classes. [no default]</li>
+      <li><b>--defaultWorldCPEntries=</b><i>string</i>. Set the default classpath for JDK jarfiles. [no default]</li>
     </ul>
   </li>
 </ul>
