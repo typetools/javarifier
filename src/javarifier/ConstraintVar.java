@@ -34,8 +34,8 @@ public class ConstraintVar {
      * Non-null if this was mutable to start with -- no constraint had to
      * be fired to make this mutable.
      */
-
     private SourceCause sourceCause;
+
     /**
      * Null if this is not yet known to be mutable.
      * Non-null if this is known to be mutable:
