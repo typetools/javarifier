@@ -169,7 +169,7 @@ For <b>Windows</b>, add the directory to your
 <code>PATH</code> system
 variable by going to
 
-<pre> Control Panel -> System -> Advanced -> Environment Variables </pre>
+<pre> Control Panel &rarr; System &rarr; Advanced &rarr; Environment Variables </pre>
 
 <p>
 From there, find the <code> PATH </code> variable under &ldquo;System variables&rdquo;
@@ -227,7 +227,7 @@ via the <a href="#using-world"><code>-world</code> option</a>.)
 -->
 
 <pre>
-javarifier myPackage.myClassTwo -programCPEntries /path/to/classes1:/path/to/classes2
+javarifier myPackage.myClassTwo --programCPEntries /path/to/classes1:/path/to/classes2
 </pre>
 
 <p>
@@ -236,7 +236,7 @@ These two examples are identical:
 
 <pre>
 javarifier myPackage.myClassTwo
-javarifier myPackage.myClassTwo -programCPEntries $CLASSPATH
+javarifier myPackage.myClassTwo --programCPEntries $CLASSPATH
 </pre>
 
 
@@ -250,7 +250,7 @@ Note that Javarifier outputs the results for all classes into a single
 file.  For example:
 </p>
 
-<pre>javarifier myPackage.myClassOne myPackage.myClassTwo -output myPackage.jaif</pre>
+<pre>javarifier myPackage.myClassOne myPackage.myClassTwo --output myPackage.jaif</pre>
 
 
 <h3 id="using-world">Specifying library jarfiles</h3>
@@ -266,7 +266,7 @@ different JDK, you may use the <code>-world</code> option, followed by
 the classpath of your JDK jarfiles.  For example:
 </p>
 
-<pre>javarifier myPackage.myClassOne myPackage.myClassTwo -world /jdk1.7.0/jre/lib/rt.jar:/jdk1.7.0/jre/lib/resources.jar:/jdk1.7.0/jre/lib/all-other-jars.jar</pre>
+<pre>javarifier myPackage.myClassOne myPackage.myClassTwo --world /jdk1.7.0/jre/lib/rt.jar:/jdk1.7.0/jre/lib/resources.jar:/jdk1.7.0/jre/lib/all-other-jars.jar</pre>
 
 
 <h3 id="using-stubs">Using stub classes</h3>
@@ -284,7 +284,7 @@ fully-annotated Javari classes), use the <code>-stubs</code> argument,
     found in that classpath will be treated as stub classes.  For
     example:
 </p>
-    <pre><code> javarifier myPackage.myClassOne myPackage.myClassTwo -stubs /path/to/stubs/dir:/path/to/stubs.jar</code></pre>
+    <pre><code> javarifier myPackage.myClassOne myPackage.myClassTwo --stubs /path/to/stubs/dir:/path/to/stubs.jar</code></pre>
 
 <p>
 If no stub class is available for a particular
@@ -319,7 +319,7 @@ may affect the end results of Javarifier.  To apply these heuristics, use
 the <code>-applyHeuristics</code> flag, as follows:
 </p>
 
-<pre>javarifier myPackage.myClass -applyHeuristics</pre>
+<pre>javarifier myPackage.myClass --applyHeuristics</pre>
 
 
 <p>
@@ -362,10 +362,10 @@ understanding the constraints.
 
 <p>
 To understand why Javarifier inferred a particular type qualifier, you can
-enumerate the causes for each qualifier. Use the <code>-dumpCauses</code> flag, as in:
+enumerate the causes for each qualifier. Use the <code>--dumpCauses</code> flag, as in:
 </p>
 
-<pre>javarifier myPackage.myClass -dumpCauses</pre>
+<pre>javarifier myPackage.myClass --dumpCauses</pre>
 
 <p>
 For each annotation, this outputs the shortest-length inference tree.  Each
@@ -378,42 +378,51 @@ Most nodes have 1 child, making most of the tree a chain.
 </p>
 
 <p>
-A <em>cause</em> consists of:
+A <em>cause</em> consists of three pieces of information, each printed on its own line:
 </p>
 <ul>
   <li>Constraint variable (not a program variable!) of a variable that is
       not readonly. (<b>TODO:</b> check that.)
       See below for an <a href="#print-constraint-variable">explanation of its formatting</a>.
 </li>
-  <li>Source code information:  location, and pseudocode for an assignment.
-    The location takes one of three forms:
+  <li>Source code information:  location and pseudocode.
     <ul>
-      <li>&ldquo;<b>ClassName</b>:<b>LineNumber</b>:&rdquo;, if debug
-          information (-g compiler flag) is available
+      <li>
+        The location takes one of three forms:
+        <ul>
+          <li>&ldquo;<b>ClassName</b>:<b>LineNumber</b>:&rdquo;, if debug
+              information (-g compiler flag) is available
+          </li>
+          <li>&ldquo;<b>ClassName</b>:: <b>methodName</b>&rdquo;, if debug information
+              is not available
+          </li>
+          <li>empty, if Javarifier has no source information for the constraint
+              (such as if the constraint came from a stub file, or subtyping
+              constraints in overriding relationships)
+          </li>
+        </ul>
       </li>
-      <li>&ldquo;<b>ClassName</b>:: <b>methodName</b>&rdquo;, if debug information
-          is not available
-      </li>
-      <li>empty, if Javarifier has no source information for the constraint
-          (such as if the constraint came from a stub file, or subtyping
-          constraints in overriding relationships)
+      <li>
+        The pseudocode represents an assignment of the form "$e1 = $e2;",
+        "name.field = $e2", "name[...] = $e3", etc., where $e<b>n</b> indicates a
+        variable introduced by Javarifier.
       </li>
     </ul>
-  The pseudocode is of the form "$e1 = $e2;",
-  "name.field = $e2", "name[...] = $e3", etc., where $e<b>n</b> indicates a
-    variable introduced by Javarifier.  
   </li>
   <li>An explanation.  This is sometimes the constraint that Javarifier generates
-  from the source code construct, and other times is an English description.</li>
+  from the source code construct, and other times is an English description.
+  A common explanation to appear at the end of a cause chain is 
+  "Stub", which indicates that the variable is known via a stub declaration.
+  </li>
 </ul>
 
 <p>
 When the explanation mentions one other variable (e.g., when the constraint
-leading to mutability of <tt>a</tt> is "b -> a"), the cause for the other
+leading to mutability of <tt>a</tt> is "b &rarr; a"), the cause for the other
 variable is  printed directly below, at the same indentation level.
 When the explanation mentions two other variables
 (e.g., when the constraint
-leading to mutability of <tt>a</tt> is "c -> b -> a"), the cause for the
+leading to mutability of <tt>a</tt> is "c &rarr; b &rarr; a"), the cause for the
 first variable is printed indented, after the word "GUARD", and the cause
 for the second
 variable is  printed directly below, without any extra indentation.
@@ -440,20 +449,16 @@ GUARD:
   Stub
 </pre>
 
-<p>
-A common explanation to appear at the end of a cause chain is 
-"Stub", which indicates that the variable is known via a stub declaration.
-</p>
 
 <h4 id="print-constraints">Printing constraints</h4>
 
 <p>
 If the cause tree is not sufficient to understand the output, then you can also
 examine the raw constraints generated by Javarifier during its inference
-process.  Use the <code>-dumpConstraints</code> flag, as in:
+process.  Use the <code>--dumpConstraints</code> flag, as in:
 </p>
 
-<pre>javarifier myPackage.myClass -dumpConstraints</pre>
+<pre>javarifier myPackage.myClass --dumpConstraints</pre>
 
 
 <p>
@@ -539,8 +544,8 @@ indicate whether the tests passed or failed.
     <ul>
       <li><b>-h</b> <b>-help</b> <b>--help=</b><i>boolean</i>. Print the short usage message.  This does not include verbosity or
  debugging options. [default false]</li>
-      <li><b>-H</b> <b>--allHelp=</b><i>boolean</i>. Print the extended usage message which includes verbosity and debugging
- options but not internal options. [default false]</li>
+      <li><b>-H</b> <b>--allHelp=</b><i>boolean</i>. Print the extended usage message.
+ This includes verbosity and debugging options but not internal options. [default false]</li>
       <li><b>-v</b> <b>-version</b> <b>--version=</b><i>boolean</i>. Print the current Javarifier version. [default false]</li>
     </ul>
   </li>
@@ -556,26 +561,26 @@ indicate whether the tests passed or failed.
   <li>Input Options
     <ul>
       <li><b>--programCPEntries=</b><i>string</i>. Specify a colon-delimited classpath other than <b>$CLASSPATH</b> for
- Javarifier to use to lookup classes being analyzed. [no default]</li>
+ Javarifier to use to lookup classes being analyzed.</li>
       <li><b>--stubs</b> <b>--stubCPEntries=</b><i>string</i>. Specify a colon-delimited classpath to look for stub classes. All
- classes found in this path will be treated as stub classes. [no default]</li>
+ classes found in this path will be treated as stub classes.</li>
       <li><b>--world</b> <b>--worldCPEntries=</b><i>string</i>. By default, Javarifier assumes that the JDK classes required by the
  program classes on which you are running Javarifier are in your
  <b>$CLASSPATH</b>. If this is not the case, or if you wish to reference
  a different JDK, you may use this followed by the colon-delimited
- classpath of your JDK jarfiles. [no default]</li>
+ classpath of your JDK jarfiles.</li>
       <li><b>--useWorldAsStubs=</b><i>boolean</i>. If false (the default), then missing stubs cause Javarifier to halt.
  If true, then Javarifier uses world classes as stubs, after both the
  default stub entries and the stub entries. [default false]</li>
       <li><b>--extraAnnotationInputFile=</b><i>filename</i>. If specified, annotations will be loaded from this annotation file as well as
- the class files for all classes in the Soot scene. [no default]</li>
+ the class files for all classes in the Soot scene.</li>
     </ul>
   </li>
   <li>Output Options
     <ul>
       <li><b>--output</b> <b>--outputFile=</b><i>filename</i>. By default, all output, including the results, is printed to standard
  out. Use this option to output the results to an annotation file. Note
- that Javarifier outputs the results for all classes into a single file. [no default]</li>
+ that Javarifier outputs the results for all classes into a single file.</li>
       <li><b>--outputFormat=</b><i>format</i>. Specify the output annotation format. Valid options are:
  <ul>
  <li><b>annotationIndexFile</b>, alias <b>index</b>
@@ -591,7 +596,7 @@ indicate whether the tests passed or failed.
       <li><b>--outputLimitKind=</b><i>construct</i>. Tells <code>ScenePrinter</code> to output "omitted" instead of the type for
  elements not of the given construct.  The construct can be "field",
  "local", "parameter", "receiver", or "return".  Useful to study the
- types assigned to elements of each kind separately. [no default]</li>
+ types assigned to elements of each kind separately.</li>
       <li><b>--outputSortMembers=</b><i>boolean</i>. Tells <code>ScenePrinter</code> to output fields and methods sorted by name
  instead of by order of appearance in the class file.  If several methods
  have the same name, they are outputted in the order they appear in the
@@ -621,10 +626,10 @@ indicate whether the tests passed or failed.
   </li>
   <li>Verbosity Options
     <ul>
-      <li><b>--dumpCauses=</b><i>boolean</i>. The <code>-dumpCauses</code> flag enumerates the causes for each type
+      <li><b>--dumpCauses=</b><i>boolean</i>. Enumerates the causes for each type
  qualifier Javarifier infers.  For each annotation this outputs the
- shortest-length inference chain.  See the section on
- <code>-dumpCauses</code> in the manual for more information. [default false]</li>
+ shortest-length inference chain.  See the manual section on
+ "Printing the cause tree". [default false]</li>
       <li><b>--dumpConstraints=</b><i>boolean</i>. Dump the raw constraints generated by Javarifier during its inference
  process.  See the section on <code>-dumpConstraints</code> in the manual
  for information. [default false]</li>
@@ -656,8 +661,8 @@ indicate whether the tests passed or failed.
   </li>
   <li>Internal Options
     <ul>
-      <li><b>--defaultStubCPEntries=</b><i>string</i>. Set the default classpath for stub classes. [no default]</li>
-      <li><b>--defaultWorldCPEntries=</b><i>string</i>. Set the default classpath for JDK jarfiles. [no default]</li>
+      <li><b>--defaultStubCPEntries=</b><i>string</i>. Set the default classpath for stub classes.</li>
+      <li><b>--defaultWorldCPEntries=</b><i>string</i>. Set the default classpath for JDK jarfiles.</li>
     </ul>
   </li>
 </ul>
@@ -729,7 +734,8 @@ Javarifier now works on the Eclipse compiler, which is over
       <li>Removed some unnecessary and uninformative messages from output.
       </li>
       <li>Command-line options now start with a double-dash prefix instead
-          of a single-dash prefix.  Run "javarifier -h" for a full list.
+          of a single-dash prefix.  Run "javarifier -h" for a list, or
+          "javarifier -H" for a full list.
       </li>
     </ul>
   </li>
@@ -738,7 +744,7 @@ Javarifier now works on the Eclipse compiler, which is over
 <hr/>
 
 <p>
-Last revised: June 17, 2010
+Last revised: August 27, 2010
 </p>
 
 </body>
