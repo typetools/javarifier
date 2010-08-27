@@ -203,14 +203,14 @@ following in its parent directory:
 
 <p>
 All of the classes being analyzed must be on the path specified by the
-<a href="#using-classpath">-programCPEntries</a> option, which defaults to
+<a href="#using-classpath">--programCPEntries</a> option, which defaults to
 $CLASSPATH.
 </p>
 
 <p>
 If you get an error "couldn't find class: ... (is your soot-class-path set
 properly?)", then the problem may be that you did not set
-<tt>-programCPEntries</tt>.
+<tt>--programCPEntries</tt>.
 </p>
 
 <!--
@@ -222,7 +222,7 @@ also load classes from other locations, such as the boot class path.
 An example is the classes in <code>jdk/jre/lib/jce.jar</code>.
 Therefore, you may need to add such jar files to CLASSPATH, or explicitly
 mention them on the javarifier command line
-via the <a href="#using-world"><code>-world</code> option</a>.)
+via the <a href="#using-world"><code>--world</code> option</a>.)
 </p>
 -->
 
@@ -245,7 +245,7 @@ javarifier myPackage.myClassTwo --programCPEntries $CLASSPATH
 <p>
 By default, all output, including the results, is printed to standard
 out.  To output the results to an <a href="http://types.cs.washington.edu/annotation-file-utilities/">annotation file</a>, use the
-<code>-output</code> option, followed by the name of the output file.
+<code>--output</code> option, followed by the name of the output file.
 Note that Javarifier outputs the results for all classes into a single
 file.  For example:
 </p>
@@ -262,7 +262,7 @@ the JDK and other libraries.
 By default, Javarifier assumes that those libraries are on your
 CLASSPATH.  For example, it assumes <code>rt.jar</code> is in your
 CLASSPATH.  If this is not the case, or if you wish to reference a
-different JDK, you may use the <code>-world</code> option, followed by
+different JDK, you may use the <code>--world</code> option, followed by
 the classpath of your JDK jarfiles.  For example:
 </p>
 
@@ -279,7 +279,7 @@ which Javarifier uses by default.
 
 <p>
 To inform Javari of additional stub classes (or
-fully-annotated Javari classes), use the <code>-stubs</code> argument,
+fully-annotated Javari classes), use the <code>--stubs</code> argument,
     followed by a classpath  to containing stub classes.  All classes
     found in that classpath will be treated as stub classes.  For
     example:
@@ -290,7 +290,7 @@ fully-annotated Javari classes), use the <code>-stubs</code> argument,
 If no stub class is available for a particular
 class, then Javarifier assumes that every reference in that class has
 <code>@Mutable</code> type.
-The <code>-printStubs</code> flag causes Javarifier not to perform
+The <code>--printStubs</code> flag causes Javarifier not to perform
 inference, but only to output a list of classes for which stubs are needed.
 </p>
 
@@ -316,7 +316,7 @@ be excluded from the abstract state of an object.  These heuristics may
 infer the <code>@Assignable</code>
 and <code>@Mutable</code> field annotations, and these annotations
 may affect the end results of Javarifier.  To apply these heuristics, use
-the <code>-applyHeuristics</code> flag, as follows:
+the <code>--applyHeuristics</code> flag, as follows:
 </p>
 
 <pre>javarifier myPackage.myClass --applyHeuristics</pre>
@@ -476,10 +476,10 @@ The Javarifier constraints are of three types:
     This constraint indicates that the receiver (<code>this</code>) of method
     <code>Graph.createGraph</code> must be mutable.
   </li>
-  <li>A line of the form "G: c1 -> c2" indicates that if the type in c1 is
+  <li>A line of the form "G: c1 -&gt; c2" indicates that if the type in c1 is
     mutable, then the type in c2 must be mutable.
   </li>
-  <li>A line of the form "GG: c1 => c2 -> c3" indicates that if the types
+  <li>A line of the form "GG: c1 =&gt; c2 -&gt; c3" indicates that if the types
     in both c1 and c2 are mutable, then the type in c3 must be mutable.
   </li>
 </ul>
@@ -711,10 +711,10 @@ Javarifier now works on the Eclipse compiler, which is over
     appear in ECOOP '08, which outlines the inference algorithm used by
     Javarifier.
     </li>
-    <li> Better documentation of the <code>-dumpConstraints</code>
+    <li> Better documentation of the <code>--dumpConstraints</code>
     command-line option and the format of its output.
     </li>
-    <li> Documented the <code>-printStubs</code> command-line option.
+    <li> Documented the <code>--printStubs</code> command-line option.
     </li>
     <li> Included a test suite for testing Javarifier installation.
     </li>
@@ -725,7 +725,7 @@ Javarifier now works on the Eclipse compiler, which is over
     <ul>
       <li>Implemented and documented the heuristics for excluding fields
            from the abstract state of an object.
-           See <a href="#using-heuristics"><code>-applyHeuristics</code></a>.
+           See <a href="#using-heuristics"><code>--applyHeuristics</code></a>.
       </li>
       <li>Refactored the package containing all the Javari annotations from
            <code>checkers.quals</code> to
