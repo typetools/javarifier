@@ -32,24 +32,14 @@ directory we will call JAVARI_ANNOTATION_WORKSPACE:
 BUILDING DEPENDENCIES
 =====================
 
-First, ensure that your JAVA_HOME environment variable is set.  Under unix:
+Set environment variables.
 
-        echo $JAVA_HOME
-
-If this isn't something reasonable like "/usr/lib/jvm/java-6-openjdk", then
-set it to your java home directory:
-
-	export JAVA_HOME="/usr/lib/jvm/java-6-openjdk"
-
-In order to properly run tests, and execute some tools, and utilize the
-checker framework, it is necessary that you also have the following
-environment variables set, for example:
-
+	export JAVA_HOME=$(dirname $(dirname $(readlink -f $(/usr/bin/which javac))))
         export JAVARI_ANNOTATION_WORKSPACE=$HOME/jsr308
         export CHECKERS=$JAVARI_ANNOTATION_WORKSPACE/checker-framework/checkers
 	export PATH=$CHECKERS/binary:$PATH
 
-Next, build each of the above projects in the order they were referenced above:
+Build each of the above projects in the order they were referenced above:
 
         cd jsr308-langtools/make
         ant
