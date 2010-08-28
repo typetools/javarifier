@@ -37,7 +37,6 @@ results: ../VerifyDiffs.class
 ${TESTNAME}.jaif: ../../javarifier.jar
 	${JAVARIFIER} \
 	--programCPEntries . \
-	--useWorldAsStubs \
 	--output $@ \
 	--outputFormat annotationIndexFile \
 	${MAINCLASS} \

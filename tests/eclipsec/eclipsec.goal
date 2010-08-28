@@ -51982,12 +51982,12 @@ class Parser:
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
                 inner-type 0:
         local 0 #0+45:
             type: @checkers.javari.quals.ReadOnly
         local 1 #0+45:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
                 inner-type 0:
         local 2 #9+36:
             type: @checkers.javari.quals.Mutable
@@ -68080,14 +68080,14 @@ class Messages:
             type: @checkers.javari.quals.Mutable
         parameter #2:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.QReadOnly
         local 0 #0+119:
             type: @checkers.javari.quals.ReadOnly
         local 1 #0+119:
             type: @checkers.javari.quals.Mutable
         local 2 #0+119:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.QReadOnly
         local 3 #5+114:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0: @checkers.javari.quals.ReadOnly
@@ -68116,14 +68116,14 @@ class Messages$MessagesProperties:
         receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.QReadOnly
         parameter #1:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+58:
             type: @checkers.javari.quals.Mutable
         local 1 #0+58:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+                inner-type 0: @checkers.javari.quals.QReadOnly
         local 2 #0+58:
             type: @checkers.javari.quals.ReadOnly
         local 3 #7+51:
