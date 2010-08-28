@@ -2041,7 +2041,7 @@ class ConnectionManager:
             type: @checkers.javari.quals.Mutable
                 inner-type 0: @checkers.javari.quals.ReadOnly
         local 3 #14+138:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 4 #20+132:
             type: @checkers.javari.quals.ReadOnly
         local 5 #26+126:
@@ -2125,11 +2125,11 @@ class ConnectionManager:
         return:
         receiver: @checkers.javari.quals.Mutable
         parameter #0:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 0 #0+466:
             type: @checkers.javari.quals.Mutable
         local 1 #0+466:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 2 #8+458:
             type: @checkers.javari.quals.ReadOnly
         local 3 #20+445:
@@ -2173,14 +2173,14 @@ class ConnectionManager:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0: @checkers.javari.quals.ReadOnly
         parameter #1:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 0 #0+56:
             type: @checkers.javari.quals.Mutable
         local 1 #0+56:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0: @checkers.javari.quals.ReadOnly
         local 2 #0+56:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 5 #3+52:
         local 3 #16+30:
             type: @checkers.javari.quals.ReadOnly
@@ -3614,13 +3614,13 @@ class Page:
 
     method getContentType()Ljava/lang/String;:
         return: @checkers.javari.quals.ReadOnly
-        receiver: @checkers.javari.quals.Mutable
+        receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+25:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 3 #3+22:
             type: @checkers.javari.quals.ReadOnly
         local 1 #8+17:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 2 #17+6:
             type: @checkers.javari.quals.ReadOnly
 
@@ -3667,7 +3667,7 @@ class Page:
             type: @checkers.javari.quals.ReadOnly
 
     method constructUrl(Ljava/lang/String;Ljava/lang/String;)Ljava/net/URL;:
-        return: @checkers.javari.quals.Mutable
+        return: @checkers.javari.quals.ReadOnly
         receiver: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
@@ -3704,7 +3704,7 @@ class Page:
         local 4 #41+3:
             type: @checkers.javari.quals.ReadOnly
         local 3 #51+6:
-            type: @checkers.javari.quals.Mutable
+            type: @checkers.javari.quals.ReadOnly
         local 4 #57+3:
             type: @checkers.javari.quals.ReadOnly
         local 5 #62+3:
