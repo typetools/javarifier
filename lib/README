@@ -1,0 +1,5 @@
+# javari/javarifier/lib contains three jarfiles containing Soot, downloaded
+# from http://www.sable.mcgill.ca/soot/
+# These are not in src/soot, since that directory only contains the classes
+# we modified.  Alternatively, all of these classes could have been added
+# into that directory, but there is no need.
