@@ -17,7 +17,9 @@ tests/**/*.log
 tests/*.jaif
 tests/**/*.jaif
 sootOutput
+
 bin/**/*.class
+.compile-timestamp
 
 bin/soot
 src/soot

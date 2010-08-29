@@ -14,6 +14,7 @@ TOPLEVEL_DIFFS := $(patsubst %.goal, %.diff, $(wildcard *.goal))
 TOPLEVEL_TYPECHECK_DIFFS :=  $(patsubst %.annotated.goal, %.typecheck.diff, $(wildcard *.annotated.goal))
 
 JAVA_FILES := $(wildcard *.java)
+JAVARIFIER_JAVA_FILES := $(wildcard ../src/*.java)
 
 JAVARIFIER ?= ../scripts/javarifier
 JAVAC ?= $(CURDIR)/../../jsr308-langtools/dist/bin/javac
@@ -98,12 +99,19 @@ results: VerifyDiffs.class
 VerifyDiffs.class : VerifyDiffs.java
 	@$(JAVAC) VerifyDiffs.java
 
+# Only compile if a .java file has changed since the last compilation.
+# (The Ant file is not smart enough to do this yet.)
+../.compile-timestamp: $(JAVARIFIER_JAVA_FILES)
+	(cd /homes/gws/mernst/research/types/javarifier; ant -e bin)
+
 # Actually runs the Javarifier to create the inferences.
 .PRECIOUS: %.jaif
+# Depending on ../bin doesn't work; the directory isn't updated when a file
+# in it is updated, only when one is added.
 # TODO: Add
 #	$(shell cat $*.options) \
-# to the below command.  This will only affect OpenWorld.java for now
-%.jaif: %.class ../bin
+# to the below command.  This will only affect OpenWorld.java for now.
+%.jaif: %.class ../.compile-timestamp
 	rm -f $@
 	${JAVARIFIER} \
 	--programCPEntries . \
