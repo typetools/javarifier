@@ -500,23 +500,14 @@ An example of a constraint variable is:
 
 <pre><code>  &lt;Graph.createGraph.this: UNKNOWN Graph[] MUTABLE&gt;</code></pre>
 
+<p>
+It contains the following parts:
+</p>
+
 <ul>
   <li>
-The string "UNKNOWN Graph[]" indicates that the mutability of the Graph
-has not yet been determined.  (Due to the unguarded constraint, it will be
-mutable in the end.)
-  </li>
-  <li>
-  ctx:m represents the romaybe-context that the constraint is referring
-  to; this
-  is used for inferring romaybe (see the paper cited below for details).
-  Often the constraints are the same across contexts, so
-  you might have the following two constraints:
-<pre>
-  U: &lt;HashEntry.setNext.this: UNKNOWN HashEntry[] ctx:m&gt;
-  U: &lt;HashEntry.setNext.this: UNKNOWN HashEntry[] ctx:r&gt;
-</pre>
-  </li>
+    The variable name from tho source code.
+  <ul>
   <li>
     For method receivers, the index -1 is used to refer to the receiver, as
   in the following constraint:
@@ -526,6 +517,27 @@ mutable in the end.)
   attribute.  Otherwise, they are named by their index (e.g., "e0"), as are temporary
   variables, as in:
 <pre>  U: &lt;Graph.createGraph.$e0: UNKNOWN Vertex[] ctx:r&gt;</pre>
+  </li>
+  </ul>
+  </li>
+  <li>
+The type, including mutability.  In this case, 
+the string "UNKNOWN Graph[]" indicates that the mutability of the Graph
+has not yet been determined.  (Due to the unguarded constraint, it will be
+mutable in the end.)
+  </li>
+  <li>
+  ctx:m represents the romaybe-context that the constraint is referring
+  to; this
+  is used for inferring romaybe (see the paper
+  <a href="http://www.cs.washington.edu/homes/mernst/pubs/infer-refimmutability-ecoop2008-abstract.html">"Inference
+of reference immutability"</a> for details).
+  Often the constraints are the same across contexts, so
+  you might have the following two constraints:
+<pre>
+  U: &lt;HashEntry.setNext.this: UNKNOWN HashEntry[] ctx:m&gt;
+  U: &lt;HashEntry.setNext.this: UNKNOWN HashEntry[] ctx:r&gt;
+</pre>
   </li>
 </ul>
 
@@ -706,10 +718,8 @@ Javarifier now works on the Eclipse compiler, which is over
     <li> Changed the <code>@RoMaybe</code> qualifier for parametric
     polymorphism over mutability to <code>@PolyRead</code>.
     </li>
-    <li> Changed the type rule for inferring <code>@PolyRead</code> to match an
-    updated version of <i>Inference of reference mutability</i>, to
-    appear in ECOOP '08, which outlines the inference algorithm used by
-    Javarifier.
+    <li> Changed the type rule for inferring <code>@PolyRead</code>.  Matches
+    <i>Inference of reference mutability</i>, which appears in ECOOP '08.
     </li>
     <li> Better documentation of the <code>--dumpConstraints</code>
     command-line option and the format of its output.
