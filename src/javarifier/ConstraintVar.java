@@ -29,11 +29,13 @@ public class ConstraintVar {
     // this is known to be mutable <=> ((sourceCause != null) || (constraintCause != null))
     // this is not known to be mutable <=> ((sourceCause == null) && (constraintCause == null))
     // this is known to be mutable <=> (partialGuardCauses == null)
+
     /**
      * Non-null if this was mutable to start with -- no constraint had to
      * be fired to make this mutable.
      */
     private SourceCause sourceCause;
+
     /**
      * Null if this is not yet known to be mutable.
      * Non-null if this is known to be mutable:
@@ -41,6 +43,7 @@ public class ConstraintVar {
      *  * If a double-partialGuardCauses constraint was fired to make this mutable, then the Pair is <non-null, non-null>.
      */
     private Pair<ConstraintVar, ConstraintVar> constraintCause;
+
     /** Records partial firing of double-guards (their transformation into
      * single guards).  Multiple double-guards may be turned into
      * single-guards before finally this is known to be mutable.
@@ -49,6 +52,21 @@ public class ConstraintVar {
      * information needed to determine if the double-guard is necessary.
      */
     private Map<ConstraintVar, ConstraintVar> partialGuardCauses;
+
+
+    private boolean checkRep() {
+        if (type == null || context == null) {
+            throw new RuntimeException("Null pointer: " + this);
+        }
+        if (! (((sourceCause != null) || (constraintCause != null))
+               ^ (partialGuardCauses == null))) {
+            throw new RuntimeException("Rep invariant violated: " + this);
+        }
+        if ((constraintCause != null) && (constraintCause.first == null)) {
+            throw new RuntimeException("constraintCause.first == null: " + this);
+        }
+        return true;
+    }
 
 
     private ConstraintVar(JrTyped value, MutType type, Context context) {
@@ -73,13 +91,6 @@ public class ConstraintVar {
         }
         interned.put(tmp, tmp);
         return tmp;
-    }
-
-    private boolean checkRep() {
-        if (type == null || context == null) {
-            throw new RuntimeException("Null pointer: " + this);
-        }
-        return true;
     }
 
     public JrTyped getValue() {
@@ -154,29 +165,30 @@ public class ConstraintVar {
         return sourceCause;
     }
 
-    // returns a string which represents the shortest cause
+    /** Returns a string that represents the shortest cause chain. */
     public String causeString() {
         StringBuilder buf = new StringBuilder();
         causeRec("", buf);
         return buf.toString();
     }
 
-    // utilized in the following function
+    /** Appends, to buf:  a, b, "\n". */
     protected void prefixedLine(StringBuilder buf, String a, String b) {
         buf.append(a); buf.append(b); buf.append("\n");
     }
 
-    /** Recursive helper for causeString, recursively prints the stored
+    /** Recursive helper for causeString.  Recursively prints the stored
      * causes, attempting to yield the shortest possible complete cause
      * chain for the variable.
      */
     protected void causeRec(String prefix, StringBuilder buf) {
-        String str = this.toString();
+        checkRep();
+
         prefixedLine(buf, prefix, this.noBracketString());
 
         if (constraintCause == null) {
-                buf.append(sourceCause == null ? "ERROR: NO CAUSE\n" :
-                           sourceCause.prefixedString(prefix + "  ") + "\n");
+            buf.append(sourceCause == null ? "ERROR: NO CAUSE\n" :
+                       sourceCause.prefixedString(prefix + "  ") + "\n");
         } else {
             //  Caveat: Rather than just assuming that a non-null
             // constraintCause.first indicates a double-guard, we
@@ -184,7 +196,7 @@ public class ConstraintVar {
             // this is preferable.
             SourceCause cause = ConstraintTracker.lookupCause(constraintCause.second, this);
             Boolean useDouble = false;
-            if(cause == null && constraintCause.first != null) {
+            if (cause == null && constraintCause.first != null) {
                 cause = ConstraintTracker.lookupCause(constraintCause, this);
                 useDouble = true;
             }
