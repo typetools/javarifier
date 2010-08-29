@@ -292,6 +292,8 @@
 <!--      <compilerarg value="-Xlint"/> -->
       <compilerarg value="-g"/>
     </javac>
+    <!-- let other tasks know when the compilation was last performed -->
+    <touch file=".compile-timestamp" />
   </target>
 
   <target name="javadoc" depends="init"
