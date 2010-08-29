@@ -285,10 +285,10 @@ public class Main {
   // end option group "Utility Options (no inference)"
 
   /**
-   * The <code>-dumpCauses</code> flag enumerates the causes for each type
+   * Enumerates the causes for each type
    * qualifier Javarifier infers.  For each annotation this outputs the
-   * shortest-length inference chain.  See the section on
-   * <code>-dumpCauses</code> in the manual for more information.
+   * shortest-length inference chain.  See the manual section on
+   * "Printing the cause tree".
    */
   @OptionGroup (value="Verbosity Options", unpublicized=true)
   @Option ("Dump shortest-length inference chain for each annotation")
