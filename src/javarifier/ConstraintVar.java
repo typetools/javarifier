@@ -54,6 +54,21 @@ public class ConstraintVar {
     private Map<ConstraintVar, ConstraintVar> partialGuardCauses;
 
 
+    private boolean checkRep() {
+        if (type == null || context == null) {
+            throw new RuntimeException("Null pointer: " + this);
+        }
+        if (! (((sourceCause != null) || (constraintCause != null))
+               ^ (partialGuardCauses == null))) {
+            throw new RuntimeException("Rep invariant violated: " + this);
+        }
+        if ((constraintCause != null) && (constraintCause.first == null)) {
+            throw new RuntimeException("constraintCause.first == null: " + this);
+        }
+        return true;
+    }
+
+
     private ConstraintVar(JrTyped value, MutType type, Context context) {
         this.value = value;
         this.type = type;
@@ -76,13 +91,6 @@ public class ConstraintVar {
         }
         interned.put(tmp, tmp);
         return tmp;
-    }
-
-    private boolean checkRep() {
-        if (type == null || context == null) {
-            throw new RuntimeException("Null pointer: " + this);
-        }
-        return true;
     }
 
     public JrTyped getValue() {
@@ -174,6 +182,8 @@ public class ConstraintVar {
      * chain for the variable.
      */
     protected void causeRec(String prefix, StringBuilder buf) {
+        checkRep();
+
         prefixedLine(buf, prefix, this.noBracketString());
 
         if (constraintCause == null) {
