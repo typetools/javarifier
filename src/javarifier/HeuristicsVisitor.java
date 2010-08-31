@@ -51,12 +51,9 @@ import soot.jimple.toolkits.callgraph.CallGraphBuilder;
  * To perform both of these steps, simply call applyHeuristics(Scene) on the
  * desired Scene.
  *
- * The current hueristics (from Jaime Quinonez's thesis at
- * javari/design/thesis-jaime
- * available from:
- * http://pag.csail.mit.edu/javari/
- * )
- *  that are implemented are:
+ * The current hueristics (from Jaime Quinonez's thesis, see
+ * http://groups.csail.mit.edu/pag/pubs/Quinonez2008-abstract.html
+ * ) that are implemented are:
  *   - (Only fields that are private and do not have the final keyword
  *      may be inferred to be assignable.  Non-private fields should not be
  *      assignable because they are already exposed outside of their

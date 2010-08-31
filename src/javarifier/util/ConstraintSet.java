@@ -19,7 +19,7 @@ import javarifier.Main;
  *
  * Refer to Jaime Quinonez's thesis (javari/design/thesis-jaime or
  * available online at:
- * <a href="http://pag.csail.mit.edu/javari">http://pag.csail.mit.edu/javari</a>
+ * <a href="http://groups.csail.mit.edu/pag/javari/">http://groups.csail.mit.edu/pag/javari/</a>
  * )
  * for a description of what these constraints represent in the program.
  * A "constraint variable" in the documentation (which is equivalent to
