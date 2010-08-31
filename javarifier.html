@@ -694,9 +694,10 @@ To build Javarifier from source, run the following commands:
 <ol>
   <li>Set environment variables.  Add the following to your
     <tt>~/.bashrc</tt> or equivalent, then log out and log back in:
+<!-- the defaulting for JAVA_HOME prevents setting it to $HOME/jsr308/jsr308-langtools/dist -->
 <pre>export JSR308=$HOME/jsr308
+export JAVA_HOME=${JAVA_HOME:-$(dirname $(dirname $(readlink -f $(/usr/bin/which javac))))}
 export PATH=$JSR308/jsr308-langtools/dist/bin:${PATH}
-export JAVA_HOME=$(dirname $(dirname $(readlink -f $(/usr/bin/which javac))))
 export CLASSPATH=${CLASSPATH}:$JAVA_HOME/lib/tools.jar:$JSR308/checker-framework/checkers/checkers.jar</pre>
   </li>
   <li>Obtain the source code.
@@ -716,8 +717,27 @@ cd $JSR308/annotation-tools
 ant
 cd $JSR308/javarifier
 ant jarfile</pre>
+      Alternatively, you can run all the above commands via one command line:
+<pre>cd $JSR308/jsr308-langtools/make && ant clean build-javac build-javap && cd $JSR308/checker-framework/checkers && ant dist all-tests && cd $JSR308/annotation-tools && ant && cd $JSR308/javarifier && ant jarfile</pre>
+    (This is better than pasting all the commands into a shell for two
+    reasons.  First, it halts if there is any error.  Second, <tt>ant</tt>
+    seems to swallow all typeahead.)
   </li>
 </ol>
+
+<p>
+Later, to update all your sources and rebuild them, you can run:
+<pre>
+cd $JSR308/jsr308-langtools
+hg pull -u
+cd $JSR308/checker-framework
+hg pull -u
+cd $JSR308/annotation-tools
+hg pull -u
+cd $JSR308/javarifier
+hg pull -u
+cd $JSR308/jsr308-langtools/make && ant clean build-javac build-javap && cd $JSR308/checker-framework/checkers && ant dist all-tests && cd $JSR308/annotation-tools && ant && cd $JSR308/javarifier && ant jarfile</pre>
+
 
 <p>
 Some additional notes appear in the <tt>README</tt> file.
@@ -799,13 +819,20 @@ Javarifier now works on the Eclipse compiler, which is over
            <code>checkers.quals</code> to
            <code>checkers.javari.quals</code>
       </li>
-      <li>Removed some unnecessary and uninformative messages from output.
-      </li>
       <li>Command-line options now start with a double-dash prefix instead
           of a single-dash prefix.  Run <tt>javarifier -h</tt> for a list, or
           <tt>javarifier -H</tt> for a full list.
       </li>
-      <li>Many small bug fixes.
+      <li>Improved diagnostic output (see <tt>--dumpCauses</tt>).
+          Removed some unnecessary and uninformative messages from output.
+      </li>
+      <li>Account for updates to scene library and Type Annotations specification.
+      </li>
+      <li>Add Eclipse .project and .classpath files.
+      </li>
+      <li>Many bug fixes to code, build files, and tests.
+      </li>
+      <li>Uses plume-lib.
       </li>
     </ul>
   </li>
