@@ -1,5 +1,5 @@
 #!/bin/sh
-# javarify: command-line interface for Javarifier
+# javarifier: command-line interface for Javarifier
 
 # usage: javarifier [options] classes
 
