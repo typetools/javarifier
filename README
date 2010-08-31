@@ -14,59 +14,9 @@ User documentation for Javarifier can be found at:
 Or on the web at:
   http://types.cs.washington.edu/javarifier
 
-The rest of this file is intended for people who wish to build Javarifier.
+The rest of this file is intended for Javarifier developers:  people who
+wish to build Javarifier and/or modify its source code.
 
-
-SETTING UP THE DIRECTORY STRUCTURE
-==================================
-
-For a complete source distribution, run the following commands, in a
-directory we will call JAVARI_ANNOTATION_WORKSPACE:
-
-  hg clone https://jsr308-langtools.googlecode.com/hg jsr308-langtools
-  hg clone https://annotation-tools.googlecode.com/hg annotation-tools
-  hg clone https://checker-framework.googlecode.com/hg checker-framework
-  hg clone https://javarifier.googlecode.com/hg javarifier
-
-
-BUILDING DEPENDENCIES
-=====================
-
-Set environment variables.
-
-	export JAVA_HOME=$(dirname $(dirname $(readlink -f $(/usr/bin/which javac))))
-        export JAVARI_ANNOTATION_WORKSPACE=$HOME/jsr308
-        export CHECKERS=$JAVARI_ANNOTATION_WORKSPACE/checker-framework/checkers
-	export PATH=$CHECKERS/binary:$PATH
-
-Build each of the above projects in the order they were referenced above:
-
-        cd jsr308-langtools/make
-        ant
-        cd ../../annotation-tools
-        ant
-        cd ../checker-framework/checkers
-        ant
-        cd ../../
-
-If any of these builds fail, consult that project's README file.
-
-BUILDING
-========
-
-After obtaining and building the dependencies, simply performing the
-following will build javarifier:
-
-        cd javarifier
-        ant bin
-
-The structure of the src/ and bin/ directories is such that Eclipse can
-understand the Javarifier as a project, overwrites class files in the same
-bin/ directory the build.xml script uses, and the build.xml file does not
-conflict with the .classpath and .project files that Eclipse uses.
-Therefore, you can safely use Eclipse for working on the Javarifier, but
-before committing code changes you should make sure that the code compiles
-using the build script.
 
 
 DEPENDENCIES
@@ -130,10 +80,6 @@ classes to javarify, as in:
         javarifier myPackage.MyClass
 
 For all other uses and options, consult the user documentation.
-
-(It is assumed you have defined a single environment variable,
-JAVARI_ANNOTATION_WORKSPACE, that points to the directory containing
-javarifier/ and its siblings.)
 
 
 TEST SUITE
