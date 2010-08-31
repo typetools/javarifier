@@ -42,8 +42,8 @@ public enum Mutability {
      * @return the mutability corresponding to <code>annotationName</code>
      */
     public static Mutability lookup(String annotationName) {
-      // Don't want to lookup by name() "checkers.javari.quals.ReadOnly"
-      // Actually want to lookup by annotation():
+      // Don't want to look up by name() "checkers.javari.quals.ReadOnly"
+      // Actually want to look up by annotation():
       for (Mutability m : Mutability.values()) {
         if (m.annotationName.equals(annotationName)) {
           return m;

@@ -111,10 +111,10 @@ public class Main {
 
   /**
    * Specify a colon-delimited classpath other than <b>$CLASSPATH</b> for
-   * Javarifier to use to lookup classes being analyzed.
+   * Javarifier to use to look up classes being analyzed.
    */
   @OptionGroup ("Input Options")
-  @Option ("Specify a classpath to use to lookup classes being analyzed")
+  @Option ("Specify a classpath to use to look up classes being analyzed")
   public static String programCPEntries = null;
 
   public static String getProgramCPEntries() {
@@ -277,8 +277,8 @@ public class Main {
   /**
    * Do not perform inference.  Just output a list of classes for which stubs
    * are needed to perform inference.  In the future, an option such as
-   * '-missingStubs' may be added which only outputs a list of stubs which are
-   * needed but missing.
+   * <tt>--missingStubs</tt> may be added, which only outputs a list of stubs
+   * that are needed but missing.
    */
   @Option ("Output a list of stub classes needed to perform inference")
   public static boolean printStubs = false;
