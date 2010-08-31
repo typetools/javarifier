@@ -57,8 +57,8 @@ To make a Javarifier distribution:
     are up-to-date.
  3. Synchronize the version number in javarifier.html to the version number
     in javarifier.Main.versionString (in src/javarifier/Main.java )
- 4. Run 'ant web' to create the distribution (javarifier.zip) and copy it
-    and the user documentation to http://types.cs.washington.edu/javarifier .
+ 4. Run 'ant web'.  This copies the distribution (javarifier.zip) and the
+    user documentation to http://types.cs.washington.edu/javarifier .
 
 
 RUNNING
