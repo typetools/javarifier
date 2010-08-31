@@ -164,7 +164,7 @@
     </delete>
   </target>
 
-  <target name="zipfile" depends="jarfile"
+  <target name="zipfile" depends="jarfile,update-opt-doc"
     description="Build zipfile containing Javarifier distribution">
     <!-- Create a new directory containing all the files and then zip that
          directory, so that when the user unzips they extract exactly one
@@ -223,16 +223,16 @@
   <!-- Create zipfile and export it and instructions to webpage. -->
   <target name="web" depends="export" description="Same as export"/>
 
+  <!-- Alternately, if you have no direct access to /cse/www2/types, just run:n
+     scp javarifier.html javarifier.zip mernst@dada.cs.washington.edu:/cse/www2/types/javarifier/
+   -->
   <target name="export" depends="clean,zipfile"
     description="Build distribution and export it to website">
     <echo message="Export location: ${javari-www-javarifier}"/>
-    <echo message="Copying javarifier.zip"/>
-    <copy file="javarifier.zip"
-      todir="${javari-www-javarifier}"/>
-
-    <echo message="Copying javarifier.html as index.html"/>
-    <copy file="doc/javarifier.html"
-      tofile="${javari-www-javarifier}/index.html"/>
+    <copy todir="${javari-www-javarifier}">
+      <fileset file="javarifier.zip" />
+      <fileset file="javarifier.html" />
+    </copy>
     <echo message="Checking HTML links"/>
     <exec executable="/usr/bin/make">
       <arg value="-C"/>
