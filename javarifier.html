@@ -584,7 +584,7 @@ indicate whether the tests passed or failed.
   <li>Input Options
     <ul>
       <li><b>--programCPEntries=</b><i>string</i>. Specify a colon-delimited classpath other than <b>$CLASSPATH</b> for
- Javarifier to use to lookup classes being analyzed.</li>
+ Javarifier to use to look up classes being analyzed.</li>
       <li><b>--stubs</b> <b>--stubCPEntries=</b><i>string</i>. Specify a colon-delimited classpath to look for stub classes. All
  classes found in this path will be treated as stub classes.</li>
       <li><b>--world</b> <b>--worldCPEntries=</b><i>string</i>. By default, Javarifier assumes that the JDK classes required by the
@@ -833,6 +833,11 @@ Javarifier now works on the Eclipse compiler, which is over
       <li>Improved diagnostic output (see <tt>--dumpCauses</tt>).
           Removed some unnecessary and uninformative messages from output.
       </li>
+      <li>The Javarifier release no longer includes a copy of the annotated
+          JDK.  A Javarifier user should get the annotated JDK by installing the
+          <a href="http://types.cs.washington.edu/checker-framework/">Checker
+          Framework</a>. 
+      </li>
       <li>Account for updates to scene library and Type Annotations specification.
       </li>
       <li>Add Eclipse .project and .classpath files.
@@ -873,5 +878,39 @@ End:
  -->
 <!--  LocalWords:  Javarifier's Tschantz jarfiles programCPEntries LGraph JVML
  -->
-<!--  LocalWords:  romaybe LocalVariableTypeTable
+<!--  LocalWords:  romaybe LocalVariableTypeTable typecheck setenv myPackage cd
+ -->
+<!--  LocalWords:  myClassOne myClassTwo perl jaif myClass applyHeuristics TODO
+ -->
+<!--  LocalWords:  dumpCauses readonly ClassName LineNumber methodName hashMap
+ -->
+<!--  LocalWords:  MemberName dumpConstraints ctx classfile HashEntry boolean
+ -->
+<!--  LocalWords:  allHelp reallyQuiet openWorld polyread stubCPEntries jsr hg
+ -->
+<!--  LocalWords:  worldCPEntries useWorldAsStubs extraAnnotationInputFile src
+ -->
+<!--  LocalWords:  filename outputFile outputFormat annotationIndexFile dirname
+ -->
+<!--  LocalWords:  scenePrinter twoFiles outputFilterLocals outputLimitKind xml
+ -->
+<!--  LocalWords:  outputSortMembers outputMainClassFirst skipEmpty ReadOnly
+ -->
+<!--  LocalWords:  includeImmutableClasses justPassThrough printStubs readlink
+ -->
+<!--  LocalWords:  missingStubs dumpResults dumpGeneratorConstraints debugStubs
+ -->
+<!--  LocalWords:  dumpBoundGuards dumpParamCons dumpStubCons dumpSubtypeCons
+ -->
+<!--  LocalWords:  dumpOpenWorldCons debugLocalSplitting debugResolver mkdir
+ -->
+<!--  LocalWords:  debugResolve debugTypeInference debugBoundGuarder langtools
+ -->
+<!--  LocalWords:  debugSubtyping debugConstraintGeneration debugConstraints
+ -->
+<!--  LocalWords:  debugSigParser debugConstraintIncorporating javap jarfile
+ -->
+<!--  LocalWords:  debugAnnotationLoading debugAnnotationStoring typeahead
+ -->
+<!--  LocalWords:  defaultStubCPEntries defaultWorldCPEntries README
  -->
