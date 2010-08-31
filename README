@@ -1,10 +1,6 @@
-*****
-WARNING:
-Parts of this file are out of date.  Please update it if you find errors.
-*****
-
 BUILDING, DISTRIBUTING AND RUNNING JAVARIFIER
 =============================================
+
 
 JAVARIFIER USER DOCUMENTATION
 =============================
@@ -16,7 +12,6 @@ Or on the web at:
 
 The rest of this file is intended for Javarifier developers:  people who
 wish to build Javarifier and/or modify its source code.
-
 
 
 DEPENDENCIES
@@ -56,7 +51,7 @@ To make a Javarifier distribution:
  2. Manually verify that the release notes at the end of javarifier.html
     are up-to-date.
  3. Synchronize the version number in javarifier.html to the version number
-    in javarifier.Main.versionString (in src/javarifier/Main.java )
+    in javarifier.Main.versionString (in src/javarifier/Main.java).
  4. Run 'ant web'.  This copies the distribution (javarifier.zip) and the
     user documentation to http://types.cs.washington.edu/javarifier .
 
