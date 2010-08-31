@@ -58,7 +58,7 @@ variables are never used for side effects.
 Javarifier infers the immutability of every
 reference in a Java program,
 using the definition of the
-<a href="http://pag.csail.mit.edu/javari/">Javari</a> language.
+<a href="http://groups.csail.mit.edu/pag/javari/">Javari</a> language.
 In other words, it converts Java programs and
 libraries to Javari.
 </p>
@@ -99,7 +99,7 @@ file utilities</a>, which  inserts the annotations into either the
 <code>.class</code> files or the corresponding <code>.java</code>
 files.  If Javari annotations are inserted into the source code, they can
 be checked by the
-<a href="http://types.cs.washington.edu/checker-framework">Javari type
+<a href="http://types.cs.washington.edu/checker-framework/">Javari type
 checker</a>.
 </p>
 
@@ -122,7 +122,7 @@ that have already been annotated using stub classes.
 In earlier versions of Javari, methods must be invariant in the mutability
 of their parameters and return types.  The newer definition of Javari used
 by both Javarifier and the
-<a href="http://types.cs.washington.edu/checker-framework">Javari type checker</a>
+<a href="http://types.cs.washington.edu/checker-framework/">Javari type checker</a>
 permits covariant subtyping on parameters and contra-variant subtyping on
 return types.
 </p>
@@ -139,8 +139,10 @@ Windows command-line environment.
 </p>
 
 <p>
-It is assumed that you have already installed the Checker Framework, which
-you will need to type-check the Javari annotations that Javarifier outputs.
+It is assumed that you have already installed the
+<a href="http://types.cs.washington.edu/checker-framework/">Checker
+Framework</a>, which you will need to type-check the Javari annotations
+that Javarifier outputs.
 </p>
 
 <ol>
