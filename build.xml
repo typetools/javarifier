@@ -175,13 +175,13 @@
     <!-- Import anntoted jdk into subdirectory. -->
     <mkdir dir="${final-distribution-directory}/annotated-jdk"/>
     <copy todir="${final-distribution-directory}/annotated-jdk">
-       <fileset dir="${javari-annotated-jdk}/build" excludes="**/.svn/*"/>
+       <fileset dir="${javari-annotated-jdk}/build"/>
     </copy>
     <copy todir="${final-distribution-directory}/annotated-jdk">
-       <fileset dir="${javari-annotated-jdk}/src" excludes="**/.svn/*"/>
+       <fileset dir="${javari-annotated-jdk}/src"/>
     </copy>
     <copy todir="${final-distribution-directory}/annotated-jdk">
-       <fileset dir="${checkers}/build" excludes="**/.svn/*"/>
+       <fileset dir="${checkers}/build"/>
     </copy>
 
     <echo message="javarifier: ${javarifier}"/>
