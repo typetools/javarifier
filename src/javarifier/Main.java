@@ -53,7 +53,7 @@ public class Main {
   /**
    * The current Javarifier version.
    */
-  public static final String versionString = "Javarifier version 0.1.3";
+  public static final String versionString = "Javarifier version 0.1.4";
 
   /**
    * Print the short usage message.  This does not include verbosity or
