@@ -141,8 +141,15 @@ Windows command-line environment.
 <p>
 It is assumed that you have already installed the
 <a href="http://types.cs.washington.edu/checker-framework/">Checker
-Framework</a>, which you will need to type-check the Javari annotations
-that Javarifier outputs.
+Framework</a>.  You need the Checker Framework in order to type-check the
+Javari annotations that Javarifier outputs.
+</p>
+
+<p>
+You should install Javarifier in a sibling directory of the Checker
+Framework.  For instance, if  the Checker Framework is in
+<tt>~/jsr308/checkers/</tt>, you would put Javarifier in
+<tt>~/jsr308/javarifier/</tt>.
 </p>
 
 <ol>
@@ -168,11 +175,11 @@ variable.
 <ul>
 <li>
   For sh/bash, add to ~/.bashrc or ~/.bash_profile:
-<pre>export PATH=${PATH}:/path/to/javarifier/scripts/</pre>
+<pre>export PATH=${PATH}:${HOME}/jsr308/javarifier/scripts/</pre>
 </li>
 <li>
 For csh/tcsh, add to ~/.tcshrc or ~/.cshrc or ~/.login:
-<pre>setenv PATH=${PATH}:/path/to/javarifier/scripts/</pre>
+<pre>setenv PATH ${PATH}:${HOME}/jsr308/javarifier/scripts/</pre>
 </li>
 </ul>
 </li>
