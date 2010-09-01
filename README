@@ -82,7 +82,18 @@ To make a Javarifier distribution:
  4. Run 'ant web'.  This copies the distribution (javarifier.zip) and the
     user documentation to http://types.cs.washington.edu/javarifier .
  5. Test it.  From a brand-new account, run the following:
-      ...
+      ## Install Checker Framework
+      # Cut and paste from
+      # http://types.cs.washington.edu/checker-framework/#javac-installation
+      # (but maybe use a different URL, such as:  http://types.cs.washington.edu/homes/mernst/jsr308test/checker-framework/current/checkers.zip
+      # or: /home/cf/jsr308/checker-framework/tmp/1.1.1/checkers.zip )
+      ## Install Javarifier
+      cd ~/jsr308
+      # After release: http://types.cs.washington.edu/javarifier/javarifier.zip
+      cp ~cf/jsr308/javarifier/javarifier.zip .
+      unzip javarifier.zip
+      # Shouldn't have to add javarifier/scripts directory to my path.
+      ... run the tests ...
 
 
 JAVARIFIER DOCUMENTATION
