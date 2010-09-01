@@ -43,19 +43,6 @@ Projects to build Javarifier:
   backwards compatible.
 
 
-CREATING A DISTRIBUTION
-=======================
-
-To make a Javarifier distribution:
- 1. Run 'ant zipfile' to ensure that you can build javarifier.zip.
- 2. Manually verify that the release notes at the end of javarifier.html
-    are up-to-date.
- 3. Synchronize the version number in javarifier.html to the version number
-    in javarifier.Main.versionString (in src/javarifier/Main.java).
- 4. Run 'ant web'.  This copies the distribution (javarifier.zip) and the
-    user documentation to http://types.cs.washington.edu/javarifier .
-
-
 RUNNING
 =======
 
@@ -81,6 +68,21 @@ TEST SUITE
 ==========
 
 In brief, run 'ant run-tests'.  For details, see file tests/README.txt .
+
+
+CREATING A DISTRIBUTION
+=======================
+
+To make a Javarifier distribution:
+ 1. Run 'ant zipfile' to ensure that you can build javarifier.zip.
+ 2. Manually verify that the release notes at the end of javarifier.html
+    are up-to-date.
+ 3. Synchronize the version number in javarifier.html to the version number
+    in javarifier.Main.versionString (in src/javarifier/Main.java).
+ 4. Run 'ant web'.  This copies the distribution (javarifier.zip) and the
+    user documentation to http://types.cs.washington.edu/javarifier .
+ 5. Test it.  From a brand-new account, run the following:
+      ...
 
 
 JAVARIFIER DOCUMENTATION
