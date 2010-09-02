@@ -137,9 +137,13 @@
          directory. -->
 
     <echo></echo>
-    <exec executable="hg" failonerror="true">
+    <exec executable="hg" failonerror="true" outputproperty="hg-status-output">
       <arg value="status"/>
     </exec>
+    <condition property="hg-needs-commit"> 
+      <not><equals arg1="${hg-status-output}" arg2=""/></not>
+    </condition> 
+    <fail if="hg-needs-commit">Uncommited changes; do "hg commit" before "ant zipfile"</fail>
     <!-- Not necessary because so long as the changes are committed, they
     will show up in the zipfile.
     <exec executable="hg" resultproperty="hg-outgoing-exit-status">
@@ -183,9 +187,11 @@
     </zip>
 
     <!-- Delete temporary files once they have been zipped. -->
+<!-- Temporarily commented out for debugging
     <delete includeEmptyDirs="true">
       <fileset dir="${distdir}"/>
     </delete>
+-->
   </target>
 
 
