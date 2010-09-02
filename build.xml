@@ -191,7 +191,7 @@
   <!-- Create zipfile and export it and instructions to webpage. -->
   <target name="web" depends="export" description="Same as export"/>
 
-  <!-- Alternately, if you have no direct access to /cse/www2/types, just run:n
+  <!-- Alternately, if you have no direct access to /cse/www2/types, just run:
      scp javarifier.html javarifier.zip mernst@dada.cs.washington.edu:/cse/www2/types/javarifier/
    -->
   <target name="export" depends="clean,zipfile"
