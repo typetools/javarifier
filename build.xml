@@ -7,14 +7,11 @@
 
   <property environment="env"/>
 
-  <property name="temp" value="files"/>
-  <property name="temp-bin" value="${temp}/bin"/>
-  <property name="scripts" value="scripts"/>
+  <dirname property="ant.file.dir" file="${ant.file}"/>
 
-  <property name="final-distribution-directory"
-            value="javarifier"/>
-  <!-- All files will be placed into a final folder for distribution, and this
-       folder is zipped. -->
+  <property name="tmpdir" value="${java.io.tmpdir}/${user.name}/javarifier-temp" />
+  <property name="temp-bin" value="${tmpdir}/bin"/>
+  <property name="distdir" value="${tmpdir}/javarifier"/>
 
   <property name="javari-www"
     value="/afs/csail.mit.edu/group/pag/www/javari"/>
@@ -97,6 +94,7 @@
     description="Build jarfile containing all Javarifier classes.">
 
     <echo message="Using temporary directory: ${temp-bin}"/>
+    <delete dir="${temp-bin}"/>
     <mkdir dir="${temp-bin}"/>
 
     <echo message="Copying over necessary files to ${temp-bin}"/>
@@ -105,7 +103,7 @@
            dest="${temp-bin}"/>
     <!-- There is also a copy of plume in annotation-file-utilities; make
          ours override it. -->
-    <unjar src="${plume-lib-dir}/java/plume.jar"
+    <unjar src="${javarifier}/lib/plume.jar"
            dest="${temp-bin}"/>
     <unjar src="${javarifier}/lib/jasminclasses-2.4.0.jar"
            dest="${temp-bin}"/>
@@ -128,7 +126,7 @@
     <!-- Delete class files copied over -->
     <echo message="Deleting temporary directory: ${temp-bin}"/>
     <delete includeEmptyDirs="true">
-      <fileset dir="${temp}"/>
+      <fileset dir="${temp-bin}"/>
     </delete>
   </target>
 
@@ -138,55 +136,58 @@
          directory, so that when the user unzips they extract exactly one
          directory. -->
 
-    <mkdir dir="${final-distribution-directory}"/>
+    <echo></echo>
+    <exec executable="hg" failonerror="true">
+      <arg value="status"/>
+    </exec>
+    <!-- Not necessary because so long as the changes are committed, they
+    will show up in the zipfile.
+    <exec executable="hg" resultproperty="hg-outgoing-exit-status">
+      <arg value="outgoing"/>
+    </exec>
+    <condition property="hg-outgoing-exists"> 
+      <equals arg1="${hg-outgoing-exit-status}" arg2="0"/> 
+    </condition> 
+    <fail if="hg-outgoing-exit-status">push changes before making a zipfile</fail>
+    -->
 
-    <echo message="javarifier: ${javarifier}"/>
-    <!-- Import other libraries into subdirectory. -->
-    <mkdir dir="${final-distribution-directory}/lib"/>
-    <copy todir="${final-distribution-directory}/lib">
-      <fileset dir="${javarifier}/lib"/>
-    </copy>
-
-    <!-- Copy javarifier.jar into lib subdirectory. -->
-    <copy todir="${final-distribution-directory}/lib">
-       <fileset file="javarifier.jar"/>
-    </copy>
-
-    <!-- Copy javarifier source into src subdirectory. -->
-    <mkdir dir="${final-distribution-directory}/src"/>
-    <copy todir="${final-distribution-directory}/src">
-      <fileset dir="${javarifier}/src"/>
-    </copy>
-
-    <!-- Copy test folder into directory. -->
-    <copy todir="${final-distribution-directory}/tests">
-      <fileset dir="${javarifier}/tests"/>
-    </copy>
-
-    <!-- Copy scripts and instructions into directory. -->
-    <copy todir="${final-distribution-directory}">
-      <fileset dir="${scripts}"/>
-      <fileset file="javarifier.html"/>
-    </copy>
+    <delete dir="${distdir}"/>
+    <exec executable="hg">
+      <arg value="archive"/>
+      <arg value="${distdir}"/>
+    </exec>
+    <!-- Put symbolic links in place -->
+    <symlink link="${tmpdir}/annotation-tools"
+             resource="${ant.file.dir}/../annotation-tools"
+             overwrite="true" failonerror="true" />
+    <symlink link="${tmpdir}/checker-framework"
+             resource="${ant.file.dir}/../checker-framework"
+             overwrite="true" failonerror="true" />
+    <symlink link="${tmpdir}/jsr308-langtools"
+             resource="${ant.file.dir}/../jsr308-langtools"
+             overwrite="true" failonerror="true" />
+    <ant dir="${distdir}" target="jarfile" inheritAll="false"/>
+    <ant dir="${distdir}" target="update-opt-doc" inheritAll="false"/>
 
     <!-- In order for the UNIX tools to have the proper execution bit set,
          include them specifically with the right permissions.  Ant presently
          does not use the file's permissions themselves to do this. -->
     <zip destfile="javarifier.zip" compress="true">
       <fileset dir=".">
-        <include name="${final-distribution-directory}/"/>
-        <exclude name="${final-distribution-directory}/javarifier"/>
+        <include name="${distdir}/"/>
+        <exclude name="${distdir}/scripts/javarifier"/>
       </fileset>
       <zipfileset dir="." filemode="755">
-        <include name="${final-distribution-directory}/javarifier"/>
+        <include name="${distdir}/scripts/javarifier"/>
       </zipfileset>
     </zip>
 
     <!-- Delete temporary files once they have been zipped. -->
     <delete includeEmptyDirs="true">
-      <fileset dir="${final-distribution-directory}"/>
+      <fileset dir="${distdir}"/>
     </delete>
   </target>
+
 
   <!-- Create zipfile and export it and instructions to webpage. -->
   <target name="web" depends="export" description="Same as export"/>
@@ -214,10 +215,9 @@
           description="Remove all generated files.">
     <delete dir="bin"/>
 
-    <echo message="Deleting temporary directory: ${temp-bin}"/>
+    <echo message="Deleting temporary directories"/>
     <delete dir="${temp-bin}" includeEmptyDirs="true"/>
-    <delete dir="${temp}" includeEmptyDirs="true"/>
-    <delete dir="${final-distribution-directory}" includeEmptyDirs="true"/>
+    <delete dir="${distdir}" includeEmptyDirs="true"/>
 
     <echo message="Deleting previous distribution: javarifier.zip"/>
     <delete file="javarifier.zip"/>
