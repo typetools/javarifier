@@ -24,8 +24,6 @@ bin/**/*.class
 bin/soot
 src/soot
 
-lib/plume-lib
-
 ### regexp syntax rules
 syntax: regexp
 
