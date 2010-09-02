@@ -130,13 +130,12 @@
     </delete>
   </target>
 
-  <target name="zipfile" depends="jarfile,update-opt-doc"
+  <target name="zipfile" depends="init,jarfile,update-opt-doc"
     description="Build zipfile containing Javarifier distribution">
     <!-- Create a new directory containing all the files and then zip that
          directory, so that when the user unzips they extract exactly one
          directory. -->
 
-    <echo></echo>
     <exec executable="hg" failonerror="true" outputproperty="hg-status-output">
       <arg value="status"/>
     </exec>
@@ -171,27 +170,23 @@
              resource="${ant.file.dir}/../jsr308-langtools"
              overwrite="true" failonerror="true" />
     <ant dir="${distdir}" target="jarfile" inheritAll="false"/>
-    <ant dir="${distdir}" target="update-opt-doc" inheritAll="false"/>
-
-    <!-- In order for the UNIX tools to have the proper execution bit set,
+    <!-- In order for the Unix tools to have the proper execution bit set,
          include them specifically with the right permissions.  Ant presently
          does not use the file's permissions themselves to do this. -->
     <zip destfile="javarifier.zip" compress="true">
-      <fileset dir=".">
-        <include name="${distdir}/"/>
-        <exclude name="${distdir}/scripts/javarifier"/>
+      <fileset dir="${tmpdir}">
+        <include name="javarifier/**"/>
+        <exclude name="javarifier/scripts/javarifier"/>
       </fileset>
-      <zipfileset dir="." filemode="755">
-        <include name="${distdir}/scripts/javarifier"/>
+      <zipfileset dir="${tmpdir}" filemode="755">
+        <include name="javarifier/scripts/javarifier"/>
       </zipfileset>
     </zip>
 
     <!-- Delete temporary files once they have been zipped. -->
-<!-- Temporarily commented out for debugging
     <delete includeEmptyDirs="true">
       <fileset dir="${distdir}"/>
     </delete>
--->
   </target>
 
 
