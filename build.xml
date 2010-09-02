@@ -144,7 +144,7 @@
     <!-- Import other libraries into subdirectory. -->
     <mkdir dir="${final-distribution-directory}/lib"/>
     <copy todir="${final-distribution-directory}/lib">
-      <fileset dir="${javarifier}/lib" excludes="**/CVS/*"/>
+      <fileset dir="${javarifier}/lib"/>
     </copy>
 
     <!-- Copy javarifier.jar into lib subdirectory. -->
@@ -155,17 +155,17 @@
     <!-- Copy javarifier source into src subdirectory. -->
     <mkdir dir="${final-distribution-directory}/src"/>
     <copy todir="${final-distribution-directory}/src">
-      <fileset dir="${javarifier}/src" excludes="**/CVS/*"/>
+      <fileset dir="${javarifier}/src"/>
     </copy>
 
     <!-- Copy test folder into directory. -->
     <copy todir="${final-distribution-directory}/tests">
-      <fileset dir="${javarifier}/tests" excludes="**/CVS/*"/>
+      <fileset dir="${javarifier}/tests"/>
     </copy>
 
     <!-- Copy scripts and instructions into directory. -->
     <copy todir="${final-distribution-directory}">
-      <fileset dir="${scripts}" excludes="**/CVS/*"/>
+      <fileset dir="${scripts}"/>
       <fileset file="javarifier.html"/>
     </copy>
 

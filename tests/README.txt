@@ -25,8 +25,8 @@ To add a test for the class myClass, do the following:
 	   compiler, use the -g debugging option, i.e. 'javac -g myClass.java'
      - Put a file corresponding to the output you expect from the javarifier
 	   into a file named myClass.goal in this same directory
-     - Also, don't forget to add these tests to the cvs repository to make
-           them part of the test suite.
+     - Also, don't forget to add these tests to the version control
+           repository to make them part of the test suite.
 
 Note all classes must be in the default package.  This will change soon.
 
