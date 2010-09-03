@@ -23,6 +23,13 @@
   <property name="javari-www-javarifier"
     value="/cse/www2/types/javarifier"/>
 
+  <property name="jsr308-javac" "${annotations-compiler}/dist/bin/javac" />
+  <property name="checkers-javac" "${checkers}/binary/javac" />
+  <condition property="javac" value="${jsr308-javac}" else="${checkers-javac}">
+    <available file="${jsr308-javac}"/>
+  </condition>
+
+
   <!-- Determine locations of all projects, as per the property files. -->
   <target name="init-properties" description="Initialize required properties">
       <condition property="exists.build.properties">
@@ -300,11 +307,10 @@
           failonerror="true">
       <arg value="-C"/>
       <arg value="${javarifier}/tests"/>
-      <!-- TODO: This should use the first available among:
-            ${annotations-compiler}/dist/bin/javac
-            ${checkers}/binary/javac
-           rather than requiring jsr308-langtools to be installed. -->
-      <env key="JAVAC" file="${annotations-compiler}/dist/bin/javac" />
+      <!-- The Hudson job fails if the JAVAC environment variable is not
+           set.  When Ant is invoked from the command line, the Makefile
+           can infer a value if the JAVAC environment variable is not set. -->
+      <env key="JAVAC" file="${javac}" />
       <env key="CLASSPATH" path="${toString:libpath}"/>
       <env key="CHECKERS" path="${checkers}"/>
       <env key="AFU" path="${afu}"/>
@@ -323,7 +329,7 @@
       <arg value="showvars"/>
       <arg value="clean-toplevel"/>
       <arg value="toplevel-all"/>
-      <env key="JAVAC" file="${annotations-compiler}/dist/bin/javac" />
+      <env key="JAVAC" file="${javac}" />
       <env key="CLASSPATH" path="${checkers}/checkers.jar"/>
       <env key="CHECKERS" path="${checkers}"/>
       <env key="AFU" path="${afu}"/>
