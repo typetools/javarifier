@@ -9,6 +9,11 @@
 
   <dirname property="ant.file.dir" file="${ant.file}"/>
 
+  <exec executable="sh" outputproperty="computed.JAVA_HOME">
+    <arg value="-c" />
+    <arg value="dirname $(dirname $(dirname $(readlink -f $(/usr/bin/which java))))" />
+  </exec>
+
   <property name="tmpdir" value="${java.io.tmpdir}/${user.name}/javarifier-temp" />
   <property name="temp-bin" value="${tmpdir}/bin"/>
   <property name="distdir" value="${tmpdir}/javarifier"/>
@@ -51,7 +56,12 @@
         message="File ${user.build.properties} file not found."/>
       <property file="${user.build.properties}"/>
 
-      <fail unless="env.JAVA_HOME" message="JAVA_HOME is not set"/>
+      <condition property="java_home" value="${env.JAVA_HOME}" else="${computed.JAVA_HOME}">
+        <isset property="${env.JAVA_HOME}"/>
+      </condition>
+      <echo>java_home = ${java_home}</echo>
+
+      <fail unless="java_home" message="JAVA_HOME is not set"/>
 
       <path id="sourcepath">
         <pathelement location="src"/>
@@ -289,12 +299,14 @@
           failonerror="true">
       <arg value="-C"/>
       <arg value="${javarifier}/tests"/>
+<!-- Should also work with the Checker Framework version:
       <env key="JAVAC" file="${annotations-compiler}/dist/bin/javac" />
+-->
       <env key="CLASSPATH" path="${toString:libpath}"/>
       <env key="CHECKERS" path="${checkers}"/>
       <env key="AFU" path="${afu}"/>
-      <env key="JAVA_HOME" path="${env.JAVA_HOME}"/>
-      <env key="PATH" path="${afu}/scripts:${env.JAVA_HOME}/bin:${env.PATH}"/>
+      <env key="JAVA_HOME" path="${java_home}"/>
+      <env key="PATH" path="${afu}/scripts:${java_home}/bin:${env.PATH}"/>
     </exec>
   </target>
 
@@ -312,8 +324,8 @@
       <env key="CLASSPATH" path="${checkers}/checkers.jar"/>
       <env key="CHECKERS" path="${checkers}"/>
       <env key="AFU" path="${afu}"/>
-      <env key="JAVA_HOME" path="${env.JAVA_HOME}"/>
-      <env key="PATH" path="${afu}/scripts:${env.JAVA_HOME}/bin:${env.PATH}"/>
+      <env key="JAVA_HOME" path="${java_home}"/>
+      <env key="PATH" path="${afu}/scripts:${java_home}/bin:${env.PATH}"/>
     </exec>
   </target>
 
