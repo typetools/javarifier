@@ -85,12 +85,20 @@ To make a Javarifier distribution:
       ## Install Checker Framework
       # Cut and paste from
       # http://types.cs.washington.edu/checker-framework/#javac-installation
-      # (but maybe use a different checkers.zip URL, such as:  http://www.cs.washington.edu/homes/mernst/jsr308test/checker-framework/current/checkers.zip
-      # or: /home/cf/jsr308/checker-framework/tmp/1.1.1/checkers.zip )
+      # (but maybe use a different checkers.zip URL, such as:
+      ##  wget http://www.cs.washington.edu/homes/mernst/jsr308test/checker-framework/current/checkers.zip
+      #   cp -pf /home/cf/jsr308/checker-framework/tmp/1.1.1/checkers.zip .
+      ## Install Annotation File Utilities
+      cd ~/jsr308
+      # For released version: wget http://types.cs.washington.edu/annotation-file-utilities/annotation-tools.zip
+      cp -pf ~cf/jsr308/annotation-tools/annotation-file-utilities/annotation-tools.zip .
+      rm -rf annotation-tools
+      unzip annotation-tools.zip
       ## Install Javarifier
       cd ~/jsr308
       # After release: http://types.cs.washington.edu/javarifier/javarifier.zip
-      cp ~cf/jsr308/javarifier/javarifier.zip .
+      cp -pf ~cf/jsr308/javarifier/javarifier.zip .
+      rm -rf javarifier
       unzip javarifier.zip
       # Shouldn't have to add javarifier/scripts directory to my path.
       cd javarifier
