@@ -23,8 +23,8 @@
   <property name="javari-www-javarifier"
     value="/cse/www2/types/javarifier"/>
 
-  <property name="jsr308-javac" "${annotations-compiler}/dist/bin/javac" />
-  <property name="checkers-javac" "${checkers}/binary/javac" />
+  <property name="jsr308-javac" value="${annotations-compiler}/dist/bin/javac" />
+  <property name="checkers-javac" value="${checkers}/binary/javac" />
   <condition property="javac" value="${jsr308-javac}" else="${checkers-javac}">
     <available file="${jsr308-javac}"/>
   </condition>
