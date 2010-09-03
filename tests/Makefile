@@ -10,6 +10,8 @@
 # Not /bin/sh because dash does not support "set -o pipefail".
 SHELL = /bin/bash
 
+JAVA_HOME ?= $(shell $(dirname $(dirname $(readlink -f $(/usr/bin/which java)))))
+
 TOPLEVEL_DIFFS := $(patsubst %.goal, %.diff, $(wildcard *.goal))
 TOPLEVEL_TYPECHECK_DIFFS :=  $(patsubst %.annotated.goal, %.typecheck.diff, $(wildcard *.annotated.goal))
 
