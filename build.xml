@@ -299,9 +299,8 @@
           failonerror="true">
       <arg value="-C"/>
       <arg value="${javarifier}/tests"/>
-<!-- Should also work with the Checker Framework version:
+<!-- Should also work with the Checker Framework version: -->
       <env key="JAVAC" file="${annotations-compiler}/dist/bin/javac" />
--->
       <env key="CLASSPATH" path="${toString:libpath}"/>
       <env key="CHECKERS" path="${checkers}"/>
       <env key="AFU" path="${afu}"/>
