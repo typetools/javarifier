@@ -564,10 +564,11 @@ of reference immutability"</a> for details).
 
 <h3 id="test-suite"> Running the Javarifier test suite </h3>
 <p>
-A test suite is included with the release.  To run the test suite, go into the
-<code>tests/</code> directory and run <code>make</code>.  The output will
-indicate whether the tests passed or failed.
+To run the test suite, do <em>any one</em> of the following commands:
 </p>
+<pre>  ant run-tests
+  make -C tests
+  cd tests; make</pre>
 
 <h3 id="command-line-opts">Command-line options</h3>
 <!-- start options doc (DO NOT EDIT BY HAND) -->
