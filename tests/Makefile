@@ -10,6 +10,8 @@
 # Not /bin/sh because dash does not support "set -o pipefail".
 SHELL = /bin/bash
 
+JAVA_HOME ?= $(shell $(dirname $(dirname $(readlink -f $(/usr/bin/which java)))))
+
 TOPLEVEL_DIFFS := $(patsubst %.goal, %.diff, $(wildcard *.goal))
 TOPLEVEL_TYPECHECK_DIFFS :=  $(patsubst %.annotated.goal, %.typecheck.diff, $(wildcard *.annotated.goal))
 
@@ -17,7 +19,21 @@ JAVA_FILES := $(wildcard *.java)
 JAVARIFIER_JAVA_FILES := $(wildcard ../src/*.java)
 
 JAVARIFIER ?= ../scripts/javarifier
-JAVAC ?= $(CURDIR)/../../jsr308-langtools/dist/bin/javac
+JSR308_JAVAC = $(CURDIR)/../../jsr308-langtools/dist/bin/javac
+CHECKERS_JAVAC = $(CURDIR)/../../checker-framework/checkers/binary/javac
+
+ifndef JAVAC
+ifeq "$(wildcard ${JSR308_JAVAC})" "${JSR308_JAVAC}"
+  JAVAC = $(JSR308_JAVAC)
+else ifeq "$(wildcard ${CHECKERS_JAVAC})" "${CHECKERS_JAVAC}"
+  JAVAC = $(CHECKERS_JAVAC)
+else
+  $(error "JAVAC is not set, and couldn't find $(JSR308_JAVAC) or $(CHECKERS_JAVAC)")
+endif
+endif
+
+
+JAVA_HOME ?= $(shell $(dirname $(dirname $(dirname $(readlink -f $(/usr/bin/which java))))))
 
 AFU ?= ../../annotation-tools/annotation-file-utilities
 
