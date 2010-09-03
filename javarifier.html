@@ -138,28 +138,31 @@ The following instructions assume either a Unix-like (e.g., Linux, Mac) or
 Windows command-line environment.
 </p>
 
-<p>
-It is assumed that you have already installed the
-<a href="http://types.cs.washington.edu/checker-framework/">Checker
-Framework</a>.  You need the Checker Framework in order to type-check the
-Javari annotations that Javarifier outputs.
-</p>
-
-<p>
-You should install Javarifier in a sibling directory of the Checker
-Framework.  For instance, if  the Checker Framework is in
-<tt>~/jsr308/checkers/</tt>, you would put Javarifier in
-<tt>~/jsr308/javarifier/</tt>.
-</p>
-
 <ol>
+<li value="0">
+  Install the
+  <a href="http://types.cs.washington.edu/checker-framework/#installation">Checker
+  Framework</a> and the
+  <a href="http://types.cs.washington.edu/annotation-file-utilities/#installation">Annotation
+  File Utilities</a>, in sibling directories; for example,
+  <tt>~/jsr308/checker-framework/</tt> and <tt>~/jsr308/annotation-tools/</tt>.
+  <br />
+  Neither is strictly necessary to run Javarifier, but you almost certainly
+  want both of them.
+  Javarifier uses the Checker Framework's annotated JDK, when available.
+  You will use the Annotation File Utilities to insert Javarifier's output
+  into <tt>.java</tt> or <tt>.class</tt> files, and the Checker Framework
+  to type-check the Javari annotations in <tt>.java</tt> files.
+</li>
 <li>
   Download
   <a href="http://types.cs.washington.edu/javarifier/javarifier.zip">javarifier.zip</a>.
 </li>
 
 <li>
-  Unpack the distribution zipfile by running:
+  Unpack the distribution zipfile, as a sibling of the Checker Framework
+  (for example, in <tt>~/jsr308/javarifier/</tt>)
+  by running:
 
   <pre>  unzip javarifier.zip</pre>
 
@@ -653,8 +656,8 @@ To run the test suite, do <em>any one</em> of the following commands:
  form in which they can be compared to Javarifier annotations. [default false]</li>
       <li><b>--printStubs=</b><i>boolean</i>. Do not perform inference.  Just output a list of classes for which stubs
  are needed to perform inference.  In the future, an option such as
- '-missingStubs' may be added which only outputs a list of stubs which are
- needed but missing. [default false]</li>
+ <tt>--missingStubs</tt> may be added, which only outputs a list of stubs
+ that are needed but missing. [default false]</li>
     </ul>
   </li>
   <li>Verbosity Options
@@ -713,7 +716,7 @@ To build Javarifier from source, run the following commands:
     <tt>~/.bashrc</tt> or equivalent, then log out and log back in:
 <!-- the defaulting for JAVA_HOME prevents setting it to $HOME/jsr308/jsr308-langtools/dist -->
 <pre>export JSR308=$HOME/jsr308
-export JAVA_HOME=${JAVA_HOME:-$(dirname $(dirname $(readlink -f $(/usr/bin/which javac))))}
+export JAVA_HOME=${JAVA_HOME:-$(dirname $(dirname $(readlink -f $(/usr/bin/which java))))}
 export PATH=$JSR308/jsr308-langtools/dist/bin:${PATH}
 export CLASSPATH=${CLASSPATH}:$JAVA_HOME/lib/tools.jar:$JSR308/checker-framework/checkers/checkers.jar</pre>
   </li>
@@ -854,7 +857,7 @@ Javarifier now works on the Eclipse compiler, which is over
       </li>
       <li>Many bug fixes to code, build files, and tests.
       </li>
-      <li>Uses plume-lib.
+      <li>Uses plume-lib (<tt>plume.jar</tt> added to <tt>lib/</tt>).
       </li>
     </ul>
   </li>

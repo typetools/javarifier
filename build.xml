@@ -7,14 +7,16 @@
 
   <property environment="env"/>
 
-  <property name="temp" value="files"/>
-  <property name="temp-bin" value="${temp}/bin"/>
-  <property name="scripts" value="scripts"/>
+  <dirname property="ant.file.dir" file="${ant.file}"/>
 
-  <property name="final-distribution-directory"
-            value="javarifier"/>
-  <!-- All files will be placed into a final folder for distribution, and this
-       folder is zipped. -->
+  <exec executable="sh" outputproperty="computed.JAVA_HOME">
+    <arg value="-c" />
+    <arg value="dirname $(dirname $(dirname $(readlink -f $(/usr/bin/which java))))" />
+  </exec>
+
+  <property name="tmpdir" value="${java.io.tmpdir}/${user.name}/javarifier-temp" />
+  <property name="temp-bin" value="${tmpdir}/bin"/>
+  <property name="distdir" value="${tmpdir}/javarifier"/>
 
   <property name="javari-www"
     value="/afs/csail.mit.edu/group/pag/www/javari"/>
@@ -54,7 +56,12 @@
         message="File ${user.build.properties} file not found."/>
       <property file="${user.build.properties}"/>
 
-      <fail unless="env.JAVA_HOME" message="JAVA_HOME is not set"/>
+      <condition property="java_home" value="${env.JAVA_HOME}" else="${computed.JAVA_HOME}">
+        <isset property="${env.JAVA_HOME}"/>
+      </condition>
+      <echo>java_home = ${java_home}</echo>
+
+      <fail unless="java_home" message="JAVA_HOME is not set"/>
 
       <path id="sourcepath">
         <pathelement location="src"/>
@@ -64,10 +71,9 @@
         <pathelement location="src"/>
       </path>
 
-      <property name="plume-lib-dir" value="${javarifier}/lib/plume-lib"/>
-
       <path id="libpath">
-        <pathelement location="${plume-lib-dir}/java/plume.jar"/>
+        <!-- Make our copy of plume.jar override any subsequent ones on the path. -->
+        <pathelement location="${javarifier}/lib/plume.jar"/>
         <pathelement location="${javari-annotated-jdk}/bin"/>
 <!--        <pathelement location="${annotations-shared}/bin"/> -->
         <pathelement location="${checkers}/build"/>
@@ -88,42 +94,9 @@
       <ant dir="${annotations-compiler}" antfile="make/build.xml"
           inheritAll="false" target="build"/>
       <ant dir="${checkers}" target="build" inheritAll="false"/>
-      <!-- <antcall target="plume-lib"/> -->
   </target>
 
-  <target name="plume-lib" depends="init-properties"
-    description="Get and build the latest plume-lib from the Mercurial repository">
-    <available file="${plume-lib-dir}" type="dir" property="exists.plume-lib-dir"/>
-    <antcall target="plume-lib-clone"/>
-    <antcall target="plume-lib-update"/>
-    <antcall target="plume-lib-build"/>
-  </target>
-
-  <target name="plume-lib-clone" unless="exists.plume-lib-dir">
-    <echo>Cloning the latest plume-lib from the Mercurial repository...</echo>
-    <exec executable="hg" failonerror="true">
-      <arg value="clone"/>
-      <arg value="https://plume-lib.googlecode.com/hg/"/>
-      <arg value="${plume-lib-dir}"/>
-    </exec>
-  </target>
-
-  <target name="plume-lib-update" if="exists.plume-lib-dir">
-    <echo>Updating plume-lib from the Mercurial repository...</echo>
-    <exec executable="hg" dir="${plume-lib-dir}" failonerror="true">
-      <arg value="pull"/>
-      <arg value="-u"/>
-    </exec>
-  </target>
-
-  <target name="plume-lib-build">
-    <echo>Building plume-lib...</echo>
-    <exec executable="make" dir="${plume-lib-dir}/java" failonerror="true">
-      <arg value="jar"/>
-    </exec>
-  </target>
-
-  <target name="init" depends="init-properties, plume-lib, build-dependencies"
+  <target name="init" depends="init-properties, build-dependencies"
     description="Initialize properties and build required projects">
   </target>
 
@@ -131,20 +104,23 @@
     description="Build jarfile containing all Javarifier classes.">
 
     <echo message="Using temporary directory: ${temp-bin}"/>
+    <delete dir="${temp-bin}"/>
     <mkdir dir="${temp-bin}"/>
 
     <echo message="Copying over necessary files to ${temp-bin}"/>
 
-    <unjar src="${javarifier}/lib/jasminclasses-2.4.0.jar"
-	   dest="${temp-bin}"/>
-    <unjar src="${javarifier}/lib/polyglotclasses-1.3.5.jar"
-	   dest="${temp-bin}"/>
-    <unjar src="${javarifier}/lib/sootclasses-2.4.0.jar"
-	   dest="${temp-bin}"/>
     <unjar src="${afu}/annotation-file-utilities.jar"
-	   dest="${temp-bin}"/>
-    <unjar src="${plume-lib-dir}/java/plume.jar"
-       dest="${temp-bin}"/>
+           dest="${temp-bin}"/>
+    <!-- There is also a copy of plume in annotation-file-utilities; make
+         ours override it. -->
+    <unjar src="${javarifier}/lib/plume.jar"
+           dest="${temp-bin}"/>
+    <unjar src="${javarifier}/lib/jasminclasses-2.4.0.jar"
+           dest="${temp-bin}"/>
+    <unjar src="${javarifier}/lib/polyglotclasses-1.3.5.jar"
+           dest="${temp-bin}"/>
+    <unjar src="${javarifier}/lib/sootclasses-2.4.0.jar"
+           dest="${temp-bin}"/>
     <copy todir="${temp-bin}">
       <fileset dir="${javarifier}/bin" />
     </copy>
@@ -160,70 +136,74 @@
     <!-- Delete class files copied over -->
     <echo message="Deleting temporary directory: ${temp-bin}"/>
     <delete includeEmptyDirs="true">
-      <fileset dir="${temp}"/>
+      <fileset dir="${temp-bin}"/>
     </delete>
   </target>
 
-  <target name="zipfile" depends="jarfile,update-opt-doc"
+  <target name="zipfile" depends="init,jarfile,update-opt-doc"
     description="Build zipfile containing Javarifier distribution">
     <!-- Create a new directory containing all the files and then zip that
          directory, so that when the user unzips they extract exactly one
          directory. -->
 
-    <mkdir dir="${final-distribution-directory}"/>
+    <exec executable="hg" failonerror="true" outputproperty="hg-status-output">
+      <arg value="status"/>
+    </exec>
+    <condition property="hg-needs-commit"> 
+      <not><equals arg1="${hg-status-output}" arg2=""/></not>
+    </condition> 
+    <fail if="hg-needs-commit">Uncommited changes; do "hg commit" before "ant zipfile"</fail>
+    <!-- Not necessary because so long as the changes are committed, they
+    will show up in the zipfile.
+    <exec executable="hg" resultproperty="hg-outgoing-exit-status">
+      <arg value="outgoing"/>
+    </exec>
+    <condition property="hg-outgoing-exists"> 
+      <equals arg1="${hg-outgoing-exit-status}" arg2="0"/> 
+    </condition> 
+    <fail if="hg-outgoing-exit-status">push changes before making a zipfile</fail>
+    -->
 
-    <echo message="javarifier: ${javarifier}"/>
-    <!-- Import other libraries into subdirectory. -->
-    <mkdir dir="${final-distribution-directory}/lib"/>
-    <copy todir="${final-distribution-directory}/lib">
-      <fileset dir="${javarifier}/lib" excludes="**/CVS/*"/>
-    </copy>
-
-    <!-- Copy javarifier.jar into lib subdirectory. -->
-    <copy todir="${final-distribution-directory}/lib">
-       <fileset file="javarifier.jar"/>
-    </copy>
-
-    <!-- Copy javarifier source into src subdirectory. -->
-    <mkdir dir="${final-distribution-directory}/src"/>
-    <copy todir="${final-distribution-directory}/src">
-      <fileset dir="${javarifier}/src" excludes="**/CVS/*"/>
-    </copy>
-
-    <!-- Copy test folder into directory. -->
-    <copy todir="${final-distribution-directory}/tests">
-      <fileset dir="${javarifier}/tests" excludes="**/CVS/*"/>
-    </copy>
-
-    <!-- Copy scripts and instructions into directory. -->
-    <copy todir="${final-distribution-directory}">
-      <fileset dir="${scripts}" excludes="**/CVS/*"/>
-      <fileset file="javarifier.html"/>
-    </copy>
-
-    <!-- In order for the UNIX tools to have the proper execution bit set,
+    <delete dir="${distdir}"/>
+    <exec executable="hg">
+      <arg value="archive"/>
+      <arg value="${distdir}"/>
+    </exec>
+    <!-- Put symbolic links in place -->
+    <symlink link="${tmpdir}/annotation-tools"
+             resource="${ant.file.dir}/../annotation-tools"
+             overwrite="true" failonerror="true" />
+    <symlink link="${tmpdir}/checker-framework"
+             resource="${ant.file.dir}/../checker-framework"
+             overwrite="true" failonerror="true" />
+    <symlink link="${tmpdir}/jsr308-langtools"
+             resource="${ant.file.dir}/../jsr308-langtools"
+             overwrite="true" failonerror="true" />
+    <ant dir="${distdir}" target="jarfile" inheritAll="false"/>
+    <!-- In order for the Unix tools to have the proper execution bit set,
          include them specifically with the right permissions.  Ant presently
          does not use the file's permissions themselves to do this. -->
     <zip destfile="javarifier.zip" compress="true">
-      <fileset dir=".">
-        <include name="${final-distribution-directory}/"/>
-        <exclude name="${final-distribution-directory}/javarifier"/>
+      <fileset dir="${tmpdir}">
+        <include name="javarifier/**"/>
+        <exclude name="javarifier/scripts/javarifier"/>
       </fileset>
-      <zipfileset dir="." filemode="755">
-        <include name="${final-distribution-directory}/javarifier"/>
+      <zipfileset dir="${tmpdir}" filemode="755">
+        <include name="javarifier/scripts/javarifier"/>
       </zipfileset>
     </zip>
 
     <!-- Delete temporary files once they have been zipped. -->
     <delete includeEmptyDirs="true">
-      <fileset dir="${final-distribution-directory}"/>
+      <fileset dir="${distdir}"/>
     </delete>
   </target>
+
 
   <!-- Create zipfile and export it and instructions to webpage. -->
   <target name="web" depends="export" description="Same as export"/>
 
-  <!-- Alternately, if you have no direct access to /cse/www2/types, just run:n
+  <!-- Alternately, if you have no direct access to /cse/www2/types, just run:
      scp javarifier.html javarifier.zip mernst@dada.cs.washington.edu:/cse/www2/types/javarifier/
    -->
   <target name="export" depends="clean,zipfile"
@@ -243,13 +223,12 @@
 
   <!-- Remove all generated files. -->
   <target name="clean" depends="init-properties"
-	  description="Remove all generated files.">
+          description="Remove all generated files.">
     <delete dir="bin"/>
 
-    <echo message="Deleting temporary directory: ${temp-bin}"/>
+    <echo message="Deleting temporary directories"/>
     <delete dir="${temp-bin}" includeEmptyDirs="true"/>
-    <delete dir="${temp}" includeEmptyDirs="true"/>
-    <delete dir="${final-distribution-directory}" includeEmptyDirs="true"/>
+    <delete dir="${distdir}" includeEmptyDirs="true"/>
 
     <echo message="Deleting previous distribution: javarifier.zip"/>
     <delete file="javarifier.zip"/>
@@ -320,12 +299,14 @@
           failonerror="true">
       <arg value="-C"/>
       <arg value="${javarifier}/tests"/>
+<!-- Should also work with the Checker Framework version:
       <env key="JAVAC" file="${annotations-compiler}/dist/bin/javac" />
+-->
       <env key="CLASSPATH" path="${toString:libpath}"/>
       <env key="CHECKERS" path="${checkers}"/>
       <env key="AFU" path="${afu}"/>
-      <env key="JAVA_HOME" path="${env.JAVA_HOME}"/>
-      <env key="PATH" path="${afu}/scripts:${env.JAVA_HOME}/bin:${env.PATH}"/>
+      <env key="JAVA_HOME" path="${java_home}"/>
+      <env key="PATH" path="${afu}/scripts:${java_home}/bin:${env.PATH}"/>
     </exec>
   </target>
 
@@ -343,8 +324,8 @@
       <env key="CLASSPATH" path="${checkers}/checkers.jar"/>
       <env key="CHECKERS" path="${checkers}"/>
       <env key="AFU" path="${afu}"/>
-      <env key="JAVA_HOME" path="${env.JAVA_HOME}"/>
-      <env key="PATH" path="${afu}/scripts:${env.JAVA_HOME}/bin:${env.PATH}"/>
+      <env key="JAVA_HOME" path="${java_home}"/>
+      <env key="PATH" path="${afu}/scripts:${java_home}/bin:${env.PATH}"/>
     </exec>
   </target>
 

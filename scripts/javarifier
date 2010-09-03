@@ -30,7 +30,7 @@ AFU_BIN=${BINDIR}/../../annotation-tools/annotation-file-utilities/bin
 AFU_JAR=${BINDIR}/../../annotation-tools/annotation-file-utilities/annotation-file-utilities.jar
 JAVARIFIER_LIB=${JRDIR}/lib
 JAVARIFIER_BIN=${JRDIR}/bin
-PLUME_JAR=${JAVARIFIER_LIB}/plume-lib/java/plume.jar
+PLUME_JAR=${JAVARIFIER_LIB}/plume.jar
 
 # In a checkout, a developer might do "ant bin" instead of "ant jarfile".
 # Then, JAVARIFIER_BIN and AFU_JAR may be more recent than javarifier.jar.
