@@ -11,7 +11,7 @@
 
   <exec executable="sh" outputproperty="computed.JAVA_HOME">
     <arg value="-c" />
-    <arg value="dirname $(dirname $(dirname $(readlink -f $(/usr/bin/which java))))" />
+    <arg value="dirname $(dirname $(readlink -f $(/usr/bin/which java)))" />
   </exec>
 
   <property name="tmpdir" value="${java.io.tmpdir}/${user.name}/javarifier-temp" />
@@ -59,6 +59,7 @@
       <condition property="java_home" value="${env.JAVA_HOME}" else="${computed.JAVA_HOME}">
         <isset property="${env.JAVA_HOME}"/>
       </condition>
+      <!-- For debugging: -->
       <echo>java_home = ${java_home}</echo>
 
       <fail unless="java_home" message="JAVA_HOME is not set"/>
@@ -299,7 +300,10 @@
           failonerror="true">
       <arg value="-C"/>
       <arg value="${javarifier}/tests"/>
-<!-- Should also work with the Checker Framework version: -->
+      <!-- TODO: This should use the first available among:
+            ${annotations-compiler}/dist/bin/javac
+            ${checkers}/binary/javac
+           rather than requiring jsr308-langtools to be installed. -->
       <env key="JAVAC" file="${annotations-compiler}/dist/bin/javac" />
       <env key="CLASSPATH" path="${toString:libpath}"/>
       <env key="CHECKERS" path="${checkers}"/>
