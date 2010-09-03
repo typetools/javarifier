@@ -1,0 +1,60 @@
+package checkers.javari.quals:
+annotation @ReadOnly: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
+
+package checkers.javari.quals:
+annotation @Assignable: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
+
+package checkers.javari.quals:
+annotation @Mutable: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
+
+package :
+class AssignableField:
+
+    field d: @checkers.javari.quals.Assignable
+        type: @checkers.javari.quals.ReadOnly
+
+    method <init>()V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5:
+            type: @checkers.javari.quals.ReadOnly
+
+    method foo()LAssignableField$Day;:
+        return: @checkers.javari.quals.ReadOnly
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+23:
+            type: @checkers.javari.quals.ReadOnly
+
+package :
+class AssignableField$Day:
+
+    field day:
+
+    method <init>()V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5:
+            type: @checkers.javari.quals.ReadOnly
+
+    method <init>(I)V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        parameter #0:
+        local 0 #0+10:
+            type: @checkers.javari.quals.Mutable
+        local 1 #0+10:
+
+    method getDay()I:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5:
+            type: @checkers.javari.quals.ReadOnly
+
+    method setDay(I)V:
+        return:
+        receiver: @checkers.javari.quals.Mutable
+        parameter #0:
+        local 0 #0+6:
+            type: @checkers.javari.quals.Mutable
+        local 1 #0+6:
+
