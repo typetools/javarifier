@@ -34,7 +34,7 @@ ${TESTNAME}.jaif: ../../javarifier.jar
 	--programCPEntries . \
 	--useWorldAsStubs \
 	--output $@ \
-	--outputFormat annotationIndexFile \
+	--outputFormat jaif \
 	${MAINCLASS} \
 	2>&1 | tee ${TESTNAME}.log
 

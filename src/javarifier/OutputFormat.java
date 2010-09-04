@@ -33,7 +33,7 @@ public enum OutputFormat {
     /**
      * An annotation file showing types resugared as annotations.
      */
-    ANNOTATION_INDEX_FILE {
+    JAIF {
         @Override
         public void write(Scene scene, Writer out) throws IOException {
             Collection<SootClass> classes = collectClasses(scene);

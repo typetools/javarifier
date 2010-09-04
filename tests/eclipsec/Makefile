@@ -38,7 +38,7 @@ ${TESTNAME}.jaif: ../../javarifier.jar
 	${JAVARIFIER} \
 	--programCPEntries . \
 	--output $@ \
-	--outputFormat annotationIndexFile \
+	--outputFormat jaif \
 	${MAINCLASS} \
 	2>&1 | tee ${TESTNAME}.log
 

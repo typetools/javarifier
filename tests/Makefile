@@ -99,7 +99,7 @@ scene-lib.jaif :
 	${ANNOTATION_SCENE_LIB}/bin \
 	-world ${JRE1_6_0} \
 	-output tests/scene-lib.jaif \
-	-outputFormat annotationIndexFile \
+	-outputFormat jaif \
 	annotations.io.IndexFileParser annotations.io.IndexFileWriter \
 	2>&1 | tee tests/$scene-lib.log
 
@@ -132,7 +132,7 @@ VerifyDiffs.class : VerifyDiffs.java
 	${JAVARIFIER} \
 	--programCPEntries . \
 	--output $@ \
-	--outputFormat annotationIndexFile \
+	--outputFormat jaif \
 	--outputMainClassFirst \
 	$* \
 	2>&1 | tee $*.log

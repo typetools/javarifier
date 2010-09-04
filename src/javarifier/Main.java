@@ -185,32 +185,11 @@ public class Main {
 
 
   /**
-   * Specify the output annotation format. Valid options are:
-   * <ul>
-   * <li><b>annotationIndexFile</b>, alias <b>index</b>
-   * <li><b>scenePrinter</b>
-   * <li><b>twoFiles</b>
-   * <li><b>shay</b>
-   * </ul>
+   * Specify the output annotation format.
    * See {@link javarifier.OutputFormat} for a description of these formats.
    */
   @Option (value="<format> Specify the output annotation format")
-  public static String outputFormat = "index";
-
-  public static OutputFormat outputFormat() {
-      if (outputFormat.equals("annotationIndexFile")
-          || outputFormat.equals("index"))
-          return OutputFormat.ANNOTATION_INDEX_FILE;
-      else if (outputFormat.equals("scenePrinter"))
-          return OutputFormat.SCENE_PRINTER;
-      else if (outputFormat.equals("twoFiles"))
-          return OutputFormat.TWO_FILES;
-      else if (outputFormat.equals("shay"))
-          return OutputFormat.SHAY;
-      else
-          throw new IllegalArgumentException(
-              "Unrecognized output format " + outputFormat);
-  }
+  public static OutputFormat outputFormat = OutputFormat.JAIF;
 
   /**
    * Tells {@link ScenePrinter} to omit a bunch of uninteresting local
@@ -842,7 +821,7 @@ public class Main {
                       ? new OutputStreamWriter(System.out)
                       : new FileWriter(outFile));
           Scene scene = Scene.v();
-          Main.outputFormat().write(Scene.v(), out);
+          Main.outputFormat.write(Scene.v(), out);
           out.close();
       } catch (IOException e) {
         throw new RuntimeException(e);
