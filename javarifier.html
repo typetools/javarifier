@@ -617,14 +617,8 @@ To run the test suite, do <em>any one</em> of the following commands:
       <li><b>--output</b> <b>--outputFile=</b><i>filename</i>. By default, all output, including the results, is printed to standard
  out. Use this option to output the results to an annotation file. Note
  that Javarifier outputs the results for all classes into a single file.</li>
-      <li><b>--outputFormat=</b><i>format</i>. Specify the output annotation format. Valid options are:
- <ul>
- <li><b>annotationIndexFile</b>, alias <b>index</b>
- <li><b>scenePrinter</b>
- <li><b>twoFiles</b>
- <li><b>shay</b>
- </ul>
- See <code>javarifier.OutputFormat</code> for a description of these formats. [default index]</li>
+      <li><b>--outputFormat=</b><i>format</i>. Specify the output annotation format.
+ See <code>javarifier.OutputFormat</code> for a description of these formats. [default JAIF]</li>
       <li><b>--outputFilterLocals=</b><i>boolean</i>. Tells <code>ScenePrinter</code> to omit a bunch of uninteresting local
  variables from the output.  These are generally the ones that cannot be
  annotated in source code, so this option is good for comparing

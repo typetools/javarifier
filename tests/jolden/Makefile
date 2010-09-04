@@ -32,7 +32,7 @@ voronoi.jaif: ../../javarifier.jar
 	${JAVARIFIER} \
 	--programCPEntries voronoi \
 	--output $@ \
-	--outputFormat annotationIndexFile \
+	--outputFormat jaif \
 	Edge EdgePair MyDouble Vec2 Vertex Voronoi \
 	2>&1 | tee voronoi.log
 
@@ -41,7 +41,7 @@ health.jaif: ../../javarifier.jar
 	${JAVARIFIER} \
 	--programCPEntries health \
 	--output $@ \
-	--outputFormat annotationIndexFile \
+	--outputFormat jaif \
 	Health Hospital List Patient Results Village \
 	2>&1 | tee health.log
 
@@ -50,7 +50,7 @@ mst.jaif: ../../javarifier.jar
 	${JAVARIFIER} \
 	--programCPEntries mst \
 	--output $@ \
-	--outputFormat annotationIndexFile \
+	--outputFormat jaif \
 	BlueReturn Graph HashEntry Hashtable MST Vertex \
 	2>&1 | tee mst.log
 
@@ -59,7 +59,7 @@ perimeter.jaif: ../../javarifier.jar
 	${JAVARIFIER} \
 	--programCPEntries perimeter \
 	--output $@ \
-	--outputFormat annotationIndexFile \
+	--outputFormat jaif \
 	BlackNode GreyNode NorthEast NorthWest Perimeter QuadTreeNode Quadrant \
 	SouthEast SouthWest WhiteNode \
 	2>&1 | tee perimeter.log
@@ -69,7 +69,7 @@ em3d.jaif: ../../javarifier.jar
 	${JAVARIFIER} \
 	--programCPEntries em3d \
 	--output $@ \
-	--outputFormat annotationIndexFile \
+	--outputFormat jaif \
 	BiGraph Em3d Graph Node \
 	2>&1 | tee em3d.log
 
@@ -78,7 +78,7 @@ treeadd.jaif: ../../javarifier.jar
 	${JAVARIFIER} \
 	--programCPEntries treeadd \
 	--output $@ \
-	--outputFormat annotationIndexFile \
+	--outputFormat jaif \
 	TreeAdd TreeNode \
 	2>&1 | tee treeadd.log
 
@@ -87,7 +87,7 @@ bh.jaif: ../../javarifier.jar
 	${JAVARIFIER} \
 	--programCPEntries bh \
 	--output $@ \
-	--outputFormat annotationIndexFile \
+	--outputFormat jaif \
 	BH Body Cell MathVector Node Tree \
 	2>&1 | tee bh.log
 
@@ -96,7 +96,7 @@ tsp.jaif: ../../javarifier.jar
 	${JAVARIFIER} \
 	--programCPEntries tsp \
 	--output $@ \
-	--outputFormat annotationIndexFile \
+	--outputFormat jaif \
 	TSP Tree \
 	2>&1 | tee tsp.log
 
@@ -105,7 +105,7 @@ power.jaif: ../../javarifier.jar
 	${JAVARIFIER} \
 	--programCPEntries power \
 	--output $@ \
-	--outputFormat annotationIndexFile \
+	--outputFormat jaif \
 	Branch Demand Lateral Leaf Power Root \
 	2>&1 | tee power.log
 
@@ -114,7 +114,7 @@ bisort.jaif: ../../javarifier.jar
 	${JAVARIFIER} \
 	--programCPEntries bisort \
 	--output $@ \
-	--outputFormat annotationIndexFile \
+	--outputFormat jaif \
 	BiSort Value \
 	2>&1 | tee bisort.log
 
