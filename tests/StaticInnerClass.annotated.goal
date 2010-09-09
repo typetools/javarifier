@@ -1,0 +1,42 @@
+import checkers.javari.quals.ReadOnly;
+import checkers.javari.quals.Mutable;
+/**
+ * This class tests static inner classes.
+ */
+public class StaticInnerClass {
+
+    public static class Day {
+        public int day;
+        public Day() @ReadOnly { }
+        public Day(int d) @ReadOnly { this.day = d; }
+        public int getDay() /*readonly*/ @ReadOnly { return day; }
+        public void setDay(int d) /*mutable*/ @Mutable { this.day = d; }
+    }
+
+    /*this-mutable*/ Foo f;
+
+    public void bar() /*mutable*/ @Mutable {
+        /*readonly*/ @ReadOnly Day d = new Day();
+        /*mutable*/ @Mutable Foo x = new Foo(d);
+        f = x;
+        f.d = new Day();
+
+        /*mutable*/ @Mutable Foo y = new Foo(new Day()); //assigned to this-mut field
+        f = y;
+        int i = f.d.getDay();
+
+        /*readonly*/ @ReadOnly Foo z = new Foo(new Day());
+
+        int j = f.d.getDay();
+
+    }
+
+    public static class Foo {
+        /*readonly*/ @ReadOnly Day d;
+        public Foo(/*readonly*/ @ReadOnly Day d) @ReadOnly {
+            this.d = d;
+        }
+    }
+
+
+}

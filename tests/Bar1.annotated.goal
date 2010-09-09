@@ -1,0 +1,12 @@
+import checkers.javari.quals.ReadOnly;
+public class Bar1 {
+    int x;
+
+    public Bar1() /*mutable*/ @ReadOnly {
+        x = 1;
+    }
+
+    public int getX() /*readonly*/ @ReadOnly {
+        return x;
+    }
+}

@@ -1,0 +1,21 @@
+package checkers.javari.quals:
+annotation @ReadOnly: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.annotation.Target(value={TYPE_USE})
+
+package :
+class EmptyBody:
+
+    method <init>()V:
+        return:
+        receiver: @checkers.javari.quals.ReadOnly
+        local 0 #0+5:
+            type: @checkers.javari.quals.ReadOnly
+
+    method main([Ljava/lang/String;)V:
+        return:
+        parameter #0:
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0: @checkers.javari.quals.ReadOnly
+        local 0 #0+1:
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 0: @checkers.javari.quals.ReadOnly
+
