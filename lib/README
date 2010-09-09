@@ -1,13 +1,13 @@
 javari/javarifier/lib contains:
 
 plume.jar
-From http://code.google.com/p/plume-lib/
+    From http://code.google.com/p/plume-lib/
 
 jasminclasses-2.4.0.jar
 polyglotclasses-1.3.5.jar
 sootclasses-2.4.0.jar
-Three jarfiles containing Soot, downloaded
-from http://www.sable.mcgill.ca/soot/
-These are not in src/soot, since that directory only contains the classes
-we modified.  Alternatively, all of these classes could have been added
-into that directory, but there is no need.
+    Three jarfiles containing Soot, downloaded
+    from http://www.sable.mcgill.ca/soot/
+    These are not in src/soot, since that directory only contains the classes
+    we modified.  Alternatively, all of these classes could have been added
+    into that directory, but there is no need.
