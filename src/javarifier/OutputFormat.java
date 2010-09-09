@@ -49,7 +49,7 @@ public enum OutputFormat {
     },
     /**
      * Two files, one listing readonly method parameters and receivers and
-     * another listing mutable ones.  -outputFormat is ignored and both
+     * another listing mutable ones.  --outputFormat is ignored and both
      * output files are created in the current directory.
      */
     TWO_FILES {
