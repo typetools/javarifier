@@ -23,13 +23,6 @@
   <property name="javari-www-javarifier"
     value="/cse/www2/types/javarifier"/>
 
-  <property name="jsr308-javac" value="${annotations-compiler}/dist/bin/javac" />
-  <property name="checkers-javac" value="${checkers}/binary/javac" />
-  <condition property="javac" value="${jsr308-javac}" else="${checkers-javac}">
-    <available file="${jsr308-javac}"/>
-  </condition>
-
-
   <!-- Determine locations of all projects, as per the property files. -->
   <target name="init-properties" description="Initialize required properties">
       <condition property="exists.build.properties">
@@ -39,6 +32,7 @@
         unless="exists.build.properties"
         message="Local build.properites file is missing."/>
 
+      <property name="workspace" location="${ant.file.dir}/.."/>
       <property file="build.properties"/>
 
       <fail
@@ -67,9 +61,14 @@
         <isset property="${env.JAVA_HOME}"/>
       </condition>
       <!-- For debugging: -->
-      <echo>java_home = ${java_home}</echo>
-
+      <!-- <echo>java_home = ${java_home}</echo> -->
       <fail unless="java_home" message="JAVA_HOME is not set"/>
+
+      <property name="jsr308-javac" location="${annotations-compiler}/dist/bin/javac" />
+      <property name="checkers-javac" location="${checkers}/binary/javac" />
+      <condition property="javac" value="${jsr308-javac}" else="${checkers-javac}">
+	<available file="${jsr308-javac}"/>
+      </condition>
 
       <path id="sourcepath">
         <pathelement location="src"/>
@@ -376,6 +375,13 @@
        <!-- The user's args is just the name of class to javarify. -->
        <arg line="${user-args}"/>
      </java>
+  </target>
+
+  <!-- Print Ant properties (for debugging) -->
+  <!-- No "description" element so that it doesn't appear in standard
+       "ant -projecthelp" output. -->
+  <target name="echoproperties" depends="init-properties" >
+    <echoproperties/>
   </target>
 
 </project>
