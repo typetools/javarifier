@@ -19,9 +19,9 @@
   <property name="distdir" value="${tmpdir}/javarifier"/>
 
   <property name="javari-www"
-    value="/afs/csail.mit.edu/group/pag/www/javari"/>
+    value="/cse/www2/types/javari/"/>
   <property name="javari-www-javarifier"
-    value="/cse/www2/types/javarifier"/>
+    value="/cse/www2/types/javari/javarifier"/>
 
   <!-- Determine locations of all projects, as per the property files. -->
   <target name="init-properties" description="Initialize required properties">
@@ -221,10 +221,10 @@
       <fileset file="javarifier.html" />
     </copy>
     <echo message="Checking HTML links"/>
-    <exec executable="/usr/bin/make">
-      <arg value="-C"/>
-      <arg value="../../design/www"/>
-      <arg value="checklinks"/>
+    <exec executable="/homes/gws/mernst/bin/src/plume-lib/bin/checklink">
+      <arg value="-q"/>
+      <arg value="-r"/>
+      <arg value="http://types.cs.washington.edu/javari/"/>
     </exec>
   </target>
 
