@@ -169,17 +169,14 @@ Add the <tt>javarifier/scripts</tt> directory to your path.
 <ul>
 <li>
 For <b>Unix</b>, add the directory to your PATH environment
-variable.
-<ul>
-<li>
-  For sh/bash, add to ~/.bashrc or ~/.bash_profile:
+variable.  If you use the sh or bash shell, add to <tt>~/.bashrc</tt> or
+<tt>~/.bash_profile</tt>:
 <pre>export PATH=${PATH}:${HOME}/jsr308/javarifier/scripts/</pre>
-</li>
-<li>
+<!-- Omitted:  few people use this shell, and I want to keep the
+     instructions short.
 For csh/tcsh, add to ~/.tcshrc or ~/.cshrc or ~/.login:
 <pre>setenv PATH ${PATH}:${HOME}/jsr308/javarifier/scripts/</pre>
-</li>
-</ul>
+-->
 </li>
 
 <li>
@@ -240,7 +237,7 @@ also load classes from other locations, such as the boot class path.
 An example is the classes in <code>jdk/jre/lib/jce.jar</code>.
 Therefore, you may need to add such jar files to CLASSPATH, or explicitly
 mention them on the javarifier command line
-via the <a href="#using-world"><code>--world</code> option</a>.)
+via the <a href="#using-world"><code>-world</code> option</a>.)
 </p>
 -->
 
@@ -735,6 +732,7 @@ hg clone https://javarifier.googlecode.com/hg/ javarifier</pre>
 
 <p>
 Later, to update all your sources and rebuild them, you can run:
+</p>
 <pre>
 cd $JSR308/jsr308-langtools
 hg pull -u
