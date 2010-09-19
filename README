@@ -91,8 +91,8 @@ To make a Javarifier distribution:
 
       ## Install Javarifier
       cd ~/jsr308
-      # After release: http://types.cs.washington.edu/javarifier/javarifier.zip
-      cp -pf ~cf/jsr308/javarifier/javarifier.zip .
+      # For unreleased version: cp -pf ~cf/jsr308/javarifier/javarifier.zip .
+      wget http://types.cs.washington.edu/javari/javarifier/javarifier.zip
       rm -rf javarifier
       unzip javarifier.zip
       # Shouldn't have to add javarifier/scripts directory to my path.
