@@ -5,14 +5,16 @@
 
 # See javarifier.html for more information.
 
+JRE_HOME=${JRE_HOME:-$(java -cp $(dirname $0) PrintJreHome)}
+
 JDK_JARS=\
-${JAVA_HOME}/jre/lib/charsets.jar:\
-${JAVA_HOME}/jre/lib/jce.jar:\
-${JAVA_HOME}/jre/lib/jsse.jar:\
-${JAVA_HOME}/jre/lib/management-agent.jar:\
-${JAVA_HOME}/jre/lib/resources.jar:\
-${JAVA_HOME}/jre/lib/rt.jar:\
-${JAVA_HOME}/lib/tools.jar
+${JRE_HOME}/lib/charsets.jar:\
+${JRE_HOME}/lib/jce.jar:\
+${JRE_HOME}/lib/jsse.jar:\
+${JRE_HOME}/lib/management-agent.jar:\
+${JRE_HOME}/lib/resources.jar:\
+${JRE_HOME}/lib/rt.jar:\
+${JRE_HOME}/../lib/tools.jar
 
 # Classpath for finding user program.  If user provides -programCPEntries,
 # their arguments will be passed in through the "$@" argument, and will
