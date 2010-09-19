@@ -17,9 +17,8 @@ wish to build Javarifier and/or modify its source code.
 DEPENDENCIES
 ============
 
-The Javarifier depends on several other packages.  In short, if you have
-the 4 packages noted above checked out in the same directory, everything
-should already be setup.
+The Javarifier depends on several other packages.  See the "Building from
+source" section of the user documentation.
 
 These dependencies are automatically taken care of by the build.xml script.
 For convenience, we list here all the projects the Javarifier depends on in
@@ -50,18 +49,11 @@ Full documentation for running Javarifier is in javarifier.html
 or on the web at:
 	http://types.cs.washington.edu/javarifier
 
-If you want to run Javarifier using all the local class files, you can
-run Javarifier using the javarifier script at:
+The javarifier script at
    javarifier/scripts/javarifier
-
-Make sure that this script is executable, and that the scripts directory is
-on your $PATH.
-
-To use this script, pass in the fully-qualified name of all
-classes to javarify, as in:
-        javarifier myPackage.MyClass
-
-For all other uses and options, consult the user documentation.
+uses the locally-compiled class files, if any; otherwise, it uses the
+javarifier.jar file.  Using the class files permits testing without making
+the jar file, which takes much longer than compiling.
 
 
 TEST SUITE
@@ -74,7 +66,7 @@ CREATING A DISTRIBUTION
 =======================
 
 To make a Javarifier distribution:
- 1. Run 'ant zipfile' to ensure that you can build javarifier.zip.
+ 1. Run 'ant -e zipfile' to ensure that you can build javarifier.zip.
  2. Manually verify that the release notes at the end of javarifier.html
     are up-to-date.
  3. Synchronize the version number in javarifier.html to the version number
