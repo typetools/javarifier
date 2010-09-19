@@ -50,27 +50,13 @@
 <h2 id="motivation">Motivation: Inferring reference immutability in Java programs</h2>
 
 <p>
-Javarifier tells you which variables your program mutates, and which
-variables are never used for side effects.
-</p>
-
-<p>
-Javarifier infers the immutability of every
-reference in a Java program,
-using the definition of the
-<a href="http://types.cs.washington.edu/javari/">Javari</a> language.
-In other words, it converts Java programs and
-libraries to Javari.
-</p>
-
-<p>
-Javarifier annotates <code>.java</code> files
-with backward-compatible comments, or annotates <code>.class</code> files
-with backward-compatible attributes.
-The algorithm for inferring Javari reference immutability is explained
-in the paper
-<a href="http://www.cs.washington.edu/homes/mernst/pubs/infer-refimmutability-ecoop2008-abstract.html">"Inference
-  of reference immutability"</a>, which appeared at ECOOP 2008.
+Javarifier divides the variables in a program into two groups:  the
+variables the program mutates, and the variables that are never mutated.
+In other words, Javarifier infers the immutability of every reference in a
+Java program.  Javarifier uses
+<a href="http://types.cs.washington.edu/javari/">Javari</a>'s definition of
+immutability.  Thus, Javarifier converts Java programs and libraries to
+Javari.
 </p>
 
 <p>
@@ -79,10 +65,19 @@ and modifying it without introducing subtle mutation errors.  Annotating
 <em>libraries</em> is important because Javari programs use libraries
 without Javari annotations often do not typecheck.  Manually determining
 the mutability for each (public) parameter and return type is tedious and
-error-prone.  Javarifier automatically performs this analysis, and a
-<a href="http://types.cs.washington.edu/annotation-file-utilities/">companion
-  tool</a> can automatically update your source code.
+error-prone.  Javarifier automatically performs this analysis.
 </p>
+
+<p>
+Javarifier can produce a textual output file, or can annotate
+<code>.java</code> files with backward-compatible comments, or can annotate
+<code>.class</code> files with backward-compatible attributes.  The
+algorithm for inferring Javari reference immutability is explained in the
+paper
+<a href="http://www.cs.washington.edu/homes/mernst/pubs/infer-refimmutability-ecoop2008-abstract.html">"Inference
+  of reference immutability"</a>, which appeared at ECOOP 2008.
+</p>
+
 
 
 <h2 id="javarifier-description">Javarifier</h2>
@@ -852,7 +847,8 @@ Javarifier now works on the Eclipse compiler, which is over
       </li>
       <li>Many bug fixes to code, build files, and tests.
       </li>
-      <li>Uses plume-lib (<tt>plume.jar</tt> added to <tt>lib/</tt>).
+      <li>Uses <a href="http://code.google.com/p/plume-lib/">plume-lib</a>
+          (<tt>plume.jar</tt> added to <tt>lib/</tt>).
       </li>
     </ul>
   </li>
