@@ -700,11 +700,9 @@ To build Javarifier from source, run the following commands:
 <ol>
   <li>Set environment variables.  Add the following to your
     <tt>~/.bashrc</tt> or equivalent, then log out and log back in:
-<!-- the defaulting for JAVA_HOME prevents setting it to $HOME/jsr308/jsr308-langtools/dist -->
 <pre>export JSR308=$HOME/jsr308
-export JAVA_HOME=${JAVA_HOME:-$(dirname $(dirname $(readlink -f $(/usr/bin/which java))))}
 export PATH=$JSR308/jsr308-langtools/dist/bin:${PATH}
-export CLASSPATH=${CLASSPATH}:$JAVA_HOME/lib/tools.jar:$JSR308/checker-framework/checkers/checkers.jar</pre>
+export CLASSPATH=${CLASSPATH}:<em>...JAVA_HOME...</em>/lib/tools.jar:$JSR308/checker-framework/checkers/checkers.jar</pre>
   </li>
   <li>Obtain the source code.
 <pre>mkdir -p $JSR308
