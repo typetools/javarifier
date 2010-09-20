@@ -208,6 +208,8 @@
       <fileset file="javarifier.zip" />
       <fileset file="javarifier.html" />
     </copy>
+    <chmod file="${javari-www-javarifier}/javarifier.zip" perm="g+w" />
+    <chmod file="${javari-www-javarifier}/javarifier.html" perm="g+w" />
     <echo message="Checking HTML links"/>
     <exec executable="/homes/gws/mernst/bin/src/plume-lib/bin/checklink">
       <arg value="-q"/>
