@@ -147,7 +147,7 @@
     <condition property="hg-needs-commit"> 
       <not><equals arg1="${hg-status-output}" arg2=""/></not>
     </condition> 
-    <fail if="hg-needs-commit">Uncommited changes; do "hg commit" before "ant zipfile"</fail>
+    <fail if="hg-needs-commit">Uncommitted changes; do "hg commit" before "ant zipfile"</fail>
     <!-- Not necessary because so long as the changes are committed, they
     will show up in the zipfile.
     <exec executable="hg" resultproperty="hg-outgoing-exit-status">
