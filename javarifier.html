@@ -309,9 +309,12 @@ The <code>--printStubs</code> flag causes Javarifier not to perform
 inference, but only to output a list of classes for which stubs are needed.
 </p>
 
-<p>If you get the error "Missing stub for class ...",
+<p>
+If you get the error "Missing stub for class ...",
 then your stub library is missing the given class, or you have not
-specified the stub library location properly.
+specified the stub library location properly.  (One reason this can happen
+is that you are using JDK 7.  You may need to add, to the Checker
+Framework's annotated JDK, stubs for classes that are new in JDK 7.)
 </p>
 
 <p>
