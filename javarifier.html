@@ -613,7 +613,9 @@ To run the test suite, do <em>any one</em> of the following commands:
  out. Use this option to output the results to an annotation file. Note
  that Javarifier outputs the results for all classes into a single file.</li>
       <li><b>--outputFormat=</b><i>format</i>. Specify the output annotation format.
- See <code>javarifier.OutputFormat</code> for a description of these formats. [default JAIF]</li>
+ See <code>javarifier.OutputFormat</code> for a description of these formats. [default JAIF]<ul><li><b>SCENE_PRINTER</b> The traditional format showing full JrTypes.</li><li><b>JAIF</b> An annotation file showing types resugared as annotations.</li><li><b>TWO_FILES</b> Two files, one listing readonly method parameters and receivers and
+ another listing mutable ones.  --outputFormat is ignored and both
+ output files are created in the current directory.</li><li><b>SHAY</b></li></ul></li>
       <li><b>--outputFilterLocals=</b><i>boolean</i>. Tells <code>ScenePrinter</code> to omit a bunch of uninteresting local
  variables from the output.  These are generally the ones that cannot be
  annotated in source code, so this option is good for comparing

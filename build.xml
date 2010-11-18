@@ -273,7 +273,7 @@
   <target name="update-opt-doc" depends="init"
     description="Update the options documentation in the manual">
     <property name="libpath" refid="libpath"/> 
-    <javadoc sourcefiles="src/javarifier/Main.java" failonerror="true">
+    <javadoc sourcefiles="src/javarifier/Main.java,src/javarifier/OutputFormat.java" failonerror="true">
       <doclet name="plume.OptionsDoclet"> 
         <param name="-docfile" value="javarifier.html"/>
       </doclet>
