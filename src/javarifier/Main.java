@@ -255,12 +255,17 @@ public class Main {
 
   /**
    * Do not perform inference.  Just output a list of classes for which stubs
-   * are needed to perform inference.  In the future, an option such as
-   * <tt>--missingStubs</tt> may be added, which only outputs a list of stubs
-   * that are needed but missing.
+   * are needed to perform inference.
    */
   @Option ("Output a list of stub classes needed to perform inference")
   public static boolean printStubs = false;
+
+  /**
+   * Do not perform inference.  Just output a list of classes which are needed
+   * to perform inference but missing.
+   */
+  @Option ("Output a list of stub classes that are needed but missing")
+  public static boolean printMissingStubs = false;
   // end option group "Utility Options (no inference)"
 
   /**
@@ -614,7 +619,7 @@ public class Main {
      * {@link AnnotationLoader#loadAllAnnotations(Scene)}.
      */
     private void prepareScene(Scene scene) {
-      if (Main.printStubs) {
+      if (Main.printStubs || Main.printMissingStubs) {
         return;
       }
 
@@ -646,7 +651,7 @@ public class Main {
      * @param scene
      */
     private void javarifyScene(Scene scene) {
-      if (Main.printStubs) {
+      if (Main.printStubs || Main.printMissingStubs) {
         return;
       }
       // Constraint generation
@@ -795,7 +800,7 @@ public class Main {
      */
     protected void internalTransform(String name, Map options) {
       // All Soot resolving will be done when we reach this point.
-      if (Main.printStubs) {
+      if (Main.printStubs || Main.printMissingStubs) {
         return;
       }
 

@@ -418,7 +418,11 @@ public class SootResolver
         } else
         if (SourceLocator.v().entryKindForClass(sc.getName())
                 == EntryKind.WORLD) {
-          throw new RuntimeException("Missing stub for class " + sc.getName());
+          if (javarifier.Main.printMissingStubs) {
+            System.out.println("Missing stub for class " + sc.getName());
+          } else {
+            throw new RuntimeException("Missing stub for class " + sc.getName());
+          }
         }
         // End javarifier changes
         bringToHierarchy(sc);
