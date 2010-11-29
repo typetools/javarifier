@@ -65,7 +65,7 @@ class CellClient:
 
 package :
 class CellClient$Cell:
-    bound ,0 &0: @checkers.javari.quals.ReadOnly
+    bound 0 &0: @checkers.javari.quals.ReadOnly
 
     field val:
         type: @checkers.javari.quals.ReadOnly

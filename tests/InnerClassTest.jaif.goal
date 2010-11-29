@@ -6,7 +6,7 @@ annotation @Mutable: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.a
 
 package :
 class InnerClassTest:
-    bound ,0 &0: @checkers.javari.quals.ReadOnly
+    bound 0 &0: @checkers.javari.quals.ReadOnly
 
     field d:
         type: @checkers.javari.quals.ReadOnly
@@ -61,7 +61,7 @@ class InnerClassTest:
 
 package :
 class InnerClassTest$1:
-    bound ,0 &0: @checkers.javari.quals.ReadOnly
+    bound 0 &0: @checkers.javari.quals.ReadOnly
 
     field this$0:
         type: @checkers.javari.quals.ReadOnly
@@ -101,7 +101,7 @@ class InnerClassTest$2:
 
 package :
 class InnerClassTest$3:
-    bound ,0 &0: @checkers.javari.quals.ReadOnly
+    bound 0 &0: @checkers.javari.quals.ReadOnly
 
     field this$0:
         type: @checkers.javari.quals.ReadOnly
@@ -148,8 +148,8 @@ class InnerClassTest$4:
 
 package :
 class InnerClassTest$AIn:
-    bound ,0 &0: @checkers.javari.quals.ReadOnly
-    bound ,1 &0: @checkers.javari.quals.ReadOnly
+    bound 0 &0: @checkers.javari.quals.ReadOnly
+    bound 1 &0: @checkers.javari.quals.ReadOnly
 
     field f:
         type: @checkers.javari.quals.ReadOnly
@@ -175,7 +175,7 @@ class InnerClassTest$AIn:
 
 package :
 class InnerClassTest$Cell:
-    bound ,0 &0: @checkers.javari.quals.ReadOnly
+    bound 0 &0: @checkers.javari.quals.ReadOnly
 
     field val:
         type: @checkers.javari.quals.ReadOnly
@@ -240,7 +240,7 @@ class InnerClassTest$Day:
 
 package :
 class InnerClassTest$Inner:
-    bound ,0 &0: @checkers.javari.quals.ReadOnly
+    bound 0 &0: @checkers.javari.quals.ReadOnly
 
     field c:
         type: @checkers.javari.quals.ReadOnly

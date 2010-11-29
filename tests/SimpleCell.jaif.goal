@@ -3,7 +3,7 @@ annotation @ReadOnly: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.
 
 package :
 class SimpleCell:
-    bound ,0 &0: @checkers.javari.quals.ReadOnly
+    bound 0 &0: @checkers.javari.quals.ReadOnly
 
     field val:
         type: @checkers.javari.quals.ReadOnly

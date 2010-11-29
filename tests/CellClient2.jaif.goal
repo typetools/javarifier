@@ -9,7 +9,7 @@ annotation @ThisMutable: @java.lang.annotation.Retention(value=RUNTIME) @java.la
 
 package :
 class CellClient2:
-    bound ,0 &0: @checkers.javari.quals.Mutable
+    bound 0 &0: @checkers.javari.quals.Mutable
 
     field f:
         type: @checkers.javari.quals.ThisMutable
@@ -59,7 +59,7 @@ class CellClient2:
 
 package :
 class CellClient2$Cell:
-    bound ,0 &0: @checkers.javari.quals.ReadOnly
+    bound 0 &0: @checkers.javari.quals.ReadOnly
 
     field val:
         type: @checkers.javari.quals.ReadOnly
