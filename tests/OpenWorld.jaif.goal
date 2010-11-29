@@ -6,7 +6,7 @@ annotation @Mutable: @java.lang.annotation.Retention(value=RUNTIME) @java.lang.a
 
 package :
 class OpenWorld:
-    bound ,0 &0: @checkers.javari.quals.ReadOnly
+    bound 0 &0: @checkers.javari.quals.ReadOnly
 
     field f:
         type: @checkers.javari.quals.ReadOnly
@@ -34,7 +34,7 @@ class OpenWorld:
 
 package :
 class OpenWorld$Cell:
-    bound ,0 &0: @checkers.javari.quals.ReadOnly
+    bound 0 &0: @checkers.javari.quals.ReadOnly
 
     field val:
         type: @checkers.javari.quals.ReadOnly
