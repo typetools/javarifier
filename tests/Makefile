@@ -123,12 +123,9 @@ VerifyDiffs.class : VerifyDiffs.java
 # TODO: Add
 #	$(shell cat $*.options) \
 # to the below command.  This will only affect OpenWorld.java for now.
-# --debug* are TEMPORARY, for debugging.
 %.jaif: %.class ../.compile-timestamp
 	rm -f $@
 	${JAVARIFIER} \
-	--debugResolver=true \
-	--debugResolve=true \
 	--programCPEntries . \
 	--output $@ \
 	--outputFormat jaif \
