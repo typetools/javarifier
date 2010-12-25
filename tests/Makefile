@@ -56,7 +56,7 @@ toplevel-typecheck: $(TOPLEVEL_TYPECHECK_DIFFS)
 
 .PRECIOUS: %.class
 %.class : %.java
-	$(JAVAC) -classpath .:${CHECKERS}/checkers.jar -g -d . $^
+	$(JAVAC) -classpath .:${CHECKERS}/build:${CHECKERS}/checkers.jar -g -d . $^
 
 # Runs Javarifier on the Jolden case studies by running a separate
 # Makefile similar to this one.
@@ -150,7 +150,7 @@ annotated/%.java: %.java %.jaif %.class
 
 %.typecheck.diff: annotated/%.java
 # ".." in classpath is for helper classes like Cell.
-	set -o pipefail && $(JAVAC) -processor checkers.javari.JavariChecker -Xbootclasspath/p:${CHECKERS}/jdk/jdk.jar -classpath annotated:${CLASSPATH}:${CHECKERS}/checkers.jar -implicit:class annotated/$*.java 2>&1 | tee $*.typecheck.diff
+	set -o pipefail && $(JAVAC) -processor checkers.javari.JavariChecker -Xbootclasspath/p:${CHECKERS}/jdk/jdk.jar -classpath annotated:${CLASSPATH}:${CHECKERS}/build:${CHECKERS}/checkers.jar -implicit:class annotated/$*.java 2>&1 | tee $*.typecheck.diff
 
 
 # Remove all .diff, .log files from the tests directory,
