@@ -4,7 +4,7 @@ import java.util.Vector;
 
 public class VectorCopyInto {
 
-  public @ReadOnly String @ReadOnly [] getMessageChain2(@ReadOnly Vector v)
+  public @ReadOnly String @ReadOnly [] getMessageChain2(@ReadOnly Vector<@ReadOnly String> v)
   @ReadOnly {
     @ReadOnly String @Mutable [] chain = new String[v.size()];
     v.copyInto (chain);
