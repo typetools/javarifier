@@ -2,7 +2,7 @@ import checkers.javari.quals.Mutable;
 import checkers.javari.quals.ReadOnly;
 public class CellClient {
 
-    public static class Cell<T extends @ReadOnly Object> {
+    public static class Cell<T extends @ReadOnly java.lang.Object> {
 	public @ReadOnly T val;
 	public T getVal() { return val; }
 	public void setVal(T val) { this.val = val; }
