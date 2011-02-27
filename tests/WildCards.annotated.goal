@@ -2,7 +2,7 @@ import checkers.javari.quals.ReadOnly;
 import checkers.javari.quals.Mutable;
 public class WildCards<T extends /*readonly*/ @ReadOnly Object> {
 
-    public static class Cell<T extends @ReadOnly Object> {
+    public static class Cell<T extends @ReadOnly java.lang.Object> {
 	public @ReadOnly T val;
 	public T getVal() { return val; }
 	public void setVal(T val) { this.val = val; }
@@ -44,7 +44,7 @@ public class WildCards<T extends /*readonly*/ @ReadOnly Object> {
         baz().setVal(d);
     }
 
-    public static @ReadOnly String printVal(/*readonly*/ @ReadOnly Cell<? extends @ReadOnly Object> c) {
+    public static @ReadOnly String printVal(/*readonly*/ @ReadOnly Cell<? extends @ReadOnly java.lang.Object> c) {
         @ReadOnly String s = c.toString();
         return s;
     }
