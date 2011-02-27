@@ -18,24 +18,24 @@ public class WildCards<T extends /*readonly*/ @ReadOnly Object> {
 
     private @ReadOnly T f;
 
-    public static /*readonly*/ @ReadOnly Day getDay(/*readonly*/ @ReadOnly Cell<? extends /*readonly*/ Day> c) {
+    public static /*readonly*/ @ReadOnly Day getDay(/*readonly*/ @ReadOnly Cell<? extends /*readonly*/ @ReadOnly Day> c) {
         return c.getVal();
     }
 
-    public void setF(/*readonly*/ @ReadOnly Cell<? extends T> x) /*mutable*/ @Mutable {
+    public void setF(/*readonly*/ @ReadOnly Cell<? extends @ReadOnly T> x) /*mutable*/ @Mutable {
         f = x.getVal();
     }
 
-    public void addF(/*mutable*/ @Mutable Cell<? super T> y) /*readonly*/ @ReadOnly {
+    public void addF(/*mutable*/ @Mutable Cell<? super @ReadOnly T> y) /*readonly*/ @ReadOnly {
         y.setVal(f);
     }
 
-    public static void setDay(/*readonly*/ @ReadOnly Cell<? extends /*mutable*/ Day> z) {
+    public static void setDay(/*readonly*/ @ReadOnly Cell<? extends /*mutable*/ @Mutable Day> z) {
         z.getVal().setDay(3);
     }
 
-    public static /*mutable*/ @Mutable Cell<? super /*readonly*/ Day> baz() {
-        return new Cell<@ReadOnly Day>();
+    public static /*mutable*/ @Mutable Cell<? super /*readonly*/ @ReadOnly Day> baz() {
+        return new Cell<Day>();
     }
 
     public static void quax() {
@@ -44,7 +44,7 @@ public class WildCards<T extends /*readonly*/ @ReadOnly Object> {
         baz().setVal(d);
     }
 
-    public static @ReadOnly String printVal(/*readonly*/ @ReadOnly Cell<?> c) {
+    public static @ReadOnly String printVal(/*readonly*/ @ReadOnly Cell<? extends @ReadOnly Object> c) {
         @ReadOnly String s = c.toString();
         return s;
     }
