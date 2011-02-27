@@ -327,8 +327,11 @@
     </exec>
   </target>
 
-  <target name="run-tests-toplevel-debug" depends="init-properties"
-    description="Runs Javarifier toplevel test cases">
+  <!-- There is no
+    description="Runs Javarifier toplevel test cases with debugging"
+  so that this does not appear in the standard "ant -projecthelp" output.
+  -->
+  <target name="run-tests-toplevel-debug" depends="init-properties">
     <exec executable="make"
           failonerror="true">
       <arg value="-k"/>
