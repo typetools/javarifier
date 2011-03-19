@@ -1,21 +1,17 @@
-Run Javari checker on all subject programs.
-
-Run Javarifier on all of Daikon.
-
-Add annotation scene library as a test case, using the compiler and
-annotation file utilities to extract the correct annotations
-from the manually-annotated source code.
+Testing:
+ * Run Javarifier on all of Daikon.
+ * Run Javari checker on all subject programs.
+ * Set up circular test system between javari type checker and javarifier.
+ * Add annotation scene library as a test case, using the compiler and
+   annotation file utilities to extract the correct annotations
+   from the manually-annotated source code.
 
 Profile javarifier to determine why it takes so much longer to run on
 eclipsec than it does on htmlparser and tinySQL.
 
-Set up circular test system between javari type checker and javarifier.
-
 Possibly find more heuristics for inferring assignable and mutable
 field annotations.
 
-Having "<T>" in Javadoc comments makes the comment more readable, but then
-the "<T>" does not show up when the generated Javadoc .html file is viewed
-in a browser.  Is there any way around this?
-(Perhaps run a postprocessor on the generated .html files?)
-(Maybe Eclipse's Javadoc generator has a workaround for this?)
+Check that Javadoc does not have any instances of <T> that should really be
+&lt;T&gt; because <T> does not show up when generated Javadoc .html file is
+viewed in a browser.  (Sadly, &lt;T&gt; is less readable.)
