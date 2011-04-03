@@ -7,6 +7,7 @@
 
   <property environment="env"/>
 
+  <!-- wouldn't ${basedir} be better than setting this? -->
   <dirname property="ant.file.dir" file="${ant.file}"/>
 
   <property name="tmpdir" value="${java.io.tmpdir}/${user.name}/javarifier-temp" />
