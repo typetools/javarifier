@@ -492,13 +492,13 @@ public static class TypeInferenceSwitch extends soot.jimple.AbstractStmtSwitch {
     }
 
     private void handleMethodInvk(InvokeExpr methInvk) {
-        // y.m(zs)
+        // Handle a method call "y.m(zs)"
         SootMethod m = methInvk.getMethod();
 
         List<Value> zs = methInvk.getArgs(); // Warning, some args can be int constants and not locals
 
 
-        // Handle reciever
+        // Handle receiver
         if (methInvk instanceof InstanceInvokeExpr) {
 
             InstanceInvokeExpr iMethInvk =
