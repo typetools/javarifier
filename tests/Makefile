@@ -179,3 +179,4 @@ showvars:
 	@echo "CLASSPATH=${CLASSPATH}"
 	@echo "CHECKERS=${CHECKERS}"
 	@echo "JRE_HOME=${JRE_HOME}"
+	@echo "TOPLEVEL_DIFFS=${TOPLEVEL_DIFFS}"
