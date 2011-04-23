@@ -4,8 +4,8 @@ public class CellClient {
 
     public static class Cell<T extends @ReadOnly java.lang.Object> {
 	public @ReadOnly T val;
-	public T getVal() { return val; }
-	public void setVal(T val) { this.val = val; }
+	public @ReadOnly T getVal() @ReadOnly { return val; }
+	public void setVal(@ReadOnly T val) @Mutable { this.val = val; }
     }
 
     public static class Day {
