@@ -78,13 +78,13 @@ To make a Javarifier distribution:
 
       ## Install Checker Framework
       # Cut and paste from
-      # http://types.cs.washington.edu/checker-framework/#javac-installation
+      # http://types.cs.washington.edu/checker-framework/current/checkers-manual.html#javac-installation
       # (but maybe use a different checkers.zip URL, such as one of:
       #   wget http://www.cs.washington.edu/homes/mernst/jsr308test/checker-framework/current/checkers.zip
       #   cp -pf /home/cf/jsr308/checker-framework/tmp/1.1.1/checkers.zip .
       # ).
       # Sanity-check by following instructions at
-      # http://types.cs.washington.edu/checker-framework/#example-use
+      # http://types.cs.washington.edu/checker-framework/current/checkers-manual.html#example-use
 
       ## Install Annotation File Utilities
       cd ~/jsr308
