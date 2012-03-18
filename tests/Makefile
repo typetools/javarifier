@@ -126,6 +126,7 @@ VerifyDiffs.class : VerifyDiffs.java
 %.jaif: %.class ../.compile-timestamp
 	rm -f $@
 	${JAVARIFIER} \
+	-d \
 	--programCPEntries . \
 	--output $@ \
 	--outputFormat jaif \
