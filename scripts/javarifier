@@ -5,6 +5,13 @@
 
 # See javarifier.html for more information.
 
+# If the very first argument is "-d", debug this script.
+DEBUG=0
+if [ "$1" = "-d" ]; then
+  DEBUG=1
+  shift 1
+fi
+
 JRE_HOME=${JRE_HOME:-$(java -cp $(dirname $0) PrintJreHome)}
 
 JDK_JARS=\
@@ -34,10 +41,38 @@ JAVARIFIER_LIB=${JRDIR}/lib
 JAVARIFIER_BIN=${JRDIR}/bin
 PLUME_JAR=${JAVARIFIER_LIB}/plume.jar
 
-# In a checkout, a developer might do "ant bin" instead of "ant jarfile".
-# Then, JAVARIFIER_BIN and AFU_JAR may be more recent than javarifier.jar.
-# Adding CHECKERS_JAR to defaultStubCPEntries permits use of Javari
-# keywords like @Assignable.
+if [ "$DEBUG" = "1" ]; then
+  echo JRE_HOME=${JRE_HOME}
+  echo JDK_JARS=${JDK_JARS}
+  echo SOOT_PROGRAMS=${SOOT_PROGRAMS}
+  echo BINDIR=${BINDIR}
+  echo JRDIR=${JRDIR}
+  echo CHECKERS=${CHECKERS}
+  echo CHECKERS_JAR=${CHECKERS_JAR}
+  echo JSR308_JAR=${JSR308_JAR}
+  echo JAVARIFIER_JDK=${JAVARIFIER_JDK}
+  echo JAVARIFIER_JDK_JAR=${JAVARIFIER_JDK_JAR}
+  echo AFU_BIN=${AFU_BIN}
+  echo AFU_JAR=${AFU_JAR}
+  echo JAVARIFIER_LIB=${JAVARIFIER_LIB}
+  echo JAVARIFIER_BIN=${JAVARIFIER_BIN}
+  echo PLUME_JAR=${PLUME_JAR}
+fi
+
+# JAVARIFIER_BIN and AFU_JAR are on classpath because they may be more
+# recent than javarifier.jar, if, in a checkout, developer does "ant bin"
+# instead of "ant jarfile".
+# Including CHECKERS_JAR in defaultStubCPEntries
+# permits use of Javari keywords like @Assignable.
+if [ "$DEBUG" = "1" ]; then
+  # Keep this line in sync with the actual executed command, immediately below.
+  echo java -ea -Xmx1024m -Xbootclasspath/p:${JSR308_JAR} -cp ${JAVARIFIER_BIN}:${PLUME_JAR}:${AFU_BIN}:${AFU_JAR}:${JRDIR}/javarifier.jar:${JDK_JARS} \
+	 javarifier.Main \
+	 --defaultStubCPEntries ${JAVARIFIER_JDK_JAR}:${CHECKERS_JAR} \
+	 --defaultWorldCPEntries ${JDK_JARS}:${CHECKERS_JAR} \
+	 --programCPEntries "${SOOT_PROGRAMS}" \
+	 "$@"
+fi
 java -ea -Xmx1024m -Xbootclasspath/p:${JSR308_JAR} -cp ${JAVARIFIER_BIN}:${PLUME_JAR}:${AFU_BIN}:${AFU_JAR}:${JRDIR}/javarifier.jar:${JDK_JARS} \
 	 javarifier.Main \
 	 --defaultStubCPEntries ${JAVARIFIER_JDK_JAR}:${CHECKERS_JAR} \
