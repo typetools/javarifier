@@ -301,7 +301,6 @@
            set.  When Ant is invoked from the command line, the Makefile
            can infer a value if the JAVAC environment variable is not set. -->
       <env key="JAVAC" file="${javac}" />
-      <env key="JAVAC_JAR" file="${annotations-compiler-jar}"/>
       <env key="LANGTOOLS" path="${annotations-compiler}"/>
       <env key="CLASSPATH" path="${toString:libpath}"/>
       <env key="CHECKERS" path="${checkers}"/>
