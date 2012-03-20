@@ -321,7 +321,6 @@
       <arg value="clean-toplevel"/>
       <arg value="toplevel-all"/>
       <env key="JAVAC" file="${javac}" />
-      <env key="JAVAC_JAR" file="${annotations-compiler-jar}"/>
       <env key="CLASSPATH" path="${checkers}/checkers.jar"/>
       <env key="CHECKERS" path="${checkers}"/>
       <env key="AFU" path="${afu}"/>
