@@ -80,7 +80,7 @@ To make a Javarifier distribution:
       # Cut and paste from
       # http://types.cs.washington.edu/checker-framework/current/checkers-manual.html#javac-installation
       # (but maybe use a different checkers.zip URL, such as one of:
-      #   wget http://www.cs.washington.edu/homes/mernst/jsr308test/checker-framework/current/checkers.zip
+      #   wget http://homes.cs.washington.edu/~mernst/jsr308test/checker-framework/current/checkers.zip
       #   cp -pf /home/cf/jsr308/checker-framework/tmp/1.1.1/checkers.zip .
       # ).
       # Sanity-check by following instructions at
@@ -121,7 +121,7 @@ A condensed version is located in the paper titled
 "Inference of reference immutability", located at:
         javari/design/javarifier/paper.pdf
 Or on the web at:
-        http://www.cs.washington.edu/homes/mernst/pubs/infer-refimmutability-ecoop2008-abstract.html
+        http://homes.cs.washington.edu/~mernst/pubs/infer-refimmutability-ecoop2008-abstract.html
 
 User documentation for the Javarifier tool can be found at:
         javarifier.html
