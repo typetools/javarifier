@@ -32,9 +32,9 @@ BINDIR=$(dirname $0)
 JRDIR=${BINDIR}/..
 CHECKERS=${CHECKERS:-${BINDIR}/../../checker-framework/checkers}
 CHECKERS_JAR=${CHECKERS}/checkers.jar
-JSR308_JAR=${CHECKERS}/binary/jsr308-all.jar
+JAVAC_JAR=${CHECKERS}/../../jsr308-langtools/dist/lib/javac.jar
 JAVARIFIER_JDK=${JAVARIFIER_JDK:-${CHECKERS}/jdk/javari/build/}
-JAVARIFIER_JDK_JAR=${JAVARIFIER_JDK_JAR:-${CHECKERS}/jdk/jdk.jar}
+JAVARIFIER_JDK_JAR=${JAVARIFIER_JDK_JAR:-${CHECKERS}/jdk/jdk7.jar}
 AFU_BIN=${BINDIR}/../../annotation-tools/annotation-file-utilities/bin
 AFU_JAR=${BINDIR}/../../annotation-tools/annotation-file-utilities/annotation-file-utilities.jar
 JAVARIFIER_LIB=${JRDIR}/lib
@@ -49,7 +49,6 @@ if [ "$DEBUG" = "1" ]; then
   echo JRDIR=${JRDIR}
   echo CHECKERS=${CHECKERS}
   echo CHECKERS_JAR=${CHECKERS_JAR}
-  echo JSR308_JAR=${JSR308_JAR}
   echo JAVARIFIER_JDK=${JAVARIFIER_JDK}
   echo JAVARIFIER_JDK_JAR=${JAVARIFIER_JDK_JAR}
   echo AFU_BIN=${AFU_BIN}
@@ -66,14 +65,14 @@ fi
 # permits use of Javari keywords like @Assignable.
 if [ "$DEBUG" = "1" ]; then
   # Keep this line in sync with the actual executed command, immediately below.
-  echo java -ea -Xmx1024m -Xbootclasspath/p:${JSR308_JAR} -cp ${JAVARIFIER_BIN}:${PLUME_JAR}:${AFU_BIN}:${AFU_JAR}:${JRDIR}/javarifier.jar:${JDK_JARS} \
+  echo java -ea -Xmx1024m -Xbootclasspath/p:${JAVARIFIER_JDK_JAR}:${JAVAC_JAR}:${CHECKERS_JAR} -cp ${JAVARIFIER_BIN}:${PLUME_JAR}:${AFU_BIN}:${AFU_JAR}:${JRDIR}/javarifier.jar:${JDK_JARS} \
 	 javarifier.Main \
 	 --defaultStubCPEntries ${JAVARIFIER_JDK_JAR}:${CHECKERS_JAR} \
 	 --defaultWorldCPEntries ${JDK_JARS}:${CHECKERS_JAR} \
 	 --programCPEntries "${SOOT_PROGRAMS}" \
 	 "$@"
 fi
-java -ea -Xmx1024m -Xbootclasspath/p:${JSR308_JAR} -cp ${JAVARIFIER_BIN}:${PLUME_JAR}:${AFU_BIN}:${AFU_JAR}:${JRDIR}/javarifier.jar:${JDK_JARS} \
+java -ea -Xmx1024m -Xbootclasspath/p:${JAVARIFIER_JDK_JAR}:${JAVAC_JAR}:${CHECKERS_JAR} -cp ${JAVARIFIER_BIN}:${PLUME_JAR}:${AFU_BIN}:${AFU_JAR}:${JRDIR}/javarifier.jar:${JDK_JARS} \
 	 javarifier.Main \
 	 --defaultStubCPEntries ${JAVARIFIER_JDK_JAR}:${CHECKERS_JAR} \
 	 --defaultWorldCPEntries ${JDK_JARS}:${CHECKERS_JAR} \
