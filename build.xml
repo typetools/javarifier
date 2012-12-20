@@ -19,6 +19,11 @@
   <property name="javari-www-javarifier"
     value="/cse/www2/types/javari/javarifier"/>
 
+
+  <condition property="jdkName" value="jdk7.jar" else="jdk6.jar">
+    <contains string="${java.version}" substring="1.7"/>
+  </condition>
+
   <!-- Determine locations of all projects, as per the property files. -->
   <target name="init-properties" description="Initialize required properties">
       <condition property="exists.build.properties">
@@ -306,6 +311,7 @@
       <env key="CHECKERS" path="${checkers}"/>
       <env key="AFU" path="${afu}"/>
       <env key="JRE_HOME" path="${java.home}"/>
+      <env key="JDK_NAME" path="${jdkName}"/>
       <env key="PATH" path="${afu}/scripts:${env.PATH}"/>
     </exec>
   </target>
