@@ -13,6 +13,7 @@ if [ "$1" = "-d" ]; then
 fi
 
 JRE_HOME=${JRE_HOME:-$(java -cp $(dirname $0) PrintJreHome)}
+JDK_NAME=$(java -cp $(dirname $0) PrintJdkName)
 
 JDK_JARS=\
 ${JRE_HOME}/lib/charsets.jar:\
@@ -34,7 +35,7 @@ CHECKERS=${CHECKERS:-${BINDIR}/../../checker-framework/checkers}
 CHECKERS_JAR=${CHECKERS}/checkers.jar
 JAVAC_JAR=${CHECKERS}/../../jsr308-langtools/dist/lib/javac.jar
 JAVARIFIER_JDK=${JAVARIFIER_JDK:-${CHECKERS}/jdk/javari/build/}
-JAVARIFIER_JDK_JAR=${JAVARIFIER_JDK_JAR:-${CHECKERS}/jdk/jdk7.jar}
+JAVARIFIER_JDK_JAR=${JAVARIFIER_JDK_JAR:-${CHECKERS}/jdk/${JDK_NAME}}
 AFU_BIN=${BINDIR}/../../annotation-tools/annotation-file-utilities/bin
 AFU_JAR=${BINDIR}/../../annotation-tools/annotation-file-utilities/annotation-file-utilities.jar
 JAVARIFIER_LIB=${JRDIR}/lib
@@ -43,6 +44,7 @@ PLUME_JAR=${JAVARIFIER_LIB}/plume.jar
 
 if [ "$DEBUG" = "1" ]; then
   echo JRE_HOME=${JRE_HOME}
+  echo JDK_NAME=${JDK_NAME}
   echo JDK_JARS=${JDK_JARS}
   echo SOOT_PROGRAMS=${SOOT_PROGRAMS}
   echo BINDIR=${BINDIR}
