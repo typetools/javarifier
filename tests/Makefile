@@ -151,7 +151,7 @@ annotated/%.java: %.java %.jaif %.class
 
 %.typecheck.diff: annotated/%.java
 # ".." in classpath is for helper classes like Cell.
-	set -o pipefail && $(JAVAC) -processor checkers.javari.JavariChecker -Xbootclasspath/p:${CHECKERS}/jdk/jdk7.jar:${CHECKERS}/binary/javac.jar -classpath annotated:${CLASSPATH}:${CHECKERS}/build:${CHECKERS}/checkers.jar -implicit:class annotated/$*.java 2>&1 | tee $*.typecheck.diff
+	set -o pipefail && $(JAVAC) -processor checkers.javari.JavariChecker -Xbootclasspath/p:${CHECKERS}/jdk/${JDK_NAME}.jar:${CHECKERS}/binary/javac.jar -classpath annotated:${CLASSPATH}:${CHECKERS}/build:${CHECKERS}/checkers.jar -implicit:class annotated/$*.java 2>&1 | tee $*.typecheck.diff
 
 
 # Remove all .diff, .log files from the tests directory,
