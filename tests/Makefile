@@ -18,17 +18,12 @@ JAVARIFIER_JAVA_FILES := $(wildcard ../src/*.java)
 
 JAVARIFIER ?= ../scripts/javarifier
 JRE_HOME ?= $(shell java -cp $(JAVARIFIER)/scripts PrintJreHome)
-JSR308_JAVAC = $(CURDIR)/../../jsr308-langtools/dist/bin/javac
-CHECKERS_JAVAC = $(CURDIR)/../../checker-framework/checkers/binary/javac
 
-ifndef JAVAC
-ifeq "$(wildcard ${CHECKERS_JAVAC})" "${CHECKERS_JAVAC}"
-  JAVAC = $(JSR308_JAVAC)
-else ifeq "$(wildcard ${JSR308_JAVAC})" "${JSR308_JAVAC}"
-  JAVAC = $(CHECKERS_JAVAC)
-else
-  $(error "JAVAC is not set, and couldn't find $(JSR308_JAVAC) or $(CHECKERS_JAVAC)")
-endif
+#Since the Checker Framework is required to run this script
+#use the Checker Framework compiler
+JAVAC = ${CHECKERS}/binary/javac
+ifneq ($(wildcard ${JAVAC}), ${JAVAC})
+    $(error "Couldn't find the Checker Framework compiler at ${JAVAC}" )
 endif
 
 AFU ?= ../../annotation-tools/annotation-file-utilities
@@ -151,7 +146,7 @@ annotated/%.java: %.java %.jaif %.class
 
 %.typecheck.diff: annotated/%.java
 # ".." in classpath is for helper classes like Cell.
-	set -o pipefail && $(JAVAC) -processor checkers.javari.JavariChecker -Xbootclasspath/p:${CHECKERS}/jdk/${JDK_NAME}:${CHECKERS}/binary/javac.jar -classpath annotated:${CLASSPATH}:${CHECKERS}/build:${CHECKERS}/checkers.jar -implicit:class annotated/$*.java 2>&1 | tee $*.typecheck.diff
+	set -o pipefail && $(JAVAC) -processor checkers.javari.JavariChecker -classpath annotated:${CLASSPATH}:${CHECKERS}/build:${CHECKERS}/checkers.jar -implicit:class annotated/$*.java 2>&1 | tee $*.typecheck.diff
 
 
 # Remove all .diff, .log files from the tests directory,
