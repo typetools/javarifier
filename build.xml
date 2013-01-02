@@ -327,7 +327,7 @@
       <arg value="clean-toplevel"/>
       <arg value="toplevel-all"/>
       <env key="JAVAC" file="${javac}" />
-      <env key="CLASSPATH" path="${checkers}/checkers.jar"/>
+      <env key="CLASSPATH" path="${checkers}/binary/checkers.jar"/>
       <env key="CHECKERS" path="${checkers}"/>
       <env key="AFU" path="${afu}"/>
       <env key="JRE_HOME" path="${java.home}"/>
@@ -349,7 +349,7 @@
       <arg value="clean-toplevel"/>
       <arg value="toplevel-all"/>
       <env key="JAVAC" file="${javac}" />
-      <env key="CLASSPATH" path="${checkers}/checkers.jar"/>
+      <env key="CLASSPATH" path="${checkers}/binary/checkers.jar"/>
       <env key="CHECKERS" path="${checkers}"/>
       <env key="AFU" path="${afu}"/>
       <env key="JRE_HOME" path="${java.home}"/>
