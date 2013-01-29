@@ -5,13 +5,13 @@ public class Arrays {
 
     public static class Day {
         public int day;
-        public Day() @ReadOnly { }
-        public Day(int d) @ReadOnly { this.day = d; }
-        public int getDay() /*readonly*/ @ReadOnly { return day; }
-        public void setDay(int d) /*mutable*/ @Mutable { this.day = d; }
+        public Day(@ReadOnly Day this) { }
+        public Day(@ReadOnly Day this, int d) { this.day = d; }
+        public int getDay(@ReadOnly Day this) /*readonly*/ { return day; }
+        public void setDay(@Mutable Day this, int d) /*mutable*/ { this.day = d; }
     }
 
-    public void foo() /*readonly*/ @ReadOnly {
+    public void foo(@ReadOnly Arrays this) /*readonly*/ {
         /*readonly*/ @ReadOnly Day @Mutable [/*mutable*/] ma = new Day[1];
         /*readonly*/ @ReadOnly Day d = new Day();
         ma[0] = d;
@@ -19,7 +19,7 @@ public class Arrays {
         int y = x.getDay();
     }
 
-    public void bar() /*readonly*/ @ReadOnly {
+    public void bar(@ReadOnly Arrays this) /*readonly*/ {
         /*mutable*/ @Mutable Day @Mutable [/*mutable*/] ma = new Day[1];
         /*mutable*/ @Mutable Day d = new Day();
         ma[0] = d;
@@ -28,7 +28,7 @@ public class Arrays {
         x.setDay(y);
     }
 
-    public void baz() /*readonly*/ @ReadOnly {
+    public void baz(@ReadOnly Arrays this) /*readonly*/ {
         /*mutable*/ @Mutable Day @Mutable [/*mutable*/] ma = new Day[1];
         ma[0] = new Day();
         ma[0].setDay(2);
@@ -40,7 +40,7 @@ public class Arrays {
      }
 
 
-    public void quax() /*readonly*/ @ReadOnly {
+    public void quax(@ReadOnly Arrays this) /*readonly*/ {
         /*mutable*/ @Mutable Day @Mutable [/*mutable*/] ma = new Day[1];
         /*mutable*/ @Mutable Day d = new Day();
         ma[0] = d;

@@ -11,41 +11,41 @@ public class MethodCall {
 
     private /*readonly*/ @ReadOnly MethodCall g;
 
-    private /*romaybe*/ @PolyRead MethodCall getF() /*romaybe*/ @PolyRead {
+    private /*romaybe*/ @PolyRead MethodCall getF(@PolyRead MethodCall this) /*romaybe*/ {
         return this.f;
     }
 
-    private /*readonly*/ @ReadOnly MethodCall getG() /*readonly*/ @ReadOnly {
+    private /*readonly*/ @ReadOnly MethodCall getG(@ReadOnly MethodCall this) /*readonly*/ {
         return this.g;
     }
 
-    private void setF(/*mutable*/ @Mutable MethodCall mc) /*mutable*/ @Mutable {
+    private void setF(@Mutable MethodCall this, /*mutable*/ @Mutable MethodCall mc) /*mutable*/ {
         this.f = mc;
     }
 
-    private void setG(/*readonly*/ @ReadOnly MethodCall mc) /*mutable*/ @Mutable {
+    private void setG(@Mutable MethodCall this, /*readonly*/ @ReadOnly MethodCall mc) /*mutable*/ {
         this.g = mc;
     }
 
 
-    private void foo() /*mutable*/ @Mutable {
+    private void foo(@Mutable MethodCall this) /*mutable*/ {
         /*mutable*/ @Mutable MethodCall x = this.getF();
         x.setF(this);  // forces getFmut() to have mutable return type, and, therefore, mutable reciever.
     }
 
-    private void bar() /*readonly*/ @ReadOnly {
+    private void bar(@ReadOnly MethodCall this) /*readonly*/ {
         /*readonly*/ @ReadOnly MethodCall x = getF();
     }
 
-    private void baz(/*readonly*/ @ReadOnly MethodCall x) /*mutable*/ @Mutable {
+    private void baz(@Mutable MethodCall this, /*readonly*/ @ReadOnly MethodCall x) /*mutable*/ {
         this.setG(x);
     }
 
-    private void quax(/*mutable*/ @Mutable MethodCall mc) /*mutable*/ @Mutable {
+    private void quax(@Mutable MethodCall this, /*mutable*/ @Mutable MethodCall mc) /*mutable*/ {
         this.setF(mc);
     }
 
-    private void deadbeef() /*mutable*/ @Mutable {
+    private void deadbeef(@Mutable MethodCall this) /*mutable*/ {
         /*readonly*/ @ReadOnly MethodCall x = this.getG();
         x.bar();
         /*mutable*/ @Mutable MethodCall y = this.getF();

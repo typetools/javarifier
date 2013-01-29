@@ -4,26 +4,26 @@ public class CellClient3 {
 
     public static class Cell<T extends @ReadOnly java.lang.Object> {
 	public @ReadOnly T val;
-	public @ReadOnly T getVal() @ReadOnly { return val; }
-	public void setVal(@ReadOnly T val) @Mutable { this.val = val; }
+	public @ReadOnly T getVal(@ReadOnly Cell<T> this) { return val; }
+	public void setVal(@Mutable Cell<T> this, @ReadOnly T val) { this.val = val; }
     }
 
     public static class Day {
         public int day;
-        public Day() @ReadOnly { }
-        public Day(int d) @ReadOnly { this.day = d; }
-        public int getDay() /*readonly*/ @ReadOnly { return day; }
-        public void setDay(int d) /*mutable*/ @Mutable { this.day = d; }
+        public Day(@ReadOnly Day this) { }
+        public Day(@ReadOnly Day this, int d) { this.day = d; }
+        public int getDay(@ReadOnly Day this) /*readonly*/ { return day; }
+        public void setDay(@Mutable Day this, int d) /*mutable*/ { this.day = d; }
     }
 
     /*readonly*/ @ReadOnly Cell</*this-mutable*/ Day> f;
 
-    public void foo() /*mutable*/ @Mutable {
+    public void foo(@Mutable CellClient3 this) /*mutable*/ {
         /*mutable*/ @Mutable Day d = f.getVal();
         d.setDay(3);
     }
 
-    public void bar() /*readonly*/ @ReadOnly {
+    public void bar(@ReadOnly CellClient3 this) /*readonly*/ {
         /*readonly*/ @ReadOnly Day rd = f.getVal();
         int x = rd.getDay();
     }

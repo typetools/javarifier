@@ -4,21 +4,21 @@ public class Bar3 {
     public /*readonly*/ @ReadOnly String[/*this-mutable*/] x;
     int i;
 
-    public Bar3() @ReadOnly {
+    public Bar3(@ReadOnly Bar3 this) {
         x = new String[10];
         i = 0;
     }
 
-    public /*readonly*/ @ReadOnly String get(int i) /*readonly*/ @ReadOnly {
+    public /*readonly*/ @ReadOnly String get(@ReadOnly Bar3 this, int i) /*readonly*/ {
         return x[i];
     }
 
-    public void add(/*readonly*/ @ReadOnly String s) /*mutable*/ @Mutable {
+    public void add(@Mutable Bar3 this, /*readonly*/ @ReadOnly String s) /*mutable*/ {
         x[i] = s;
         i++;
     }
 
-    public void clear() /*mutable*/ @Mutable {
+    public void clear(@Mutable Bar3 this) /*mutable*/ {
         x = new String[10];
         i = 0;
     }

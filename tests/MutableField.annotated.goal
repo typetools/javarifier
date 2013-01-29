@@ -4,16 +4,16 @@ public class MutableField {
 
     public static class Cell<T extends @ReadOnly java.lang.Object> {
 	public @ReadOnly T val;
-	public @ReadOnly T getVal() @ReadOnly { return val; }
-	public void setVal(@ReadOnly T val) @Mutable { this.val = val; }
+	public @ReadOnly T getVal(@ReadOnly Cell<T> this) { return val; }
+	public void setVal(@Mutable Cell<T> this, @ReadOnly T val) { this.val = val; }
     }
 
     public static class Day {
         public int day;
-        public Day() @ReadOnly { }
-        public Day(int d) @ReadOnly { this.day = d; }
-        public int getDay() /*readonly*/ @ReadOnly { return day; }
-        public void setDay(int d) /*mutable*/ @Mutable { this.day = d; }
+        public Day(@ReadOnly Day this) { }
+        public Day(@ReadOnly Day this, int d) { this.day = d; }
+        public int getDay(@ReadOnly Day this) /*readonly*/ { return day; }
+        public void setDay(@Mutable Day this, int d) /*mutable*/ { this.day = d; }
     }
 
     // That commented @checkers.javari.quals.Mutable is recognized by the extended
@@ -24,20 +24,20 @@ public class MutableField {
     // in class file.
     /*this-mutable*/ Cell</*mutable*/ /*!@checkers.javari.quals.Mutable*/ Day> f;
 
-    public void foo() /*readonly*/ @ReadOnly {
+    public void foo(@ReadOnly MutableField this) /*readonly*/ {
         d.setDay(3);
     }
 
-    public void bar() /*mutable*/ @Mutable {
+    public void bar(@Mutable MutableField this) /*mutable*/ {
         d = new Day();
     }
 
-    public void baz() /*readonly*/ @Mutable {
+    public void baz(@Mutable MutableField this) /*readonly*/ {
         /*mutable*/ @Mutable Day x = f.getVal();
         x.setDay(2);
     }
 
-    public void quax() /*mutable*/ @Mutable {
+    public void quax(@Mutable MutableField this) /*mutable*/ {
         f.setVal(new Day(3));
     }
 }

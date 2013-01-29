@@ -2,7 +2,7 @@ import checkers.javari.quals.Mutable;
 import checkers.javari.quals.ReadOnly;
 public class ArraySimple1 {
 
-    public void foo() /*readonly*/ @ReadOnly {
+    public void foo(@ReadOnly ArraySimple1 this) /*readonly*/ {
         /*readonly*/ @ReadOnly Object @Mutable [/*mutable*/] ma = new Object[1];
         ma[0] = null;
     }

@@ -4,37 +4,37 @@ public class WildCards<T extends /*readonly*/ @ReadOnly Object> {
 
     public static class Cell<T extends @ReadOnly java.lang.Object> {
 	public @ReadOnly T val;
-	public @ReadOnly T getVal() @ReadOnly { return val; }
-	public void setVal(@ReadOnly T val) @Mutable { this.val = val; }
+	public @ReadOnly T getVal(@ReadOnly Cell<T> this) { return val; }
+	public void setVal(@Mutable Cell<T> this, @ReadOnly T val) { this.val = val; }
     }
 
     public static class Day {
         public int day;
-        public Day() @ReadOnly { }
-        public Day(int d) @ReadOnly { this.day = d; }
-        public int getDay() /*readonly*/ @ReadOnly { return day; }
-        public void setDay(int d) /*mutable*/ @Mutable { this.day = d; }
+        public Day(@ReadOnly Day this) { }
+        public Day(@ReadOnly Day this, int d) { this.day = d; }
+        public int getDay(@ReadOnly Day this) /*readonly*/ { return day; }
+        public void setDay(@Mutable Day this, int d) /*mutable*/ { this.day = d; }
     }
 
     private @ReadOnly T f;
 
-    public static /*readonly*/ @ReadOnly Day getDay(/*readonly*/ @ReadOnly Cell<? extends /*readonly*/ @ReadOnly Day> c) {
+    public static /*readonly*/ @ReadOnly Day getDay(/*readonly*/ @ReadOnly Cell<@ReadOnly ? extends /*readonly*/ Day> c) {
         return c.getVal();
     }
 
-    public void setF(/*readonly*/ @ReadOnly Cell<? extends @ReadOnly T> x) /*mutable*/ @Mutable {
+    public void setF(@Mutable WildCards<T> this, /*readonly*/ @ReadOnly Cell<@ReadOnly ? extends T> x) /*mutable*/ {
         f = x.getVal();
     }
 
-    public void addF(/*mutable*/ @Mutable Cell<? super @ReadOnly T> y) /*readonly*/ @ReadOnly {
+    public void addF(@ReadOnly WildCards<T> this, /*mutable*/ @Mutable Cell<@ReadOnly ? super T> y) /*readonly*/ {
         y.setVal(f);
     }
 
-    public static void setDay(/*readonly*/ @ReadOnly Cell<? extends /*mutable*/ @Mutable Day> z) {
+    public static void setDay(/*readonly*/ @ReadOnly Cell<@Mutable ? extends /*mutable*/ Day> z) {
         z.getVal().setDay(3);
     }
 
-    public static /*mutable*/ @Mutable Cell<? super /*readonly*/ @ReadOnly Day> baz() {
+    public static /*mutable*/ @Mutable Cell<@ReadOnly ? super /*readonly*/ Day> baz() {
         return new Cell<Day>();
     }
 
@@ -44,7 +44,7 @@ public class WildCards<T extends /*readonly*/ @ReadOnly Object> {
         baz().setVal(d);
     }
 
-    public static @ReadOnly String printVal(/*readonly*/ @ReadOnly Cell<? extends @ReadOnly java.lang.Object> c) {
+    public static @ReadOnly String printVal(/*readonly*/ @ReadOnly Cell<@ReadOnly ?> c) {
         @ReadOnly String s = c.toString();
         return s;
     }
