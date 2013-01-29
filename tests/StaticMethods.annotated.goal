@@ -3,7 +3,7 @@ import checkers.javari.quals.PolyRead;
 import checkers.javari.quals.ReadOnly;
 public class StaticMethods {
 
-    public static class Cell<T extends @ReadOnly java.lang.Object> {
+    public static class Cell<T extends java.lang. @ReadOnly Object> {
 	public @ReadOnly T val;
 	public @ReadOnly T getVal(@ReadOnly Cell<T> this) { return val; }
 	public void setVal(@Mutable Cell<T> this, @ReadOnly T val) { this.val = val; }
