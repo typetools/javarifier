@@ -16,6 +16,8 @@ import annotations.el.ATypeElement;
 import annotations.el.DefException;
 import annotations.el.InnerTypeLocation;
 
+import com.sun.tools.javac.code.TypeAnnotationPosition;
+
 /**
  * This class implements the simple output format specified by Shay Artzi
  * for mutability information for his work.  It should not be used for other
@@ -242,7 +244,8 @@ public class ShayOutput {
       ATypeElement ae = (ATypeElement) element;
       List<Integer> loc = new ArrayList<Integer>();
       loc.add(0);
-      InnerTypeLocation firstLoc = new InnerTypeLocation(loc);
+      loc.add(0);
+      InnerTypeLocation firstLoc = new InnerTypeLocation(TypeAnnotationPosition.getTypePathFromBinary(loc));
       AElement innerElement = ae.innerTypes.vivify(firstLoc);
 
       return isReadOnly(innerElement, false);
@@ -262,7 +265,8 @@ public class ShayOutput {
       ATypeElement ae = (ATypeElement) element;
       List<Integer> loc = new ArrayList<Integer>();
       loc.add(0);
-      InnerTypeLocation firstLoc = new InnerTypeLocation(loc);
+      loc.add(0);
+      InnerTypeLocation firstLoc = new InnerTypeLocation(TypeAnnotationPosition.getTypePathFromBinary(loc));
       AElement innerElement = ae.innerTypes.vivify(firstLoc);
 
       return isPolyRead(innerElement);
