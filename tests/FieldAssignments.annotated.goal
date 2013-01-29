@@ -12,7 +12,7 @@ public class FieldAssignments {
 
     private /*readonly*/ @ReadOnly FieldAssignments g;
 
-    public void foo() /*mutable*/ @Mutable {
+    public void foo(@Mutable FieldAssignments this) /*mutable*/ {
         /*readonly*/ @ReadOnly FieldAssignments x = this.g;
         this.g = x;
 

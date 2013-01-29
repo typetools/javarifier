@@ -8,19 +8,19 @@ public class SimpleCellClient {
 
     public static class Day {
         public int day;
-        public Day() @ReadOnly { }
-        public Day(int d) @ReadOnly { this.day = d; }
-        public int getDay() /*readonly*/ @ReadOnly { return day; }
-        public void setDay(int d) /*mutable*/ @Mutable { this.day = d; }
+        public Day(@ReadOnly Day this) { }
+        public Day(@ReadOnly Day this, int d) { this.day = d; }
+        public int getDay(@ReadOnly Day this) /*readonly*/ { return day; }
+        public void setDay(@Mutable Day this, int d) /*mutable*/ { this.day = d; }
     }
 
-    public void foo() @ReadOnly {
+    public void foo(@ReadOnly SimpleCellClient this) {
         /*readonly*/ @ReadOnly SimpleCell</*readonly*/ @ReadOnly Day> c = new SimpleCell<Day>();
         /*readonly*/ @ReadOnly Day d = c.val;
         int day = d.getDay();
     }
 
-    public void bar() @ReadOnly {
+    public void bar(@ReadOnly SimpleCellClient this) {
         /*mutable*/ @Mutable SimpleCell</*readonly*/ @ReadOnly Day> c = new SimpleCell<Day>();
         /*readonly*/ @ReadOnly Day d = c.val;
         int day = d.getDay();
@@ -28,13 +28,13 @@ public class SimpleCellClient {
         c.val = e;
     }
 
-    public void baz() @ReadOnly {
+    public void baz(@ReadOnly SimpleCellClient this) {
         /*readonly*/ @ReadOnly SimpleCell</*mutable*/ @Mutable Day> c = new SimpleCell<Day>();
         /*mutable*/ @Mutable Day d = c.val;
         d.setDay(3);
     }
 
-    public void quax() @ReadOnly {
+    public void quax(@ReadOnly SimpleCellClient this) {
         /*mutable*/ @Mutable SimpleCell</*mutable*/ @Mutable Day> c = new SimpleCell<Day>();
         /*mutable*/ @Mutable Day d = c.val;
         d.setDay(5);

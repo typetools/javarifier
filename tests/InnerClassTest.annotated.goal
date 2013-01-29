@@ -5,16 +5,16 @@ public class InnerClassTest<S extends @ReadOnly java.lang.Object> {
 
     public static class Cell<T extends @ReadOnly java.lang.Object> {
 	public @ReadOnly T val;
-	public @ReadOnly T getVal() @ReadOnly { return val; }
-	public void setVal(@ReadOnly T val) @Mutable { this.val = val; }
+	public @ReadOnly T getVal(@ReadOnly Cell<T> this) { return val; }
+	public void setVal(@Mutable Cell<T> this, @ReadOnly T val) { this.val = val; }
     }
 
     public static class Day {
         public int day;
-        public Day() @ReadOnly { }
-        public Day(int d) @ReadOnly { this.day = d; }
-        public int getDay() /*readonly*/ @ReadOnly { return day; }
-        public void setDay(int d) /*mutable*/ @Mutable { this.day = d; }
+        public Day(@ReadOnly Day this) { }
+        public Day(@ReadOnly Day this, int d) { this.day = d; }
+        public int getDay(@ReadOnly Day this) /*readonly*/ { return day; }
+        public void setDay(@Mutable Day this, int d) /*mutable*/ { this.day = d; }
     }
 
     @ReadOnly Day d;
@@ -30,7 +30,7 @@ public class InnerClassTest<S extends @ReadOnly java.lang.Object> {
 
     @ReadOnly AIn<@ReadOnly Day> in;
 
-    public @ReadOnly AIn<@ReadOnly Day> foo() @ReadOnly {
+    public @ReadOnly AIn<@ReadOnly Day> foo(@ReadOnly InnerClassTest<S> this) {
         //InnerClassTest<Day> i = new InnerClassTest<Day>();
         InnerClassTest<@ReadOnly @ReadOnly S>.AIn<Day> x = this.in;
         return x;
@@ -49,28 +49,28 @@ public class InnerClassTest<S extends @ReadOnly java.lang.Object> {
 
     // $1
     @ReadOnly Cell<@ReadOnly Day> initializedField = new Cell<Day>() {
-        public void initializedFieldFoo() @ReadOnly {}
+        public void initializedFieldFoo() {}
     };
 
 
 
     // $2 static
     static @ReadOnly Cell<@ReadOnly Day> staticInitializedField = new Cell<Day>() {
-        public void staticInitializedFieldFoo() @ReadOnly {}
+        public void staticInitializedFieldFoo() {}
     };
 
     // $3
-    @ReadOnly Cell<@ReadOnly Day> factory() @ReadOnly {
+    @ReadOnly Cell<@ReadOnly Day> factory(@ReadOnly InnerClassTest<S> this) {
         return new Cell<Day>() {
-            public void factoryFoo() @ReadOnly {}
-            public @ReadOnly S var() @ReadOnly { return null; }
+            public void factoryFoo() {}
+            public @ReadOnly S var() { return null; }
         };
     }
 
     // $4 static
     static @ReadOnly Cell<@ReadOnly Day> staticFactory() {
         return new Cell<Day>() {
-            public void factoryFoo() @ReadOnly {}
+            public void factoryFoo() {}
         };
     }
 }
