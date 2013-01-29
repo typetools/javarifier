@@ -20,7 +20,7 @@ class SimpleCellClient:
             type: @checkers.javari.quals.ReadOnly
         local 1 #8+14:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 3, 0: @checkers.javari.quals.ReadOnly
         local 2 #16+6:
             type: @checkers.javari.quals.ReadOnly
         local 3 #21+1:
@@ -32,7 +32,7 @@ class SimpleCellClient:
             type: @checkers.javari.quals.ReadOnly
         local 1 #8+29:
             type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 3, 0: @checkers.javari.quals.ReadOnly
         local 2 #16+21:
             type: @checkers.javari.quals.ReadOnly
         local 3 #21+16:
@@ -46,7 +46,7 @@ class SimpleCellClient:
             type: @checkers.javari.quals.ReadOnly
         local 1 #8+14:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+                inner-type 3, 0: @checkers.javari.quals.Mutable
         local 2 #16+6:
             type: @checkers.javari.quals.Mutable
 
@@ -57,7 +57,7 @@ class SimpleCellClient:
             type: @checkers.javari.quals.ReadOnly
         local 1 #8+27:
             type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.Mutable
+                inner-type 3, 0: @checkers.javari.quals.Mutable
         local 2 #16+19:
             type: @checkers.javari.quals.Mutable
         local 3 #29+6:
@@ -108,5 +108,5 @@ class SimpleCellClient$SimpleCell:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 3, 0: @checkers.javari.quals.ReadOnly
 

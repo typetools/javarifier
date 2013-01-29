@@ -10,7 +10,7 @@ class OpenWorld:
 
     field f:
         type: @checkers.javari.quals.ReadOnly
-            inner-type 0: @checkers.javari.quals.ReadOnly
+            inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     field d:
         type: @checkers.javari.quals.ReadOnly
@@ -23,14 +23,14 @@ class OpenWorld:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method getDay()LOpenWorld$Day;:
         return: @checkers.javari.quals.ReadOnly
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
 package :
 class OpenWorld$Cell:
@@ -44,14 +44,14 @@ class OpenWorld$Cell:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method getVal()Ljava/lang/Object;:
         return: @checkers.javari.quals.ReadOnly
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method setVal(Ljava/lang/Object;)V:
         return:
@@ -60,7 +60,7 @@ class OpenWorld$Cell:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 3, 0: @checkers.javari.quals.ReadOnly
         local 1 #0+6:
             type: @checkers.javari.quals.ReadOnly
 

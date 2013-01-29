@@ -15,7 +15,7 @@ class MutableField:
 
     field f:
         type: @checkers.javari.quals.ThisMutable
-            inner-type 0: @checkers.javari.quals.ThisMutable
+            inner-type 3, 0: @checkers.javari.quals.ThisMutable
 
     method <init>()V:
         return:
@@ -61,14 +61,14 @@ class MutableField$Cell:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method getVal()Ljava/lang/Object;:
         return: @checkers.javari.quals.ReadOnly
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method setVal(Ljava/lang/Object;)V:
         return:
@@ -77,7 +77,7 @@ class MutableField$Cell:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 3, 0: @checkers.javari.quals.ReadOnly
         local 1 #0+6:
             type: @checkers.javari.quals.ReadOnly
 

@@ -59,7 +59,7 @@ class Graph:
 
     field nodes:
         type: @checkers.javari.quals.ThisMutable
-            inner-type 0: @checkers.javari.quals.ThisMutable
+            inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     field CONST_m1:
 
@@ -209,7 +209,7 @@ class Hashtable:
 
     field array:
         type: @checkers.javari.quals.ThisMutable
-            inner-type 0: @checkers.javari.quals.ThisMutable
+            inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     field size:
 
@@ -298,10 +298,10 @@ class MST:
         return:
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 0 #0+243:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 1 #41+202:
         local 3 #52+191:
             type: @checkers.javari.quals.Mutable
@@ -365,10 +365,10 @@ class MST:
         return:
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 0 #0+130:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 1 #2+128:
         local 2 #26+94:
             type: @checkers.javari.quals.ReadOnly
