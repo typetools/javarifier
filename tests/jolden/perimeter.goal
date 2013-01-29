@@ -183,10 +183,10 @@ class Perimeter:
         return:
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 0 #0+267:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 1 #10+257:
         local 2 #18+249:
         local 3 #38+229:
@@ -204,10 +204,10 @@ class Perimeter:
         return:
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 0 #0+130:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 1 #2+128:
         local 2 #26+94:
             type: @checkers.javari.quals.ReadOnly

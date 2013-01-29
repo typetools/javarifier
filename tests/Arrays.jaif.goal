@@ -23,7 +23,7 @@ class Arrays:
             type: @checkers.javari.quals.ReadOnly
         local 1 #5+23:
             type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 2 #13+15:
             type: @checkers.javari.quals.ReadOnly
         local 3 #21+7:
@@ -37,7 +37,7 @@ class Arrays:
             type: @checkers.javari.quals.ReadOnly
         local 1 #5+29:
             type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.Mutable
+                inner-type 0, 0: @checkers.javari.quals.Mutable
         local 2 #13+21:
             type: @checkers.javari.quals.Mutable
         local 3 #21+13:
@@ -51,10 +51,10 @@ class Arrays:
             type: @checkers.javari.quals.ReadOnly
         local 1 #5+30:
             type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.Mutable
+                inner-type 0, 0: @checkers.javari.quals.Mutable
         local 2 #24+11:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.QReadOnly
+                inner-type 0, 0: @checkers.javari.quals.QReadOnly
         local 3 #28+7:
             type: @checkers.javari.quals.ReadOnly
         local 4 #34+1:
@@ -66,12 +66,12 @@ class Arrays:
             type: @checkers.javari.quals.ReadOnly
         local 1 #5+34:
             type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.Mutable
+                inner-type 0, 0: @checkers.javari.quals.Mutable
         local 2 #13+26:
             type: @checkers.javari.quals.Mutable
         local 3 #19+20:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.Mutable
+                inner-type 0, 0: @checkers.javari.quals.Mutable
         local 4 #24+15:
             type: @checkers.javari.quals.Mutable
         local 5 #31+8:

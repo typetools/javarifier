@@ -23,10 +23,10 @@ class TreeAdd:
         return:
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 0 #0+193:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 1 #8+185:
         local 3 #19+174:
             type: @checkers.javari.quals.ReadOnly
@@ -39,10 +39,10 @@ class TreeAdd:
         return:
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 0 #0+130:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 1 #2+128:
         local 2 #26+94:
             type: @checkers.javari.quals.ReadOnly

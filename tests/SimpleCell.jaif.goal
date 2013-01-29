@@ -13,5 +13,5 @@ class SimpleCell:
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 3, 0: @checkers.javari.quals.ReadOnly
 

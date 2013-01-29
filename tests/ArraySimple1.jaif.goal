@@ -20,5 +20,5 @@ class ArraySimple1:
             type: @checkers.javari.quals.ReadOnly
         local 1 #5+5:
             type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
 

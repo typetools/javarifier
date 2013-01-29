@@ -32,26 +32,26 @@ class BH:
         return:
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 0 #0+443:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 1 #8+435:
             type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 3, 0: @checkers.javari.quals.ReadOnly
         local 2 #10+77:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 3 #13+74:
         local 4 #16+71:
         local 5 #28+53:
             type: @checkers.javari.quals.ReadOnly
         local 6 #37+44:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 7 #41+40:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 8 #46+35:
         local 9 #49+32:
         local 10 #63+12:
@@ -67,7 +67,7 @@ class BH:
         local 14 #254+74:
         local 15 #261+67:
             type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 3, 0: @checkers.javari.quals.ReadOnly
         local 16 #283+42:
             type: @checkers.javari.quals.ReadOnly
 
@@ -91,10 +91,10 @@ class BH:
         return:
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 0 #0+177:
             type: @checkers.javari.quals.ReadOnly
-                inner-type 0: @checkers.javari.quals.ReadOnly
+                inner-type 0, 0: @checkers.javari.quals.ReadOnly
         local 1 #2+175:
         local 2 #26+141:
             type: @checkers.javari.quals.ReadOnly
@@ -234,14 +234,14 @@ class Body:
 
     method elements()Ljava/util/Enumeration;:
         return: @checkers.javari.quals.Mutable
-            inner-type 0: @checkers.javari.quals.Mutable
+            inner-type 3, 0: @checkers.javari.quals.Mutable
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+9:
             type: @checkers.javari.quals.ReadOnly
 
     method elementsRev()Ljava/util/Enumeration;:
         return: @checkers.javari.quals.Mutable
-            inner-type 0: @checkers.javari.quals.Mutable
+            inner-type 3, 0: @checkers.javari.quals.Mutable
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+9:
             type: @checkers.javari.quals.ReadOnly
@@ -380,7 +380,7 @@ class Cell:
 
     field subp:
         type: @checkers.javari.quals.ThisMutable
-            inner-type 0: @checkers.javari.quals.ThisMutable
+            inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     field next:
         type: @checkers.javari.quals.ReadOnly
@@ -472,7 +472,7 @@ class MathVector:
 
     field data:
         type: @checkers.javari.quals.ThisMutable
-            inner-type 0:
+            inner-type 0, 0:
 
     method <init>()V:
         return:
@@ -822,14 +822,14 @@ class Tree:
 
     method bodies()Ljava/util/Enumeration;:
         return: @checkers.javari.quals.Mutable
-            inner-type 0: @checkers.javari.quals.ReadOnly
+            inner-type 3, 0: @checkers.javari.quals.ReadOnly
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+8:
             type: @checkers.javari.quals.ReadOnly
 
     method bodiesRev()Ljava/util/Enumeration;:
         return: @checkers.javari.quals.Mutable
-            inner-type 0: @checkers.javari.quals.Mutable
+            inner-type 3, 0: @checkers.javari.quals.Mutable
         receiver: @checkers.javari.quals.ReadOnly
         local 0 #0+8:
             type: @checkers.javari.quals.ReadOnly
@@ -868,7 +868,7 @@ class Tree:
         local 30 #346+19:
         local 12 #410+54:
             type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.Mutable
+                inner-type 3, 0: @checkers.javari.quals.Mutable
         local 13 #432+29:
             type: @checkers.javari.quals.Mutable
 
@@ -881,7 +881,7 @@ class Tree:
         local 1 #0+61:
         local 2 #18+34:
             type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.Mutable
+                inner-type 3, 0: @checkers.javari.quals.Mutable
         local 3 #37+12:
             type: @checkers.javari.quals.Mutable
 
@@ -894,7 +894,7 @@ class Tree:
         local 1 #0+93:
         local 2 #5+79:
             type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.Mutable
+                inner-type 3, 0: @checkers.javari.quals.Mutable
         local 3 #24+57:
             type: @checkers.javari.quals.Mutable
         local 4 #49+32:
@@ -928,7 +928,7 @@ class Tree:
         local 4 #25+191:
         local 6 #31+184:
             type: @checkers.javari.quals.Mutable
-                inner-type 0: @checkers.javari.quals.Mutable
+                inner-type 3, 0: @checkers.javari.quals.Mutable
         local 7 #53+159:
             type: @checkers.javari.quals.Mutable
         local 8 #66+146:
