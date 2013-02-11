@@ -11,7 +11,7 @@ public class Bar2 {
 
     // readonly because nowhere is the return type of fooChange used in a
     // mutable manner.
-    public /*readonly*/ Integer fooChange(/*readonly*/ Integer i) /*mutable*/ {
+    public /*readonly*/ Integer fooChange(Integer i) /*mutable*/ {
         x = i;
         return i;
     }

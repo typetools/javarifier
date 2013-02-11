@@ -20,11 +20,11 @@ public class WildCards<T extends /*readonly*/ Object> {
         return c.getVal();
     }
 
-    public void setF(/*readonly*/ Cell<? extends T> x) /*mutable*/ {
+    public void setF(Cell<? extends T> x) /*mutable*/ {
         f = x.getVal();
     }
 
-    public void addF(/*mutable*/ Cell<? super T> y) /*readonly*/ {
+    public void addF(Cell<? super T> y) /*readonly*/ {
         y.setVal(f);
     }
 

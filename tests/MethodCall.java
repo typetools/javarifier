@@ -16,11 +16,11 @@ public class MethodCall {
         return this.g;
     }
 
-    private void setF(/*mutable*/ MethodCall mc) /*mutable*/ {
+    private void setF(MethodCall mc) /*mutable*/ {
         this.f = mc;
     }
 
-    private void setG(/*readonly*/ MethodCall mc) /*mutable*/ {
+    private void setG(MethodCall mc) /*mutable*/ {
         this.g = mc;
     }
 
@@ -34,11 +34,11 @@ public class MethodCall {
         /*readonly*/ MethodCall x = getF();
     }
 
-    private void baz(/*readonly*/ MethodCall x) /*mutable*/ {
+    private void baz(MethodCall x) /*mutable*/ {
         this.setG(x);
     }
 
-    private void quax(/*mutable*/ MethodCall mc) /*mutable*/ {
+    private void quax(MethodCall mc) /*mutable*/ {
         this.setF(mc);
     }
 
