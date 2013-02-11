@@ -22,11 +22,11 @@ public class WildCards<T extends /*readonly*/ @ReadOnly Object> {
         return c.getVal();
     }
 
-    public void setF(@Mutable WildCards<T> this, /*readonly*/ @ReadOnly Cell<@ReadOnly ? extends T> x) /*mutable*/ {
+    public void setF(@Mutable WildCards<T> this, @ReadOnly Cell<@ReadOnly ? extends T> x) /*mutable*/ {
         f = x.getVal();
     }
 
-    public void addF(@ReadOnly WildCards<T> this, /*mutable*/ @Mutable Cell<@ReadOnly ? super T> y) /*readonly*/ {
+    public void addF(@ReadOnly WildCards<T> this, @Mutable Cell<@ReadOnly ? super T> y) /*readonly*/ {
         y.setVal(f);
     }
 

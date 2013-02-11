@@ -33,7 +33,7 @@ public class StaticInnerClass {
 
     public static class Foo {
         /*readonly*/ @ReadOnly Day d;
-        public Foo(@ReadOnly Foo this, /*readonly*/ @ReadOnly Day d) {
+        public Foo(@ReadOnly Foo this, @ReadOnly Day d) {
             this.d = d;
         }
     }

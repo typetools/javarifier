@@ -11,7 +11,7 @@ public class Bar3 {
         return x[i];
     }
 
-    public void add(/*readonly*/ String s) /*mutable*/ {
+    public void add(String s) /*mutable*/ {
         x[i] = s;
         i++;
     }

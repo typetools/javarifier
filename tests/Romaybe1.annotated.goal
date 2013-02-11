@@ -11,12 +11,12 @@ public class Romaybe1 {
         public void setDay(@Mutable Day this, int d) /*mutable*/ { this.day = d; }
     }
 
-    public /*romaybe*/ @PolyRead Day id(@ReadOnly Romaybe1 this, /*romaybe*/ @PolyRead Day d) /*readonly*/ {
+    public /*romaybe*/ @PolyRead Day id(@ReadOnly Romaybe1 this, @PolyRead Day d) /*readonly*/ {
         return d;
     }
 
     // forces id not to have readonly returnt type.
-    public void foo(@ReadOnly Romaybe1 this, /*mutable*/ @Mutable Day x) /*readonly*/ {
+    public void foo(@ReadOnly Romaybe1 this, @Mutable Day x) /*readonly*/ {
         id(x).setDay(2);
     }
 }

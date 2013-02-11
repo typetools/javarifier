@@ -8,12 +8,12 @@ public class Romaybe1 {
         public void setDay(int d) /*mutable*/ { this.day = d; }
     }
 
-    public /*romaybe*/ Day id(/*romaybe*/ Day d) /*readonly*/ {
+    public /*romaybe*/ Day id(Day d) /*readonly*/ {
         return d;
     }
 
     // forces id not to have readonly returnt type.
-    public void foo(/*mutable*/ Day x) /*readonly*/ {
+    public void foo(Day x) /*readonly*/ {
         id(x).setDay(2);
     }
 }

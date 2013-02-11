@@ -31,7 +31,7 @@ public class StaticInnerClass {
 
     public static class Foo {
         /*readonly*/ Day d;
-        public Foo(/*readonly*/ Day d) {
+        public Foo(Day d) {
             this.d = d;
         }
     }

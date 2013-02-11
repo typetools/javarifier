@@ -13,7 +13,7 @@ public class Bar3 {
         return x[i];
     }
 
-    public void add(@Mutable Bar3 this, /*readonly*/ @ReadOnly String s) /*mutable*/ {
+    public void add(@Mutable Bar3 this, @ReadOnly String s) /*mutable*/ {
         x[i] = s;
         i++;
     }
