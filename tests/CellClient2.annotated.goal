@@ -12,8 +12,8 @@ public class CellClient2<S extends /*mutable*/ @Mutable CellClient2.Day> {
         public int day;
         public Day(@ReadOnly Day this) { }
         public Day(@ReadOnly Day this, int d) { this.day = d; }
-        public int getDay(@ReadOnly Day this) /*readonly*/ { return day; }
-        public void setDay(@Mutable Day this, int d) /*mutable*/ { this.day = d; }
+        public int getDay(@ReadOnly Day this) { return day; }
+        public void setDay(@Mutable Day this, int d) { this.day = d; }
     }
 
     private /*this-mutable*/ Cell<@ReadOnly S> f;
@@ -23,7 +23,7 @@ public class CellClient2<S extends /*mutable*/ @Mutable CellClient2.Day> {
         f.setVal(t);
     }
 
-    public /*readonly*/ @ReadOnly Cell<@ReadOnly S> getF(@ReadOnly CellClient2<S> this) /*readonly*/ {
+    public /*readonly*/ @ReadOnly Cell<@ReadOnly S> getF(@ReadOnly CellClient2<S> this) {
         return f;
     }
 
@@ -33,7 +33,7 @@ public class CellClient2<S extends /*mutable*/ @Mutable CellClient2.Day> {
         d.setDay(2);
     }
 
-    public void setDay(S t) /*mutable*/ {
+    public void setDay(S t) {
         f.setVal(t);
     }
 }

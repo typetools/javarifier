@@ -10,8 +10,8 @@ public class WildCards<T extends /*readonly*/ Object> {
         public int day;
         public Day() { }
         public Day(int d) { this.day = d; }
-        public int getDay() /*readonly*/ { return day; }
-        public void setDay(int d) /*mutable*/ { this.day = d; }
+        public int getDay() { return day; }
+        public void setDay(int d) { this.day = d; }
     }
 
     private T f;
@@ -20,11 +20,11 @@ public class WildCards<T extends /*readonly*/ Object> {
         return c.getVal();
     }
 
-    public void setF(Cell<? extends T> x) /*mutable*/ {
+    public void setF(Cell<? extends T> x) {
         f = x.getVal();
     }
 
-    public void addF(Cell<? super T> y) /*readonly*/ {
+    public void addF(Cell<? super T> y) {
         y.setVal(f);
     }
 

@@ -12,8 +12,8 @@ public class WildCards<T extends /*readonly*/ @ReadOnly Object> {
         public int day;
         public Day(@ReadOnly Day this) { }
         public Day(@ReadOnly Day this, int d) { this.day = d; }
-        public int getDay(@ReadOnly Day this) /*readonly*/ { return day; }
-        public void setDay(@Mutable Day this, int d) /*mutable*/ { this.day = d; }
+        public int getDay(@ReadOnly Day this) { return day; }
+        public void setDay(@Mutable Day this, int d) { this.day = d; }
     }
 
     private @ReadOnly T f;
@@ -22,11 +22,11 @@ public class WildCards<T extends /*readonly*/ @ReadOnly Object> {
         return c.getVal();
     }
 
-    public void setF(@Mutable WildCards<T> this, @ReadOnly Cell<@ReadOnly ? extends T> x) /*mutable*/ {
+    public void setF(@Mutable WildCards<T> this, @ReadOnly Cell<@ReadOnly ? extends T> x) {
         f = x.getVal();
     }
 
-    public void addF(@ReadOnly WildCards<T> this, @Mutable Cell<@ReadOnly ? super T> y) /*readonly*/ {
+    public void addF(@ReadOnly WildCards<T> this, @Mutable Cell<@ReadOnly ? super T> y) {
         y.setVal(f);
     }
 

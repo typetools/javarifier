@@ -7,16 +7,16 @@ public class Bar3 {
         i = 0;
     }
 
-    public /*readonly*/ String get(int i) /*readonly*/ {
+    public /*readonly*/ String get(int i) {
         return x[i];
     }
 
-    public void add(String s) /*mutable*/ {
+    public void add(String s) {
         x[i] = s;
         i++;
     }
 
-    public void clear() /*mutable*/ {
+    public void clear() {
         x = new String[10];
         i = 0;
     }
