@@ -11,41 +11,41 @@ public class MethodCall {
 
     private /*readonly*/ @ReadOnly MethodCall g;
 
-    private /*romaybe*/ @PolyRead MethodCall getF(@PolyRead MethodCall this) /*romaybe*/ {
+    private /*romaybe*/ @PolyRead MethodCall getF(@PolyRead MethodCall this) {
         return this.f;
     }
 
-    private /*readonly*/ @ReadOnly MethodCall getG(@ReadOnly MethodCall this) /*readonly*/ {
+    private /*readonly*/ @ReadOnly MethodCall getG(@ReadOnly MethodCall this) {
         return this.g;
     }
 
-    private void setF(@Mutable MethodCall this, @Mutable MethodCall mc) /*mutable*/ {
+    private void setF(@Mutable MethodCall this, @Mutable MethodCall mc) {
         this.f = mc;
     }
 
-    private void setG(@Mutable MethodCall this, @ReadOnly MethodCall mc) /*mutable*/ {
+    private void setG(@Mutable MethodCall this, @ReadOnly MethodCall mc) {
         this.g = mc;
     }
 
 
-    private void foo(@Mutable MethodCall this) /*mutable*/ {
+    private void foo(@Mutable MethodCall this) {
         /*mutable*/ @Mutable MethodCall x = this.getF();
         x.setF(this);  // forces getFmut() to have mutable return type, and, therefore, mutable reciever.
     }
 
-    private void bar(@ReadOnly MethodCall this) /*readonly*/ {
+    private void bar(@ReadOnly MethodCall this) {
         /*readonly*/ @ReadOnly MethodCall x = getF();
     }
 
-    private void baz(@Mutable MethodCall this, @ReadOnly MethodCall x) /*mutable*/ {
+    private void baz(@Mutable MethodCall this, @ReadOnly MethodCall x) {
         this.setG(x);
     }
 
-    private void quax(@Mutable MethodCall this, @Mutable MethodCall mc) /*mutable*/ {
+    private void quax(@Mutable MethodCall this, @Mutable MethodCall mc) {
         this.setF(mc);
     }
 
-    private void deadbeef(@Mutable MethodCall this) /*mutable*/ {
+    private void deadbeef(@Mutable MethodCall this) {
         /*readonly*/ @ReadOnly MethodCall x = this.getG();
         x.bar();
         /*mutable*/ @Mutable MethodCall y = this.getF();

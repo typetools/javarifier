@@ -10,8 +10,8 @@ public class MutableField {
         public int day;
         public Day() { }
         public Day(int d) { this.day = d; }
-        public int getDay() /*readonly*/ { return day; }
-        public void setDay(int d) /*mutable*/ { this.day = d; }
+        public int getDay() { return day; }
+        public void setDay(int d) { this.day = d; }
     }
 
     // That commented @checkers.javari.quals.Mutable is recognized by the extended
@@ -22,20 +22,20 @@ public class MutableField {
     // in class file.
     /*this-mutable*/ Cell</*mutable*/ /*!@checkers.javari.quals.Mutable*/ Day> f;
 
-    public void foo() /*readonly*/ {
+    public void foo() {
         d.setDay(3);
     }
 
-    public void bar() /*mutable*/ {
+    public void bar() {
         d = new Day();
     }
 
-    public void baz() /*readonly*/ {
+    public void baz() {
         /*mutable*/ Day x = f.getVal();
         x.setDay(2);
     }
 
-    public void quax() /*mutable*/ {
+    public void quax() {
         f.setVal(new Day(3));
     }
 }

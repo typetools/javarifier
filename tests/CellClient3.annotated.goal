@@ -12,18 +12,18 @@ public class CellClient3 {
         public int day;
         public Day(@ReadOnly Day this) { }
         public Day(@ReadOnly Day this, int d) { this.day = d; }
-        public int getDay(@ReadOnly Day this) /*readonly*/ { return day; }
-        public void setDay(@Mutable Day this, int d) /*mutable*/ { this.day = d; }
+        public int getDay(@ReadOnly Day this) { return day; }
+        public void setDay(@Mutable Day this, int d) { this.day = d; }
     }
 
     /*readonly*/ @ReadOnly Cell</*this-mutable*/ Day> f;
 
-    public void foo(@Mutable CellClient3 this) /*mutable*/ {
+    public void foo(@Mutable CellClient3 this) {
         /*mutable*/ @Mutable Day d = f.getVal();
         d.setDay(3);
     }
 
-    public void bar(@ReadOnly CellClient3 this) /*readonly*/ {
+    public void bar(@ReadOnly CellClient3 this) {
         /*readonly*/ @ReadOnly Day rd = f.getVal();
         int x = rd.getDay();
     }

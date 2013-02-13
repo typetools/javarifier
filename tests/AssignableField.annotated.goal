@@ -6,14 +6,14 @@ public class AssignableField {
         public int day;
         public Day(@ReadOnly Day this) { }
         public Day(@ReadOnly Day this, int d) { this.day = d; }
-        public int getDay(@ReadOnly Day this) /*readonly*/ { return day; }
-        public void setDay(@Mutable Day this, int d) /*mutable*/ { this.day = d; }
+        public int getDay(@ReadOnly Day this) { return day; }
+        public void setDay(@Mutable Day this, int d) { this.day = d; }
     }
 
     // That commented @checkers.javari.quals.Assignable is recognized by the extended
     // compiler and supersedes Assignable.fields.
     private /*assignable readonly*/ /*@checkers.javari.quals.Assignable*/ @ReadOnly Day d;
-    public /*readonly*/ @ReadOnly Day foo(@ReadOnly AssignableField this) /*readonly*/ {
+    public /*readonly*/ @ReadOnly Day foo(@ReadOnly AssignableField this) {
         if (d == null) {
             d = new Day();
         }

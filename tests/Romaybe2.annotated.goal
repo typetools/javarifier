@@ -7,18 +7,18 @@ public class Romaybe2 {
         public int day;
         public Day(@ReadOnly Day this) { }
         public Day(@ReadOnly Day this, int d) { this.day = d; }
-        public int getDay(@ReadOnly Day this) /*readonly*/ { return day; }
-        public void setDay(@Mutable Day this, int d) /*mutable*/ { this.day = d; }
+        public int getDay(@ReadOnly Day this) { return day; }
+        public void setDay(@Mutable Day this, int d) { this.day = d; }
     }
 
     private /*this-mutable*/ Day f;
 
-    public /*romaybe*/ @PolyRead Day getDay(@PolyRead Romaybe2 this) /*romaybe*/ {
+    public /*romaybe*/ @PolyRead Day getDay(@PolyRead Romaybe2 this) {
         return f;
     }
 
     // This method forces f to this-mutable instead of readonly.
-    public void foo(@Mutable Romaybe2 this) /*mutable*/ {
+    public void foo(@Mutable Romaybe2 this) {
         getDay().setDay(3);
     }
 }

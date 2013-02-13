@@ -9,13 +9,13 @@ public class StaticInnerClass {
         public int day;
         public Day(@ReadOnly Day this) { }
         public Day(@ReadOnly Day this, int d) { this.day = d; }
-        public int getDay(@ReadOnly Day this) /*readonly*/ { return day; }
-        public void setDay(@Mutable Day this, int d) /*mutable*/ { this.day = d; }
+        public int getDay(@ReadOnly Day this) { return day; }
+        public void setDay(@Mutable Day this, int d) { this.day = d; }
     }
 
     /*this-mutable*/ Foo f;
 
-    public void bar(@Mutable StaticInnerClass this) /*mutable*/ {
+    public void bar(@Mutable StaticInnerClass this) {
         /*readonly*/ @ReadOnly Day d = new Day();
         /*mutable*/ @Mutable Foo x = new Foo(d);
         f = x;

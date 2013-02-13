@@ -9,16 +9,16 @@ public class Bar3 {
         i = 0;
     }
 
-    public /*readonly*/ @ReadOnly String get(@ReadOnly Bar3 this, int i) /*readonly*/ {
+    public /*readonly*/ @ReadOnly String get(@ReadOnly Bar3 this, int i) {
         return x[i];
     }
 
-    public void add(@Mutable Bar3 this, @ReadOnly String s) /*mutable*/ {
+    public void add(@Mutable Bar3 this, @ReadOnly String s) {
         x[i] = s;
         i++;
     }
 
-    public void clear(@Mutable Bar3 this) /*mutable*/ {
+    public void clear(@Mutable Bar3 this) {
         x = new String[10];
         i = 0;
     }

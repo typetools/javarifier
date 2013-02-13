@@ -10,8 +10,8 @@ public class OpenWorld<T extends /*mutable*/ OpenWorld.Day> {
         public int day;
         public Day() { }
         public Day(int d) { this.day = d; }
-        public int getDay() /*readonly*/ { return day; }
-        public void setDay(int d) /*mutable*/ { this.day = d; }
+        public int getDay() { return day; }
+        public void setDay(int d) { this.day = d; }
     }
 
     public /*this-mutable*/ Cell</*this-mutable*/ Day> f;
@@ -20,7 +20,7 @@ public class OpenWorld<T extends /*mutable*/ OpenWorld.Day> {
 
     public T t;
 
-    public /*romaybe*/ Day getDay() /*romaybe*/ {
+    public /*romaybe*/ Day getDay() {
         return d;
     }
 

@@ -1,11 +1,11 @@
 public class Bar1 {
     int x;
 
-    public Bar1() /*mutable*/ {
+    public Bar1() {
         x = 1;
     }
 
-    public int getX() /*readonly*/ {
+    public int getX() {
         return x;
     }
 }

@@ -12,8 +12,8 @@ public class OpenWorld<T extends /*mutable*/ @ReadOnly OpenWorld.Day> {
         public int day;
         public Day(@ReadOnly Day this) { }
         public Day(@ReadOnly Day this, int d) { this.day = d; }
-        public int getDay(@ReadOnly Day this) /*readonly*/ { return day; }
-        public void setDay(@Mutable Day this, int d) /*mutable*/ { this.day = d; }
+        public int getDay(@ReadOnly Day this) { return day; }
+        public void setDay(@Mutable Day this, int d) { this.day = d; }
     }
 
     public /*this-mutable*/ @ReadOnly Cell</*this-mutable*/ @ReadOnly Day> f;
@@ -22,7 +22,7 @@ public class OpenWorld<T extends /*mutable*/ @ReadOnly OpenWorld.Day> {
 
     public @ReadOnly T t;
 
-    public /*romaybe*/ @ReadOnly Day getDay(@ReadOnly OpenWorld<T> this) /*romaybe*/ {
+    public /*romaybe*/ @ReadOnly Day getDay(@ReadOnly OpenWorld<T> this) {
         return d;
     }
 

@@ -10,7 +10,7 @@ public class FieldAssignments {
 
     private /*readonly*/ FieldAssignments g;
 
-    public void foo() /*mutable*/ {
+    public void foo() {
         /*readonly*/ FieldAssignments x = this.g;
         this.g = x;
 
