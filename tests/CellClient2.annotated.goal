@@ -18,7 +18,7 @@ public class CellClient2<S extends /*mutable*/ CellClient2.@Mutable Day> {
 
     private /*this-mutable*/ Cell<@ReadOnly S> f;
 
-    public CellClient2(S t) {
+    public CellClient2(@ReadOnly CellClient2<S> this, @ReadOnly S t) {
         f = new Cell<S>();
         f.setVal(t);
     }
@@ -33,7 +33,7 @@ public class CellClient2<S extends /*mutable*/ CellClient2.@Mutable Day> {
         d.setDay(2);
     }
 
-    public void setDay(S t) {
+    public void setDay(@Mutable CellClient2<S> this, @ReadOnly S t) {
         f.setVal(t);
     }
 }
