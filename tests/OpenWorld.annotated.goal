@@ -2,7 +2,7 @@ import checkers.javari.quals.ReadOnly;
 import checkers.javari.quals.Mutable;
 public class OpenWorld<T extends /*mutable*/ @ReadOnly OpenWorld.Day> {
 
-    public static class Cell<T extends java.lang. @ReadOnly Object> {
+    public static class Cell<T extends java.lang.@ReadOnly Object> {
 	public @ReadOnly T val;
 	public T getVal() { return val; }
 	public void setVal(T val) { this.val = val; }
