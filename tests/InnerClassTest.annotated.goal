@@ -32,7 +32,7 @@ public class InnerClassTest<S extends java.lang.@ReadOnly Object> {
 
     public @ReadOnly AIn<@ReadOnly Day> foo(@ReadOnly InnerClassTest<S> this) {
         //InnerClassTest<Day> i = new InnerClassTest<Day>();
-        InnerClassTest<@ReadOnly @ReadOnly S>.AIn<Day> x = this.in;
+        @ReadOnly InnerClassTest<@ReadOnly S>.AIn<Day> x = this.in;
         return x;
     }
 
