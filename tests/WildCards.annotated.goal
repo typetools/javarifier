@@ -4,16 +4,16 @@ public class WildCards<T extends /*readonly*/ @ReadOnly Object> {
 
     public static class Cell<T extends java.lang.@ReadOnly Object> {
 	public @ReadOnly T val;
-	public @ReadOnly T getVal(@ReadOnly Cell<T> this) { return val; }
-	public void setVal(@Mutable Cell<T> this, @ReadOnly T val) { this.val = val; }
+	public @ReadOnly T getVal(WildCards.@ReadOnly Cell<T> this) { return val; }
+	public void setVal(WildCards.@Mutable Cell<T> this, @ReadOnly T val) { this.val = val; }
     }
 
     public static class Day {
         public int day;
-        public Day(@ReadOnly Day this) { }
-        public Day(@ReadOnly Day this, int d) { this.day = d; }
-        public int getDay(@ReadOnly Day this) { return day; }
-        public void setDay(@Mutable Day this, int d) { this.day = d; }
+        public Day(WildCards.@ReadOnly Day this) { }
+        public Day(WildCards.@ReadOnly Day this, int d) { this.day = d; }
+        public int getDay(WildCards.@ReadOnly Day this) { return day; }
+        public void setDay(WildCards.@Mutable Day this, int d) { this.day = d; }
     }
 
     private @ReadOnly T f;

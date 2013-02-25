@@ -8,10 +8,10 @@ public class SimpleCellClient {
 
     public static class Day {
         public int day;
-        public Day(@ReadOnly Day this) { }
-        public Day(@ReadOnly Day this, int d) { this.day = d; }
-        public int getDay(@ReadOnly Day this) { return day; }
-        public void setDay(@Mutable Day this, int d) { this.day = d; }
+        public Day(SimpleCellClient.@ReadOnly Day this) { }
+        public Day(SimpleCellClient.@ReadOnly Day this, int d) { this.day = d; }
+        public int getDay(SimpleCellClient.@ReadOnly Day this) { return day; }
+        public void setDay(SimpleCellClient.@Mutable Day this, int d) { this.day = d; }
     }
 
     public void foo(@ReadOnly SimpleCellClient this) {
