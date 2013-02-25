@@ -1,6 +1,6 @@
 import checkers.javari.quals.Mutable;
 import checkers.javari.quals.ReadOnly;
-public class CellClient2<S extends /*mutable*/ @Mutable CellClient2.Day> {
+public class CellClient2<S extends /*mutable*/ CellClient2.@Mutable Day> {
 
     public static class Cell<T extends java.lang.@ReadOnly Object> {
 	public @ReadOnly T val;
