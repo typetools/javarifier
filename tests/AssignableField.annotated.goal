@@ -4,10 +4,10 @@ public class AssignableField {
 
     public static class Day {
         public int day;
-        public Day(@ReadOnly Day this) { }
-        public Day(@ReadOnly Day this, int d) { this.day = d; }
-        public int getDay(@ReadOnly Day this) { return day; }
-        public void setDay(@Mutable Day this, int d) { this.day = d; }
+        public Day(AssignableField.@ReadOnly Day this) { }
+        public Day(AssignableField.@ReadOnly Day this, int d) { this.day = d; }
+        public int getDay(AssignableField.@ReadOnly Day this) { return day; }
+        public void setDay(AssignableField.@Mutable Day this, int d) { this.day = d; }
     }
 
     // That commented @checkers.javari.quals.Assignable is recognized by the extended

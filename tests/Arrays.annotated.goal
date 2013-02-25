@@ -5,10 +5,10 @@ public class Arrays {
 
     public static class Day {
         public int day;
-        public Day(@ReadOnly Day this) { }
-        public Day(@ReadOnly Day this, int d) { this.day = d; }
-        public int getDay(@ReadOnly Day this) { return day; }
-        public void setDay(@Mutable Day this, int d) { this.day = d; }
+        public Day(Arrays.@ReadOnly Day this) { }
+        public Day(Arrays.@ReadOnly Day this, int d) { this.day = d; }
+        public int getDay(Arrays.@ReadOnly Day this) { return day; }
+        public void setDay(Arrays.@Mutable Day this, int d) { this.day = d; }
     }
 
     public void foo(@ReadOnly Arrays this) {

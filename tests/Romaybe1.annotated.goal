@@ -5,10 +5,10 @@ public class Romaybe1 {
 
     public static class Day {
         public int day;
-        public Day(@ReadOnly Day this) { }
-        public Day(@ReadOnly Day this, int d) { this.day = d; }
-        public int getDay(@ReadOnly Day this) { return day; }
-        public void setDay(@Mutable Day this, int d) { this.day = d; }
+        public Day(Romaybe1.@ReadOnly Day this) { }
+        public Day(Romaybe1.@ReadOnly Day this, int d) { this.day = d; }
+        public int getDay(Romaybe1.@ReadOnly Day this) { return day; }
+        public void setDay(Romaybe1.@Mutable Day this, int d) { this.day = d; }
     }
 
     public /*romaybe*/ @PolyRead Day id(@ReadOnly Romaybe1 this, @PolyRead Day d) {

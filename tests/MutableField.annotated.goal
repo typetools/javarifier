@@ -4,16 +4,16 @@ public class MutableField {
 
     public static class Cell<T extends java.lang.@ReadOnly Object> {
 	public @ReadOnly T val;
-	public @ReadOnly T getVal(@ReadOnly Cell<T> this) { return val; }
-	public void setVal(@Mutable Cell<T> this, @ReadOnly T val) { this.val = val; }
+	public @ReadOnly T getVal(MutableField.@ReadOnly Cell<T> this) { return val; }
+	public void setVal(MutableField.@Mutable Cell<T> this, @ReadOnly T val) { this.val = val; }
     }
 
     public static class Day {
         public int day;
-        public Day(@ReadOnly Day this) { }
-        public Day(@ReadOnly Day this, int d) { this.day = d; }
-        public int getDay(@ReadOnly Day this) { return day; }
-        public void setDay(@Mutable Day this, int d) { this.day = d; }
+        public Day(MutableField.@ReadOnly Day this) { }
+        public Day(MutableField.@ReadOnly Day this, int d) { this.day = d; }
+        public int getDay(MutableField.@ReadOnly Day this) { return day; }
+        public void setDay(MutableField.@Mutable Day this, int d) { this.day = d; }
     }
 
     // That commented @checkers.javari.quals.Mutable is recognized by the extended

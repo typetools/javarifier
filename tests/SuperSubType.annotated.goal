@@ -4,15 +4,15 @@ public class SuperSubType {
 
   public static class Day {
     public int day;
-    public Day(@ReadOnly Day this) { }
-    public Day(@ReadOnly Day this, int d) { this.day = d; }
-    public int getDay(@ReadOnly Day this) { return day; }
-    public void setDay(@Mutable Day this, int d) { this.day = d; }
+    public Day(SuperSubType.@ReadOnly Day this) { }
+    public Day(SuperSubType.@ReadOnly Day this, int d) { this.day = d; }
+    public int getDay(SuperSubType.@ReadOnly Day this) { return day; }
+    public void setDay(SuperSubType.@Mutable Day this, int d) { this.day = d; }
   }
 
   public static class SuperType {
 
-    public void foo(@Mutable SuperType this, @Mutable Day x) {
+    public void foo(SuperSubType.@Mutable SuperType this, @Mutable Day x) {
       x.setDay(3);
     }
 
@@ -22,7 +22,7 @@ public class SuperSubType {
 
     private Day d;
 
-    public void foo(@Mutable Subtype this, @ReadOnly Day x) {
+    public void foo(SuperSubType.@Mutable Subtype this, @ReadOnly Day x) {
       d.setDay(3);
     }
 

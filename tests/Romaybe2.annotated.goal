@@ -5,10 +5,10 @@ public class Romaybe2 {
 
     public static class Day {
         public int day;
-        public Day(@ReadOnly Day this) { }
-        public Day(@ReadOnly Day this, int d) { this.day = d; }
-        public int getDay(@ReadOnly Day this) { return day; }
-        public void setDay(@Mutable Day this, int d) { this.day = d; }
+        public Day(Romaybe2.@ReadOnly Day this) { }
+        public Day(Romaybe2.@ReadOnly Day this, int d) { this.day = d; }
+        public int getDay(Romaybe2.@ReadOnly Day this) { return day; }
+        public void setDay(Romaybe2.@Mutable Day this, int d) { this.day = d; }
     }
 
     private /*this-mutable*/ Day f;

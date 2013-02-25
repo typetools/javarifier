@@ -10,10 +10,10 @@ public class OpenWorld<T extends /*mutable*/ OpenWorld.@ReadOnly Day> {
 
     public static class Day {
         public int day;
-        public Day(@ReadOnly Day this) { }
-        public Day(@ReadOnly Day this, int d) { this.day = d; }
-        public int getDay(@ReadOnly Day this) { return day; }
-        public void setDay(@Mutable Day this, int d) { this.day = d; }
+        public Day(OpenWorld.@ReadOnly Day this) { }
+        public Day(OpenWorld.@ReadOnly Day this, int d) { this.day = d; }
+        public int getDay(OpenWorld.@ReadOnly Day this) { return day; }
+        public void setDay(OpenWorld.@Mutable Day this, int d) { this.day = d; }
     }
 
     public /*this-mutable*/ @ReadOnly Cell</*this-mutable*/ @ReadOnly Day> f;
