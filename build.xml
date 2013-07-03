@@ -317,7 +317,7 @@
   </target>
 
   <target name="run-tests-toplevel" depends="init-properties"
-    description="Runs Javarifier toplevel test cases, including typechecking">
+    description="Runs Javarifier toplevel test cases, including type-checking">
     <exec executable="make"
           failonerror="true">
       <arg value="-k"/>
