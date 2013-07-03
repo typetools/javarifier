@@ -63,7 +63,7 @@ Javari.
 Annotating <em>programs</em> aids developers in reasoning about the code
 and modifying it without introducing subtle mutation errors.  Annotating
 <em>libraries</em> is important because Javari programs use libraries
-without Javari annotations often do not typecheck.  Manually determining
+without Javari annotations often do not type-check.  Manually determining
 the mutability for each (public) parameter and return type is tedious and
 error-prone.  Javarifier automatically performs this analysis.
 </p>
@@ -117,7 +117,7 @@ that have already been annotated using stub classes.
 In earlier versions of Javari, methods must be invariant in the mutability
 of their parameters and return types.  The newer definition of Javari used
 by both Javarifier and the
-<a href="http://types.cs.washington.edu/checker-framework/">Javari type checker</a>
+<a href="http://types.cs.washington.edu/checker-framework/">Javari type-checker</a>
 permits covariant subtyping on parameters and contra-variant subtyping on
 return types.
 </p>
@@ -705,7 +705,7 @@ To build Javarifier from source, run the following commands:
 <ol>
   <li>Set environment variables.  Add the following to your
     <tt>~/.bashrc</tt> or equivalent. Set the <tt>JAVA_HOME</tt> environment variable
-to the location of your JDK 6 or 7 installation (not the JRE installation). Then log out and log back in:
+to the location of your JDK 7 installation (not the JRE installation). Then log out and log back in:
 <pre>export JAVA_HOME=<em>/path/to/your/jdk</em>
 export JSR308=$HOME/jsr308
 export PATH=$JSR308/jsr308-langtools/dist/bin:${PATH}
@@ -860,7 +860,7 @@ can be sent to <a href="mailto:javarifier-dev@googlegroups.com">javarifier-dev@g
 <hr/>
 
 <p>
-Last revised: September 17, 2012
+Last revised: July 3, 2013
 </p>
 
 </body>
@@ -882,7 +882,7 @@ End:
 <!--  LocalWords:  utils bashrc tcsh tcshrc cshrc classpath Javarifier Javari -->
 <!--  LocalWords:  mutabilities subtyping contra javarifier zipfile csh GG im -->
 <!--  LocalWords:  Javarifier's Tschantz jarfiles programCPEntries LGraph JVML -->
-<!--  LocalWords:  romaybe LocalVariableTypeTable typecheck setenv myPackage cd -->
+<!--  LocalWords:  romaybe LocalVariableTypeTable setenv myPackage cd -->
 <!--  LocalWords:  myClassOne myClassTwo perl jaif myClass applyHeuristics TODO -->
 <!--  LocalWords:  dumpCauses readonly ClassName LineNumber methodName hashMap -->
 <!--  LocalWords:  MemberName dumpConstraints ctx classfile HashEntry boolean -->
