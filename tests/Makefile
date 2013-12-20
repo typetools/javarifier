@@ -140,7 +140,7 @@ VerifyDiffs.class : VerifyDiffs.java
 
 .PRECIOUS: annotated/%.java
 annotated/%.java: %.java %.jaif %.class
-	CLASSPATH=${CLASSPATH}:. $(AFU)/scripts/insert-annotations-to-source ${DEBUG_INSERT_ANNOTATIONS} -o @checkers.javari.quals.ThisMutable $*.jaif  $*.java
+	CLASSPATH=${CLASSPATH}:. $(AFU)/scripts/insert-annotations-to-source ${DEBUG_INSERT_ANNOTATIONS} --omit-annotation=@checkers.javari.quals.ThisMutable $*.jaif  $*.java
 
 ## Why doesn't -sourcepath version work for finding the JDK??
 
