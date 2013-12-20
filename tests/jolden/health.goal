@@ -214,6 +214,8 @@ class List$ListEnumerator:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+18:
             type: @checkers.javari.quals.Mutable
+        local 1 #0+18:
+            type: @checkers.javari.quals.ReadOnly
         local 2 #0+18:
             type: @checkers.javari.quals.ReadOnly
 
@@ -252,6 +254,8 @@ class List$ListNode:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+20:
             type: @checkers.javari.quals.Mutable
+        local 1 #0+20:
+            type: @checkers.javari.quals.ReadOnly
         local 2 #0+20:
             type: @checkers.javari.quals.ReadOnly
 

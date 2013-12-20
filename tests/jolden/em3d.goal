@@ -311,6 +311,8 @@ class Node$1Enumerate:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+15:
             type: @checkers.javari.quals.Mutable
+        local 1 #0+15:
+            type: @checkers.javari.quals.ReadOnly
 
     method hasMoreElements()Z:
         return:
