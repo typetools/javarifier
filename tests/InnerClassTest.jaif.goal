@@ -76,6 +76,9 @@ class InnerClassTest$1:
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
                 inner-type 3, 0: @checkers.javari.quals.ReadOnly
+        local 1 #0+10:
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method initializedFieldFoo()V:
         return:
@@ -115,6 +118,9 @@ class InnerClassTest$3:
                 inner-type 3, 0: @checkers.javari.quals.ReadOnly
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
+                inner-type 3, 0: @checkers.javari.quals.ReadOnly
+        local 1 #0+10:
+            type: @checkers.javari.quals.ReadOnly
                 inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method factoryFoo()V:
@@ -172,6 +178,9 @@ class InnerClassTest$AIn:
             type: @checkers.javari.quals.Mutable
                 inner-type 3, 0: @checkers.javari.quals.ReadOnly
                 inner-type 3, 1: @checkers.javari.quals.ReadOnly
+        local 1 #0+10:
+            type: @checkers.javari.quals.ReadOnly
+                inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
 package :
 class InnerClassTest$Cell:
@@ -258,6 +267,9 @@ class InnerClassTest$Inner:
                 inner-type 3, 0: @checkers.javari.quals.ReadOnly
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
+                inner-type 3, 0: @checkers.javari.quals.ReadOnly
+        local 1 #0+10:
+            type: @checkers.javari.quals.ReadOnly
                 inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
 package :

@@ -39,21 +39,11 @@ class BH:
         local 1 #8+435:
             type: @checkers.javari.quals.Mutable
                 inner-type 3, 0: @checkers.javari.quals.ReadOnly
-        local 2 #10+77:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0, 0: @checkers.javari.quals.ReadOnly
-        local 3 #13+74:
-        local 4 #16+71:
         local 5 #28+53:
             type: @checkers.javari.quals.ReadOnly
         local 6 #37+44:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0: @checkers.javari.quals.ReadOnly
-        local 7 #41+40:
-            type: @checkers.javari.quals.ReadOnly
-                inner-type 0, 0: @checkers.javari.quals.ReadOnly
-        local 8 #46+35:
-        local 9 #49+32:
         local 10 #63+12:
             type: @checkers.javari.quals.ReadOnly
         local 2 #147+296:
@@ -327,6 +317,8 @@ class Body$1Enumerate:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+15:
             type: @checkers.javari.quals.Mutable
+        local 1 #0+15:
+            type: @checkers.javari.quals.ReadOnly
 
     method hasMoreElements()Z:
         return:
@@ -358,6 +350,8 @@ class Body$2Enumerate:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+15:
             type: @checkers.javari.quals.Mutable
+        local 1 #0+15:
+            type: @checkers.javari.quals.ReadOnly
 
     method hasMoreElements()Z:
         return:
@@ -792,6 +786,8 @@ class Node$HG:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+42:
             type: @checkers.javari.quals.Mutable
+        local 1 #0+42:
+            type: @checkers.javari.quals.ReadOnly
         local 2 #0+42:
             type: @checkers.javari.quals.ReadOnly
         local 3 #0+42:

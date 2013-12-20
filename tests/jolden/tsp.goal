@@ -146,7 +146,7 @@ class Tree:
             type: @checkers.javari.quals.Mutable
         local 5 #25+34:
             type: @checkers.javari.quals.Mutable
-        local 4 #37+22:
+        local 4 #37+19:
             type: @checkers.javari.quals.Mutable
 
     method conquer()LTree;:
@@ -158,7 +158,7 @@ class Tree:
             type: @checkers.javari.quals.Mutable
         local 2 #7+200:
             type: @checkers.javari.quals.Mutable
-        local 3 #31+174:
+        local 3 #31+171:
             type: @checkers.javari.quals.Mutable
         local 4 #34+166:
             type: @checkers.javari.quals.Mutable
