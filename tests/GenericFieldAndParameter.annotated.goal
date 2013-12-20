@@ -15,7 +15,7 @@ public class GenericFieldAndParameter {
     public Set<@ReadOnly Day> set;
     public @ReadOnly Set<@ReadOnly Integer> ints;
 
-    public GenericFieldAndParameter(@ReadOnly GenericFieldAndParameter this) {
+    public @ReadOnly GenericFieldAndParameter() {
     }
 
     // The parameter doesn't get changed; only a field gets changed
