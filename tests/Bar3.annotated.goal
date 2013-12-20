@@ -4,7 +4,7 @@ public class Bar3 {
     public /*readonly*/ @ReadOnly String[/*this-mutable*/] x;
     int i;
 
-    public Bar3(@ReadOnly Bar3 this) {
+    public @ReadOnly Bar3() {
         x = new String[10];
         i = 0;
     }

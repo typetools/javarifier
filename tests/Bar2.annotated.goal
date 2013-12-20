@@ -3,7 +3,7 @@ import checkers.javari.quals.ReadOnly;
 public class Bar2 {
     /*readonly*/ @ReadOnly Integer x;
 
-    public Bar2(@ReadOnly Bar2 this) {
+    public @ReadOnly Bar2() {
         x = null;
     }
 
