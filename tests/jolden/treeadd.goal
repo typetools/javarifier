@@ -14,8 +14,7 @@ class TreeAdd:
     field printMsgs:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -65,8 +64,7 @@ class TreeNode:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(ILTreeNode;LTreeNode;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
             type: @checkers.javari.quals.ReadOnly
@@ -81,8 +79,7 @@ class TreeNode:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(LTreeNode;LTreeNode;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -95,14 +92,12 @@ class TreeNode:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+8:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+85:
             type: @checkers.javari.quals.Mutable

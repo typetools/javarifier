@@ -140,7 +140,7 @@ public class ScenePrinter extends SceneVisitor {
                     locals.remove(thisArg); // Only print once
                 Param thisParam = meth.getReceiver();
                 if (! meth.getName().equals("<init>"))
-                    buf.append(typeAsKind(thisParam.getJrType(), "receiver") + " ");
+                    buf.append(typeAsKind(thisParam.getJrType(), "return") + " ");
             }
             buf.append("{\n");
             for (Local loc : locals) {

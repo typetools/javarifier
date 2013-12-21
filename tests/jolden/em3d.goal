@@ -17,8 +17,7 @@ class BiGraph:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LNode;LNode;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -125,8 +124,7 @@ class Em3d:
     field printMsgs:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -174,8 +172,7 @@ class Graph:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -212,8 +209,7 @@ class Node:
         local 0 #0+12:
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+48:
             type: @checkers.javari.quals.Mutable
@@ -305,8 +301,7 @@ class Node$1Enumerate:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LNode;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+15:

@@ -4,8 +4,8 @@ public class AssignableField {
 
     public static class Day {
         public int day;
-        public Day(AssignableField.@ReadOnly Day this) { }
-        public Day(AssignableField.@ReadOnly Day this, int d) { this.day = d; }
+        public @ReadOnly Day() { }
+        public @ReadOnly Day(int d) { this.day = d; }
         public int getDay(AssignableField.@ReadOnly Day this) { return day; }
         public void setDay(AssignableField.@Mutable Day this, int d) { this.day = d; }
     }

@@ -25,8 +25,7 @@ class InnerClassTest:
             inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+17:
             type: @checkers.javari.quals.Mutable
                 inner-type 3, 0: @checkers.javari.quals.ReadOnly
@@ -68,8 +67,7 @@ class InnerClassTest$1:
             inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method <init>(LInnerClassTest;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 3, 0: @checkers.javari.quals.ReadOnly
@@ -91,8 +89,7 @@ package :
 class InnerClassTest$2:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -111,8 +108,7 @@ class InnerClassTest$3:
             inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method <init>(LInnerClassTest;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 3, 0: @checkers.javari.quals.ReadOnly
@@ -141,8 +137,7 @@ package :
 class InnerClassTest$4:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -169,8 +164,7 @@ class InnerClassTest$AIn:
             inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method <init>(LInnerClassTest;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 3, 0: @checkers.javari.quals.ReadOnly
@@ -190,8 +184,7 @@ class InnerClassTest$Cell:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 3, 0: @checkers.javari.quals.ReadOnly
@@ -220,14 +213,12 @@ class InnerClassTest$Day:
     field day:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
@@ -260,8 +251,7 @@ class InnerClassTest$Inner:
             inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method <init>(LInnerClassTest;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 3, 0: @checkers.javari.quals.ReadOnly
@@ -280,8 +270,7 @@ class InnerClassTest$Nested:
             inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 

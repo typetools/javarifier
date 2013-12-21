@@ -11,8 +11,8 @@ public class StaticMethods {
 
     public static class Day {
         public int day;
-        public Day(StaticMethods.@ReadOnly Day this) { }
-        public Day(StaticMethods.@ReadOnly Day this, int d) { this.day = d; }
+        public @ReadOnly Day() { }
+        public @ReadOnly Day(int d) { this.day = d; }
         public int getDay(StaticMethods.@ReadOnly Day this) { return day; }
         public void setDay(StaticMethods.@Mutable Day this, int d) { this.day = d; }
     }

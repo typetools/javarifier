@@ -10,8 +10,8 @@ public class CellClient3 {
 
     public static class Day {
         public int day;
-        public Day(CellClient3.@ReadOnly Day this) { }
-        public Day(CellClient3.@ReadOnly Day this, int d) { this.day = d; }
+        public @ReadOnly Day() { }
+        public @ReadOnly Day(int d) { this.day = d; }
         public int getDay(CellClient3.@ReadOnly Day this) { return day; }
         public void setDay(CellClient3.@Mutable Day this, int d) { this.day = d; }
     }

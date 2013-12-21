@@ -1,9 +1,9 @@
 import checkers.javari.quals.ReadOnly;
 import checkers.javari.quals.Mutable;
 
-public class InnerClassTest<S extends java.lang.@ReadOnly Object> {
+public class InnerClassTest<S> {
 
-    public static class Cell<T extends java.lang.@ReadOnly Object> {
+    public static class Cell<T> {
 	public @ReadOnly T val;
 	public @ReadOnly T getVal(InnerClassTest.@ReadOnly Cell<T> this) { return val; }
 	public void setVal(InnerClassTest.@Mutable Cell<T> this, @ReadOnly T val) { this.val = val; }
@@ -11,8 +11,8 @@ public class InnerClassTest<S extends java.lang.@ReadOnly Object> {
 
     public static class Day {
         public int day;
-        public Day(InnerClassTest.@ReadOnly Day this) { }
-        public Day(InnerClassTest.@ReadOnly Day this, int d) { this.day = d; }
+        public @ReadOnly Day() { }
+        public @ReadOnly Day(int d) { this.day = d; }
         public int getDay(InnerClassTest.@ReadOnly Day this) { return day; }
         public void setDay(InnerClassTest.@Mutable Day this, int d) { this.day = d; }
     }

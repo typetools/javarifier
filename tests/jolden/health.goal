@@ -24,8 +24,7 @@ class Health:
     field printMsgs:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -87,8 +86,7 @@ class Hospital:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+71:
             type: @checkers.javari.quals.Mutable
@@ -158,8 +156,7 @@ class List:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+15:
             type: @checkers.javari.quals.Mutable
 
@@ -206,8 +203,7 @@ class List$ListEnumerator:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LList;LList;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -246,8 +242,7 @@ class List$ListNode:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LList;Ljava/lang/Object;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -272,8 +267,7 @@ class Patient:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LVillage;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+25:
@@ -291,8 +285,7 @@ class Results:
     field totalHospitals:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -329,8 +322,7 @@ class Village:
     field MASK:
 
     method <init>(IILVillage;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         parameter #2:

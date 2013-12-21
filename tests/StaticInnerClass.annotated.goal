@@ -7,8 +7,8 @@ public class StaticInnerClass {
 
     public static class Day {
         public int day;
-        public Day(StaticInnerClass.@ReadOnly Day this) { }
-        public Day(StaticInnerClass.@ReadOnly Day this, int d) { this.day = d; }
+        public @ReadOnly Day() { }
+        public @ReadOnly Day(int d) { this.day = d; }
         public int getDay(StaticInnerClass.@ReadOnly Day this) { return day; }
         public void setDay(StaticInnerClass.@Mutable Day this, int d) { this.day = d; }
     }
@@ -33,7 +33,7 @@ public class StaticInnerClass {
 
     public static class Foo {
         /*readonly*/ @ReadOnly Day d;
-        public Foo(StaticInnerClass.@ReadOnly Foo this, @ReadOnly Day d) {
+        public @ReadOnly Foo(@ReadOnly Day d) {
             this.d = d;
         }
     }

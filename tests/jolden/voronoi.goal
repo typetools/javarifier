@@ -26,8 +26,7 @@ class Edge:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(LVertex;[LEdge;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -44,8 +43,7 @@ class Edge:
         local 3 #0+20:
 
     method <init>([LEdge;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -471,8 +469,7 @@ class EdgePair:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(LEdge;LEdge;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -502,8 +499,7 @@ class MyDouble:
     field value:
 
     method <init>(D)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
@@ -525,14 +521,12 @@ class Vec2:
     field norm:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(DD)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+38:
@@ -676,14 +670,12 @@ class Vertex:
     field seed:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(DD)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+17:
@@ -911,8 +903,7 @@ class Voronoi:
     field printResults:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
