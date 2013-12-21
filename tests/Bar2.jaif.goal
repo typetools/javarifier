@@ -11,8 +11,7 @@ class Bar2:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
 

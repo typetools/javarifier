@@ -14,8 +14,7 @@ class StaticInnerClass:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -41,14 +40,12 @@ class StaticInnerClass$Day:
     field day:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
@@ -75,8 +72,7 @@ class StaticInnerClass$Foo:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LStaticInnerClass$Day;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+10:

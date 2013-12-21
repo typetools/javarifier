@@ -19,8 +19,7 @@ class BlueReturn:
     field dist:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -68,8 +67,7 @@ class Graph:
     field RANGE:
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+55:
             type: @checkers.javari.quals.Mutable
@@ -159,8 +157,7 @@ class HashEntry:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Ljava/lang/Object;Ljava/lang/Object;LHashEntry;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -214,8 +211,7 @@ class Hashtable:
     field size:
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+21:
             type: @checkers.javari.quals.Mutable
@@ -289,8 +285,7 @@ class MST:
         type: @checkers.javari.quals.Mutable
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -391,8 +386,7 @@ class Vertex:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(LVertex;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:

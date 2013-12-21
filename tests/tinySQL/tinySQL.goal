@@ -14,8 +14,7 @@ package ORG.as220.tinySQL:
 class Utils:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -275,8 +274,7 @@ package ORG.as220.tinySQL:
 class Utils$1$MyDir:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -338,8 +336,7 @@ class ParseException:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/parser/Token;[[I[Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -362,14 +359,12 @@ class ParseException:
                 inner-type 0, 0: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+21:
             type: @checkers.javari.quals.Mutable
 
     method <init>(Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+22:
@@ -544,8 +539,7 @@ class SimpleCharStream:
         local 1 #0+38:
 
     method <init>(Ljava/io/Reader;III)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -560,8 +554,7 @@ class SimpleCharStream:
         local 4 #0+92:
 
     method <init>(Ljava/io/Reader;II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -574,8 +567,7 @@ class SimpleCharStream:
         local 3 #0+11:
 
     method <init>(Ljava/io/Reader;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+11:
@@ -624,8 +616,7 @@ class SimpleCharStream:
             type: @checkers.javari.quals.Mutable
 
     method <init>(Ljava/io/InputStream;III)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -640,8 +631,7 @@ class SimpleCharStream:
         local 4 #0+18:
 
     method <init>(Ljava/io/InputStream;II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -654,8 +644,7 @@ class SimpleCharStream:
         local 3 #0+11:
 
     method <init>(Ljava/io/InputStream;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+11:
@@ -1420,8 +1409,7 @@ class TinySQLParser:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(Ljava/io/InputStream;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+595:
@@ -1442,8 +1430,7 @@ class TinySQLParser:
         local 2 #58+19:
 
     method <init>(Ljava/io/Reader;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+595:
@@ -1464,8 +1451,7 @@ class TinySQLParser:
         local 2 #58+19:
 
     method <init>(LORG/as220/tinySQL/parser/TinySQLParserTokenManager;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+571:
@@ -1555,8 +1541,7 @@ class TinySQLParser$AliasedItem:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/parser/TinySQLParser;LORG/as220/tinySQL/sqlparser/LValue;Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -1583,8 +1568,7 @@ class TinySQLParser$AliasedString:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/parser/TinySQLParser;Ljava/lang/String;Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -2146,8 +2130,7 @@ class TinySQLParserTokenManager:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/parser/SimpleCharStream;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+45:
@@ -2156,8 +2139,7 @@ class TinySQLParserTokenManager:
             type: @checkers.javari.quals.Mutable
 
     method <init>(LORG/as220/tinySQL/parser/SimpleCharStream;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -2259,8 +2241,7 @@ class Token:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -2325,14 +2306,12 @@ class TokenMgrError:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(Ljava/lang/String;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -2343,8 +2322,7 @@ class TokenMgrError:
         local 2 #0+11:
 
     method <init>(ZIIILjava/lang/String;CI)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         parameter #2:
@@ -2379,8 +2357,7 @@ class AlterCreateTableStatement:
     field updateCount:
 
     method <init>(LORG/as220/tinySQL/tinySQLStatement;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+41:
@@ -2478,8 +2455,7 @@ class AlterTableAddColumnStatement:
     field updateCount:
 
     method <init>(LORG/as220/tinySQL/tinySQLStatement;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+52:
@@ -2594,8 +2570,7 @@ class AlterTableDropColumnStatement:
     field updateCount:
 
     method <init>(LORG/as220/tinySQL/tinySQLStatement;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+52:
@@ -2708,8 +2683,7 @@ class AlterTableRenameColumnStatement:
             inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/tinySQLStatement;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+47:
@@ -2812,8 +2786,7 @@ class AlterTableRenameColumnStatement$RenameColumnTuple:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/sqlparser/AlterTableRenameColumnStatement;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+10:
@@ -2834,8 +2807,7 @@ class ColumnDefinition:
     field nullable:
 
     method <init>(Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+10:
@@ -2936,8 +2908,7 @@ class ColumnValue:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+60:
@@ -3009,8 +2980,7 @@ class CompactTableStatement:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/tinySQLStatement;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+41:
@@ -3107,8 +3077,7 @@ class CreateTableStatement:
             inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/tinySQLStatement;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+47:
@@ -3216,8 +3185,7 @@ class DeleteStatement:
     field updatecount:
 
     method <init>(LORG/as220/tinySQL/tinySQLStatement;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+48:
@@ -3338,8 +3306,7 @@ class DropTableStatement:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/tinySQLStatement;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+36:
@@ -3415,8 +3382,7 @@ class EmptyStatement:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/tinySQLStatement;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+20:
@@ -3478,8 +3444,7 @@ class Expression:
     field transformed:
 
     method <init>(LORG/as220/tinySQL/sqlparser/LValue;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+21:
@@ -3696,8 +3661,7 @@ class Expression$ValueContainer:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/sqlparser/Expression;LORG/as220/tinySQL/sqlparser/Operator;LORG/as220/tinySQL/sqlparser/LValue;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -3738,8 +3702,7 @@ class InsertStatement:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(LORG/as220/tinySQL/tinySQLStatement;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+58:
@@ -3924,8 +3887,7 @@ class JokerColumnValue:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+54:
@@ -4051,8 +4013,7 @@ class Operator:
         return:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -4104,8 +4065,7 @@ class Operator:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/sqlparser/Operator;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
 
@@ -4113,8 +4073,7 @@ package ORG.as220.tinySQL.sqlparser:
 class Operator$AddOperator:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.ReadOnly
 
@@ -4152,8 +4111,7 @@ package ORG.as220.tinySQL.sqlparser:
 class Operator$AndOperator:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.ReadOnly
 
@@ -4191,8 +4149,7 @@ package ORG.as220.tinySQL.sqlparser:
 class Operator$BetweenOperator:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.ReadOnly
 
@@ -4235,8 +4192,7 @@ package ORG.as220.tinySQL.sqlparser:
 class Operator$DivideOperator:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.ReadOnly
 
@@ -4274,8 +4230,7 @@ package ORG.as220.tinySQL.sqlparser:
 class Operator$EqualOperator:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.ReadOnly
 
@@ -4309,8 +4264,7 @@ package ORG.as220.tinySQL.sqlparser:
 class Operator$GreaterEqualOperator:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.ReadOnly
 
@@ -4344,8 +4298,7 @@ package ORG.as220.tinySQL.sqlparser:
 class Operator$GreaterOperator:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.ReadOnly
 
@@ -4379,8 +4332,7 @@ package ORG.as220.tinySQL.sqlparser:
 class Operator$InOperator:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.ReadOnly
 
@@ -4421,8 +4373,7 @@ package ORG.as220.tinySQL.sqlparser:
 class Operator$LesserEqualOperator:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.ReadOnly
 
@@ -4456,8 +4407,7 @@ package ORG.as220.tinySQL.sqlparser:
 class Operator$LesserOperator:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.ReadOnly
 
@@ -4491,8 +4441,7 @@ package ORG.as220.tinySQL.sqlparser:
 class Operator$LikeOperator:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.ReadOnly
 
@@ -4533,8 +4482,7 @@ package ORG.as220.tinySQL.sqlparser:
 class Operator$MultiplyOperator:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.ReadOnly
 
@@ -4572,8 +4520,7 @@ package ORG.as220.tinySQL.sqlparser:
 class Operator$NotBetweenOperator:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.ReadOnly
 
@@ -4609,8 +4556,7 @@ package ORG.as220.tinySQL.sqlparser:
 class Operator$NotEqualOperator:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.ReadOnly
 
@@ -4644,8 +4590,7 @@ package ORG.as220.tinySQL.sqlparser:
 class Operator$OrOperator:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.ReadOnly
 
@@ -4683,8 +4628,7 @@ package ORG.as220.tinySQL.sqlparser:
 class Operator$SubtractOperator:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.ReadOnly
 
@@ -4733,8 +4677,7 @@ class OrderByClause:
             inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/sqlparser/SelectStatement;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+32:
@@ -4778,8 +4721,7 @@ class ParameterValue:
     field valueSet:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
 
@@ -4850,8 +4792,7 @@ package ORG.as220.tinySQL.sqlparser:
 class ParserUtils:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -5109,8 +5050,7 @@ class SQLStatementBatch:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/tinySQLStatement;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+21:
@@ -5202,8 +5142,7 @@ class SelectStatement:
     field mod:
 
     method <init>(LORG/as220/tinySQL/tinySQLStatement;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+72:
@@ -5441,8 +5380,7 @@ class StaticValue:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Ljava/lang/Object;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+10:
@@ -5501,8 +5439,7 @@ class UpdateStatement:
     field updateCount:
 
     method <init>(LORG/as220/tinySQL/tinySQLStatement;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+59:
@@ -5702,8 +5639,7 @@ class WhereClause:
             inner-type 0, 0:
 
     method <init>(LORG/as220/tinySQL/sqlparser/ConditionalStatement;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+35:
@@ -5790,8 +5726,7 @@ class tinySQL:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+16:
             type: @checkers.javari.quals.Mutable
 
@@ -6354,8 +6289,7 @@ class tinySQLConnection:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Ljava/lang/String;Ljava/lang/String;Ljava/sql/Driver;Ljava/util/Properties;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -6638,8 +6572,7 @@ package ORG.as220.tinySQL:
 class tinySQLConverter:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -7050,8 +6983,7 @@ class tinySQLDefaultIndex:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -7084,8 +7016,7 @@ class tinySQLException:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
@@ -7094,14 +7025,12 @@ class tinySQLException:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(Ljava/lang/Exception;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+14:
@@ -7110,8 +7039,7 @@ class tinySQLException:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(Ljava/lang/String;Ljava/lang/Exception;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -7182,8 +7110,7 @@ class tinySQLPreparedStatement:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Ljava/sql/Connection;Ljava/lang/String;Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -7683,8 +7610,7 @@ class tinySQLResultSet:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/tsResultSet;LORG/as220/tinySQL/tinySQLStatement;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -9103,8 +9029,7 @@ class tinySQLResultSetMetaData:
             inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/tsResultSet;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+56:
@@ -9330,8 +9255,7 @@ class tinySQLStatement:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(LORG/as220/tinySQL/tinySQLConnection;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+69:
@@ -9620,8 +9544,7 @@ class tinySQLTable:
             inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method <init>(Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+26:
@@ -9769,8 +9692,7 @@ class tinySQLTableView:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/tinySQLTable;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+10:
@@ -9779,8 +9701,7 @@ class tinySQLTableView:
             type: @checkers.javari.quals.Mutable
 
     method <init>(LORG/as220/tinySQL/tinySQLTable;Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -10107,8 +10028,7 @@ class tsColumn:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(LORG/as220/tinySQL/tinySQLTableView;Ljava/lang/String;Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -10125,8 +10045,7 @@ class tsColumn:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/tinySQLTableView;Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -10139,8 +10058,7 @@ class tsColumn:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(Ljava/lang/String;LORG/as220/tinySQL/sqlparser/LValue;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -10153,8 +10071,7 @@ class tsColumn:
             type: @checkers.javari.quals.Mutable
 
     method <init>(Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+99:
@@ -10163,8 +10080,7 @@ class tsColumn:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/tsColumn;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+180:
@@ -10173,8 +10089,7 @@ class tsColumn:
             type: @checkers.javari.quals.Mutable
 
     method <init>(LORG/as220/tinySQL/tinySQLTableView;LORG/as220/tinySQL/tsColumn;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -10414,8 +10329,7 @@ class tsPhysicalRow:
             inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     method <init>(Ljava/util/Vector;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 3, 0: @checkers.javari.quals.Mutable
@@ -10430,8 +10344,7 @@ class tsPhysicalRow:
             type: @checkers.javari.quals.Mutable
 
     method <init>(LORG/as220/tinySQL/tsPhysicalRow;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+44:
@@ -10514,8 +10427,7 @@ class tsRawRow:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Ljava/util/Vector;LORG/as220/tinySQL/tinySQLConverter;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 3, 0: @checkers.javari.quals.Mutable
@@ -10530,8 +10442,7 @@ class tsRawRow:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/tsRawRow;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+30:
@@ -10633,8 +10544,7 @@ class tsResultRow:
             inner-type 0, 0:
 
     method <init>(Ljava/util/Vector;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 3, 0: @checkers.javari.quals.Mutable
@@ -10647,8 +10557,7 @@ class tsResultRow:
             type: @checkers.javari.quals.Mutable
 
     method <init>(Ljava/util/Vector;LORG/as220/tinySQL/tsRow;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 3, 0: @checkers.javari.quals.Mutable
@@ -10683,8 +10592,7 @@ class tsResultRow:
             type: @checkers.javari.quals.Mutable
 
     method <init>(LORG/as220/tinySQL/tsRow;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+45:
@@ -10697,8 +10605,7 @@ class tsResultRow:
         local 3 #14+24:
 
     method <init>(LORG/as220/tinySQL/tsResultRow;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+49:
@@ -10822,8 +10729,7 @@ class tsResultSet:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/tsPhysicalRow;Ljava/util/Vector;Ljava/util/Hashtable;LORG/as220/tinySQL/sqlparser/WhereClause;LORG/as220/tinySQL/tinySQL;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -10857,8 +10763,7 @@ class tsResultSet:
                 inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method <init>(LORG/as220/tinySQL/tsPhysicalRow;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+50:
@@ -11024,14 +10929,12 @@ class tsRow:
             inner-type 3, 1: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+16:
             type: @checkers.javari.quals.Mutable
 
     method <init>(LORG/as220/tinySQL/tsRow;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+13:
@@ -11124,8 +11027,7 @@ class tsWeakPhysicalRow:
             type: @checkers.javari.quals.PolyRead
 
     method <init>(LORG/as220/tinySQL/tsPhysicalRow;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+6:
@@ -11134,8 +11036,7 @@ class tsWeakPhysicalRow:
             type: @checkers.javari.quals.Mutable
 
     method <init>(Ljava/util/Vector;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 3, 0: @checkers.javari.quals.Mutable
@@ -11175,8 +11076,7 @@ class ArrayEnumeration:
     field counter:
 
     method <init>([Ljava/lang/Object;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -11207,8 +11107,7 @@ class EmptyEnumeration:
         type: @checkers.javari.quals.Mutable
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -11251,8 +11150,7 @@ class Log:
         return:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 

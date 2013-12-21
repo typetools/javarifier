@@ -6,8 +6,8 @@ public class GenericFieldAndParameter {
 
     public static class Day {
         public int day;
-        public Day(GenericFieldAndParameter.@ReadOnly Day this) { }
-        public Day(GenericFieldAndParameter.@ReadOnly Day this, int d) { this.day = d; }
+        public @ReadOnly Day() { }
+        public @ReadOnly Day(int d) { this.day = d; }
         public int getDay(GenericFieldAndParameter.@ReadOnly Day this) { return day; }
         public void setDay(GenericFieldAndParameter.@Mutable Day this, int d) { this.day = d; }
     }

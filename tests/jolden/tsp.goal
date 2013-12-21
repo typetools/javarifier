@@ -20,8 +20,7 @@ class TSP:
     field printMsgs:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -88,8 +87,7 @@ class Tree:
     field M_E12:
 
     method <init>(IDDLTree;LTree;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         parameter #2:

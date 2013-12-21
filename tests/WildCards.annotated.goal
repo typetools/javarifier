@@ -10,8 +10,8 @@ public class WildCards<T extends /*readonly*/ @ReadOnly Object> {
 
     public static class Day {
         public int day;
-        public Day(WildCards.@ReadOnly Day this) { }
-        public Day(WildCards.@ReadOnly Day this, int d) { this.day = d; }
+        public @ReadOnly Day() { }
+        public @ReadOnly Day(int d) { this.day = d; }
         public int getDay(WildCards.@ReadOnly Day this) { return day; }
         public void setDay(WildCards.@Mutable Day this, int d) { this.day = d; }
     }

@@ -17,8 +17,7 @@ class FieldAssignments:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 

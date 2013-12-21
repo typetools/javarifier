@@ -16,8 +16,7 @@ class CellClient2:
             inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method <init>(LCellClient2$Day;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+24:
@@ -65,8 +64,7 @@ class CellClient2$Cell:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 3, 0: @checkers.javari.quals.ReadOnly
@@ -95,14 +93,12 @@ class CellClient2$Day:
     field day:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable

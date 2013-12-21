@@ -17,8 +17,7 @@ class BiSort:
     field printResults:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -80,8 +79,7 @@ class Value:
     field RANGE:
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+20:
             type: @checkers.javari.quals.Mutable

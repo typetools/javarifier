@@ -19,8 +19,7 @@ class GenericFieldAndParameter:
             inner-type 3, 0: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -54,14 +53,12 @@ class GenericFieldAndParameter$Day:
     field day:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
@@ -87,8 +84,7 @@ class Red:
     field i:
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable

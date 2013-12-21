@@ -29,8 +29,7 @@ class Branch:
             inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     method <init>(II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+116:
@@ -76,8 +75,7 @@ class Demand:
     field H_EPSILON:
 
     method <init>(DD)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+15:
@@ -86,8 +84,7 @@ class Demand:
         local 3 #0+15:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+7:
             type: @checkers.javari.quals.ReadOnly
 
@@ -290,8 +287,7 @@ class Lateral:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(III)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         parameter #2:
@@ -338,8 +334,7 @@ class Leaf:
     field pi_I:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+18:
             type: @checkers.javari.quals.Mutable
 
@@ -361,8 +356,7 @@ class Power:
     field printMsgs:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -443,8 +437,7 @@ class Root:
     field MAX_THETA_I:
 
     method <init>(IIII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         parameter #2:

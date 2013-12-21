@@ -185,8 +185,12 @@ public class AnnotationStorer {
 
     // Store the mutability of the receiver only for object methods.
     if (!sm.isStatic()) {
+      // This is a hack.
+      // It would be better to fix it elsewhere, but this is quick to do.
+      ATypeElement receiverDest
+        = (sm.getName().equals("<init>") ? am.returnType : am.receiver);
       try {
-        storeTypeLayer(ms.getReceiverType(), am.receiver);
+        storeTypeLayer(ms.getReceiverType(), receiverDest);
       } catch (RuntimeException e) {
         throw wrap(e, "receiver");
       }

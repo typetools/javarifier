@@ -14,8 +14,8 @@ public class SpecialObjectCases {
 
     public static class Day {
         public int day;
-        public Day(SpecialObjectCases.@ReadOnly Day this) { }
-        public Day(SpecialObjectCases.@ReadOnly Day this, int d) { this.day = d; }
+        public @ReadOnly Day() { }
+        public @ReadOnly Day(int d) { this.day = d; }
         public int getDay(SpecialObjectCases.@ReadOnly Day this) { return day; }
         public void setDay(SpecialObjectCases.@Mutable Day this, int d) { this.day = d; }
     }

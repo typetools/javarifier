@@ -23,8 +23,7 @@ class BH:
     field TSTOP:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -116,8 +115,7 @@ class Body:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+53:
             type: @checkers.javari.quals.Mutable
 
@@ -311,8 +309,7 @@ class Body$1Enumerate:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LBody;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+15:
@@ -344,8 +341,7 @@ class Body$2Enumerate:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LBody;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+15:
@@ -380,8 +376,7 @@ class Cell:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+19:
             type: @checkers.javari.quals.Mutable
 
@@ -469,8 +464,7 @@ class MathVector:
             inner-type 0, 0:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+32:
             type: @checkers.javari.quals.Mutable
         local 1 #13+18:
@@ -698,8 +692,7 @@ class Node:
     field EPS:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+21:
             type: @checkers.javari.quals.Mutable
 
@@ -776,8 +769,7 @@ class Node$HG:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(LNode;LBody;LMathVector;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -811,8 +803,7 @@ class Tree:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+71:
             type: @checkers.javari.quals.Mutable
 

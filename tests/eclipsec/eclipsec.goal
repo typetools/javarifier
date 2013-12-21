@@ -45,8 +45,7 @@ class CategorizedProblem:
     field CAT_NLS:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -78,8 +77,7 @@ class CharOperation:
         return:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -2385,14 +2383,12 @@ class InvalidInputException:
     field serialVersionUID:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
@@ -2404,8 +2400,7 @@ package org.eclipse.jdt.internal.compiler:
 class ASTVisitor:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -5414,14 +5409,12 @@ class ClassFile:
         local 9 #140+75:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/SourceTypeBinding;Lorg/eclipse/jdt/internal/compiler/ClassFile;Z)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -6858,8 +6851,7 @@ class CompilationResult:
         return:
 
     method <init>([CIII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -6876,8 +6868,7 @@ class CompilationResult:
         local 4 #0+59:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/env/ICompilationUnit;III)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -7197,8 +7188,7 @@ class Compiler:
         return:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/env/INameEnvironment;Lorg/eclipse/jdt/internal/compiler/IErrorHandlingPolicy;Ljava/util/Map;Lorg/eclipse/jdt/internal/compiler/ICompilerRequestor;Lorg/eclipse/jdt/internal/compiler/IProblemFactory;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -7227,8 +7217,7 @@ class Compiler:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/env/INameEnvironment;Lorg/eclipse/jdt/internal/compiler/IErrorHandlingPolicy;Ljava/util/Map;Lorg/eclipse/jdt/internal/compiler/ICompilerRequestor;Lorg/eclipse/jdt/internal/compiler/IProblemFactory;Z)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -7502,8 +7491,7 @@ class Compiler$1:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/Compiler;Lorg/eclipse/jdt/internal/compiler/ICompilerRequestor;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -7531,8 +7519,7 @@ class Compiler$2:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/Compiler;Lorg/eclipse/jdt/internal/compiler/ICompilerRequestor;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -7636,8 +7623,7 @@ class AND_AND_Expression:
     field mergedInitStateIndex:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/Expression;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -7962,8 +7948,7 @@ class ASTNode:
     field IsAnnotationDefaultValue:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+11:
             type: @checkers.javari.quals.Mutable
 
@@ -8306,8 +8291,7 @@ class AbstractMethodDeclaration:
     field errorInSignature:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/CompilationResult;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+30:
@@ -8661,8 +8645,7 @@ class AbstractVariableDeclaration:
     field TYPE_PARAMETER:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -8798,8 +8781,7 @@ class AllocationExpression:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -9042,8 +9024,7 @@ class Annotation:
         return:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -9255,8 +9236,7 @@ class AnnotationMethodDeclaration:
     field extendedDimensions:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/CompilationResult;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+6:
@@ -9360,8 +9340,7 @@ class Argument:
         return:
 
     method <init>([CJLorg/eclipse/jdt/internal/compiler/ast/TypeReference;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -9481,8 +9460,7 @@ class ArrayAllocationExpression:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -9585,8 +9563,7 @@ class ArrayInitializer:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -9705,8 +9682,7 @@ class ArrayQualifiedTypeReference:
     field dimensions:
 
     method <init>([[CI[J)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -9817,8 +9793,7 @@ class ArrayReference:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/Expression;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -10005,8 +9980,7 @@ class ArrayTypeReference:
     field originalSourceEnd:
 
     method <init>([CIJ)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -10109,8 +10083,7 @@ class AssertStatement:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/Expression;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -10125,8 +10098,7 @@ class AssertStatement:
         local 3 #0+33:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -10257,8 +10229,7 @@ class Assignment:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/Expression;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -10485,8 +10456,7 @@ class BinaryExpression:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/Expression;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -10951,8 +10921,7 @@ class Block:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
@@ -11094,8 +11063,7 @@ class BranchStatement:
             inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     method <init>([CII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0:
@@ -11142,8 +11110,7 @@ package org.eclipse.jdt.internal.compiler.ast:
 class BreakStatement:
 
     method <init>([CII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0:
@@ -11225,8 +11192,7 @@ class CaseStatement:
     field isEnumConstant:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -11344,8 +11310,7 @@ class CastExpression:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/Expression;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -11731,8 +11696,7 @@ class CastExpression$1:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/InvocationSite;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+10:
@@ -11801,8 +11765,7 @@ class CharLiteral:
     field value:
 
     method <init>([CII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0:
@@ -11884,8 +11847,7 @@ class ClassLiteralAccess:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(ILorg/eclipse/jdt/internal/compiler/ast/TypeReference;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
             type: @checkers.javari.quals.Mutable
@@ -11982,8 +11944,7 @@ class Clinit:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/CompilationResult;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+28:
@@ -12239,8 +12200,7 @@ class CompilationUnitDeclaration:
         return:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/problem/ProblemReporter;Lorg/eclipse/jdt/internal/compiler/CompilationResult;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -12498,8 +12458,7 @@ package org.eclipse.jdt.internal.compiler.ast:
 class CompilationUnitDeclaration$1:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -12529,8 +12488,7 @@ class CompoundAssignment:
     field preAssignImplicitConversion:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/Expression;II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -12684,8 +12642,7 @@ class ConditionalExpression:
     field mergedInitStateIndex:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/Expression;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -12895,8 +12852,7 @@ class ConstructorDeclaration:
             inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/CompilationResult;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+11:
@@ -13177,8 +13133,7 @@ package org.eclipse.jdt.internal.compiler.ast:
 class ContinueStatement:
 
     method <init>([CII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0:
@@ -13266,8 +13221,7 @@ class DoStatement:
     field mergedInitStateIndex:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/Statement;II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -13377,8 +13331,7 @@ class DoubleLiteral:
     field value:
 
     method <init>([CII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0:
@@ -13453,8 +13406,7 @@ package org.eclipse.jdt.internal.compiler.ast:
 class EmptyStatement:
 
     method <init>(II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+15:
@@ -13550,8 +13502,7 @@ package org.eclipse.jdt.internal.compiler.ast:
 class EqualExpression:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/Expression;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -13926,8 +13877,7 @@ class ExplicitConstructorCall:
     field typeArgumentsSourceStart:
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
@@ -14148,8 +14098,7 @@ class Expression:
         local 2 #0+1140:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -14700,8 +14649,7 @@ package org.eclipse.jdt.internal.compiler.ast:
 class ExtendedStringLiteral:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/StringLiteral;Lorg/eclipse/jdt/internal/compiler/ast/CharLiteral;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -14714,8 +14662,7 @@ class ExtendedStringLiteral:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/StringLiteral;Lorg/eclipse/jdt/internal/compiler/ast/StringLiteral;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -14786,8 +14733,7 @@ class FalseLiteral:
         return:
 
     method <init>(II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+7:
@@ -14890,14 +14836,12 @@ class FieldDeclaration:
     field endPart2Position:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
 
     method <init>([CII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -15048,8 +14992,7 @@ class FieldReference:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>([CJ)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -15386,8 +15329,7 @@ class FloatLiteral:
         return:
 
     method <init>([CII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0:
@@ -15493,8 +15435,7 @@ class ForStatement:
     field mergedInitStateIndex:
 
     method <init>([Lorg/eclipse/jdt/internal/compiler/ast/Statement;Lorg/eclipse/jdt/internal/compiler/ast/Expression;[Lorg/eclipse/jdt/internal/compiler/ast/Statement;Lorg/eclipse/jdt/internal/compiler/ast/Statement;ZII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -15715,8 +15656,7 @@ class ForeachStatement:
         return:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/LocalDeclaration;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -15850,8 +15790,7 @@ class IfStatement:
     field mergedInitStateIndex:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/Statement;II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -15868,8 +15807,7 @@ class IfStatement:
         local 4 #0+58:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/Statement;Lorg/eclipse/jdt/internal/compiler/ast/Statement;II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -16008,8 +15946,7 @@ class ImportReference:
             inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     method <init>([[C[JZI)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -16103,8 +16040,7 @@ class Initializer:
     field errorInSignature:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Block;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -16228,8 +16164,7 @@ class InstanceOfExpression:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/TypeReference;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -16346,8 +16281,7 @@ class IntLiteral:
         return:
 
     method <init>([CII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0:
@@ -16362,8 +16296,7 @@ class IntLiteral:
         local 3 #0+8:
 
     method <init>([CIII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0:
@@ -16380,8 +16313,7 @@ class IntLiteral:
         local 4 #0+14:
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+21:
             type: @checkers.javari.quals.Mutable
@@ -16490,8 +16422,7 @@ class IntLiteralMinValue:
         return:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+19:
             type: @checkers.javari.quals.Mutable
 
@@ -16530,8 +16461,7 @@ class Javadoc:
             inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     method <init>(II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+22:
@@ -16823,8 +16753,7 @@ class JavadocAllocationExpression:
     field superAccess:
 
     method <init>(II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+31:
@@ -16833,8 +16762,7 @@ class JavadocAllocationExpression:
         local 2 #0+31:
 
     method <init>(J)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+12:
             type: @checkers.javari.quals.ReadOnly
@@ -16917,8 +16845,7 @@ class JavadocArgumentExpression:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>([CIILorg/eclipse/jdt/internal/compiler/ast/TypeReference;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -17013,8 +16940,7 @@ class JavadocArrayQualifiedTypeReference:
     field tagSourceEnd:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/JavadocQualifiedTypeReference;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -17076,8 +17002,7 @@ package org.eclipse.jdt.internal.compiler.ast:
 class JavadocArraySingleTypeReference:
 
     method <init>([CIJ)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -17154,8 +17079,7 @@ class JavadocFieldReference:
     field superAccess:
 
     method <init>([CJ)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -17246,8 +17170,7 @@ class JavadocImplicitTypeReference:
             inner-type 0, 0:
 
     method <init>([CI)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -17379,8 +17302,7 @@ class JavadocMessageSend:
     field superAccess:
 
     method <init>([CJ)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -17393,8 +17315,7 @@ class JavadocMessageSend:
         local 2 #0+52:
 
     method <init>([CJ[Lorg/eclipse/jdt/internal/compiler/ast/JavadocArgumentExpression;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -17520,8 +17441,7 @@ class JavadocQualifiedTypeReference:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>([[C[JII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -17633,8 +17553,7 @@ class JavadocReturnStatement:
     field empty:
 
     method <init>(II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+24:
@@ -17692,8 +17611,7 @@ class JavadocSingleNameReference:
     field tagSourceEnd:
 
     method <init>([CJII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -17762,8 +17680,7 @@ class JavadocSingleTypeReference:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>([CJII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -17885,8 +17802,7 @@ class LabeledStatement:
     field mergedInitStateIndex:
 
     method <init>([CLorg/eclipse/jdt/internal/compiler/ast/Statement;JI)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0:
@@ -17987,8 +17903,7 @@ package org.eclipse.jdt.internal.compiler.ast:
 class Literal:
 
     method <init>(II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+15:
@@ -18058,8 +17973,7 @@ class LocalDeclaration:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>([CII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -18167,8 +18081,7 @@ class LongLiteral:
         return:
 
     method <init>([CII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0:
@@ -18183,8 +18096,7 @@ class LongLiteral:
         local 3 #0+8:
 
     method <init>([CIIJ)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0:
@@ -18294,8 +18206,7 @@ class LongLiteralMinValue:
         return:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+20:
             type: @checkers.javari.quals.Mutable
 
@@ -18309,8 +18220,7 @@ package org.eclipse.jdt.internal.compiler.ast:
 class MagicLiteral:
 
     method <init>(II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+7:
@@ -18335,8 +18245,7 @@ package org.eclipse.jdt.internal.compiler.ast:
 class MarkerAnnotation:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/TypeReference;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -18395,8 +18304,7 @@ class MemberValuePair:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>([CIILorg/eclipse/jdt/internal/compiler/ast/Expression;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -18531,8 +18439,7 @@ class MessageSend:
             inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -18787,8 +18694,7 @@ class MethodDeclaration:
             inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/CompilationResult;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+6:
@@ -18914,8 +18820,7 @@ class NameReference:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+16:
             type: @checkers.javari.quals.Mutable
 
@@ -18981,8 +18886,7 @@ class NormalAnnotation:
             inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/TypeReference;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -19056,8 +18960,7 @@ class NullLiteral:
         return:
 
     method <init>(II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+7:
@@ -19137,8 +19040,7 @@ class NumberLiteral:
             inner-type 0, 0:
 
     method <init>([CII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0:
@@ -19153,8 +19055,7 @@ class NumberLiteral:
         local 3 #0+12:
 
     method <init>(II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+7:
@@ -19183,8 +19084,7 @@ class OR_OR_Expression:
     field mergedInitStateIndex:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/Expression;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -19323,8 +19223,7 @@ class OperatorExpression:
         return:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -19483,8 +19382,7 @@ package org.eclipse.jdt.internal.compiler.ast:
 class OperatorExpression$1$Decode:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -19580,8 +19478,7 @@ class ParameterizedQualifiedTypeReference:
     field didResolve:
 
     method <init>([[C[[Lorg/eclipse/jdt/internal/compiler/ast/TypeReference;I[J)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -19829,8 +19726,7 @@ class ParameterizedSingleTypeReference:
     field didResolve:
 
     method <init>([C[Lorg/eclipse/jdt/internal/compiler/ast/TypeReference;IJ)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -20036,8 +19932,7 @@ package org.eclipse.jdt.internal.compiler.ast:
 class PostfixExpression:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/Expression;II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -20112,8 +20007,7 @@ package org.eclipse.jdt.internal.compiler.ast:
 class PrefixExpression:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/Expression;II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -20180,14 +20074,12 @@ class QualifiedAllocationExpression:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/TypeDeclaration;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+15:
@@ -20381,8 +20273,7 @@ class QualifiedNameReference:
             inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     method <init>([[C[JII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -20948,8 +20839,7 @@ package org.eclipse.jdt.internal.compiler.ast:
 class QualifiedSuperReference:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/TypeReference;II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -21019,8 +20909,7 @@ class QualifiedThisReference:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/TypeReference;II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -21142,8 +21031,7 @@ class QualifiedTypeReference:
             inner-type 0, 0:
 
     method <init>([[C[J)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -21264,8 +21152,7 @@ package org.eclipse.jdt.internal.compiler.ast:
 class Reference:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -21392,8 +21279,7 @@ class ReturnStatement:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -21547,8 +21433,7 @@ class SingleMemberAnnotation:
             inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/TypeReference;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -21624,8 +21509,7 @@ class SingleNameReference:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>([CJ)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -22072,8 +21956,7 @@ class SingleTypeReference:
             inner-type 0, 0:
 
     method <init>([CJ)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -22171,8 +22054,7 @@ package org.eclipse.jdt.internal.compiler.ast:
 class Statement:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -22327,8 +22209,7 @@ class StringLiteral:
     field lineNumber:
 
     method <init>([CIII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -22345,8 +22226,7 @@ class StringLiteral:
         local 4 #0+20:
 
     method <init>(II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+7:
@@ -22463,8 +22343,7 @@ class StringLiteralConcatenation:
     field counter:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/StringLiteral;Lorg/eclipse/jdt/internal/compiler/ast/StringLiteral;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -22542,8 +22421,7 @@ class SubRoutineStatement:
         return:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+17:
             type: @checkers.javari.quals.Mutable
 
@@ -22607,8 +22485,7 @@ package org.eclipse.jdt.internal.compiler.ast:
 class SuperReference:
 
     method <init>(II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+7:
@@ -22716,8 +22593,7 @@ class SwitchStatement:
     field mergedInitStateIndex:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+15:
             type: @checkers.javari.quals.Mutable
 
@@ -22896,8 +22772,7 @@ class SynchronizedStatement:
         return:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/Block;II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -23015,8 +22890,7 @@ class ThisReference:
             type: @checkers.javari.quals.Mutable
 
     method <init>(II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+15:
@@ -23207,8 +23081,7 @@ class ThrowStatement:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -23298,8 +23171,7 @@ class TrueLiteral:
         return:
 
     method <init>(II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         local 0 #0+7:
@@ -23457,8 +23329,7 @@ class TryStatement:
         return:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+20:
             type: @checkers.javari.quals.Mutable
 
@@ -23730,8 +23601,7 @@ class TypeDeclaration:
         return:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/CompilationResult;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+25:
@@ -24401,8 +24271,7 @@ class TypeParameter:
             inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -24521,8 +24390,7 @@ package org.eclipse.jdt.internal.compiler.ast:
 class TypeReference:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -24732,8 +24600,7 @@ class UnaryExpression:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -24881,8 +24748,7 @@ class WhileStatement:
     field mergedInitStateIndex:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Expression;Lorg/eclipse/jdt/internal/compiler/ast/Statement;II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -25012,8 +24878,7 @@ class Wildcard:
     field kind:
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+14:
             type: @checkers.javari.quals.Mutable
@@ -25348,8 +25213,7 @@ class CaseLabel:
     field backwardsBranch:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/codegen/CodeStream;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+16:
@@ -25408,14 +25272,12 @@ class CharArrayCache:
     field threshold:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+7:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+36:
             type: @checkers.javari.quals.Mutable
@@ -25659,8 +25521,7 @@ class CodeStream:
         return:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ClassFile;J)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -29254,8 +29115,7 @@ class ConstantPool:
         return:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ClassFile;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+105:
@@ -29609,14 +29469,12 @@ class DoubleCache:
     field elementSize:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+7:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+24:
             type: @checkers.javari.quals.Mutable
@@ -29690,8 +29548,7 @@ class ExceptionLabel:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/codegen/CodeStream;Lorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -29741,14 +29598,12 @@ class FloatCache:
     field elementSize:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+7:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+24:
             type: @checkers.javari.quals.Mutable
@@ -29827,14 +29682,12 @@ class IntegerCache:
     field threshold:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+7:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+35:
             type: @checkers.javari.quals.Mutable
@@ -29934,14 +29787,12 @@ class Label:
     field WIDE:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+23:
             type: @checkers.javari.quals.Mutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/codegen/CodeStream;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+28:
@@ -30091,14 +29942,12 @@ class LongCache:
     field threshold:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+7:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+35:
             type: @checkers.javari.quals.Mutable
@@ -30193,14 +30042,12 @@ class ObjectCache:
     field threshold:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+7:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+35:
             type: @checkers.javari.quals.Mutable
@@ -30699,8 +30546,7 @@ class AccessRestriction:
             inner-type 0, 0: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/env/AccessRule;[Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -30754,8 +30600,7 @@ class AccessRule:
     field problemId:
 
     method <init>([CI)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0:
@@ -31210,8 +31055,7 @@ class NameEnvironmentAnswer:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/env/IBinaryType;Lorg/eclipse/jdt/internal/compiler/env/AccessRestriction;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -31224,8 +31068,7 @@ class NameEnvironmentAnswer:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/env/ICompilationUnit;Lorg/eclipse/jdt/internal/compiler/env/AccessRestriction;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -31238,8 +31081,7 @@ class NameEnvironmentAnswer:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>([Lorg/eclipse/jdt/internal/compiler/env/ISourceType;Lorg/eclipse/jdt/internal/compiler/env/AccessRestriction;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0: @checkers.javari.quals.ReadOnly
@@ -31306,8 +31148,7 @@ class ConditionalFlowInfo:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/flow/FlowInfo;Lorg/eclipse/jdt/internal/compiler/flow/FlowInfo;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -31601,8 +31442,7 @@ class ExceptionHandlingFlowContext:
             inner-type 3, 0: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/flow/FlowContext;Lorg/eclipse/jdt/internal/compiler/ast/ASTNode;[Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;Lorg/eclipse/jdt/internal/compiler/lookup/BlockScope;Lorg/eclipse/jdt/internal/compiler/flow/UnconditionalFlowInfo;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -31772,8 +31612,7 @@ class FinallyFlowContext:
     field nullCount:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/flow/FlowContext;Lorg/eclipse/jdt/internal/compiler/ast/ASTNode;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -31877,8 +31716,7 @@ class FlowContext:
         return:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/flow/FlowContext;Lorg/eclipse/jdt/internal/compiler/ast/ASTNode;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -32270,8 +32108,7 @@ class FlowInfo:
         return:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -32493,8 +32330,7 @@ class InitializationFlowContext:
             inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/flow/FlowContext;Lorg/eclipse/jdt/internal/compiler/ast/ASTNode;Lorg/eclipse/jdt/internal/compiler/lookup/BlockScope;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -32570,8 +32406,7 @@ class InsideSubRoutineFlowContext:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/flow/FlowContext;Lorg/eclipse/jdt/internal/compiler/ast/ASTNode;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -32627,8 +32462,7 @@ class LabelFlowContext:
             inner-type 0, 0:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/flow/FlowContext;Lorg/eclipse/jdt/internal/compiler/ast/ASTNode;[CLorg/eclipse/jdt/internal/compiler/codegen/Label;Lorg/eclipse/jdt/internal/compiler/lookup/BlockScope;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -32715,8 +32549,7 @@ class LoopingFlowContext:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/flow/FlowContext;Lorg/eclipse/jdt/internal/compiler/ast/ASTNode;Lorg/eclipse/jdt/internal/compiler/codegen/Label;Lorg/eclipse/jdt/internal/compiler/codegen/Label;Lorg/eclipse/jdt/internal/compiler/lookup/Scope;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -32850,8 +32683,7 @@ class SwitchFlowContext:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/flow/FlowContext;Lorg/eclipse/jdt/internal/compiler/ast/ASTNode;Lorg/eclipse/jdt/internal/compiler/codegen/Label;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -32931,8 +32763,7 @@ class UnconditionalFlowInfo:
     field BitCacheSize:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
 
@@ -33327,8 +33158,7 @@ class BooleanConstant:
     field value:
 
     method <init>(Z)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
@@ -33364,8 +33194,7 @@ class ByteConstant:
     field value:
 
     method <init>(B)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
@@ -33437,8 +33266,7 @@ class CharConstant:
     field value:
 
     method <init>(C)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
@@ -33985,14 +33813,12 @@ class CompilerOptions:
     field treatOptionalErrorAsFatal:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+186:
             type: @checkers.javari.quals.Mutable
 
     method <init>(Ljava/util/Map;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 3, 0: @checkers.javari.quals.ReadOnly
@@ -34140,8 +33966,7 @@ class Constant:
         return:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -34576,8 +34401,7 @@ class DoubleConstant:
     field value:
 
     method <init>(D)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
@@ -34649,8 +34473,7 @@ class FloatConstant:
     field value:
 
     method <init>(F)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
@@ -34754,8 +34577,7 @@ class IntConstant:
     field value:
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
@@ -34827,8 +34649,7 @@ class LongConstant:
     field value:
 
     method <init>(J)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
@@ -34922,8 +34743,7 @@ class ShortConstant:
     field value:
 
     method <init>(S)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
@@ -34996,8 +34816,7 @@ class StringConstant:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+10:
@@ -35059,8 +34878,7 @@ class ArrayBinding:
         return:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;ILorg/eclipse/jdt/internal/compiler/lookup/LookupEnvironment;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -35310,8 +35128,7 @@ class BaseTypeBinding:
             inner-type 0, 0:
 
     method <init>(I[C[C)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
             type: @checkers.javari.quals.Mutable
@@ -35535,8 +35352,7 @@ class BinaryTypeBinding:
         local 2 #0+63:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/PackageBinding;Lorg/eclipse/jdt/internal/compiler/env/IBinaryType;Lorg/eclipse/jdt/internal/compiler/lookup/LookupEnvironment;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -36110,8 +35926,7 @@ class Binding:
     field TYPE_PARAMETER:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -36209,8 +36024,7 @@ class BlockScope:
         return:
 
     method <init>(ILorg/eclipse/jdt/internal/compiler/lookup/Scope;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
             type: @checkers.javari.quals.Mutable
@@ -36221,8 +36035,7 @@ class BlockScope:
             type: @checkers.javari.quals.Mutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/BlockScope;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+7:
@@ -36231,8 +36044,7 @@ class BlockScope:
             type: @checkers.javari.quals.Mutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/BlockScope;Z)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -36243,8 +36055,7 @@ class BlockScope:
         local 2 #0+32:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/BlockScope;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -36685,8 +36496,7 @@ class CaptureBinding:
     field position:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/WildcardBinding;Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -36814,8 +36624,7 @@ class ClassScope:
         return:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/Scope;Lorg/eclipse/jdt/internal/compiler/ast/TypeDeclaration;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -37412,8 +37221,7 @@ class CompilationUnitScope:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/CompilationUnitDeclaration;Lorg/eclipse/jdt/internal/compiler/lookup/LookupEnvironment;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -37936,14 +37744,12 @@ class FieldBinding:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+9:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>([CLorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;ILorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;Lorg/eclipse/jdt/internal/compiler/impl/Constant;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -37968,8 +37774,7 @@ class FieldBinding:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/FieldDeclaration;Lorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;ILorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -37988,8 +37793,7 @@ class FieldBinding:
             type: @checkers.javari.quals.Mutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/FieldBinding;Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -38227,8 +38031,7 @@ class ImportBinding:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>([[CZLorg/eclipse/jdt/internal/compiler/lookup/Binding;Lorg/eclipse/jdt/internal/compiler/ast/ImportReference;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -38282,8 +38085,7 @@ class ImportConflictBinding:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>([[CLorg/eclipse/jdt/internal/compiler/lookup/Binding;Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;Lorg/eclipse/jdt/internal/compiler/ast/ImportReference;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -38329,8 +38131,7 @@ class InnerEmulationDependency:
     field wasEnclosingInstanceSupplied:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/BlockScope;Z)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -38407,8 +38208,7 @@ class LocalTypeBinding:
         return:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/ClassScope;Lorg/eclipse/jdt/internal/compiler/lookup/SourceTypeBinding;Lorg/eclipse/jdt/internal/compiler/ast/CaseStatement;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -38615,8 +38415,7 @@ class LocalVariableBinding:
     field initializationCount:
 
     method <init>([CLorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;IZ)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -38635,8 +38434,7 @@ class LocalVariableBinding:
         local 4 #0+31:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/LocalDeclaration;Lorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;IZ)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -38818,8 +38616,7 @@ class LookupEnvironment:
         return:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/impl/ITypeRequestor;Lorg/eclipse/jdt/internal/compiler/impl/CompilerOptions;Lorg/eclipse/jdt/internal/compiler/problem/ProblemReporter;Lorg/eclipse/jdt/internal/compiler/env/INameEnvironment;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -39567,8 +39364,7 @@ package org.eclipse.jdt.internal.compiler.lookup:
 class MemberTypeBinding:
 
     method <init>([[CLorg/eclipse/jdt/internal/compiler/lookup/ClassScope;Lorg/eclipse/jdt/internal/compiler/lookup/SourceTypeBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -39641,14 +39437,12 @@ class MethodBinding:
     field tagBits:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+12:
             type: @checkers.javari.quals.Mutable
 
     method <init>(I[CLorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;[Lorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;[Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
             type: @checkers.javari.quals.Mutable
@@ -39681,8 +39475,7 @@ class MethodBinding:
             type: @checkers.javari.quals.Mutable
 
     method <init>(I[Lorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;[Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
             type: @checkers.javari.quals.Mutable
@@ -39705,8 +39498,7 @@ class MethodBinding:
             type: @checkers.javari.quals.Mutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/MethodBinding;Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -40287,8 +40079,7 @@ class MethodScope:
             inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/ClassScope;Lorg/eclipse/jdt/internal/compiler/impl/ReferenceContext;Z)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -40504,8 +40295,7 @@ class MethodVerifier:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/LookupEnvironment;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+35:
@@ -41041,8 +40831,7 @@ package org.eclipse.jdt.internal.compiler.lookup:
 class MethodVerifier15:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/LookupEnvironment;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+6:
@@ -41559,8 +41348,7 @@ class NestedTypeBinding:
     field outerLocalVariablesSlotSize:
 
     method <init>([[CLorg/eclipse/jdt/internal/compiler/lookup/ClassScope;Lorg/eclipse/jdt/internal/compiler/lookup/SourceTypeBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -41741,14 +41529,12 @@ class PackageBinding:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+10:
             type: @checkers.javari.quals.Mutable
 
     method <init>([[CLorg/eclipse/jdt/internal/compiler/lookup/PackageBinding;Lorg/eclipse/jdt/internal/compiler/lookup/LookupEnvironment;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -41769,8 +41555,7 @@ class PackageBinding:
             type: @checkers.javari.quals.Mutable
 
     method <init>([CLorg/eclipse/jdt/internal/compiler/lookup/LookupEnvironment;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -41785,8 +41570,7 @@ class PackageBinding:
             type: @checkers.javari.quals.Mutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/LookupEnvironment;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+10:
@@ -41959,8 +41743,7 @@ class ParameterizedFieldBinding:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/ParameterizedTypeBinding;Lorg/eclipse/jdt/internal/compiler/lookup/FieldBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -42216,8 +41999,7 @@ class ParameterizedGenericMethodBinding:
             type: @checkers.javari.quals.Mutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/MethodBinding;Lorg/eclipse/jdt/internal/compiler/lookup/RawTypeBinding;Lorg/eclipse/jdt/internal/compiler/lookup/LookupEnvironment;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -42243,8 +42025,7 @@ class ParameterizedGenericMethodBinding:
         local 7 #146+90:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/MethodBinding;[Lorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;Lorg/eclipse/jdt/internal/compiler/lookup/LookupEnvironment;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -42382,8 +42163,7 @@ class ParameterizedMethodBinding:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/ParameterizedTypeBinding;Lorg/eclipse/jdt/internal/compiler/lookup/MethodBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -42420,8 +42200,7 @@ class ParameterizedMethodBinding:
         local 13 #309+38:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -42488,8 +42267,7 @@ class ParameterizedMethodBinding$1:
             inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/ParameterizedMethodBinding;Lorg/eclipse/jdt/internal/compiler/lookup/ParameterizedTypeBinding;ZI[Lorg/eclipse/jdt/internal/compiler/lookup/TypeVariableBinding;[Lorg/eclipse/jdt/internal/compiler/lookup/TypeVariableBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -42567,8 +42345,7 @@ class ParameterizedTypeBinding:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;[Lorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;Lorg/eclipse/jdt/internal/compiler/lookup/LookupEnvironment;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -43320,8 +43097,7 @@ class ProblemBinding:
     field problemId:
 
     method <init>([[CI)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -43336,8 +43112,7 @@ class ProblemBinding:
         local 2 #0+12:
 
     method <init>([[CLorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -43356,8 +43131,7 @@ class ProblemBinding:
         local 3 #0+13:
 
     method <init>([CI)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -43370,8 +43144,7 @@ class ProblemBinding:
         local 2 #0+15:
 
     method <init>([CLorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -43415,8 +43188,7 @@ class ProblemFieldBinding:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/FieldBinding;[[CI)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -43435,8 +43207,7 @@ class ProblemFieldBinding:
         local 3 #0+25:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;[CI)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -43453,8 +43224,7 @@ class ProblemFieldBinding:
         local 3 #0+9:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/FieldBinding;Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;[CI)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -43489,8 +43259,7 @@ class ProblemMethodBinding:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>([C[Lorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -43509,8 +43278,7 @@ class ProblemMethodBinding:
         local 3 #0+35:
 
     method <init>([C[Lorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -43533,8 +43301,7 @@ class ProblemMethodBinding:
         local 4 #0+41:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/MethodBinding;[C[Lorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -43568,8 +43335,7 @@ class ProblemPackageBinding:
     field problemId:
 
     method <init>([[CI)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -43584,8 +43350,7 @@ class ProblemPackageBinding:
         local 2 #0+15:
 
     method <init>([CI)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -43645,8 +43410,7 @@ class ProblemReferenceBinding:
     field problemReason:
 
     method <init>([[CLorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -43665,8 +43429,7 @@ class ProblemReferenceBinding:
         local 3 #0+20:
 
     method <init>([CLorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -43699,8 +43462,7 @@ package org.eclipse.jdt.internal.compiler.lookup:
 class RawTypeBinding:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;Lorg/eclipse/jdt/internal/compiler/lookup/LookupEnvironment;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -43881,8 +43643,7 @@ class ReferenceBinding:
         return:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -44631,8 +44392,7 @@ package org.eclipse.jdt.internal.compiler.lookup:
 class ReferenceBinding$1:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -44843,8 +44603,7 @@ class Scope:
             type: @checkers.javari.quals.Mutable
 
     method <init>(ILorg/eclipse/jdt/internal/compiler/lookup/Scope;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
             type: @checkers.javari.quals.Mutable
@@ -46832,8 +46591,7 @@ class SignatureWrapper:
     field bracket:
 
     method <init>([C)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -46918,8 +46676,7 @@ class SourceTypeBinding:
             inner-type 0, 0:
 
     method <init>([[CLorg/eclipse/jdt/internal/compiler/lookup/PackageBinding;Lorg/eclipse/jdt/internal/compiler/lookup/ClassScope;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -47855,8 +47612,7 @@ class SyntheticArgumentBinding:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/LocalVariableBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+37:
@@ -47865,8 +47621,7 @@ class SyntheticArgumentBinding:
             type: @checkers.javari.quals.Mutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+35:
@@ -47880,8 +47635,7 @@ class SyntheticFieldBinding:
     field index:
 
     method <init>([CLorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;ILorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;Lorg/eclipse/jdt/internal/compiler/impl/Constant;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -47947,8 +47701,7 @@ class SyntheticMethodBinding:
     field index:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/FieldBinding;ZLorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -47982,8 +47735,7 @@ class SyntheticMethodBinding:
         local 10 #418+38:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/FieldBinding;Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;Lorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;[C)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -48020,8 +47772,7 @@ class SyntheticMethodBinding:
         local 11 #219+60:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/MethodBinding;ZLorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -48036,8 +47787,7 @@ class SyntheticMethodBinding:
             type: @checkers.javari.quals.Mutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/MethodBinding;Lorg/eclipse/jdt/internal/compiler/lookup/MethodBinding;Lorg/eclipse/jdt/internal/compiler/lookup/SourceTypeBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -48058,8 +47808,7 @@ class SyntheticMethodBinding:
         local 5 #107+7:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/SourceTypeBinding;[C)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -48258,8 +48007,7 @@ class TypeBinding:
     field tagBits:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+16:
             type: @checkers.javari.quals.Mutable
 
@@ -49527,8 +49275,7 @@ class TypeVariableBinding:
             inner-type 0, 0:
 
     method <init>([CLorg/eclipse/jdt/internal/compiler/lookup/Binding;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -49844,8 +49591,7 @@ class TypeVariableBinding$1:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/TypeVariableBinding;Lorg/eclipse/jdt/internal/compiler/lookup/LookupEnvironment;Lorg/eclipse/jdt/internal/compiler/lookup/TypeVariableBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -49888,8 +49634,7 @@ class UnresolvedReferenceBinding:
             inner-type 0, 0: @checkers.javari.quals.ThisMutable
 
     method <init>([[CLorg/eclipse/jdt/internal/compiler/lookup/PackageBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0: @checkers.javari.quals.Mutable
@@ -49965,8 +49710,7 @@ class UpdatedMethodBinding:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;I[CLorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;[Lorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;[Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -50028,8 +49772,7 @@ class VariableBinding:
     field tagBits:
 
     method <init>([CLorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;ILorg/eclipse/jdt/internal/compiler/impl/Constant;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
                 inner-type 0, 0:
@@ -50127,8 +49870,7 @@ class WildcardBinding:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/lookup/ReferenceBinding;ILorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;[Lorg/eclipse/jdt/internal/compiler/lookup/TypeBinding;ILorg/eclipse/jdt/internal/compiler/lookup/LookupEnvironment;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -50581,8 +50323,7 @@ class AbstractCommentParser:
         return:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/parser/Parser;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+162:
@@ -51030,8 +50771,7 @@ class JavadocParser:
             inner-type 0, 0: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/parser/Parser;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         local 0 #0+18:
@@ -51500,8 +51240,7 @@ class NLSTag:
     field index:
 
     method <init>(IIII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         parameter #2:
@@ -52266,8 +52005,7 @@ class Parser:
         local 1 #0+35:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/problem/ProblemReporter;Z)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -55965,8 +55703,7 @@ class RecoveredBlock:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Block;Lorg/eclipse/jdt/internal/compiler/parser/RecoveredElement;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -56199,8 +55936,7 @@ class RecoveredElement:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/parser/RecoveredElement;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -56211,8 +55947,7 @@ class RecoveredElement:
         local 2 #0+8:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/parser/RecoveredElement;ILorg/eclipse/jdt/internal/compiler/parser/Parser;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -56503,8 +56238,7 @@ class RecoveredField:
     field anonymousTypeCount:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/FieldDeclaration;Lorg/eclipse/jdt/internal/compiler/parser/RecoveredElement;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -56519,8 +56253,7 @@ class RecoveredField:
         local 3 #0+9:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/FieldDeclaration;Lorg/eclipse/jdt/internal/compiler/parser/RecoveredElement;ILorg/eclipse/jdt/internal/compiler/parser/Parser;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -56646,8 +56379,7 @@ class RecoveredImport:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/ImportReference;Lorg/eclipse/jdt/internal/compiler/parser/RecoveredElement;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -56716,8 +56448,7 @@ class RecoveredInitializer:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/FieldDeclaration;Lorg/eclipse/jdt/internal/compiler/parser/RecoveredElement;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -56732,8 +56463,7 @@ class RecoveredInitializer:
         local 3 #0+9:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/FieldDeclaration;Lorg/eclipse/jdt/internal/compiler/parser/RecoveredElement;ILorg/eclipse/jdt/internal/compiler/parser/Parser;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -56888,8 +56618,7 @@ class RecoveredLocalVariable:
     field alreadyCompletedLocalInitialization:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/LocalDeclaration;Lorg/eclipse/jdt/internal/compiler/parser/RecoveredElement;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -56995,8 +56724,7 @@ class RecoveredMethod:
     field discardBody:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/AbstractMethodDeclaration;Lorg/eclipse/jdt/internal/compiler/parser/RecoveredElement;ILorg/eclipse/jdt/internal/compiler/parser/Parser;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -57233,8 +56961,7 @@ class RecoveredStatement:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/Statement;Lorg/eclipse/jdt/internal/compiler/parser/RecoveredElement;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -57327,8 +57054,7 @@ class RecoveredType:
     field pendingTypeParametersStart:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/TypeDeclaration;Lorg/eclipse/jdt/internal/compiler/parser/RecoveredElement;I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -57612,8 +57338,7 @@ class RecoveredUnit:
     field typeCount:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/ast/CompilationUnitDeclaration;ILorg/eclipse/jdt/internal/compiler/parser/Parser;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -58074,14 +57799,12 @@ class Scanner:
         return:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+14:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(ZZZJJ[[C[[CZ)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         parameter #2:
@@ -58117,8 +57840,7 @@ class Scanner:
         local 13 #174+29:
 
     method <init>(ZZZJ[[C[[CZ)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
         parameter #2:
@@ -59141,8 +58863,7 @@ class ScannerHelper:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -59533,8 +59254,7 @@ class DiagnoseParser:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/parser/Parser;IIILorg/eclipse/jdt/internal/compiler/impl/CompilerOptions;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -59553,8 +59273,7 @@ class DiagnoseParser:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/parser/Parser;III[I[I[ILorg/eclipse/jdt/internal/compiler/impl/CompilerOptions;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -60136,8 +59855,7 @@ class DiagnoseParser$PrimaryRepairInfo:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/parser/diagnose/DiagnoseParser;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+35:
@@ -60162,8 +59880,7 @@ class DiagnoseParser$RepairCandidate:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/parser/diagnose/DiagnoseParser;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+20:
@@ -60190,8 +59907,7 @@ class DiagnoseParser$SecondaryRepairInfo:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/parser/diagnose/DiagnoseParser;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+10:
@@ -60208,8 +59924,7 @@ class DiagnoseParser$StateInfo:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/parser/diagnose/DiagnoseParser;II)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -60254,8 +59969,7 @@ class LexStream:
     field previousInterval:
 
     method <init>(ILorg/eclipse/jdt/internal/compiler/parser/Scanner;[I[I[IIII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
             type: @checkers.javari.quals.Mutable
@@ -60466,8 +60180,7 @@ class LexStream$Token:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/parser/diagnose/LexStream;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+10:
@@ -60491,8 +60204,7 @@ class RangeUtil:
     field IGNORE:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -60617,8 +60329,7 @@ class RangeUtil$RangeResult:
             inner-type 0, 0:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+34:
             type: @checkers.javari.quals.Mutable
 
@@ -60723,14 +60434,12 @@ class AbortCompilation:
     field serialVersionUID:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/CompilationResult;Lorg/eclipse/jdt/core/compiler/IProblem;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -60743,8 +60452,7 @@ class AbortCompilation:
             type: @checkers.javari.quals.Mutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/CompilationResult;Ljava/lang/Throwable;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -60757,8 +60465,7 @@ class AbortCompilation:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(ZLjava/lang/RuntimeException;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         parameter #1:
             type: @checkers.javari.quals.ReadOnly
@@ -60802,8 +60509,7 @@ class AbortCompilationUnit:
     field serialVersionUID:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/CompilationResult;Lorg/eclipse/jdt/core/compiler/IProblem;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -60821,8 +60527,7 @@ class AbortMethod:
     field serialVersionUID:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/CompilationResult;Lorg/eclipse/jdt/core/compiler/IProblem;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -60840,8 +60545,7 @@ class AbortType:
     field serialVersionUID:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/CompilationResult;Lorg/eclipse/jdt/core/compiler/IProblem;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.Mutable
         parameter #1:
@@ -60884,8 +60588,7 @@ class DefaultProblem:
         type: @checkers.javari.quals.ReadOnly
 
     method <init>([CLjava/lang/String;I[Ljava/lang/String;IIII)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0:
@@ -61073,8 +60776,7 @@ class ProblemHandler:
         return:
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/IErrorHandlingPolicy;Lorg/eclipse/jdt/internal/compiler/impl/CompilerOptions;Lorg/eclipse/jdt/internal/compiler/IProblemFactory;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -61243,8 +60945,7 @@ class ProblemReporter:
         type: @checkers.javari.quals.ThisMutable
 
     method <init>(Lorg/eclipse/jdt/internal/compiler/IErrorHandlingPolicy;Lorg/eclipse/jdt/internal/compiler/impl/CompilerOptions;Lorg/eclipse/jdt/internal/compiler/IProblemFactory;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         parameter #1:
@@ -67226,8 +66927,7 @@ class ShouldNotImplement:
     field serialVersionUID:
 
     method <init>(Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
@@ -67254,8 +66954,7 @@ class CompoundNameVector:
         return:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+29:
             type: @checkers.javari.quals.Mutable
 
@@ -67379,8 +67078,7 @@ class FloatUtil:
     field SINGLE_EXPONENT_SHIFT:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -67464,14 +67162,12 @@ class HashtableOfObject:
     field threshold:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+7:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+50:
             type: @checkers.javari.quals.Mutable
@@ -67620,14 +67316,12 @@ class HashtableOfPackage:
     field threshold:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+50:
             type: @checkers.javari.quals.Mutable
@@ -67745,14 +67439,12 @@ class HashtableOfType:
     field threshold:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+6:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+50:
             type: @checkers.javari.quals.Mutable
@@ -67979,8 +67671,7 @@ class Messages:
         return:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -68112,8 +67803,7 @@ class Messages$MessagesProperties:
             inner-type 3, 1: @checkers.javari.quals.ThisMutable
 
     method <init>([Ljava/lang/reflect/Field;Ljava/lang/String;)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
             type: @checkers.javari.quals.ReadOnly
                 inner-type 0, 0: @checkers.javari.quals.QReadOnly
@@ -68162,8 +67852,7 @@ class ObjectVector:
         return:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+28:
             type: @checkers.javari.quals.Mutable
 
@@ -68315,14 +68004,12 @@ class SimpleLookupTable:
     field threshold:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+7:
             type: @checkers.javari.quals.ReadOnly
 
     method <init>(I)V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         parameter #0:
         local 0 #0+49:
             type: @checkers.javari.quals.Mutable
@@ -68476,8 +68163,7 @@ class SimpleNameVector:
         return:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+29:
             type: @checkers.javari.quals.Mutable
 
@@ -68678,8 +68364,7 @@ class Util:
         return:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
@@ -68925,8 +68610,7 @@ package org.eclipse.jdt.internal.compiler.util:
 class Util$1:
 
     method <init>()V:
-        return:
-        receiver: @checkers.javari.quals.ReadOnly
+        return: @checkers.javari.quals.ReadOnly
         local 0 #0+5:
             type: @checkers.javari.quals.ReadOnly
 
