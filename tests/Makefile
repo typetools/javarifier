@@ -10,11 +10,11 @@
 # Not /bin/sh because dash does not support "set -o pipefail".
 SHELL = /bin/bash
 
-TOPLEVEL_DIFFS := $(patsubst %.goal, %.diff, $(wildcard *.goal))
-TOPLEVEL_TYPECHECK_DIFFS :=  $(patsubst %.annotated.goal, %.typecheck.diff, $(wildcard *.annotated.goal))
+TOPLEVEL_DIFFS := $(patsubst %.goal, %.diff, $(sort $(wildcard *.goal)))
+TOPLEVEL_TYPECHECK_DIFFS :=  $(patsubst %.annotated.goal, %.typecheck.diff, $(sort $(wildcard *.annotated.goal)))
 
-JAVA_FILES := $(wildcard *.java)
-JAVARIFIER_JAVA_FILES := $(wildcard ../src/*.java)
+JAVA_FILES := $(sort $(wildcard *.java))
+JAVARIFIER_JAVA_FILES := $(sort $(wildcard ../src/*.java))
 
 JAVARIFIER ?= ../scripts/javarifier
 JRE_HOME ?= $(shell java -cp $(JAVARIFIER)/scripts PrintJreHome)
