@@ -11,6 +11,7 @@
 SHELL = /bin/bash
 
 TOPLEVEL_DIFFS := $(patsubst %.goal, %.diff, $(sort $(wildcard *.goal)))
+TOPLEVEL_ANNOTATED := $(patsubst %.annotated.goal, annotated/%.java, $(sort $(wildcard *.annotated.goal)))
 TOPLEVEL_TYPECHECK_DIFFS :=  $(patsubst %.annotated.goal, %.typecheck.diff, $(sort $(wildcard *.annotated.goal)))
 
 JAVA_FILES := $(sort $(wildcard *.java))
@@ -37,7 +38,8 @@ all : toplevel jolden htmlparser tinySQL eclipsec results
 .PHONY: toplevel
 toplevel: toplevel-diffs
 toplevel-all: toplevel-diffs toplevel-typecheck
-toplevel-diffs: $(TOPLEVEL_DIFFS)
+# For some reason, the TOPLEVEL_ANNOTATED files aren't rebuilt unless they are listed explicitly.
+toplevel-diffs: $(TOPLEVEL_ANNOTATED) $(TOPLEVEL_DIFFS)
 # TODO: add typecheck targets to the subprojects
 toplevel-typecheck: $(TOPLEVEL_TYPECHECK_DIFFS)
 
@@ -131,11 +133,15 @@ VerifyDiffs.class : VerifyDiffs.java
 
 # Compare the output of the Javarifier and the goal file.
 %.jaif.diff: %.jaif.goal %.jaif
+# Odd fact: if the file is empty before and after, the redirect doesn't update its timestamp
+	@rm -f $*.jaif.diff
 	-diff -u $*.jaif.goal $*.jaif > $*.jaif.diff 2>&1
 
 # The "%.jaif" in this target does not work.  If it does not exist, "make -d" output just says:
 #  Prerequisite `SimpleCell.jaif' of target `SimpleCell.annotated.diff' does not exist.
 %.annotated.diff: %.annotated.goal annotated/%.java %.jaif
+# Odd fact: if the file is empty before and after, the redirect doesn't update its timestamp
+	@rm -f $*.annotated.diff
 	-diff -u $*.annotated.goal annotated/$*.java > $*.annotated.diff 2>&1
 
 .PRECIOUS: annotated/%.java
