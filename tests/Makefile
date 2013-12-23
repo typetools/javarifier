@@ -29,6 +29,9 @@ endif
 
 AFU ?= ../../annotation-tools/annotation-file-utilities
 
+# Default target for testing
+# tmp: showvars all
+
 .PHONY: default
 default : all
 
@@ -177,8 +180,10 @@ clean : clean-toplevel
 
 .PHONY: showvars
 showvars:
+	@echo "--- start of javarifier/tests showvars"
 	@echo "JAVAC=${JAVAC}"
 	@echo "CLASSPATH=${CLASSPATH}"
 	@echo "CHECKERS=${CHECKERS}"
 	@echo "JRE_HOME=${JRE_HOME}"
 	@echo "TOPLEVEL_DIFFS=${TOPLEVEL_DIFFS}"
+	@echo "--- end of javarifier/tests showvars"
