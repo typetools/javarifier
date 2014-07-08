@@ -187,7 +187,7 @@ public class AnnotationStorer {
     if (!sm.isStatic()) {
       // This is a hack.
       // It would be better to fix it elsewhere, but this is quick to do.
-      ATypeElement receiverDest
+      AElement receiverDest
         = (sm.getName().equals("<init>") ? am.returnType : am.receiver);
       try {
         storeTypeLayer(ms.getReceiverType(), receiverDest);
@@ -234,7 +234,7 @@ public class AnnotationStorer {
           LocalLocation loc = new LocalLocation(l.getSlotIndex(),
               l.getStart_pc(), l.getLength());
           try {
-            storeType(l.getJrType(), am.locals.vivify(loc).type);
+            storeType(l.getJrType(), am.body.locals.vivify(loc).type);
           } catch (RuntimeException e) {
             throw wrap(e, "local " + loc.index + " #"
                 + loc.scopeStart + "+" + loc.scopeLength);
@@ -331,7 +331,7 @@ public class AnnotationStorer {
    * @param source - the type containing mutability annotations
    * @param dest - the element to store the mutabilities into
    */
-  private void storeTypeLayer(JrType source, ATypeElement dest) {
+  private void storeTypeLayer(JrType source, AElement dest) {
     // If source has any mutabilities, simply retrieve them, look up
     // the annotation from mutabilityAnnos and then use annotate().
     if (source instanceof MutType) {

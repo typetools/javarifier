@@ -208,14 +208,14 @@ public class AnnotationLoader {
     if (!sm.isBridge() && sm.getBody() != null) {
       Body body = sm.getBody();
       Collection<Local> locals = body.getLocals();
-      Set<LocalLocation> annoLocalsLeft = new LinkedHashSet<LocalLocation>(am.locals.keySet());
+      Set<LocalLocation> annoLocalsLeft = new LinkedHashSet<LocalLocation>(am.body.locals.keySet());
       for (Local l : locals) {
         if (l.isSourceLocal()) {
           LocalLocation loc = new LocalLocation(l.getSlotIndex(),
               l.getStart_pc(), l.getLength());
           annoLocalsLeft.remove(loc);
           try {
-            loadType(l.getJrType(), am.locals.vivify(loc).type,
+            loadType(l.getJrType(), am.body.locals.vivify(loc).type,
                 isStub, Mutability.MUTABLE, false);
           } catch (RuntimeException e) {
             throw wrap(e, "local " + loc.index + " #"
@@ -323,7 +323,7 @@ public class AnnotationLoader {
    * @param defmut - the default mutability
    * @param isField - whether the given element represents a field
    */
-  static void loadTypeLayer(JrType dest, ATypeElement source,
+  static void loadTypeLayer(JrType dest, AElement source,  // [dbro: was ATypeElement]
       boolean isStub, Mutability defmut, boolean isField) {
     Mutability m = null;
 
