@@ -5,11 +5,13 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javarifier.util.Pair;
 import annotations.Annotation;
 import annotations.el.AClass;
 import annotations.el.AElement;
+import annotations.el.AField;
 import annotations.el.AMethod;
 import annotations.el.AScene;
 import annotations.el.ATypeElement;
@@ -197,7 +199,7 @@ public class ShayOutput {
   private void printMethod(AMethod m) throws IOException {
     printReceiver(m.receiver);
 
-    for (Map.Entry<Integer, AElement> e : m.parameters.entrySet()) {
+    for (Entry<Integer, AField> e : m.parameters.entrySet()) {
       printParam(e.getKey(), e.getValue().type);
     }
   }
