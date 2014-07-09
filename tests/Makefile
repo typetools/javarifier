@@ -22,7 +22,7 @@ JRE_HOME ?= $(shell java -cp $(JAVARIFIER)/scripts PrintJreHome)
 
 #Since the Checker Framework is required to run this script
 #use the Checker Framework compiler
-JAVAC = ${CHECKERS}/binary/javac
+JAVAC = ${CHECKER_FRAMEWORK}/checker/bin/javac
 ifneq ($(wildcard ${JAVAC}), ${JAVAC})
     $(error "Couldn't find the Checker Framework compiler at ${JAVAC}" )
 endif
@@ -56,7 +56,7 @@ toplevel-typecheck: $(TOPLEVEL_TYPECHECK_DIFFS)
 
 .PRECIOUS: %.class
 %.class : %.java
-	$(JAVAC) -classpath .:${CHECKERS}/build:${CHECKERS}/binary/checkers.jar -g -d . $^
+	$(JAVAC) -classpath .:${CHECKER_FRAMEWORK}/checker/build:${CHECKER_FRAMEWORK}/checker/dist/checker.jar -g -d . $^
 
 # Runs Javarifier on the Jolden case studies by running a separate
 # Makefile similar to this one.
@@ -155,7 +155,7 @@ annotated/%.java: %.java %.jaif %.class
 
 %.typecheck.diff: annotated/%.java
 # ".." in classpath is for helper classes like Cell.
-	set -o pipefail && $(JAVAC) -processor checkers.javari.JavariChecker -classpath annotated:${CLASSPATH}:${CHECKERS}/build:${CHECKERS}/binary/checkers.jar -implicit:class annotated/$*.java 2>&1 | tee $*.typecheck.diff
+	set -o pipefail && $(JAVAC) -processor checkers.javari.JavariChecker -classpath annotated:${CLASSPATH}:${CHECKER_FRAMEWORK}/checker/build:${CHECKER_FRAMEWORK}/checker/dist/checker.jar -implicit:class annotated/$*.java 2>&1 | tee $*.typecheck.diff
 
 
 # Remove all .diff, .log files from the tests directory,
@@ -183,7 +183,7 @@ showvars:
 	@echo "--- start of javarifier/tests showvars"
 	@echo "JAVAC=${JAVAC}"
 	@echo "CLASSPATH=${CLASSPATH}"
-	@echo "CHECKERS=${CHECKERS}"
+	@echo "CHECKER_FRAMEWORK=${CHECKER_FRAMEWORK}"
 	@echo "JRE_HOME=${JRE_HOME}"
 	@echo "TOPLEVEL_DIFFS=${TOPLEVEL_DIFFS}"
 	@echo "--- end of javarifier/tests showvars"
