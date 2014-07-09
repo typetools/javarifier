@@ -308,7 +308,7 @@
       <env key="JAVAC" file="${javac}" />
       <env key="LANGTOOLS" path="${annotations-compiler}"/>
       <env key="CLASSPATH" path="${toString:libpath}"/>
-      <env key="CHECKERS" path="${checkerframework}/checker"/>
+      <env key="CHECKER_FRAMEWORK" path="${checkerframework}"/>
       <env key="AFU" path="${afu}"/>
       <env key="JRE_HOME" path="${java.home}"/>
       <env key="JDK_NAME" path="${jdkName}"/>
@@ -328,7 +328,7 @@
       <arg value="toplevel-all"/>
       <env key="JAVAC" file="${javac}" />
       <env key="CLASSPATH" path="${checkerframework}/checker/bin/checker.jar"/>
-      <env key="CHECKERS" path="${checkerframework}/checker"/>
+      <env key="CHECKER_FRAMEWORK" path="${checkerframework}"/>
       <env key="AFU" path="${afu}"/>
       <env key="JRE_HOME" path="${java.home}"/>
       <env key="PATH" path="${afu}/scripts:${env.PATH}"/>
@@ -350,7 +350,7 @@
       <arg value="toplevel-all"/>
       <env key="JAVAC" file="${javac}" />
       <env key="CLASSPATH" path="${checkerframework}/checker/bin/checker.jar"/>
-      <env key="CHECKERS" path="${checkerframework}/checker"/>
+      <env key="CHECKER_FRAMEWORK" path="${checkerframework}"/>
       <env key="AFU" path="${afu}"/>
       <env key="JRE_HOME" path="${java.home}"/>
       <env key="PATH" path="${afu}/scripts:${env.PATH}"/>
