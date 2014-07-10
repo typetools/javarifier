@@ -84,9 +84,10 @@
       <path id="libpath">
         <!-- Make our copy of plume.jar override any subsequent ones on the path. -->
         <pathelement location="${javarifier}/lib/plume.jar"/>
-        <pathelement location="${javari-annotated-jdk}/bin"/>
+<!--        <pathelement location="${javari-annotated-jdk}/bin"/> -->
 <!--        <pathelement location="${annotations-shared}/bin"/> -->
         <pathelement location="${checkerframework}/checker/build"/>
+        <pathelement location="${checkerframework}/checker/jdk/javari/build"/>
         <pathelement location="${annotations-compiler}/dist/lib/javac.jar"/>
         <pathelement location="${afu}/annotation-file-utilities.jar"/>
         <pathelement location="${javarifier}/bin"/>
@@ -383,7 +384,7 @@
     description="Runs Javarifier.  (Arguments: class names to javarify)">
 
     <property name="soot-programs" value="${user-soot-programs}:."/>
-    <property name="soot-stubs" value="${user-soot-stubs}:${checkerframework}/checker/build"/>
+    <property name="soot-stubs" value="${user-soot-stubs}:${checkerframework}/checker/jdk/javari/build"/>
     <property name="soot-worlds" value="${user-soot-worlds}:${jre1.6.0}"/>
 
      <!-- Set classpath of Javarifier to use for running Javarifier, not
