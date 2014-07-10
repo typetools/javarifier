@@ -20,8 +20,17 @@
     value="/cse/www2/types/javari/javarifier"/>
 
 
-  <condition property="jdkName" value="jdk7.jar" else="jdk6.jar">
-    <contains string="${java.version}" substring="1.7"/>
+  <condition property="jdkName" value="jdk8.jar">
+    <contains string="${java.version}" substring="1.8"/>
+  </condition>
+  <condition property="jdkName" value="jdk7.jar">
+    <and>
+      <not><isset property="jdkName"/></not>
+      <contains string="${java.version}" substring="1.7"/>
+    </and>
+  </condition>
+  <condition property="jdkName" value="jdk6.jar">
+    <not><isset property="jdkName"/></not>
   </condition>
 
   <!-- Determine locations of all projects, as per the property files. -->
