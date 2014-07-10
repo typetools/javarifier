@@ -41,6 +41,8 @@ public class PrintJdkName {
             fileName = "jdk6.jar";
         } else if(jreVersion == 1.7) {
             fileName = "jdk7.jar";
+        } else if(jreVersion == 1.8) {
+            fileName = "jdk8.jar";
         } else {
             throw new AssertionError("Unsupported JRE version: " + jreVersion);
         }
