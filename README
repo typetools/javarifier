@@ -105,7 +105,7 @@ To make a Javarifier distribution:
       ant run-tests
 
  6. Tag the release, for example:
-      hg tag 0.1.4
+      git tag v0.1.4
 
 
 JAVARIFIER DOCUMENTATION

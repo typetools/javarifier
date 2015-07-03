@@ -1,7 +1,7 @@
 javari/javarifier/lib contains:
 
 plume.jar
-    From http://code.google.com/p/plume-lib/
+    From http://mernst.github.io/plume-lib/
 
 jasminclasses-2.4.0.jar
 polyglotclasses-1.3.5.jar

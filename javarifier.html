@@ -715,9 +715,9 @@ export CLASSPATH=${CLASSPATH}:$JAVA_HOME/lib/tools.jar:$JSR308/checker-framework
 <pre>mkdir -p $JSR308
 cd $JSR308
 hg clone https://code.google.com/p/jsr308-langtools/ jsr308-langtools
-hg clone https://code.google.com/p/annotation-tools/ annotation-tools
-hg clone https://code.google.com/p/checker-framework/ checker-framework
-hg clone https://code.google.com/p/javarifier/ javarifier</pre>
+git clone https://github.com/typetools/annotation-tools.git annotation-tools
+git clone https://github.com/typetools/checker-framework.git checker-framework
+git clone https://github.com/typetools/javarifier.git javarifier</pre>
   </li>
   <li>Build everything.  If any of the builds fails, consult that project's documentation.
 <pre>cd $JSR308/jsr308-langtools/make \
@@ -742,11 +742,11 @@ Later, to update all your sources and rebuild them, you can run:
 cd $JSR308/jsr308-langtools
 hg pull -u
 cd $JSR308/annotation-tools
-hg pull -u
+git pull
 cd $JSR308/checker-framework
-hg pull -u
+git pull
 cd $JSR308/javarifier
-hg pull -u
+git pull
 </pre>
 <p>
 and re-run the "Build everything" command immediately above.
@@ -775,7 +775,7 @@ using the build script.
 
 <p>
 If you encounter a problem in Javarifier, please submit a bug report via
-its <a href="http://code.google.com/p/javarifier/issues/list">issue tracker</a>.
+its <a href="https://github.com/typetools/javarifier/issues">issue tracker</a>.
 When reporting bugs, please help us to resolve the issue quickly by
 including the complete
 output of Javarifier, and exact instructions of how to
@@ -820,7 +820,7 @@ can be sent to <a href="mailto:javarifier-dev@googlegroups.com">javarifier-dev@g
       </li>
       <li>Many bug fixes to code, build files, and tests.
       </li>
-      <li>Uses <a href="http://code.google.com/p/plume-lib/">plume-lib</a>
+      `<li>Uses <a href="http://mernst.github.io/plume-lib/">plume-lib</a>
           (<tt>plume.jar</tt> added to <tt>lib/</tt>).
       </li>
     </ul>
@@ -860,7 +860,7 @@ can be sent to <a href="mailto:javarifier-dev@googlegroups.com">javarifier-dev@g
 <hr/>
 
 <p>
-Last revised: July 3, 2013
+Last revised: July 3, 2015
 </p>
 
 </body>

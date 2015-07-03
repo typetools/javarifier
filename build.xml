@@ -157,29 +157,31 @@
          directory, so that when the user unzips they extract exactly one
          directory. -->
 
-    <exec executable="hg" failonerror="true" outputproperty="hg-status-output">
+    <exec executable="git" failonerror="true" outputproperty="git-status-output">
       <arg value="status"/>
     </exec>
-    <condition property="hg-needs-commit"> 
-      <not><equals arg1="${hg-status-output}" arg2=""/></not>
+    <condition property="git-needs-commit"> 
+      <not><equals arg1="${git-status-output}" arg2=""/></not>
     </condition> 
-    <fail if="hg-needs-commit">Uncommitted changes; do "hg commit" before "ant zipfile"</fail>
+    <fail if="git-needs-commit">Uncommitted changes; do "git commit" before "ant zipfile"</fail>
     <!-- Not necessary because so long as the changes are committed, they
     will show up in the zipfile.
-    <exec executable="hg" resultproperty="hg-outgoing-exit-status">
+    <exec executable="git" resultproperty="git-outgoing-exit-status">
       <arg value="outgoing"/>
     </exec>
-    <condition property="hg-outgoing-exists"> 
-      <equals arg1="${hg-outgoing-exit-status}" arg2="0"/> 
+    <condition property="git-outgoing-exists"> 
+      <equals arg1="${git-outgoing-exit-status}" arg2="0"/> 
     </condition> 
-    <fail if="hg-outgoing-exit-status">push changes before making a zipfile</fail>
+    <fail if="git-outgoing-exit-status">push changes before making a zipfile</fail>
     -->
 
     <delete dir="${distdir}"/>
-    <exec executable="hg">
-      <arg value="archive"/>
+    <exec executable="git">
+      <arg value="clone"/>
+      <arg value="."/>
       <arg value="${distdir}"/>
     </exec>
+    <delete dir=".git"/>
     <!-- Put symbolic links in place -->
     <symlink link="${tmpdir}/annotation-tools"
              resource="${ant.file.dir}/../annotation-tools"
