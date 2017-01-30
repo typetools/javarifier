@@ -21,16 +21,16 @@ import plume.Unpublicized;
 /**
  * Javarifier implements the refrence immutability inference algorithm for
  * Java explained in Jaime Quinonez's thesis, available at:
- * <a href="http://types.cs.washington.edu/javarifier">
- * http://types.cs.washington.edu/javarifier </a>
+ * <a href="https://types.cs.washington.edu/javarifier">
+ * https://types.cs.washington.edu/javarifier </a>
  *
  * Given as input a set of Java class files to {@link #main(String[])},
  * Javarifier will infer the reference immutability of all references in
  * those classes and in classes those classes depend upon.
  *
  * Consult the documentation at:
- * <a href="http://types.cs.washington.edu/javarifier">
- * http://types.cs.washington.edu/javarifier </a>
+ * <a href="https://types.cs.washington.edu/javarifier">
+ * https://types.cs.washington.edu/javarifier </a>
  * for more information about running Javarifier.
  *
  * All arguments

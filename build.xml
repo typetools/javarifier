@@ -232,7 +232,7 @@
     <exec executable="/homes/gws/mernst/bin/src/plume-lib/bin/checklink">
       <arg value="-q"/>
       <arg value="-r"/>
-      <arg value="http://types.cs.washington.edu/javari/"/>
+      <arg value="https://types.cs.washington.edu/javari/"/>
     </exec>
   </target>
 

@@ -8,7 +8,7 @@ JAVARIFIER USER DOCUMENTATION
 User documentation for Javarifier can be found at:
   distribution/doc/javarifier.html
 Or on the web at:
-  http://types.cs.washington.edu/javarifier
+  https://types.cs.washington.edu/javarifier
 
 The rest of this file is intended for Javarifier developers:  people who
 wish to build Javarifier and/or modify its source code.
@@ -47,7 +47,7 @@ RUNNING
 
 Full documentation for running Javarifier is in javarifier.html
 or on the web at:
-	http://types.cs.washington.edu/javarifier
+	https://types.cs.washington.edu/javarifier
 
 The javarifier script at
    javarifier/scripts/javarifier
@@ -73,31 +73,31 @@ To make a Javarifier distribution:
  3. Synchronize the version number in javarifier.html to the version number
     in javarifier.Main.versionString (in src/javarifier/Main.java).
  4. Run 'ant -e web'.  This copies the distribution (javarifier.zip) and the
-    user documentation to http://types.cs.washington.edu/javarifier .
+    user documentation to https://types.cs.washington.edu/javarifier .
  5. Test it.  From a brand-new account, run the following:
 
       ## Install Checker Framework
       # Cut and paste from
-      # http://types.cs.washington.edu/checker-framework/current/checkers-manual.html#javac-installation
+      # https://types.cs.washington.edu/checker-framework/current/checkers-manual.html#javac-installation
       # (but maybe use a different checkers.zip URL, such as one of:
       #   wget http://homes.cs.washington.edu/~mernst/jsr308test/checker-framework/current/checkers.zip
       #   cp -pf /home/cf/jsr308/checker-framework/tmp/1.1.1/checkers.zip .
       # ).
       # Sanity-check by following instructions at
-      # http://types.cs.washington.edu/checker-framework/current/checkers-manual.html#example-use
+      # https://types.cs.washington.edu/checker-framework/current/checkers-manual.html#example-use
 
       ## Install Annotation File Utilities
       cd ~/jsr308
       # For unreleased version: cp -pf ~cf/jsr308/annotation-tools/annotation-file-utilities/annotation-tools.zip .
-      wget http://types.cs.washington.edu/annotation-file-utilities/annotation-tools.zip
+      wget https://types.cs.washington.edu/annotation-file-utilities/annotation-tools.zip
       rm -rf annotation-tools
       unzip annotation-tools.zip
 
       ## Install Javarifier (these commands implement the instructions at
-      # http://types.cs.washington.edu/javari/javarifier/#installation):
+      # https://types.cs.washington.edu/javari/javarifier/#installation):
       cd ~/jsr308
       # For unreleased version: cp -pf ~cf/jsr308/javarifier/javarifier.zip .
-      wget http://types.cs.washington.edu/javari/javarifier/javarifier.zip
+      wget https://types.cs.washington.edu/javari/javarifier/javarifier.zip
       rm -rf javarifier
       unzip javarifier.zip
       # Shouldn't have to add javarifier/scripts directory to my path.
@@ -126,7 +126,7 @@ Or on the web at:
 User documentation for the Javarifier tool can be found at:
         javarifier.html
 Or on the web at:
-        http://types.cs.washington.edu/javarifier
+        https://types.cs.washington.edu/javarifier
 
 Slides from talks on Javarifier can be found in the talks/ directory.
 
