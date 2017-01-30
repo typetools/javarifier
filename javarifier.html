@@ -85,16 +85,16 @@ paper
 <p>
 Javarifier's input is Java <code>.class</code> files.
 Javarifier's output is an
-<a href="https://types.cs.washington.edu/annotation-file-utilities/">annotation
+<a href="https://checkerframework.org/annotation-file-utilities/">annotation
 file</a>, a textual file format for describing annotations
 of Java programs; the input class files are not
 modified.  The annotation file can be used by a tool such as the
-<a href="https://types.cs.washington.edu/annotation-file-utilities/">annotation
+<a href="https://checkerframework.org/annotation-file-utilities/">annotation
 file utilities</a>, which  inserts the annotations into either the
 <code>.class</code> files or the corresponding <code>.java</code>
 files.  If Javari annotations are inserted into the source code, they can
 be checked by the
-<a href="https://types.cs.washington.edu/checker-framework/">Javari type
+<a href="https://checkerframework.org/">Javari type
 checker</a>.
 </p>
 
@@ -117,7 +117,7 @@ that have already been annotated using stub classes.
 In earlier versions of Javari, methods must be invariant in the mutability
 of their parameters and return types.  The newer definition of Javari used
 by both Javarifier and the
-<a href="https://types.cs.washington.edu/checker-framework/">Javari type-checker</a>
+<a href="https://checkerframework.org/">Javari type checker</a>
 permits covariant subtyping on parameters and contra-variant subtyping on
 return types.
 </p>
@@ -136,9 +136,9 @@ Windows command-line environment.
 <ol>
 <li value="0">
   Install the
-  <a href="https://types.cs.washington.edu/checker-framework/current/checkers-manual.html#installation">Checker
+  <a href="https://checkerframework.org/manual/#installation">Checker
   Framework</a> and the
-  <a href="https://types.cs.washington.edu/annotation-file-utilities/#installation">Annotation
+  <a href="https://checkerframework.org/annotation-file-utilities/#installation">Annotation
   File Utilities</a>, in sibling directories; for example,
   <tt>~/jsr308/checker-framework/</tt> and <tt>~/jsr308/annotation-tools/</tt>.
   <br />
@@ -259,7 +259,7 @@ javarifier myPackage.myClassTwo --programCPEntries $CLASSPATH
 
 <p>
 By default, all output, including the results, is printed to standard
-out.  To output the results to an <a href="https://types.cs.washington.edu/annotation-file-utilities/">annotation file</a>, use the
+out.  To output the results to an <a href="https://checkerframework.org/annotation-file-utilities/">annotation file</a>, use the
 <code>--output</code> option, followed by the name of the output file.
 Note that Javarifier outputs the results for all classes into a single
 file.  For example:
@@ -287,7 +287,7 @@ the classpath of your JDK jarfiles.  For example:
 <h3 id="using-stubs">Using stub classes</h3>
 
 <p>A stub class gives Javari types for an external library.
-The <a href="https://types.cs.washington.edu/checker-framework/">Checker
+The <a href="https://checkerframework.org/">Checker
 Framework</a> comes with annotated versions of part of the JDK,
 which Javarifier uses by default.
 </p>
@@ -811,7 +811,7 @@ can be sent to <a href="mailto:javarifier-dev@googlegroups.com">javarifier-dev@g
       </li>
       <li>The Javarifier release no longer includes a copy of the annotated
           JDK.  A Javarifier user should get the annotated JDK by installing the
-          <a href="https://types.cs.washington.edu/checker-framework/">Checker
+          <a href="https://checkerframework.org/">Checker
           Framework</a>. 
       </li>
       <li>Account for updates to scene library and Type Annotations specification.
@@ -820,7 +820,7 @@ can be sent to <a href="mailto:javarifier-dev@googlegroups.com">javarifier-dev@g
       </li>
       <li>Many bug fixes to code, build files, and tests.
       </li>
-      `<li>Uses <a href="http://mernst.github.io/plume-lib/">plume-lib</a>
+      `<li>Uses <a href="https://mernst.github.io/plume-lib/">plume-lib</a>
           (<tt>plume.jar</tt> added to <tt>lib/</tt>).
       </li>
     </ul>
@@ -860,7 +860,7 @@ can be sent to <a href="mailto:javarifier-dev@googlegroups.com">javarifier-dev@g
 <hr/>
 
 <p>
-Last revised: July 3, 2015
+Last revised: January 30, 2017
 </p>
 
 </body>
